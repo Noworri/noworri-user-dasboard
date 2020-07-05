@@ -1,0 +1,92 @@
+<ul class="nav justify-content-center" id="header">
+  <li class="nav-item NoworriLogo">
+    <img src="assets\logo transparence.png" routerLink="" class="image1" alt="..." />
+  </li>
+  <li class="nav-item ml-auto" id="but">
+    <a class="nav-link" routerLink=""><button
+      class="btn btn-sm btn-light my-2 my-sm-0"
+    >
+     Go back to home page
+    </button></a>
+  </li>
+</ul>
+<ul class="nav justify-content-center">
+  <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+    <ngb-tabset [destroyOnHide]="false">
+      <ngb-tab title="Policy">
+        <ng-template ngbTabContent>
+          <app-policy></app-policy>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Terms & Conditions">
+        <ng-template ngbTabContent>
+          <app-term-conditions></app-term-conditions>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</ul>
+<router-outlet></router-outlet>
+<section class="part13">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+        <h6 class="Nowo">NOWORRI</h6>
+        <p class="Making">
+          Making the African market a safer place for buyers & sellers.
+        </p>
+        <div class="row">
+          <div class="col">
+            <h5 class="Image">
+              <img src="assets\LandinPage\Group 45.svg" alt="..." />
+            </h5>
+          </div>
+          <div class="col">
+            <h5 class="Image">
+              <img src="assets\LandinPage\Group 48.svg" alt="..." />
+            </h5>
+          </div>
+          <div class="col">
+            <h5 class="Image">
+              <img src="assets\LandinPage\Group 47.svg" alt="..." />
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <h6>Links</h6>
+        <p>informal business</p>
+        <p>Individuals</p>
+        <p>E-commerce</p>
+        <p>Noworri search</p>
+      </div>
+      <div class="col-sm">
+        <h6>Contact Us</h6>
+        <p>hello@noworri.com</p>
+        <p>+2335044990518</p>
+      </div>
+      <div class="col-sm">
+        <h6>Download</h6>
+        <h5 class="playstore">
+          <a href="https://play.google.com/store/apps/details?id=co.noworri.noworri">
+            <img src="assets\Search\playstore-icon.png" class="image2" alt="..." />
+          </a>
+        </h5>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="part14">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+        <h6 class="copy col-12">
+          Copyright © 2020 Noworri Financial Technology Limited
+        </h6>
+      </div>
+      <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+        <h6 class="terme">Legal & Security</h6>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,121 @@
+//-----------App card----------//
+.page-body {
+  margin-top: 80px;
+  .app-card1 {
+    h2 {
+      text-align: left;
+      font: Regular 35px/53px Poppins;
+      letter-spacing: 0;
+      color: #616161;
+      opacity: 1;
+      font-size: x-large;
+      font-weight: 500;
+    }
+    .getStarted {
+      text-align: left;
+      font: Regular 22px/30px Segoe UI;
+      letter-spacing: 0;
+      color: #000000;
+      opacity: 1;
+    }
+    p {
+      .Take {
+        text-align: left;
+        font: Regular 22px/33px Poppins;
+        letter-spacing: 0;
+        color: #0d1bd5;
+        opacity: 1;
+        .Active {
+          color: #030303;
+          text-align: left;
+          font: Regular 22px/33px Poppins;
+          letter-spacing: 0;
+          color: #030303;
+          opacity: 1;
+        }
+      }
+    }
+    .btn-primary {
+      background: #7a4bff 0% 0% no-repeat padding-box;
+      border-radius: 6px;
+      opacity: 1;
+      text-align: left;
+      font: Regular 24px/35px Poppins;
+      letter-spacing: 0;
+      color: #ffffff;
+      opacity: 1;
+    }
+    .btn-success {
+      background: #2bb996 0% 0% no-repeat padding-box;
+      border-radius: 6px;
+      text-align: left;
+      font: Regular 24px/35px Poppins;
+      letter-spacing: 0;
+      color: #ffffff;
+      opacity: 1;
+    }
+  }
+  .app-card2 {
+    .Review {
+      text-align: left;
+      font: Regular 20px/30px Poppins;
+      letter-spacing: 0;
+      color: #2e2e2e;
+      opacity: 1;
+    }
+    .TexteSelect {
+      text-align: left;
+      font: Semibold 24px/32px Segoe UI;
+      letter-spacing: 0;
+      color: #484848;
+      opacity: 1;
+    }
+  }
+  .col-sm-4 {
+    margin-top: 50px;
+    #inputGroupSelect01,#inputGroupSelect02 {
+      width: 200px;
+      height: 33px;
+      border-color: 0.5px solid #686868;
+      border-radius: 7px;
+      opacity: 1;
+    }
+    .TypeOf{
+     top: 30px;
+    }
+    .YourRole {
+      top: 60px;
+    }
+  }
+  #StartNoworri {
+    button {
+      background: #2bb996 0% 0% no-repeat padding-box;
+      border-radius: 7px;
+      opacity: 1;
+      margin-left: 17px;
+      text-align: left;
+      font: Regular 24px/35px Poppins;
+      letter-spacing: 0;
+      color: #ffffff;
+      opacity: 1;
+      top: 20px;
+    }
+  }
+  .col-sm-5 {
+    margin-left: 260px;
+    margin-top: 35px;
+    #GeneraleMerchandise,
+    #Crypto-curencies,
+    #Service {
+      background: #f2f2f2 0% 0% no-repeat padding-box;
+      border-radius: 16px;
+      opacity: 1;
+      text-align: left;
+      font: Semibold 18px/24px Segoe UI;
+      letter-spacing: 0;
+      color: #686868;
+      opacity: 1;
+      font-size: small;
+    }
+  }
+}

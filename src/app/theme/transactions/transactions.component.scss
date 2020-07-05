@@ -1,0 +1,126 @@
+.page-body {
+  #app-card {
+    margin-top: 80px;
+    height: 300px;
+    #container1 {
+     
+      .active {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+        margin-top: 10px;
+        margin-left: 13px;
+        font-weight: 500;
+      }
+      .h6 {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+        margin-top: 10px;
+      }
+      #Active {
+        button {
+          background: #ffffff 0% 0% no-repeat padding-box;
+          border: 1px solid #497dd5;
+          border-radius: 6px;
+          opacity: 1;
+          font-size: small;
+          font-weight: 500;
+          width: 100px;
+          height: 35px;
+        }
+      }
+      #Completed {
+        right: 210px;
+        button {
+          background: #ffffff 0% 0% no-repeat padding-box;
+          border: 1px solid #484848;
+          border-radius: 6px;
+          opacity: 1;
+          text-align: left;
+          font: Regular 20px/30px Poppins;
+          letter-spacing: 0;
+          color: #484848;
+          opacity: 1;
+          font-size: small;
+          font-weight: 500;
+          width: 100px;
+          height: 35px;
+        }
+      }
+      #Cancelled {
+        right: 400px;
+        button {
+          background: #ffffff 0% 0% no-repeat padding-box;
+          border: 1px solid #484848;
+          border-radius: 6px;
+          opacity: 1;
+          font-size: small;
+          font-weight: 500;
+          width: 100px;
+          height: 35px;
+        }
+      }
+    }
+    #container2 {
+      margin-top: 40px;
+      .col-sm {
+        h6 {
+          text-align: left;
+          font: Bold 24px/32px Segoe UI;
+          letter-spacing: 0;
+          color: #ff3400;
+          opacity: 1;
+          font-size: small;
+        }
+      }
+    }
+    #container3 {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      box-shadow: 2px 2px 6px #00000029;
+      opacity: 1;
+      margin-top: 20px;
+      height: 60px;
+      width: 1100px;
+      margin-left: -20px;
+      .col-sm {
+       .container{
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 0.5px solid #707070;
+        border-radius: 16px;
+        opacity: 1;
+        width: 130px;
+        margin-right: 100px;
+        margin-top: 10px;
+         h6{
+          text-align: left;
+          font: Regular 20px/30px Poppins;
+          letter-spacing: 0;
+          color: #497DD5;
+          opacity: 1;
+            font-size: small;
+           margin-bottom: 14px;
+         }
+       }
+        h6 {
+          text-align: left;
+          font: Semibold 26px/35px Segoe UI;
+          letter-spacing: 0;
+          color: #000000;
+          opacity: 1;
+          margin-top: 15px;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  .Prolongement{
+    height: 200px;
+  }
+}

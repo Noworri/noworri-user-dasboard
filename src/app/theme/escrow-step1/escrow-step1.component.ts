@@ -1,0 +1,180 @@
+import { Router } from '@angular/router'
+import { Escrowstep1Service } from './../../Service/escrowstep1.service'
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms'
+import { HomeInputService } from './../../Service/home-input.service'
+
+import { Component, OnInit } from '@angular/core'
+
+@Component({
+  selector: 'app-escrow-step1',
+  templateUrl: './escrow-step1.component.html',
+  styleUrls: ['./escrow-step1.component.scss']
+})
+export class EscrowStep1Component implements OnInit {
+  //--------Donnee recuperees des Inputs du composant Home--------//
+  TypeOfTransation: string
+  YourRole: string
+  //---------Messages a afficher--------//
+
+  BuyinOrSelling: string
+
+  BuyersOrSeller: string
+  //--------Boolean-pour activer l'affichage------------//
+  BoolAffichage1: boolean
+  BoolAffichage2: boolean
+  BoolAffichage3: boolean
+  BoolAffichage4: boolean
+  BoolAffichage5: boolean
+  BoolAffichage6: boolean
+  BoolAffichage7: boolean
+
+  //------------Controle de la couleur de la couleur de l'input-------//
+  InputControl1 = 'form-control'
+  InputControl2 = 'form-control'
+  InputControl3 = 'form-control'
+  InputControl4 = 'form-control'
+  InputControl5 = 'form-control'
+  InputControl6 = 'form-control'
+
+  constructor (
+    private HomeInputService: HomeInputService,
+    private EscrowStep1: Escrowstep1Service,
+    private Router: Router
+  ) {}
+
+  ngOnInit () {
+    this.RoleMessage()
+  }
+  //---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
+  escrowstep1 (F: NgForm) {
+    this.EscrowStep1.inputGroupSelect1 = F.value['exampleInputPassword1']
+    this.EscrowStep1.inputGroupSelect2 = F.value['exampleInputPassword2']
+    this.EscrowStep1.inputGroupSelect3 = F.value['exampleInputPassword3']
+    this.EscrowStep1.inputGroupSelect4 = F.value['exampleInputPassword4']
+    this.EscrowStep1.inputGroupSelect5 = F.value['exampleInputPassword5']
+    this.EscrowStep1.inputGroupSelect6 = F.value['exampleInputPassword6']
+
+    if (this.EscrowStep1.inputGroupSelect1 === '') {
+      this.InputControl1 = 'form-control is-invalid'
+    } else if (this.EscrowStep1.inputGroupSelect1) {
+      this.InputControl1 = 'form-control is-valid'
+    }
+    if (this.EscrowStep1.inputGroupSelect2 === '') {
+      this.InputControl2 = 'form-control is-invalid'
+    } else if (this.EscrowStep1.inputGroupSelect2) {
+      this.InputControl2 = 'form-control is-valid'
+    }
+    if (this.EscrowStep1.inputGroupSelect3 === '') {
+      this.InputControl3 = 'form-control is-invalid'
+    } else if (this.EscrowStep1.inputGroupSelect2) {
+      this.InputControl3 = 'form-control is-valid'
+    }
+    if (this.EscrowStep1.inputGroupSelect4 === '') {
+      this.InputControl4 = 'form-control is-invalid'
+    } else if (this.EscrowStep1.inputGroupSelect2) {
+      this.InputControl4 = 'form-control is-valid'
+    }
+    if (this.EscrowStep1.inputGroupSelect5 === '') {
+      this.InputControl5 = 'form-control is-invalid'
+    } else if (this.EscrowStep1.inputGroupSelect2) {
+      this.InputControl5 = 'form-control is-valid'
+    }
+    if (this.EscrowStep1.inputGroupSelect6 === '') {
+      this.InputControl6 = 'form-control is-invalid'
+    } else if (this.EscrowStep1.inputGroupSelect2) {
+      this.InputControl6 = 'form-control is-valid'
+    }
+    if (
+      this.EscrowStep1.inputGroupSelect1 &&
+      this.EscrowStep1.inputGroupSelect2 &&
+      this.EscrowStep1.inputGroupSelect3 &&
+      this.EscrowStep1.inputGroupSelect4 &&
+      this.EscrowStep1.inputGroupSelect5 &&
+      this.EscrowStep1.inputGroupSelect6
+    ) {
+     this.Router.navigate(['/escrowstep2'])
+    }
+  }
+
+  //-----Methode de recup et affichage de message--------//
+  RoleMessage () {
+    this.TypeOfTransation = this.HomeInputService.DataInputHome.TypeOfTransation
+    this.YourRole = this.HomeInputService.DataInputHome.YourRole
+    if ((this.YourRole = 'Buyer')) {
+      this.BuyersOrSeller = "BUYER'S"
+      this.BuyinOrSelling = 'BUYING'
+    }
+    if ((this.YourRole = 'Seller')) {
+      this.BuyersOrSeller = "SELLER'S"
+      this.BuyinOrSelling = 'SELLING'
+    }
+  }
+
+  //------Affichage de chaque side a chaque click dans le chanps corespondant-----------//
+
+  AfficheSide1 () {
+    this.BoolAffichage1 = true
+    if ((this.BoolAffichage1 = true)) {
+      this.BoolAffichage2 = false
+      this.BoolAffichage3 = false
+      this.BoolAffichage4 = false
+      this.BoolAffichage5 = false
+      this.BoolAffichage6 = false
+      this.BoolAffichage7 = false
+    }
+  }
+  AfficheSide2 () {
+    this.BoolAffichage2 = true
+    if ((this.BoolAffichage2 = true)) {
+      this.BoolAffichage1 = false
+      this.BoolAffichage3 = false
+      this.BoolAffichage4 = false
+      this.BoolAffichage5 = false
+      this.BoolAffichage6 = false
+      this.BoolAffichage7 = false
+    }
+  }
+  AfficheSide3 () {
+    this.BoolAffichage3 = true
+    if ((this.BoolAffichage3 = true)) {
+      this.BoolAffichage2 = false
+      this.BoolAffichage4 = false
+      this.BoolAffichage5 = false
+      this.BoolAffichage6 = false
+      this.BoolAffichage7 = false
+    }
+  }
+  AfficheSide4 () {
+    this.BoolAffichage4 = true
+    if ((this.BoolAffichage4 = true)) {
+      this.BoolAffichage3 = false
+      this.BoolAffichage5 = false
+      this.BoolAffichage6 = false
+      this.BoolAffichage7 = false
+    }
+  }
+  AfficheSide5 () {
+    this.BoolAffichage5 = true
+    if ((this.BoolAffichage5 = true)) {
+      this.BoolAffichage4 = false
+      this.BoolAffichage6 = false
+      this.BoolAffichage7 = false
+    }
+  }
+  AfficheSide6 () {
+    this.BoolAffichage6 = true
+    if ((this.BoolAffichage6 = true)) {
+      this.BoolAffichage5 = false
+      this.BoolAffichage7 = false
+    }
+  }
+  AfficheSide7 () {
+    this.BoolAffichage7 = true
+    if ((this.BoolAffichage7 = true)) {
+      this.BoolAffichage3 = false
+      this.BoolAffichage4 = false
+      this.BoolAffichage5 = false
+      this.BoolAffichage6 = false
+    }
+  }
+}

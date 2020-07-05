@@ -1,0 +1,698 @@
+#Container {
+  #Card1 {
+    margin-bottom: -29px;
+  }
+  margin-top: 80px;
+  #card-body1 {
+    width: 800px;
+    height: 65px;
+    hr {
+      border: 1px solid #ff3400;
+      margin-top: -20px;
+      margin-left: -20px;
+      width: 798px;
+    }
+
+    .TransactionID {
+      text-align: left;
+      font: Bold 25px/33px Segoe UI;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+      font-size: small;
+    }
+    .HideContrat {
+      display: flex;
+      text-align: left;
+
+      font: Regular 22px/33px Poppins;
+      letter-spacing: 0px;
+      color: #686868;
+      opacity: 1;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+      font-weight: 400;
+      margin-left: 70px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .expandmore {
+      color: #2bb996;
+      margin-left: -55px;
+      margin-top: 5px;
+    }
+    #GH {
+      margin-right: -110px;
+    }
+    .GH550 {
+      text-align: left;
+      font: Regular 25px/38px Poppins;
+      letter-spacing: 0px;
+      color: gray;
+      opacity: 1;
+      margin-right: -600px;
+    }
+  }
+
+  #Card2 {
+    hr {
+      height: 0.1px;
+      background-color: gray;
+      margin-left: -35px;
+      width: 798px;
+    }
+    #card-body2 {
+      .col1 {
+      }
+      .col2 {
+        margin-right: -140px;
+      }
+      .col3 {
+        margin-right: -130px;
+      }
+      .col4 {
+        margin-right: -205px;
+      }
+      .col5 {
+        margin-right: -140px;
+        margin-left: -40px;
+      }
+      .col6 {
+        margin-right: -130px;
+        margin-left: -60px;
+      }
+      .col7 {
+        margin-right: -280px;
+      }
+      .col9 {
+        margin-right: -500px;
+        margin-top: 35px;
+      }
+      .Item {
+        text-align: left;
+        font: Medium 22px/33px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+      }
+      .Amount {
+        text-align: left;
+        font: Medium 22px/33px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+      }
+      .Deadline {
+        text-align: left;
+        font: Medium 22px/33px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+      }
+      .Revisions {
+        text-align: left;
+        font: Medium 22px/33px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+      }
+      .Anandroidmobile {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-weight: 400;
+      }
+      .cinq1 {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-weight: 400;
+      }
+      .cinq2 {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-weight: 400;
+        margin-left: -65px;
+      }
+      .Days12Hours {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-weight: 400;
+      }
+      .Trois {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-weight: 400;
+      }
+      .NoworriFees {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-weight: 400;
+        margin-top: 35px;
+      }
+      .quinz {
+        text-align: left;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-weight: 400;
+      }
+      .NETPAYABLE {
+        font-weight: 400;
+      }
+    }
+  }
+  #Card3 {
+    .ORDERREQUIREMENTS {
+      text-align: left;
+      font: Regular 20px/27px Segoe UI;
+      letter-spacing: 0px;
+      font-size: small;
+      opacity: 1;
+      font-weight: 500;
+    }
+    .col11 {
+      margin-right: -209px;
+      .HideRequirement {
+        text-align: left;
+        font: Regular 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+        font-size: small;
+        cursor: pointer;
+      }
+    }
+    .col12 {
+      margin-right: -290px;
+      margin-top: -3px;
+      .expandmore {
+        color: #2bb996;
+        opacity: 1;
+      }
+    }
+  }
+  #Card4 {
+    margin-top: -6px;
+    margin-bottom: -10px;
+    .card-body {
+      p {
+        text-align: left;
+        font: Regular 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .container {
+        .AttachedFile {
+          text-align: left;
+          text-decoration: underline;
+          font: Bold 20px/27px Segoe UI;
+          letter-spacing: 0px;
+          color: #497dd5;
+          opacity: 1;
+          font-size: small;
+          margin-top: 20px;
+        }
+        .AmelPlan {
+          text-align: left;
+          font: Regular 20px/23px Arial;
+          letter-spacing: 0px;
+          color: #686868;
+          opacity: 1;
+          font-size: small;
+        }
+        .Architech {
+          text-align: left;
+          font: Regular 20px/23px Arial;
+          letter-spacing: 0px;
+          color: #686868;
+          opacity: 1;
+          font-size: small;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  #Card5 {
+    .container {
+      .col14 {
+      }
+      .HeureEtDate {
+        background: #f3f3f3 0% 0% no-repeat padding-box;
+        border-radius: 8px;
+        opacity: 1;
+        font-size: 10px;
+        width: 150px;
+      }
+    }
+  }
+  #Card6 {
+    .card-body {
+      h6 {
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+        font-weight: 500;
+        .false102 {
+          text-align: left;
+          font: Regular 20px/30px Poppins;
+          letter-spacing: 0px;
+          color: #ff4ee7;
+          opacity: 1;
+        }
+      }
+      button {
+        text-align: left;
+        font: Regular 15px/23px Poppins;
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+        border: 1px solid #2bb996;
+        border-radius: 6px;
+        opacity: 1;
+        margin-top: 30px;
+        margin-left: 300px;
+      }
+    }
+  }
+  #Card7 {
+    .HeureEtDate {
+      background: #f3f3f3 0% 0% no-repeat padding-box;
+      border-radius: 8px;
+      opacity: 1;
+      font-size: 10px;
+      width: 150px;
+    }
+  }
+  #Card8 {
+    .card-body {
+      h6 {
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+        font-weight: 500;
+        .false102 {
+          text-align: left;
+          font: Regular 20px/30px Poppins;
+          letter-spacing: 0px;
+          color: #497dd5;
+          opacity: 1;
+        }
+      }
+      button {
+        text-align: left;
+        font: Regular 15px/23px Poppins;
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+        border: 1px solid #2bb996;
+        border-radius: 6px;
+        opacity: 1;
+        margin-top: 30px;
+        margin-left: 300px;
+      }
+    }
+  }
+  #Card9 {
+    .HeureEtDate {
+      background: #f3f3f3 0% 0% no-repeat padding-box;
+      border-radius: 8px;
+      opacity: 1;
+      font-size: 10px;
+      width: 150px;
+    }
+  }
+  #Card10 {
+    .card-body {
+      h6 {
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+        text-align: center;
+        font-weight: 500;
+      }
+      #HeureButton {
+        margin-top: 25px;
+        margin-left: 20px;
+        button {
+          text-align: left;
+          font: Regular 25px/38px Poppins;
+          letter-spacing: 0px;
+          color: #5607f8;
+          opacity: 1;
+          background: #f3f3f3 0% 0% no-repeat padding-box;
+          border-radius: 8px;
+          opacity: 1;
+          border-color: white;
+          cursor: text;
+        }
+      }
+      #Button {
+        text-align: left;
+        font: Regular 15px/23px Poppins;
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+        border: 1px solid #2bb996;
+        border-radius: 6px;
+        opacity: 1;
+        margin-top: 30px;
+        margin-left: 300px;
+      }
+    }
+  }
+  #Card11 {
+    .HeureEtDate {
+      border-radius: 8px;
+      opacity: 1;
+      font-size: 10px;
+    }
+  }
+  #Card12 {
+    h6 {
+      text-align: left;
+      font: Regular 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+      font-size: small;
+      font-weight: 500;
+    }
+    .Video {
+      text-align: left;
+      text-decoration: underline;
+      font: Light 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+      font-size: small;
+      margin-top: 20px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .WebSite {
+      text-align: left;
+      text-decoration: underline;
+      font: Light 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+      font-size: small;
+      margin-top: 20px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #ReleaseFundss {
+      margin-left: 240px;
+      margin-top: 30px;
+      button {
+        border: 1px solid #2bb996;
+        border-radius: 6px;
+        opacity: 1;
+        text-align: left;
+        font: Semibold 15px/20px Segoe UI;
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+      }
+    }
+    #Revisions {
+      margin-right: 240px;
+      margin-top: 30px;
+      button {
+        border: 1px solid #497dd5;
+        border-radius: 6px;
+        opacity: 1;
+        width: 100px;
+        text-align: left;
+        font: Semibold 15px/20px Segoe UI;
+        letter-spacing: 0px;
+        color: #497dd5;
+        opacity: 1;
+      }
+    }
+  }
+  #Card13 {
+    .card-body {
+      h6 {
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        font-size: small;
+        text-align: center;
+        font-weight: 500;
+      }
+      #HeureButton {
+        margin-top: 25px;
+        margin-left: 20px;
+        button {
+          text-align: left;
+          font: Regular 25px/38px Poppins;
+          letter-spacing: 0px;
+          color: #5607f8;
+          opacity: 1;
+          background: #f3f3f3 0% 0% no-repeat padding-box;
+          border-radius: 8px;
+          opacity: 1;
+          border-color: white;
+          cursor: text;
+        }
+      }
+    }
+  }
+  #Card14 {
+    .HeureEtDate {
+      border-radius: 8px;
+      opacity: 1;
+      font-size: 10px;
+    }
+  }
+  #Card15 {
+    h6 {
+      text-align: left;
+      font: Regular 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+      font-size: small;
+      font-weight: 500;
+      margin: 5px;
+    }
+    #ReleaseFundss {
+      margin-left: 240px;
+      margin-top: 30px;
+      button {
+        border: 1px solid #2bb996;
+        border-radius: 6px;
+        opacity: 1;
+        text-align: left;
+        font: Semibold 15px/20px Segoe UI;
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+      }
+    }
+    #Revisions {
+      margin-right: 240px;
+      margin-top: 30px;
+      button {
+        border: 1px solid #497dd5;
+        border-radius: 6px;
+        opacity: 1;
+        width: 100px;
+        text-align: left;
+        font: Semibold 15px/20px Segoe UI;
+        letter-spacing: 0px;
+        color: #497dd5;
+        opacity: 1;
+      }
+    }
+    #HeureButton {
+      margin-top: 25px;
+      margin-left: 300px;
+      button {
+        text-align: left;
+        font: Regular 25px/38px Poppins;
+        letter-spacing: 0px;
+        color: #5607f8;
+        opacity: 1;
+        background: #f3f3f3 0% 0% no-repeat padding-box;
+        border-radius: 8px;
+        opacity: 1;
+        border-color: white;
+        cursor: text;
+      }
+    }
+  }
+  #Card16 {
+    .HeureEtDate {
+      border-radius: 8px;
+      opacity: 1;
+      font-size: 10px;
+    }
+  }
+  #Card17 {
+    .DELIVERED {
+      
+      font: Medium 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: gray;
+      opacity: 1;
+      margin-left: 290px;
+    }
+    h6 {
+      
+      font: Regular 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+      font-size: small;
+      font-weight: 500;
+      margin: 5px;
+    }
+    #ReleaseFundss {
+      margin-left: 240px;
+      margin-top: 30px;
+      button {
+        border: 1px solid #2bb996;
+        border-radius: 6px;
+        opacity: 1;
+        text-align: left;
+        font: Semibold 15px/20px Segoe UI;
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+      }
+    }
+    #Revisions {
+      margin-right: 240px;
+      margin-top: 30px;
+      button {
+        border: 1px solid #497dd5;
+        border-radius: 6px;
+        opacity: 1;
+        width: 100px;
+        text-align: left;
+        font: Semibold 15px/20px Segoe UI;
+        letter-spacing: 0px;
+        color: #497dd5;
+        opacity: 1;
+      }
+    }
+    .Video {
+      text-align: left;
+      text-decoration: underline;
+      font: Light 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+      font-size: small;
+      margin-top: 20px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #HeureButton {
+      margin-top: 25px;
+      margin-left: 300px;
+      button {
+        text-align: left;
+        font: Regular 25px/38px Poppins;
+        letter-spacing: 0px;
+        color: #5607f8;
+        opacity: 1;
+        background: #f3f3f3 0% 0% no-repeat padding-box;
+        border-radius: 8px;
+        opacity: 1;
+        border-color: white;
+        cursor: text;
+      }
+    }
+    .WebSite {
+      text-align: left;
+      text-decoration: underline;
+      font: Light 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+      font-size: small;
+      margin-top: 20px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+  #Card18 {
+    hr {
+      background-color: red;
+
+      margin-left: -20px;
+      width: 199px;
+      margin-right: -60px;
+    }
+    .container {
+      .Icon {
+        color: #497dd5;
+        margin-left: -20px;
+        font-size: 20px;
+      }
+      .WantTo {
+        font-size: 13px;
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .nav-link {
+        text-align: left;
+        font: Semibold 18px/24px Segoe UI;
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+        margin-top: -8px;
+      }
+      .Somethingunclair {
+        font-size: 13px;
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+    }
+  }
+}

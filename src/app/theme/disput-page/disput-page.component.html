@@ -1,0 +1,102 @@
+<div class="ensemble">
+  <section id="CancelSection">
+    <div class="col">
+      <mat-icon class="cancel" (click)="RoutingOutToSearchPage()"
+        >cancel</mat-icon
+      >
+    </div>
+  </section>
+  <div class="container">
+    <div class="row row1">
+      <div class="col-sm"></div>
+      <div class="col-sm">
+        <img
+          src="assets\Dispute\iconisa190306133@2x.png"
+          class="card-img-top"
+          alt="..."
+        />
+      </div>
+      <div class="col-sm"></div>
+    </div>
+    <div class="row2">
+      <div class="col col-sm-2"></div>
+      <div class="col-12 col-12 col-sm-12 col-md-12 col-lg-12">
+        <h6 class="YouAreOpening">
+          You are opening a disput with
+          <span class="beauty">{{ businessname }}</span>
+        </h6>
+      </div>
+      <div class="col col-sm-2"></div>
+      <div class="row SpeciRow col-12">
+        <h6 class="col-12">We will reply within 24 hours</h6>
+      </div>
+    </div>
+    <section>
+      <div class="container container2">
+        <div class="row">
+          <div class="col col-sm col-md-3"></div>
+          <div class="col-12 col-sm-8 col-md-8">
+            <form [formGroup]="form">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Your email address *</label>
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Your phone number *</label>
+                <input
+                  formControlName="phone_no"
+                  type="tel"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Dispute title *</label>
+                <input
+                  formControlName="title"
+                  type="text"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1"
+                  >Describe in detail the problem *</label
+                >
+                <textarea
+                  formControlName="details"
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="Upload">
+                <input formControlName="proofs" type="file" />
+              </div>
+              <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                  <button (click)="onCreateDispute()" class="btn btn-light">
+                    Open dispute
+                  </button>
+                </div>
+                <div class="col-sm"></div>
+              </div>
+            </form>
+          </div>
+          <div class="col col-sm col-md-3"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="page-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card class="app-card1">
+        <h2>Nice to have you here !</h2>
+        <p class="getStarted">To get started, follow these steps.</p>
+        <hr />
+
+        <div class="row">
+          <div class="col-sm-6">
+            <p><a class="Take">Take a tour on how to use Noworri</a></p>
+          </div>
+          <div class="col-sm-6">
+            <button
+              type="submit"
+              class="btn btn-sm btn-primary m-b-0 ripple light float-right"
+            >
+              Watch
+            </button>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+          <div class="col-sm-6">
+            <p><a class="Active">Active your Noworri account</a></p>
+          </div>
+          <div class="col-sm-6">
+            <button
+              type="submit"
+              class="btn btn-sm btn-success m-b-0 ripple light float-right"
+            >
+              Watch
+            </button>
+          </div>
+        </div>
+      </app-card>
+
+      <app-card class="app-card2">
+        <p class="Review">
+          * Review the transaction below and select the type that fits what you
+          are buying or selling.
+        </p>
+        <p class="Review">
+          * Noworri.com secure your funds, ship your product and only release
+          funds when everyone hold up of their part of the deal.
+        </p>
+        <br />
+        <br />
+        <div class="row">
+          <div class="col-sm-4">
+            <form (ngSubmit)="OnSubmit(f)" #f="ngForm">
+              <div class="TypeOf">
+                <div class="form-group">
+                  <p><b class="TexteSelect">Type of transaction</b></p>
+                  <select
+                    class="custom-select"
+                    id="inputGroupSelect01"
+                    name="inputGroupSelect01"
+                    ngModel
+                    [ngClass]='InputControl'
+                  >
+                    <option selected></option>
+                    <option value="Services">Services</option>
+                    <option value="Merchandise">Merchandise</option>
+                  </select>
+                </div>
+              </div>
+              <br />
+              <div class="YourRole">
+                <div class="form-group">
+                  <p><b class="TexteSelect">Your role</b></p>
+                  <select
+                    class="custom-select ValidationColor "
+                    id="inputGroupSelect02"
+                    name="inputGroupSelect02"
+                    ngModel
+                    [ngClass]='InputControl'
+                  >
+                    <option selected></option>
+                    <option value="Buyer">Buyer</option>
+                    <option value="Seller">Seller</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row" id="StartNoworri">
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-success m-b-0 ripple light"
+                  desabled
+                >
+                  Start Noworri
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-5">
+            <div
+              class="alert alert-default background-default"
+              id="GeneraleMerchandise"
+            >
+              General Merchandise is used for most tangible goods
+            </div>
+            <div
+              class="alert alert-default background-default"
+              id="Crypto-curencies"
+            >
+              Crypto-Currencies: Trade crypto-Currencies safely
+            </div>
+            <div class="alert alert-default background-default" id="Service">
+              Service is most used to deal with remote work, it's ensure
+              everyone hold up of their part of the deal
+            </div>
+          </div>
+        </div>
+        
+      </app-card>
+    </div>
+  </div>
+</div>

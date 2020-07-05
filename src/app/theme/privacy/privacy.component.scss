@@ -1,0 +1,99 @@
+#header {
+  margin-top: -30px;
+  .image1 {
+    width: 130px;
+    margin-top: 25px;
+    cursor: pointer;
+  }
+
+  #but {
+    margin-top: -10px;
+    margin-right: 20px;
+    button {
+      font: SemiBold 20px/32px Poppins;
+      letter-spacing: 0px;
+      color: #0d13d7;
+      opacity: 1;
+      font-weight: 600;
+      border-color: #0d13d7;
+      text-transform: none;
+      font-size: 13px;
+    }
+  }
+}
+
+.nav {
+  margin-top: -20px;
+  .nav-link {
+    font-family: CircularStd;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 40px;
+    margin-top: 50px;
+    &:hover {
+      color: #3273dc;
+      text-decoration: underline;
+    }
+  }
+}
+.part13 {
+  .Nowo {
+    font: SemiBold 20px/32px Poppins;
+    letter-spacing: 0px;
+    color: #0d13d7;
+    opacity: 1;
+    text-align: center;
+  }
+  .playstore {
+    text-align: center;
+    margin-top: 20px;
+    img {
+      width: 100px;
+    }
+  }
+  h6 {
+    font: SemiBold 20px/32px Poppins;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: medium;
+  }
+  .Making {
+    text-align: center;
+  }
+  h5 {
+    text-align: center;
+    .img15 {
+      width: 100px;
+    }
+  }
+  p {
+    text-align: center;
+    font: Regular 20px/35px Poppins;
+    letter-spacing: 0px;
+    color: #222d39;
+    opacity: 1;
+    font-size: medium;
+  }
+}
+.part14 {
+  .copy {
+    width: 400px;
+  }
+  .terme {
+    cursor: pointer;
+  }
+  h6 {
+    margin-top: 20px;
+    text-align: center;
+    font: Regular 18px/33px Poppins;
+    letter-spacing: 0px;
+    color: #677294;
+    opacity: 1;
+  }
+}

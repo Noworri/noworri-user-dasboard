@@ -1,0 +1,172 @@
+<section id="CancelSection">
+  <div class="col">
+    <mat-icon class="cancel" (click)="RoutingOutToSearchPage()"
+      >cancel</mat-icon
+    >
+  </div>
+</section>
+
+<div id="Result" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+  <div class="card col-12 col-md-12 col-lg-12">
+    <div class="row row1">
+      <div class="col-12 col-sm-12 col1">
+        <img *ngIf='RealPictureProfil'
+          src='https://noworri.com/api/public/uploads/company/trusted/{{
+            profilpicture
+        }}'
+        class="card-img-top" alt="..." />
+        <img *ngIf='FalsePictureProfil'
+          src="assets\resultpage\defaultProfi.jpeg"
+        class="card-img-top" alt="..." />
+      </div>
+      <div class="col col-lg-6 col-xl-6 col2">
+        <div class="row">
+          <h6 class="BeautyVenture col-sm-6 col-md-12 col-lg-6">
+            {{ businessname }}
+          </h6>
+        </div>
+        <div class="row">
+          <mat-icon class="verifiedUser">verified_user</mat-icon>
+          <h6 class="VerifiedOn">{{ created_at | date: "mediumDate" }}</h6>
+        </div>
+      </div>
+      <div class="col col3 col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6">
+        <h6
+          class="OpenA col-sm-12 col-md-12 col-lg-12 col-xl-6"
+          (click)="onOpenDispute()"
+        >
+          Open a dispute
+        </h6>
+      </div>
+    </div>
+    <hr />
+    <div class="row row3">
+      <div class="col col1"></div>
+      <div class="col col3">
+        <a href="https://www.facebook.com/{{ facebook }}">
+          <img
+            src="assets\resultpage\Facebook.png"
+            class="card-img-top"
+            alt="..."
+          />
+        </a>
+      </div>
+      <div class="col col4">
+        <a href="https://www.instagram.com/{{ instagram }}/">
+          <img
+            src="assets\resultpage\Instagram.png"
+            class="card-img-top"
+            alt="..."
+          />
+        </a>
+      </div>
+      <div class="col col5">
+        <a href="https://wa.me/{{ whatsapp }}">
+          <img
+            src="assets\resultpage\whatsapp.png"
+            class="card-img-top"
+            alt="..."
+          />
+        </a>
+      </div>
+    </div>
+    <hr />
+    <div class="row row2">
+      <div class="col col"></div>
+      <div class="container">
+        <h6 class="text-center">
+          Noworri has trusted this vendor, in case you don't receive the product
+          you paid for, open a dispute so we can help you get your money back
+        </h6>
+      </div>
+    </div>
+    <hr />
+    <div class="row"><h6 class="AboutBisiness">ABOUT THE BUSINESS</h6></div>
+    <div class="row row4">
+      <div class="row">
+        <h6 class="Product">Product or services</h6>
+      </div>
+      <div class="row col-xl-12 rowSpeci">
+        <div
+          class="col col{{ i + 1 }}"
+          *ngFor="let service of services; let i = index"
+          [attr.data-index]="i"
+        >
+          <button type="button" class="btn btn-secondary btn-sm" disabled>
+            {{ service }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr style="margin-top: 20px;" />
+    <div class="row row5">
+      <div class="row">
+        <h6 class="BusinessSector">Business sector</h6>
+      </div>
+      <div class="row">
+        <h6 class="BeautyAnd">{{ sector }}</h6>
+      </div>
+    </div>
+    <hr style="margin-top: 20px;" />
+    <div class="row row5">
+      <div class="row">
+        <h6 class="BusinessSector">Country</h6>
+      </div>
+      <div class="row">
+        <h6 class="country">{{ country }}</h6>
+      </div>
+    </div>
+    <hr style="margin-top: 20px;" />
+    <div class="row row5">
+      <div class="row">
+        <h6 class="BusinessSector">City</h6>
+      </div>
+      <div class="row">
+        <h6 class="city">{{ city }}</h6>
+      </div>
+    </div>
+    <hr />
+    <div class="row row6">
+      <div class="row">
+        <h6>Phone numbers</h6>
+      </div>
+      <div class="row rowSpeci">
+        <div
+          class="col col{{ i + 1 }}"
+          *ngFor="let number of additionnalphone; let i = index"
+          [attr.data-index]="i"
+        >
+          {{ number }}
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row"><h6 class="Verifications">VERIFICATIONS</h6></div>
+    <div class="container">
+      <div class="row">
+        <div class="col col1"><h6>Owner's name</h6></div>
+        <div class="col col2"><h6>Verified</h6></div>
+      </div>
+      <div class="row">
+        <div class="col col1"><h6>Physical Address</h6></div>
+        <div class="col col2"><h6>Verified</h6></div>
+      </div>
+      <div class="row">
+        <div class="col col1"><h6>Physical Identity</h6></div>
+        <div class="col col2"><h6>Verified</h6></div>
+      </div>
+      <div class="row">
+        <div class="col col1"><h6>Phone number</h6></div>
+        <div class="col col2"><h6>Verified</h6></div>
+      </div>
+      <div class="row">
+        <div class="col col1">
+          <h6>{{ identitycard }}</h6>
+        </div>
+        <div class="col col2"><h6>Verified</h6></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section></section>

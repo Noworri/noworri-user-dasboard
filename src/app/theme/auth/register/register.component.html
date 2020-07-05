@@ -1,0 +1,255 @@
+<div class="full">
+  <section class="login-block">
+    <!-- Container-fluid starts -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="md-float-material form-material">
+            <div class="text-center">
+              <img src="" alt="" />
+            </div>
+            <div class="auth-box card">
+              <div class="card-block">
+                <div class="row m-b-20">
+                  <div class="col-md-12">
+                    <h3 class="text-center txt-primary">Sign up</h3>
+                  </div>
+                </div>
+                <wizard #wizard class="arc-wizard">
+                  <wizard-step stepTitle="Number">
+                    <form (ngSubmit)="onMobileNumberSubmit (f1)" #f1="ngForm">
+                      <div class="centered-content">
+                        <div>
+                          <p>Please enter your phone number</p>
+                        </div>
+                        <div class="form-group form-primary">
+                          <mat-form-field class="col-md-12">
+                            <mat-label>Phone number</mat-label>
+                            <span matPrefix>+233 &nbsp;</span>
+                            <input
+                              type="tel"
+                              matInput
+                              id="mobile_phone"
+                              name="mobile_phone"
+                              ngModel
+                              required
+                            />
+                          </mat-form-field>
+                          <div class="col" id="recapcha-container"></div>
+                        </div>
+                        <div class="btn-group mt-10">
+                          <button
+                            type="submit"
+                            nextStep
+                            class="btn btn-success btn-sm"
+                            [disabled]="f1.invalid"
+                          >
+                            Verify
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </wizard-step>
+                  <wizard-step stepTitle="Verification">
+                    <form (ngSubmit)="SubmitVerificationCode(f2)" #f2="ngForm">
+                      <div class="centered-content">
+                        <div>
+                          <p>
+                            Please enter your verification code
+                          </p>
+                        </div>
+                        <div class="form-group form-primary">
+                          <mat-form-field class="col-md-12">
+                            <mat-label>Verification code</mat-label>
+                            <input
+                              type="tel"
+                              matInput
+                              id="VerificationCode"
+                              name="VerificationCode"
+                              ngModel
+                              required
+                            />
+                          </mat-form-field>
+                        </div>
+  
+                        <div class="btn-group mt-10">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            previousStep
+                          >
+                            Back
+                          </button>
+                          <button
+                            type="submit"
+                            class="btn btn-success btn-sm"
+                            [disabled]="f2.invalid"
+                            nextStep
+                          >
+                            Verify
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </wizard-step>
+                  <wizard-step id="" stepTitle="Profile">
+                    <form
+                      (ngSubmit)="GetProfilInformation(f3)"
+                      class="md-float-material form-material"
+                      #f3="ngForm"
+                    >
+                      <div class="centered-content">
+                        <div>
+                          <p>Enter your profile informations</p>
+                        </div>
+                        <div class="form-group form-primary">
+                          <mat-form-field class="col-md-12">
+                            <mat-label>Your lastname</mat-label>
+                            <input
+                              type="text"
+                              matInput
+                              id="lastname"
+                              name="lastname"
+                              ngModel
+                              required
+                            />
+                          </mat-form-field>
+  
+                          <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group form-primary">
+                          <mat-form-field class="col-md-12">
+                            <mat-label>Your firstname</mat-label>
+                            <input
+                              type="text"
+                              matInput
+                              id="firstname"
+                              name="firstname"
+                              ngModel
+                              required
+                            />
+                          </mat-form-field>
+  
+                          <span class="form-bar"></span>
+                          <label class="float-label"></label>
+                        </div>
+                        <div class="form-group form-primary">
+                          <mat-form-field class="col-md-12">
+                            <mat-label>Email</mat-label>
+                            <input
+                              type="text"
+                              matInput
+                              id="Email"
+                              name="Email"
+                              ngModel
+                              required
+                            />
+                          </mat-form-field>
+  
+                          <span class="form-bar"></span>
+                        </div>
+                        <div class="form-group form-primary">
+                          <mat-form-field class="col-md-12">
+                            <mat-label>Username</mat-label>
+                            <input
+                              type="text"
+                              matInput
+                              id="Username"
+                              name="Username"
+                              ngModel
+                              required
+                            />
+                          </mat-form-field>
+                          <span class="form-bar"></span>
+                          <label class="float-label"></label>
+                        </div>
+                        <div class="btn-group mt-10">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            previousStep
+                          >
+                            Back
+                          </button>
+                          <button type="submit" class="btn btn-primary btn-sm" nextStep [disabled]='f3.invalid' >
+                            Continue
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </wizard-step>
+                  <wizard-step stepTitle="Password">
+                    <form (ngSubmit)="onRegisterSubmit (f4)" #f4="ngForm">
+                      <div class="centered-content">
+                        <div>
+                          <p>Choose your password</p>
+                        </div>
+  
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group form-primary">
+                              <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                id="password"
+                                pattern="[A-Z]{1,2}[0-9][0-9A-Z]?\\s?[0-9][A-Z]{2}"
+                                ngModel
+                              />
+                              <span class="form-bar"></span>
+                              <label class="float-label">Password</label>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="form-group form-primary">
+                              <input
+                                type="password"
+                                name="confirm-password"
+                                class="form-control"
+                                id="confirm-password"
+                                pattern="[A-Z]{1,2}[0-9][0-9A-Z]?\\s?[0-9][A-Z]{2}"
+                                ngModel
+                              />
+                              <span class="form-bar"></span>
+                              <label class="float-label">Confirm Password</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="btn-group mt-10">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            previousStep
+                          >
+                            Back
+                          </button>
+                          <button type="submit" class="btn btn-primary btn-sm"   >
+                            finish
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </wizard-step>
+                </wizard>
+  
+                <hr />
+                <div class="row">
+                  <div class="col-md-10">
+                    <p class="text-inverse text-right">
+                      Aready have an account ?
+                      <a [routerLink]="['/auth/login']"><b>Login here</b></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- end of col-sm-12 -->
+      </div>
+      <!-- end of row -->
+    </div>
+    <!-- end of container-fluid -->
+  </section>
+  
+</div>

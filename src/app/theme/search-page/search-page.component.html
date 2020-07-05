@@ -1,0 +1,147 @@
+<ul class="nav">
+  <li class="nav-item">
+    <img src="assets\Search\no.jpg" class="image1" alt="..." />
+  </li>
+  <li class="nav-item ml-auto">
+    <a href="https://play.google.com/store/apps/details?id=co.noworri.noworri">
+      <img src="assets\Search\playstore-icon.png" class="image2" alt="..." />
+    </a>
+  </li>
+</ul>
+<div class="jumbo">
+  <div class="container col-md" id="cont">
+    <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-sm">
+        <div class="container">
+          <img src="assets\Search\no.gif" class="card-img-top" alt="..." />
+        </div>
+      </div>
+      <div class="col-sm"></div>
+    </div>
+  </div>
+  <h6 class="BuyingItems">
+    Buying items from online vendors is risky-
+    <span class="VerifyThem">Verify them</span>
+  </h6>
+  <!---------
+  <div class="row" id="row2">
+    <div class="col col1"><h6 class="SeachBy">Seach by</h6></div>
+    <div class="col col2">
+      <form>
+        <mat-radio-group class="formGroup" aria-label="Select an option">
+          <mat-radio-button  color="primary" (change)='GetButtonValue1($event)' *ngFor='let v1 of seachValue1' class="BusinessName" [value]="v1"
+            >{{v1}}</mat-radio-button
+          >
+          <mat-radio-button color="primary" (change)='GetButtonValue2($event)'  *ngFor='let v2 of seachValue2' class="BusinessPhone" [value]="v2"
+            >{{v2}}</mat-radio-button
+          >
+        </mat-radio-group>
+      </form>
+    </div>
+  </div>
+  --------------->
+
+  <form [formGroup]="form" id="SeachInput">
+    <div class="row">
+      <div class="container my-4">
+        <!-- <div class="col"></div> -->
+        <div class="col">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <img src="assets\Search\flagGhana.png" alt="..." />
+                <select class="form-control select form-control-sm">
+                  <option>(+233)</option>
+                </select>
+              </div>
+            </div>
+            <input
+              type="tel"
+              class="form-control col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4"
+              id="inlineFormInputGroup"
+              placeholder=" Search & verify online informal business"
+              formControlName="phoneNumber"
+              [ngClass]="ValidInvalidColor"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col"></div> -->
+    </div>
+    <div class="container my-5" id="row3">
+      <div class="row">
+        <div class="col-8 col-sm-12 col-md-6 col-lg-3 col-xl-2 col2">
+          <button
+            class="btn btn-light btn-block"
+            (click)="OnNoworriSearch(template)"
+          >
+            <div *ngIf="LoadingStatus" class="Loading">
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Loading...
+            </div>
+            <div *ngIf="SearchButtonStatus">
+              Noworri search
+            </div>
+          </button>
+        </div>
+        <div class="col-8 col-sm-12 col-md-6 col-lg-3 col-xl-2 col3">
+          <button
+            class="btn btn-light btn-block"
+            (click)="RoutingLandingPage()"
+          >
+            What's noworri ?
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #template>
+  <section id="CancelSection">
+    <div class="col">
+      <mat-icon class="cancel" (click)="CloseModal()">cancel</mat-icon>
+    </div>
+  </section>
+  <div class="temp">
+    <div class="modalHeader">
+      <img src="assets\Search\warning.gif" class="card-img-top" alt="..." />
+    </div>
+    <p class="p1 co-lg-12">
+      The online vendor's phone number {{ phoneNumber }} is not trusted
+    </p>
+    <p class="p2">Security tips</p>
+    <p class="p3">
+      * Don't pay in advance any<br />
+      money even for delivery
+    </p>
+    <p class="p4">
+      * Meet the seller in a public environment and triple<br />
+      check the product before<br />
+      purchasing it
+    </p>
+    <p class="p5">
+      * Suggest the seller to get verified<br />
+      with Noworri so you can<br />
+      open a dispute if anything<br />
+      goes wrong
+    </p>
+    <div class="container">
+      <div class="row">
+        <div class="col"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<div class="templateSecond">
+  <ng-template #template2>
+    <div class="modal-body">
+      <h5>Invalid phone number</h5>
+    </div>
+  </ng-template>
+</div>

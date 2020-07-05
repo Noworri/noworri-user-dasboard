@@ -1,0 +1,400 @@
+<div
+  id="pcoded"
+  class="pcoded"
+  [ngClass]="animateSidebar"
+  [attr.nav-type]="navType"
+  [attr.theme-layout]="themeLayout"
+  [attr.vertical-placement]="verticalPlacement"
+  [attr.vertical-layout]="verticalLayout"
+  [attr.pcoded-device-type]="pcodedDeviceType"
+  [attr.vertical-nav-type]="verticalNavType"
+  [attr.vertical-effect]="verticalEffect"
+  [attr.vnavigation-view]="vnavigationView"
+  [attr.fream-type]="freamType"
+  [attr.sidebar-img]="sidebarImg"
+  [attr.sidebar-img-type]="sidebarImgType"
+  [attr.layout-type]="layoutType"
+  (window:resize)="onResize($event)"
+>
+  <div class="pcoded-overlay-box"></div>
+  <div class="pcoded-container navbar-wrapper">
+    <!---- La NavBar---->
+    <nav
+      id="NavBar"
+      class="navbar header-navbar pcoded-header"
+      [attr.header-theme]="headerTheme"
+      [attr.pcoded-header-position]="pcodedHeaderPosition"
+    >
+      <div class="navbar-wrapper">
+        <div class="navbar-container container-fluid">
+          <ul class="nav-left">
+            <li class="ripple light">
+              <div class="main-menu-header">
+                <img
+                  class="img-menu-user img-radius"
+                  src="assets/images/avatar-4.jpg"
+                  alt="User-Profile-Image"
+                />
+              </div>
+            </li>
+            <li class="ripple light" id="ProfilNameEtMail">
+              <div class="row">
+                <h6 class="Nom">Marie Larochette</h6>
+              </div>
+              <div class="row">
+                <h6 class="Mail">@Rockiatoo</h6>
+              </div>
+            </li>
+            <li class="header-search">
+              <div id="main-search" class="main-search morphsearch-search open">
+                <div class="input-group">
+                  <span class="input-group-append search-btn"
+                    ><i class="feather icon-search input-group-text"></i
+                  ></span>
+                  <input
+                    class="form-control"
+                    [style.width]="searchWidthString"
+                    placeholder="Search & verify any informal businesses"
+                    (click)='routingseachpage()'
+                  />
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul
+            [@mobileHeaderNavRight]="navRight"
+            [ngClass]="navRight"
+            class="nav-right"
+          >
+            <li><a (click)="openModal(template)">Send funds</a></li>
+            <li><a (click)="openModal(template1)">Request funds </a></li>
+            <li>
+              <a id="Notifications"><mat-icon>notifications</mat-icon> </a>
+            </li>
+            <li>
+              <a id="AddBussines" [routerLink]="['/payments']">Add business </a>
+            </li>
+
+            <li
+              (clickOutside)="notificationOutsideClick('profile')"
+              class="user-profile header-notification ripple light"
+              (click)="toggleProfileNotification()"
+            >
+              <a href="javascript:">
+                <img
+                  src="assets\images\1.png"
+                  class="img-radius"
+                  alt="User-Profile-Image"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
+      <div></div>
+      <ng-template #template>
+        <div class="modal-header">
+          <h6 class="modal-title pull-left">Send a new payment</h6>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label class="What" for="exampleInputEmail1"
+                >What's your recipient name</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                value="Roselina"
+              />
+            </div>
+          </form>
+          <form>
+            <div class="form-group">
+              <label class="HowDo" for="exampleInputEmail1"
+                >How do you want <b class="Roselina">Roselina</b> to receive the
+                money</label
+              >
+              <mat-radio-group>
+                <div class="row">
+                  <div class="col">
+                    <mat-radio-button
+                      class="example-margin"
+                      id="example-margin"
+                      value="after"
+                      color="primary"
+                    >
+                      Mobile Wallet</mat-radio-button
+                    >
+                  </div>
+                  <div class="col">
+                    <mat-radio-button
+                      color="primary"
+                      class="example-margin"
+                      id="example-margin1"
+                    >
+                      Bank Account</mat-radio-button
+                    >
+                  </div>
+                </div>
+              </mat-radio-group>
+            </div>
+          </form>
+          <form>
+            <div class="form-group">
+              <label class="Select" for="exampleInputEmail1"
+                >Select <b class="Roselina">Roselina's</b> mobile wallet
+              </label>
+              <mat-radio-group>
+                <div class="row">
+                  <mat-radio-button
+                    color="primary"
+                    class="example-margin"
+                    value="MTN"
+                    id="MTN"
+                    >MTN</mat-radio-button
+                  >
+                </div>
+                <div class="row">
+                  <mat-radio-button
+                    color="primary"
+                    class="example-margin"
+                    value="VODAFONE"
+                    id="VODAFONE"
+                    >VODAFONE</mat-radio-button
+                  >
+                </div>
+                <div class="row">
+                  <mat-radio-button
+                    color="primary"
+                    class="example-margin"
+                    value="AIRTELTIGO"
+                    id="AIRTELTIGO"
+                    >AIRTELTIGO</mat-radio-button
+                  >
+                </div>
+              </mat-radio-group>
+            </div>
+          </form>
+          <form>
+            <div class="form-group">
+              <label class="EnterRo" for="exampleInputEmail1"
+                >Enter <b class="Roselina">Roselina's</b> mobile wallet</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+          </form>
+          <form>
+            <div class="form-group">
+              <label class="Howmuch" for="exampleInputEmail1"
+                >How much are you sending?</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                value="50.00"
+              />
+            </div>
+          </form>
+          <div class="row" id="TransationFee">
+            <div class="col">
+              <h6 class="fee">Transaction fees</h6>
+            </div>
+            <div class="col">
+              <h6 class="chiffre">12.02</h6>
+            </div>
+          </div>
+          <div class="row" id="Button">
+            <div class="col">
+              <button
+                (click)="closeFirstModal()"
+                class="Cancel"
+                mat-raised-button
+              >
+                Cancel
+              </button>
+              <button
+                (click)="openModal2(templateNested)"
+                mat-raised-button
+                color="primary"
+                class="Continue"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #templateNested>
+        <div class="modal-header" id="Youre">
+          <h6 class="modal-title pull-left">
+            You're sending to <b class="Roselina">Roselina</b>
+          </h6>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <div class="row">
+            <div class="col">
+              <h6 class="Youwill">You will pay in total</h6>
+              <h6 class="soix">62.02</h6>
+              <hr />
+              <h6 class="MobileWallet">Mobile Wallet</h6>
+              <h6 class="MTN">0544059920 - MTN</h6>
+              <h6 class="Selectyour">Select your payment method</h6>
+              <div>
+                <div class="container" id="Payement1">
+                  <div class="row">
+                    <div class="col-sm">
+                      <h6>VISA ***********5685</h6>
+                    </div>
+                    <div class="col-sm">
+                      <button mat-button>Modify</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="container" id="Payement2">
+                  <div class="row">
+                    <div class="col-sm">
+                      <h6>MTN 0544990518</h6>
+                    </div>
+                    <div class="col-sm">
+                      <button mat-button>Modify</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" id="Button">
+                  <div class="col">
+                    <button class="Goback" mat-button>Go back</button>
+                  </div>
+                  <div class="col">
+                    <button mat-raised-button color="primary" class="Sendmoney">
+                      Send money
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #template1>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Request Funds</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group" id="form-group1">
+              <label class="PhoneNumber" for="exampleInputEmail1"
+                >Phone number</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail5"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="form-group" id="form-group2">
+              <label class="AmountRequesting" for="exampleInputPassword1"
+                >Amount Requesting</label
+              >
+              <input type="" class="form-control" id="exampleInputPassword5" />
+            </div>
+            <div class="container" id="Buttons">
+              <div class="row">
+                <div class="col-sm">
+                  <button class="Cancel" mat-button>Cancel</button>
+                </div>
+                <div class="col-sm">
+                  <button class="Sends" mat-button color="primary">
+                    Send request
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+      <!--  -->
+      <div class="pcoded-wrapper">
+        <nav
+          id="main_navbar"
+          class="pcoded-navbar"
+          (clickOutside)="onClickedOutsideSidebar($event)"
+          [exclude]="'#mobile-collapse'"
+          [attr.navbar-theme]="navBarTheme"
+          [attr.active-item-theme]="activeItemTheme"
+          sub-item-theme="theme2"
+          active-item-style="style0"
+          [attr.pcoded-header-position]="pcodedHeaderPosition"
+          [attr.pcoded-navbar-position]="pcodedSidebarPosition"
+          [style.top]="headerFixedTop"
+          [style.height]="sidebarFixedNavHeight"
+          (mouseleave)="hoverOutsideSidebar()"
+        >
+          <perfect-scrollbar
+            [style.max-width]="'235px'"
+            [style.max-height]="sidebarFixedHeight"
+            [config]="config"
+            [ngClass]="perfectDisable"
+          >
+            <div class="pcoded-inner-navbar main-menu" appAccordion>
+              <div class=""></div>
+
+              <div
+                *ngFor="let asideItems of menuItems.getAll()"
+                class="d-color"
+              >
+                <div
+                  class="pcoded-navigation-label"
+                  [attr.menu-title-theme]="menuTitleTheme"
+                ></div>
+                <div class="SideBar">
+                  <ul
+                    class="navbar-nav mr-auto"
+                    *ngFor="let asideItem of asideItems.main"
+                  >
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        [routerLink]="['/',asideItem.name]"
+                        href="#"
+                        >{{asideItem.state}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </perfect-scrollbar>
+        </nav>
+        <div class="pcoded-content">
+          <app-breadcrumbs></app-breadcrumbs>
+          <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+              <div class="page-wrapper">
+                <router-outlet>
+                  <title></title>
+                  <app-spinner></app-spinner>
+                </router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

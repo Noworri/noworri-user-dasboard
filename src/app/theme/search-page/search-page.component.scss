@@ -1,0 +1,866 @@
+// ------------------------responssive----------------------------------------//
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  #CancelSection {
+    margin-top: 20px;
+    .cancel {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      opacity: 1;
+      border-radius: 7;
+      color: red;
+      cursor: pointer;
+    }
+    // buttton {
+    // }
+  }
+  .nav {
+    .image1 {
+      width: 80px;
+      margin-top: 10px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .image2 {
+      width: 80px;
+      margin-top: 25px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+  }
+
+  .jumbo {
+    background-color: white;
+    #cont {
+      margin-top: -60px;
+      margin-top: 20px;
+    }
+    .card-img-top {
+      max-width: 80%;
+      margin-left: 30px;
+    }
+    #row2 {
+      margin-left: 400px;
+      .SeachBy {
+        text-align: left;
+        text-decoration: underline;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessName {
+        margin-left: -350px;
+        text-align: left;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessPhone {
+        margin-left: 20px;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+    }
+    #row3 {
+      .row {
+        margin-top: -80px;
+        display: flex;
+        justify-content: center;
+      }
+      .col3 {
+        margin-top: 20px;
+      }
+    }
+
+    #SeachInput {
+      margin-left: -8px;
+      margin-top: -40px;
+      input {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 1px 1px 7px #00000029;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border-left-color: white;
+        opacity: 1;
+        width: 400px;
+        margin-right: 10px;
+        height: 40px;
+        width: 400px;
+      }
+      .search {
+        font-size: medium;
+      }
+      .input-group-prepend {
+        margin-left: 10px;
+        .select {
+          border: none;
+        }
+        img {
+          width: 20px;
+        }
+        .input-group-text {
+          background-color: white;
+          height: 40px;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+          border-right-color: white;
+          background: white 0% 0%;
+          color: #2699fb;
+          opacity: 1;
+          margin-bottom: 40px;
+          font-size: medium;
+          font-weight: bold;
+          box-shadow: 1px 1px 7px #00000029;
+        }
+      }
+    }
+  }
+  .BuyingItems {
+    margin-bottom: 50px;
+    text-align: center;
+    font: Regular 20px/30px Poppins;
+    letter-spacing: 0px;
+    color: #484848;
+    opacity: 1;
+    font-size: 14px;
+    .VerifyThem {
+      color: #2699fb;
+    }
+  }
+  .temp {
+    .modalHeader {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 150px;
+      }
+    }
+    .p1 {
+      text-align: center;
+      font-size: medium;
+      font-weight: bold;
+      color: red;
+    }
+    .p2 {
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .p3 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p4 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p5 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+  }
+}
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #CancelSection {
+    margin-top: 20px;
+    .cancel {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      opacity: 1;
+      border-radius: 7;
+      color: red;
+      cursor: pointer;
+    }
+    // buttton {
+    // }
+  }
+  .nav {
+    .image1 {
+      width: 100px;
+      margin-top: 10px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .image2 {
+      width: 100px;
+      margin-top: 25px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+  }
+
+  .jumbo {
+    background-color: white;
+    .nav {
+      .image1 {
+        width: 130px;
+        margin-top: 10px;
+        margin-right: 24px;
+        cursor: pointer;
+      }
+      .image2 {
+        width: 120px;
+        margin-top: 20px;
+        margin-right: 24px;
+        cursor: pointer;
+      }
+    }
+    #cont {
+      img {
+        width: 370px;
+      }
+    }
+
+    #row2 {
+      margin-left: 400px;
+      .SeachBy {
+        text-align: left;
+        text-decoration: underline;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessName {
+        margin-left: -350px;
+        text-align: left;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessPhone {
+        margin-left: 20px;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+    }
+    #row3 {
+      display: flex;
+      justify-content: center;
+      margin-top: -70px;
+      .col2 {
+        margin-top: -60px;
+      }
+      button {
+        font-weight: 600;
+      }
+    }
+    #SeachInput {
+      margin-left: -10px;
+      margin-top: -30px;
+      input {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 1px 1px 7px #00000029;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border-left-color: white;
+        opacity: 1;
+        width: 400px;
+        margin-right: 10px;
+        height: 50px;
+      }
+      .search {
+        font-size: medium;
+      }
+
+      .input-group-prepend {
+        margin-left: 20px;
+        .select {
+          border: none;
+        }
+        img {
+          width: 30px;
+        }
+        .input-group-text {
+          background-color: white;
+          height: 50px;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+          border-right-color: white;
+          background: white 0% 0%;
+          color: #2699fb;
+          opacity: 1;
+          margin-bottom: 40px;
+          font-size: medium;
+          font-weight: bold;
+          box-shadow: 1px 1px 7px #00000029;
+        }
+      }
+    }
+  }
+  .BuyingItems {
+    margin-bottom: 50px;
+    text-align: center;
+    font: Regular 20px/30px Poppins;
+    letter-spacing: 0px;
+    color: #484848;
+    opacity: 1;
+    font-size: 15px;
+    .VerifyThem {
+      color: #2699fb;
+    }
+  }
+  .temp {
+    .modalHeader {
+      img {
+        width: 150px;
+        margin-left: 68px;
+      }
+    }
+    .p1 {
+      text-align: center;
+      font-size: medium;
+      font-weight: bold;
+      color: red;
+    }
+    .p2 {
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .p3 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p4 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p5 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #CancelSection {
+    margin-top: 20px;
+    .cancel {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      opacity: 1;
+      border-radius: 7;
+      color: red;
+      cursor: pointer;
+    }
+    // buttton {
+    // }
+  }
+  .nav {
+    .image1 {
+      width: 90px;
+      margin-top: 10px;
+      margin-left: 30px;
+      cursor: pointer;
+    }
+    .image2 {
+      width: 100px;
+      margin-top: 20px;
+      margin-left: -60px;
+      cursor: pointer;
+    }
+  }
+
+  .jumbo {
+    background-color: white;
+    #cont {
+      margin-top: -90px;
+      margin-top: 20px;
+      img {
+        width: 200px;
+      }
+    }
+    #cont {
+      img {
+        width: 270px;
+      }
+    }
+    #row3 {
+      .row {
+        margin-top: -80px;
+      }
+      button {
+        font-weight: 600;
+      }
+    }
+    #row2 {
+      margin-left: 400px;
+      .SeachBy {
+        text-align: left;
+        text-decoration: underline;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessName {
+        margin-left: -350px;
+        text-align: left;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessPhone {
+        margin-left: 20px;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+    }
+    .form-control-sm {
+      width: 30px;
+    }
+    #SeachInput {
+      margin-top: -30px;
+      input {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 1px 1px 7px #00000029;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border-left-color: white;
+        opacity: 1;
+        width: 400px;
+        margin-right: 10px;
+        height: 50px;
+      }
+      .search {
+        font-size: medium;
+      }
+      #row3 {
+        display: flex;
+        justify-content: center;
+        margin-top: -100px;
+        .row {
+          width: 400px;
+        }
+      }
+
+      .input-group-prepend {
+        margin-left: 100px;
+        .select {
+          border: none;
+          width: 80px;
+        }
+        img {
+          width: 30px;
+        }
+        .input-group-text {
+          background-color: white;
+          height: 50px;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+          border-right-color: white;
+          background: white 0% 0%;
+          color: #2699fb;
+          opacity: 1;
+          margin-bottom: 40px;
+          font-size: medium;
+          font-weight: bold;
+          box-shadow: 1px 1px 7px #00000029;
+        }
+      }
+    }
+  }
+  .BuyingItems {
+    margin-bottom: 50px;
+    text-align: center;
+    font: Regular 20px/30px Poppins;
+    letter-spacing: 0px;
+    color: #484848;
+    opacity: 1;
+    font-size: 25px;
+    .VerifyThem {
+      color: #2699fb;
+    }
+  }
+  .temp {
+    .modalHeader {
+      img {
+        width: 150px;
+        margin-left: 68px;
+      }
+    }
+    .p1 {
+      text-align: center;
+      font-size: medium;
+      font-weight: bold;
+      color: red;
+    }
+    .p2 {
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .p3 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p4 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p5 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  #CancelSection {
+    margin-top: 20px;
+    .cancel {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      opacity: 1;
+      border-radius: 7;
+      color: red;
+      cursor: pointer;
+    }
+    // buttton {
+    // }
+  }
+  .nav {
+    .image1 {
+      width: 130px;
+      margin-top: 10px;
+      margin-right: 34px;
+      cursor: pointer;
+    }
+    .image2 {
+      width: 120px;
+      margin-top: 20px;
+      margin-right: 24px;
+      cursor: pointer;
+    }
+  }
+
+  .jumbo {
+    background-color: white;
+    #cont {
+      margin-top: -90px;
+      margin-top: 20px;
+      img {
+        width: 400px;
+      }
+    }
+
+    #row3 {
+      .row {
+        margin-top: -80px;
+        display: flex;
+        justify-content: center;  
+      }
+      button {
+        font-weight: 600;
+      }
+    }
+
+    #row2 {
+      margin-left: 400px;
+      .SeachBy {
+        text-align: left;
+        text-decoration: underline;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessName {
+        margin-left: -350px;
+        text-align: left;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessPhone {
+        margin-left: 20px;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+    }
+    #SeachInput {
+      margin-left: -40px;
+      margin-top: 30px;
+      input {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 1px 1px 7px #00000029;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border-left-color: white;
+        opacity: 1;
+        width: 400px;
+        margin-right: 10px;
+        height: 50px;
+      }
+      .search {
+        font-size: medium;
+      }
+
+      .input-group-prepend {
+        margin-left: 240px;
+        .select {
+          border: none;
+        }
+        img {
+          width: 30px;
+        }
+        .input-group-text {
+          background-color: white;
+          height: 50px;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+          border-right-color: white;
+          background: white 0% 0%;
+          color: #2699fb;
+          opacity: 1;
+          margin-bottom: 40px;
+          font-size: medium;
+          font-weight: bold;
+          box-shadow: 1px 1px 7px #00000029;
+        }
+      }
+    }
+  }
+  .BuyingItems {
+    margin-bottom: 50px;
+    text-align: center;
+    font: Regular 20px/30px Poppins;
+    letter-spacing: 0px;
+    color: #484848;
+    opacity: 1;
+    font-size: 25px;
+    .VerifyThem {
+      color: #2699fb;
+    }
+  }
+  .temp {
+    .modalHeader {
+      img {
+        width: 150px;
+        margin-left: 68px;
+      }
+    }
+    .p1 {
+      text-align: center;
+      font-size: medium;
+      font-weight: bold;
+      color: red;
+    }
+    .p2 {
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .p3 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p4 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p5 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  #CancelSection {
+    margin-top: 20px;
+    .cancel {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      opacity: 1;
+      border-radius: 7;
+      color: red;
+      cursor: pointer;
+    }
+  }
+  .SpeciContainer {
+    margin-top: 20px;
+    // buttton {
+    // }
+  }
+  .nav {
+    .image1 {
+      width: 130px;
+      margin-top: 10px;
+      margin-right: 24px;
+      margin-left: 40px;
+      cursor: pointer;
+    }
+    .image2 {
+      width: 120px;
+      margin-top: 20px;
+      margin-right: 24px;
+      cursor: pointer;
+    }
+  }
+
+  .jumbo {
+    background-color: white;
+    #cont {
+      margin-top: -43px;
+      margin-left: 22px;
+      img {
+        width: 300px;
+      }
+    }
+    #row3 {
+      .row {
+        margin-top: -70px;
+        display: flex;
+        justify-content: center;
+        .Loading {
+          color: blue;
+        }
+      }
+      button {
+        font-weight: 700;
+        font-size: small;
+      }
+    }
+
+    #row2 {
+      margin-left: 400px;
+      .SeachBy {
+        text-align: left;
+        text-decoration: underline;
+        font: Regular 20px/30px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessName {
+        margin-left: -350px;
+        text-align: left;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+      .BusinessPhone {
+        margin-left: 20px;
+        font: Regular 14px/16px Arial;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+      }
+    }
+    #SeachInput {
+      margin-left: -40px;
+      margin-top: 30px;
+      input {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 1px 1px 7px #00000029;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border-left-color: white;
+        opacity: 1;
+        width: 400px;
+        height: 50px;
+      }
+      .search {
+        font-size: medium;
+      }
+
+      .input-group-prepend {
+        margin-left: 300px;
+        .select {
+          border: none;
+        }
+        img {
+          width: 30px;
+        }
+        .input-group-text {
+          background-color: white;
+          height: 50px;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+          border-right-color: white;
+          background: white 0% 0%;
+          color: #2699fb;
+          opacity: 1;
+          margin-bottom: 40px;
+          font-size: medium;
+          font-weight: bold;
+          box-shadow: 1px 1px 7px #00000029;
+        }
+      }
+    }
+  }
+  .BuyingItems {
+    margin-bottom: 50px;
+    text-align: center;
+    font: Regular 20px/30px Poppins;
+    letter-spacing: 0px;
+    color: #484848;
+    opacity: 1;
+    font-size: 20px;
+    .VerifyThem {
+      color: #2699fb;
+    }
+  }
+  .temp {
+    .modalHeader {
+      img {
+        width: 150px;
+        margin-left: 68px;
+      }
+    }
+    .p1 {
+      text-align: center;
+      font-size: medium;
+      font-weight: bold;
+      color: red;
+    }
+    .p2 {
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .p3 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p4 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .p5 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+  }
+}

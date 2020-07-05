@@ -1,0 +1,469 @@
+<!-- <div class="container" id="Container">
+  <div class="row">
+    <div class="col-sm">
+      <! -- ----------Main------------- >
+      <div class="row" id="Card1">
+        <div class="card">
+          <div class="card-body" id="card-body1">
+            <hr />
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <h6 class="TransactionID">Transaction ID 45689230</h6>
+                </div>
+                <div class="col-sm">
+                  <h6
+                    class="HideContrat"
+                    (click)="isCollapsed1 = !isCollapsed1"
+                    [attr.aria-expanded]="!isCollapsed1"
+                  >
+                    {{message1}} Contrat
+                  </h6>
+                </div>
+                <div class="col-sm">
+                  <h6 class="expandmore"><mat-icon>{{message2}}</mat-icon></h6>
+                </div>
+                <div class="col-sm" id="GH">
+                  <h6 class="GH550">GH 550.00</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card2">
+        <div
+          id="collapseBasic"
+          [collapse]="isCollapsed1"
+          [isAnimated]="true"
+          [collapse]="isCollapsed"
+          (collapses)="collapses()"
+          (expands)="expands()"
+          (collapsed)="collapsed()"
+          (expanded)="expanded()"
+        >
+          <div class="card" id="" style="width: 50rem;">
+            <div class="card-body" id="card-body2">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm col1">
+                    <h6 class="Item ">Item</h6>
+                  </div>
+                  <div class="col-sm col2">
+                    <h6 class="Amount">Amount</h6>
+                  </div>
+                  <div class="col-sm col3">
+                    <h6 class="Deadline">Deadline</h6>
+                  </div>
+                  <div class="col-sm col4">
+                    <h6 class="Revisions">Revisions</h6>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm">
+                    <h6 class="Anandroidmobile">
+                      An android mobile application
+                    </h6>
+                  </div>
+                  <div class="col-sm col5">
+                    <h6 class="cinq1">550.00</h6>
+                  </div>
+                  <div class="col-sm col6">
+                    <h6 class="Days12Hours">4 Days 12 Hours</h6>
+                  </div>
+                  <div class="col-sm col7">
+                    <h6 class="Trois">3</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm col8">
+                    <h6 class="NoworriFees">Noworri Fees</h6>
+                  </div>
+                  <div class="col-sm col9">
+                    <h6 class="quinz">15.14</h6>
+                  </div>
+                  <div class="col-sm"></div>
+                  <div class="col-sm"></div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h6 class="NETPAYABLE">NET PAYABLE</h6>
+                  </div>
+                  <div class="col-sm">
+                    <h6 class="cinq2">560.14</h6>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card3">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col10">
+              <h6 class="ORDERREQUIREMENTS">ORDER REQUIREMENTS</h6>
+            </div>
+            <div class="col-sm"></div>
+            <div class="col-sm col11">
+              <h6
+                class="HideRequirement"
+                (click)="isCollapsed2 = !isCollapsed2"
+                [attr.aria-expanded]="!isCollapsed2"
+              >
+                {{message3}} requirement
+              </h6>
+            </div>
+            <div class="col-sm col12">
+              <h6 class="expandmore"><mat-icon>{{message4}}</mat-icon></h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card4">
+        <div
+          id="collapseBasic"
+          [collapse]="isCollapsed2"
+          [isAnimated]="true"
+          [collapse]="isCollapsed"
+          (collapses)="collapsess()"
+          (expands)="expands()"
+          (collapsed)="collapsed()"
+          (expanded)="expandeds()"
+        >
+          <div class="card" style="width: 50rem;">
+            <div class="card-body">
+              <p>
+                Define a dead time of the transaction so in case anything was
+                not done after the end of the transaction Noworri will cancel it
+                Define a dead time of the transaction so in case anything was
+                not done after the end of the transaction Noworri will cancel it
+                Define a dead time of the transaction so in case anything was
+                not done after the end of the transaction Noworri will cancel it
+                Define a dead time of the transaction so in case anything was
+                not done after the end of the transaction Noworri will cancel it
+                Define a dead time of the transaction so in case anything was
+                not done after the end of the transaction Noworri will cancel it
+              </p>
+              <div class="container">
+                <h6 class="AttachedFile">Attached file</h6>
+                <h6 class="AmelPlan">Amel plan of house.PDF</h6>
+                <h6 class="Architech">Architech building.PNG</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card5">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card6">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+              The contact has been sent successfully to
+              <span class="false102">@false102</span> we will let you know when
+              the contact is acceptd
+            </h6>
+            <button type="button" class="btn btn-light btn-sm">
+              Send Reminder
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card7">
+        <div class="col-sm col15">
+          <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
+        </div>
+      </div>
+      <div class="row" id="Card8">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+              <span class="false102">@false102</span> has agreed to the contract
+              you can now secure the funds
+            </h6>
+            <button type="button" class="btn btn-light btn-sm">
+              Secure Funds
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card9">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card10">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>has agreed to the contract you can now secure the funds</h6>
+            <div class="row">
+              <div class="col speci1"></div>
+              <div class="col speci2">
+                <div class="col-sm" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    05 : 25 : 09
+                  </button>
+                </div>
+              </div>
+              <div class="col speci3">
+              </div>
+            </div>
+            <button type="button" id="Button" class="btn btn-light btn-sm">
+              Release Funds
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card11">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">
+                March 6 @ 4 : 45pm
+                ----------------------------------------------------------------------
+                HERE IS YOUR
+                ---------------------------------------------------------------------
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card12">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+              I have done the work based on your requirement. I have changed a
+              little things to make aligning with the requirement. l have
+              attached the file to make aligning with the requirement. l have
+              attached the file to make aligning with the requirement. l have
+              attached the file to make aligning with the requirement. l have
+              attached the file
+            </h6>
+            <div class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h5>
+                      <div class="container">
+                        <div class="row"></div>
+                      </div>
+                    </h5>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h5 class="Video">Video.MP4</h5>
+              <h5 class="WebSite">Web site design.adobe.xd</h5>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm" id="ReleaseFundss">
+                  <button type="button" class="btn btn-light btn-sm">
+                    Release Funds
+                  </button>
+                </div>
+                <div class="col-sm" id="Revisions">
+                  <button type="button" class="btn btn-light btn-sm">
+                    Revisions <span style="color:#FF0045">(3)</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card13">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+              The work has been delivered,the funds will be automatically
+              release at the end of the time if any action is taken
+            </h6>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col">
+                <div class="col-sm" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    05 : 25 : 09
+                  </button>
+                </div>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card14">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">
+                March 6 @ 4 : 45pm
+                ------------------------------------------------------------------------
+                Revision
+                -------------------------------------------------------------------------------------------------
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card15">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+              1- Change the colour on top <br />
+              2- Make the video more interesting<br />
+              3- You didn't do the speech well kindly review the file l have
+              sent you before and make it
+            </h6>
+            <div class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h5>
+                      <div class="container">
+                        <div class="row"></div>
+                      </div>
+                    </h5>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row" id="Card16">
+                <div class="col-sm" id="ReleaseFundss">
+                  <button type="button" class="btn btn-light btn-sm">
+                    Release Funds
+                  </button>
+                </div>
+                <div class="col-sm" id="Revisions">
+                  <button type="button" class="btn btn-light btn-sm">
+                    Revisions <span style="color:#FF0045">(3)</span>
+                  </button>
+                </div>
+                <div class="col-sm" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    05 : 25 : 09
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card16">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">
+                March 6 @ 4 : 45pm
+                --------------------------------------------------------------------
+                HERE IS YOUR
+                ------------------------------------------------------------------------------------------------
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card17">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h4 class="DELIVERED">DELIVERED</h4>
+            <h6>
+              I have done the work based on your requirement. I have changed a
+              little things to make aligning with the requirement. l have
+              attached the file to make aligning with the requirement. l have
+              attached the file to make aligning with the requirement. l have
+              attached the file to make aligning with the requirement. l have
+              attached the file
+            </h6>
+            <div class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h5>
+                      <div class="container">
+                        <div class="row"></div>
+                      </div>
+                    </h5>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h5 class="Video">Video.MP4</h5>
+              <h5 class="WebSite">Web site design.adobe.xd</h5>
+            </div>
+            <div class="container">
+              <div class="row" id="Card16">
+                <div class="col-sm" id="ReleaseFundss">
+                  <button type="button" class="btn btn-light btn-sm">
+                    Release Funds
+                  </button>
+                </div>
+                <div class="col-sm" id="Revisions">
+                  <button type="button" class="btn btn-light btn-sm">
+                    Revisions <span style="color:#FF0045">(3)</span>
+                  </button>
+                </div>
+                <div class="col-sm" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    05 : 25 : 09
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm" id="Card18">
+      <div class="container">
+        <div class="card">
+          <div class="card-body">
+            <hr />
+            <div class="container">
+              <div class="row">
+                <mat-icon class="Icon">report</mat-icon>
+                <h6 class="WantTo">Want to cancel this order ?</h6>
+              </div>
+              <div class="row">
+                <a class="nav-link" href="#">Click Here</a>
+              </div>
+              <div class="row">
+                <mat-icon class="Icon">report</mat-icon>
+                <h6 class="Somethingunclair">Something unclair ?</h6>
+              </div>
+              <div class="row">
+                <a class="nav-link" href="#">Check out our FAQs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

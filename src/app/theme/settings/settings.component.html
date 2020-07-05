@@ -1,0 +1,208 @@
+<div class="card">
+  <hr />
+  <div class="card-body">
+    <div class="row" id="button">
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col boutton">
+        <button type="button" class="btn btn-light btn-sm">Sign out</button>
+      </div>
+    </div>
+    <div class="h6">
+      <h6>Personal informations</h6>
+    </div>
+    <div class="container">
+      <div class="row titre">
+        <h6>First Name</h6>
+      </div>
+      <div class="row" id="backgr">
+        <h6>Kader</h6>
+      </div>
+      <div class="row titre">
+        <h6>Last Name</h6>
+      </div>
+      <div class="row" id="backgr">
+        <h6>Saka</h6>
+      </div>
+      <div class="row titre">
+        <h6>Username</h6>
+      </div>
+      <div class="row" id="backgr">
+        <h6>@rock</h6>
+      </div>
+      <div class="row titre">
+        <h6>Country</h6>
+      </div>
+      <div class="row" id="backgr">
+        <h6>Ghana</h6>
+      </div>
+      <div class="row titre">
+        <h6>Phone Number</h6>
+      </div>
+      <div class="row" id="backgr">
+        <h6>+233279414289</h6>
+      </div>
+      <div class="row titre">
+        <h6>Email Address</h6>
+      </div>
+      <div class="row" id="backgr">
+        <div class="col" id="speci1">
+          <h6>kader@noworri.com</h6>
+        </div>
+        <div class="col" id="speci4">
+          <mat-icon (click)="openModal4(template4)">create</mat-icon>
+        </div>
+      </div>
+      <div class="row titre">
+        <h6>Address</h6>
+      </div>
+      <div class="row" id="backgr">
+        <div class="col" id="speci2">
+          <h6>Achimota 52 street, Kumasi road behind mall</h6>
+        </div>
+        <div class="col" id="speci4">
+          <mat-icon (click)="openModal3(template3)">create</mat-icon>
+        </div>
+      </div>
+      <div class="row titre">
+        <h6>Passwords</h6>
+      </div>
+      <div class="row" id="backgr">
+        <div class="col" id="speci3">
+          <h6>Change password</h6>
+        </div>
+        <div class="col" id="speci4">
+          <mat-icon (click)="openModal1(template1)">create</mat-icon>
+        </div>
+      </div>
+    </div>
+    <div id="doc" class="container">
+      <h6 class="Document">Document</h6>
+      <h6 class="Upload">Upload your ID or driver license or vote ID</h6>
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-light btn-sm">Upload</button>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template1>
+  <div class="Template3">
+    <div>
+      <h5>Email Verification</h5>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label     for="exampleInputEmail1"
+              >Enter the verification code sent</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <h5 class="Resend">Resend code : </h5>
+            </div>
+            <div class="col" id="col" >
+              <span style="color: royalblue; font-size: small;">1 : 52</span>
+            </div>
+          </div>
+         
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="openModal2(templateNested)"
+          >
+            Verify
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateNested>
+  <div class="Template6">
+    <h5>Change your password</h5>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label class="EnterYour" for="exampleInputEmail1">Old Password</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+        />
+      </div>
+      <div class="form-group">
+        <label class="EnterYour" for="exampleInputPassword1">New Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+        />
+      </div>
+      <div class="form-group">
+        <label class="EnterYour" for="exampleInputPassword1">Repeat New Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+        />
+      </div>
+      <button type="button" class="btn btn-primary">
+        Change password
+      </button>
+    </form>
+  </div>
+  </div>
+</ng-template>
+<ng-template #template3>
+  <div class="Template2">
+    <h4>Address</h4>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label class="EnterYour" for="exampleInputEmail1"
+            >Enter your address</label
+          >
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm</button>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<ng-template #template4>
+  <div class="Template1">
+    <h4>Change your Email</h4>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label class="EnterYour">Enter your new email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Continue</button>
+      </form>
+    </div>
+  </div>
+</ng-template>

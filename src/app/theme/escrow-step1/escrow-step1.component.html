@@ -1,0 +1,290 @@
+<div class="container">
+  <form (ngSubmit)="escrowstep1(F)" #F="ngForm">
+    <div class="row">
+      <div class="col-sm" id="col-sm">
+        <div class="card">
+          <div class="ServiceStep1">
+            <mat-icon class="cancel">cancel</mat-icon>
+            <h6>Service: Step 1 of 2</h6>
+            <hr />
+            <div class="card-body">
+              <div id="Please">
+                <h5 class="Please">
+                  Please provide details for the transaction
+                </h5>
+              </div>
+              <div id="Form1">
+                <div class="form-group">
+                  <label id="PrincipaleTitle" for="exampleInputEmail1"
+                    >WHAT SERVICE ARE YOU {{BuyinOrSelling}}</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputPassword1"
+                    name="exampleInputPassword1"
+                    ngModel
+                    aria-describedby="emailHelp"
+                    (click)="AfficheSide1 ()"
+                    [ngClass]="InputControl1"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1"
+                    >{{BuyersOrSeller}} USERNAME</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputPassword2"
+                    name="exampleInputPassword2"
+                    ngModel
+                    (click)="AfficheSide2 ()"
+                    [ngClass]="InputControl2"
+                  />
+                </div>
+              </div>
+              <div id="Form2">
+                <div class="WHAT">
+                  <label id="PrincipaleTitle" for="exampleInputPassword1"
+                    >WHAT IS THE SERVICE PRICE</label
+                  >
+                </div>
+                <label for="exampleInputEmail1">PRICE</label>
+                <label style="margin-left: 400px;" for="exampleInputEmail1"
+                  >CURRENCY</label
+                >
+                <div class="row">
+                  <div class="col">
+                    <input
+                      type="text"
+                      style="width: 420px;"
+                      class="form-control"
+                      id="exampleInputPassword3"
+                      name="exampleInputPassword3"
+                      ngModel
+                      (click)="AfficheSide3 ()"
+                      [ngClass]="InputControl3"
+                    />
+                  </div>
+                  <div class="col">
+                    <div class="input-group-text">
+                      <img src="assets/images/devise.png" />
+                      <h1 class="GHC">GHC</h1>
+                    </div>
+                  </div>
+                </div>
+                <div id="PetitInput1">
+                  <label for="exampleInputEmail1">NUMBER OF REVISIONS</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputPassword4"
+                    name="exampleInputPassword4"
+                    aria-describedby="emailHelp"
+                    ngModel
+                    max="10"
+                    min="1"
+                    required
+                    (click)="AfficheSide4 ()"
+                    [ngClass]="InputControl4"
+                  />
+                </div>
+                <div id="PetitInput2">
+                  <div class="row">
+                    <div class="col">
+                      <label for="exampleInputEmail1"
+                        >SET TRANSACTION DEADLINE</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputPassword5"
+                        name="exampleInputPassword5"
+                        aria-describedby="emailHelp"
+                        ngModel
+                        minlength="1"
+                        max="10"
+                        min="1"
+                        required
+                        (click)="AfficheSide5 ()"
+                        [ngClass]="InputControl5"
+                      />
+                    </div>
+                    <div class="col" id="mat-radio-button">
+                      <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button
+                          class="mat-radio-button"
+                          color="primary"
+                          value="1"
+                          >HOURS</mat-radio-button
+                        >
+                        <mat-radio-button
+                          class="mat-radio-button"
+                          color="primary"
+                          value="2"
+                          >DAYS</mat-radio-button
+                        >
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                </div>
+                <div id="PetitInput3">
+                  <label for="exampleInputEmail1">REQUIREMENTS</label>
+                  <textarea
+                    class="form-control"
+                    id="exampleInputPassword6"
+                    name="exampleInputPassword6"
+                    rows="3"
+                    (click)="AfficheSide6 ()"
+                    ngModel
+                    [ngClass]="InputControl6"
+                  ></textarea>
+                </div>
+                <div class="Link">
+                  <a class="nav-link" (click)="AfficheSide7 ()" 
+                    >Attached file</a
+                  >
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">
+                      <button type="submit" class="btn btn-primary btn-sm">
+                        Continue
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="container" id="CARDS" >
+          <div class="col" id="card1" *ngIf="BoolAffichage1">
+            <div class="card w-100" >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Tell us what service you want to buy, it could be a a
+                      freelancer work, a contract or anything that doesn't
+                      required a tangible goods
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card2">
+            <div class="card w-100" *ngIf="BoolAffichage2">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Enter the Username or Phone number of the Seller.Make sure
+                      he has a Noworri's Account otherwise invite hime HERE
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card3">
+            <div class="card w-100" *ngIf="BoolAffichage3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Enter the price of the service you want to buy, make sure
+                      both buyer and seller agree to the price
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card4">
+            <div class="card w-100" *ngIf="BoolAffichage4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Select the number of time you will request to the seller
+                      to make a revision on the work he delivered
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card5">
+            <div class="card w-100" *ngIf="BoolAffichage5">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Define a dead time of the transaction so in case anything
+                      was not done after the end of the transaction Noworri will
+                      cancel it
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card6">
+            <div class="card w-100" *ngIf="BoolAffichage6">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Provide all the requirement for the work
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card7">
+            <div class="card w-100" *ngIf="BoolAffichage7">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Attache a file if you have one, it could be an example of
+                      th work you want
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
