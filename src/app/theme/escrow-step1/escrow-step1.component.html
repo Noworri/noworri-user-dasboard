@@ -4,7 +4,7 @@
       <div class="col-sm" id="col-sm">
         <div class="card">
           <div class="ServiceStep1">
-            <mat-icon class="cancel">cancel</mat-icon>
+            <mat-icon class="cancel" routerLink='/home'>cancel</mat-icon>
             <h6>Service: Step 1 of 2</h6>
             <hr />
             <div class="card-body">
@@ -31,17 +31,131 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1"
-                    >{{BuyersOrSeller}} USERNAME</label
+                    >{{BuyersOrSeller}} PHONE NUMBER</label
                   >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputPassword2"
-                    name="exampleInputPassword2"
-                    ngModel
-                    (click)="AfficheSide2 ()"
-                    [ngClass]="InputControl2"
-                  />
+                  <form #form="ngForm">
+                  
+                    <intl-tel-input
+                    
+                        [name]="'my-name'"
+                        [cssClass]="'form-control col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'"
+                        [labelCssClass]="'              col-form-label'"
+                        [required]="true"
+                        [options]="{
+                            preferredCountries: ['ch'],
+                            localizedCountries: { ch: 'Suisse',BJ:'hjk' },
+                            onlyCountries: [
+                            'fr', 
+                            'ch'
+                        
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            ]
+
+                        }"
+                        [onlyLocalized]="true"
+                        [(E164PhoneNumber)]="E164PhoneNumber"
+                        ></intl-tel-input>
+                 </form>   
                 </div>
               </div>
               <div id="Form2">
@@ -190,7 +304,7 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the Username or Phone number of the Seller.Make sure
+                      Enter the Phone number of the Seller.Make sure
                       he has a Noworri's Account otherwise invite hime HERE
                     </p>
                   </div>

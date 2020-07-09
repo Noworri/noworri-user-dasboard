@@ -8,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EscrowStep2Component implements OnInit {
 
-  constructor(private coo:Router) { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
   
-  re(){
-    this.coo.navigate(['/contratacheteur'])
+  RoutingToTransation(){
+    this.router.navigate(['/transactions'])
   }
 }
