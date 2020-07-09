@@ -41,6 +41,15 @@ import { CoolComponent } from './view/cool/cool.component'
 import { DisputPageComponent } from './theme/disput-page/disput-page.component'
 import { DisputesComponent } from './theme/disputes/disputes.component';
 import { PaymentComponent } from './theme/payment/payment.component';
+import { HomeComponent } from './theme/home/home.component';
+import { TransactionsComponent } from './theme/transactions/transactions.component';
+import { EscrowStep1Component } from './theme/escrow-step1/escrow-step1.component';
+import { EscrowStep2Component } from './theme/escrow-step2/escrow-step2.component';
+import { ContratAcheteurComponent } from './theme/contrat-acheteur/contrat-acheteur.component';
+import { ContratVendeurComponent } from './theme/contrat-vendeur/contrat-vendeur.component';
+import { SettingsComponent } from './theme/settings/settings.component';
+import { ApiIntegrationComponent } from './theme/api-integration/api-integration.component';
+import {IntlTelInputNgModule} from 'intl-tel-input-ng'
 
 @NgModule({
   declarations: [
@@ -57,7 +66,16 @@ import { PaymentComponent } from './theme/payment/payment.component';
     PrivacyComponent,
     PolicyComponent,
     PaymentComponent,
-    TermConditionsComponent
+    TermConditionsComponent,
+      HomeComponent,
+   TransactionsComponent,
+    EscrowStep1Component,
+    EscrowStep2Component,
+   ContratAcheteurComponent,
+   ContratVendeurComponent,
+   SettingsComponent,
+   ApiIntegrationComponent
+ 
   ],
   imports: [
     BrowserModule,
@@ -77,7 +95,8 @@ import { PaymentComponent } from './theme/payment/payment.component';
     FormsModule,
     ReactiveFormsModule,
     CollapseModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    IntlTelInputNgModule.forRoot()
   ],
   schemas: [],
   providers: [MenuItems, HomeInputService, RegisterService, BsModalRef],

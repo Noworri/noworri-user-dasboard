@@ -3,7 +3,7 @@
     <div class="col-sm" id="col-sm">
       <div class="card">
         <div class="ServiceStep2">
-          <mat-icon class="cancel">cancel</mat-icon>
+          <mat-icon class="cancel" routerLink='/escrowstep1'>cancel</mat-icon>
           <h6>Service: Step 2 of 2</h6>
           <hr
             style="  width: 600px;
@@ -79,7 +79,7 @@
             </div>
             <div class="row">
               <div class="col-sm">
-                <h6 class="Buyersusername">Buyer's username</h6>
+                <h6 class="Buyersusername">Buyer's Phone number</h6>
               </div>
               <div class="col-sm">
                 <h6 class="Calcule3">Kira.121</h6>
@@ -87,7 +87,7 @@
             </div>
             <div class="row">
               <div class="col-sm">
-                <h6 class="Sellersusername">Seller's username</h6>
+                <h6 class="Sellersusername">Seller's Phone number</h6>
               </div>
               <div class="col-sm">
                 <h6 class="Calcul3">Rorona</h6>
@@ -121,7 +121,7 @@
           <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm" id="STARTNOWORRI">
-              <button type="submit" (click)='re()'  class="btn btn-primary btn-sm">
+              <button type="submit" (click)='RoutingToTransation()'  class="btn btn-primary btn-sm">
                 START NOWORRI
               </button>
             </div>
