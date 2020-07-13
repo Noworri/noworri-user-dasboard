@@ -1,4 +1,4 @@
-<!-- <div class="container" id="Container">
+ <div class="container" id="Container">
   <div class="row">
     <div class="col-sm">
       <! ------------Main----------- -- >
@@ -231,6 +231,9 @@
           </div>
         </div>
       </div>
+
+
+
       <div class="row" id="Card11">
         <div class="container">
           <div class="row">
@@ -277,7 +280,7 @@
               <div class="row">
                 <div class="col"></div>
                 <div class="col" id="Delivred">
-                  <button type="button" class="btn btn-light btn-sm">
+                  <button type="button" (click)='OpenNoteInput()' class="btn btn-light btn-sm">
                     Delivered
                   </button>
                 </div>
@@ -287,6 +290,35 @@
           </div>
         </div>
       </div>
+      <div class="row" id="Card19" *ngIf='ShowOrNotOpenNoteInput'>
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <editor
+            apiKey="Get your free API key and paste it here"
+            plugins="wordcount"
+          ></editor>
+            <div class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h5>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-sm"></div>
+                          <div class="col-sm"></div>
+                        </div>
+                      </div>
+                    </h5>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row" id="Card21">
         <div class="container">
           <div class="row">
@@ -437,4 +469,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div> 

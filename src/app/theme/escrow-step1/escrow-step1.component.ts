@@ -4,6 +4,11 @@ import { FormGroup, FormBuilder, NgForm } from "@angular/forms";
 import { HomeInputService } from "./../../Service/home-input.service";
 
 import { Component, OnInit } from "@angular/core";
+import {FormControl} from '@angular/forms';
+
+import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
+import { disableBindings } from '@angular/core/src/render3';
+
 
 @Component({
   selector: "app-escrow-step1",
@@ -11,8 +16,22 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./escrow-step1.component.scss"],
 })
 export class EscrowStep1Component implements OnInit {
+  
+
+ 
+
+
+
+
   searchInputType1: RegExp;
   searchInputType2: RegExp;
+
+
+  //-------------------Date or time variable-------------------//
+
+  DateDisableOrNot=''
+
+  TimeDisabledOrNot=''
 
   //--------Donnee recuperees des Inputs du composant Home--------//
   TypeOfTransation: string;
@@ -50,10 +69,14 @@ export class EscrowStep1Component implements OnInit {
     private HomeInputService: HomeInputService,
     private EscrowStep1: Escrowstep1Service,
     private Router: Router
-  ) {}
+  ) {
+    
+  }
 
   ngOnInit() {
     this.RoleMessage();
+     
+    
   }
   //---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
   escrowstep1(F: NgForm) {
@@ -136,6 +159,8 @@ export class EscrowStep1Component implements OnInit {
     }
   }
 
+
+
   //-----Methode de recup et affichage de message--------//
   RoleMessage() {
     this.TypeOfTransation = this.HomeInputService.DataInputHome.TypeOfTransation;
@@ -194,6 +219,7 @@ export class EscrowStep1Component implements OnInit {
     }
   }
   AfficheSide5() {
+  this.Opendate()
     this.BoolAffichage5 = true;
     if ((this.BoolAffichage5 = true)) {
       this.BoolAffichage4 = false;
@@ -202,6 +228,7 @@ export class EscrowStep1Component implements OnInit {
     }
   }
   AfficheSide6() {
+    this.OpenTime()
     this.BoolAffichage6 = true;
     if ((this.BoolAffichage6 = true)) {
       this.BoolAffichage5 = false;
@@ -217,4 +244,17 @@ export class EscrowStep1Component implements OnInit {
       this.BoolAffichage6 = false;
     }
   }
+
+
+//----------------0pen time Methode-----------------------//
+Opendate(){
+if(this.TimeDisabledOrNot==''){
+  this.TimeDisabledOrNot='disabled'
+}
+}
+OpenTime(){
+if(this.DateDisableOrNot==''){
+  this.DateDisableOrNot='disabled'
+}
+}
 }

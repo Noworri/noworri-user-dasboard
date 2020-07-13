@@ -4,7 +4,7 @@
       <div class="col-sm" id="col-sm">
         <div class="card">
           <div class="ServiceStep1">
-            <mat-icon class="cancel" routerLink='/home'>cancel</mat-icon>
+            <mat-icon class="cancel" routerLink="/home">cancel</mat-icon>
             <h6>Service: Step 1 of 2</h6>
             <hr />
             <div class="card-body">
@@ -16,7 +16,7 @@
               <div id="Form1">
                 <div class="form-group">
                   <label id="PrincipaleTitle" for="exampleInputEmail1"
-                    >WHAT SERVICE ARE YOU {{BuyinOrSelling}}</label
+                    >WHAT SERVICE ARE YOU {{ BuyinOrSelling }}</label
                   >
                   <input
                     type="text"
@@ -25,139 +25,87 @@
                     name="exampleInputPassword1"
                     ngModel
                     aria-describedby="emailHelp"
-                    (click)="AfficheSide1 ()"
+                    (click)="AfficheSide1()"
                     [ngClass]="InputControl1"
                   />
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1"
-                    >{{BuyersOrSeller}} PHONE NUMBER</label
+                    >{{ BuyersOrSeller }} PHONE NUMBER</label
                   >
-                  <form #form="ngForm">
-                  
-                    <intl-tel-input
-                    
-                        [name]="'my-name'"
-                        [cssClass]="'form-control col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12'"
-                        [labelCssClass]="'              col-form-label'"
-                        [required]="true"
-                        [options]="{
-                            preferredCountries: ['ch'],
-                            localizedCountries: { ch: 'Suisse',BJ:'hjk' },
-                            onlyCountries: [
-                            'fr', 
-                            'ch'
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            ]
-
-                        }"
-                        [onlyLocalized]="true"
-                        [(E164PhoneNumber)]="E164PhoneNumber"
-                        ></intl-tel-input>
-                 </form>   
                 </div>
               </div>
+              <form #form="ngForm">
+                <intl-tel-input
+                  (click)="AfficheSide2()"
+                  [name]="'my-name'"
+                  [cssClass]="'form-control'"
+                  [labelCssClass]="'col-sm-2 col-form-label'"
+                  [required]="true"
+                  [options]="{
+                    preferredCountries: [''],
+                    localizedCountries: {},
+                    onlyCountries: [
+                      'ZA',
+                      'DZ',
+                      'AO',
+                      'BW',
+                      'BF',
+                      'BI',
+                      'BJ',
+                      'CM',
+                      'CV',
+                      'KM',
+                      'CI',
+                      'DJ',
+                      'EG',
+                      'ER',
+                      'ET',
+                      'GA',
+                      'GM',
+                      'GH',
+                      'GN',
+                      'GQ',
+                      'GW',
+                      'KE',
+                      'LS',
+                      'LR',
+                      'LY',
+                      'MG',
+                      'MW',
+                      'ML',
+                      'MA',
+                      'MU',
+                      'MR',
+                      'MZ',
+                      'NA',
+                      'NE',
+                      'NG',
+                      'UG',
+                      'RW',
+                      'CF',
+                      'CG',
+                      'CD',
+                      'SC',
+                      'SL',
+                      'SO',
+                      'SD',
+                      'SS',
+                      'SZ',
+                      'ST',
+                      'SN',
+                      'TZ',
+                      'TD',
+                      'TG',
+                      'TN',
+                      'ZM',
+                      'ZW'
+                    ]
+                  }"
+                  [onlyLocalized]="true"
+                  [(E164PhoneNumber)]="E164PhoneNumber"
+                ></intl-tel-input>
+              </form>
               <div id="Form2">
                 <div class="WHAT">
                   <label id="PrincipaleTitle" for="exampleInputPassword1"
@@ -177,7 +125,7 @@
                       id="exampleInputPassword3"
                       name="exampleInputPassword3"
                       ngModel
-                      (click)="AfficheSide3 ()"
+                      (click)="AfficheSide3()"
                       [ngClass]="InputControl3"
                     />
                   </div>
@@ -200,7 +148,7 @@
                     max="10"
                     min="1"
                     required
-                    (click)="AfficheSide4 ()"
+                    (click)="AfficheSide4()"
                     [ngClass]="InputControl4"
                   />
                 </div>
@@ -210,38 +158,33 @@
                       <label for="exampleInputEmail1"
                         >SET TRANSACTION DEADLINE</label
                       >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="exampleInputPassword5"
-                        name="exampleInputPassword5"
-                        aria-describedby="emailHelp"
-                        ngModel
-                        minlength="1"
-                        max="10"
-                        min="1"
-                        required
-                        (click)="AfficheSide5 ()"
-                        [ngClass]="InputControl5"
-                      />
-                    </div>
-                    <div class="col" id="mat-radio-button">
-                      <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button
-                          class="mat-radio-button"
-                          color="primary"
-                          value="1"
-                          >HOURS</mat-radio-button
-                        >
-                        <mat-radio-button
-                          class="mat-radio-button"
-                          color="primary"
-                          value="2"
-                          >DAYS</mat-radio-button
-                        >
-                      </mat-radio-group>
+                      <div class="row">
+                        <div class="col-xs-12 col-12 col-md-4 form-group">
+                          <input
+                           (click)='AfficheSide5()'
+                            type="text"
+                            placeholder="Datepicker"
+                            class="form-control"
+                            bsDatepicker
+                            [datesDisabled]="disabledDates"
+                            [disabled]='DateDisableOrNot'
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </div>
+                <div class="md-form" id="TimeInput">
+                  <label for="input">CHOOSE YOU TIME</label>
+                  <input
+                   (click)='AfficheSide6()'
+                    type="time"
+                    id="input"
+                    class="form-control"
+                    value="13:00"
+                    mdbInput
+                    [disabled]='TimeDisabledOrNot'
+                  />
                 </div>
                 <div id="PetitInput3">
                   <label for="exampleInputEmail1">REQUIREMENTS</label>
@@ -250,15 +193,13 @@
                     id="exampleInputPassword6"
                     name="exampleInputPassword6"
                     rows="3"
-                    (click)="AfficheSide6 ()"
+                    (click)="AfficheSide7()()"
                     ngModel
-                    [ngClass]="InputControl6"
+                    [ngClass]="InputControl7"
                   ></textarea>
                 </div>
                 <div class="Link">
-                  <a class="nav-link" (click)="AfficheSide7 ()" 
-                    >Attached file</a
-                  >
+                  <a class="nav-link" (click)="AfficheSide7()">Attached file</a>
                 </div>
                 <div class="container">
                   <div class="row">
@@ -276,9 +217,9 @@
         </div>
       </div>
       <div class="col-sm">
-        <div class="container" id="CARDS" >
+        <div class="container" id="CARDS">
           <div class="col" id="card1" *ngIf="BoolAffichage1">
-            <div class="card w-100" >
+            <div class="card w-100">
               <div class="card-body">
                 <div class="row">
                   <div class="col-2 local_offer">
@@ -304,8 +245,8 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the Phone number of the Seller.Make sure
-                      he has a Noworri's Account otherwise invite hime HERE
+                      Enter the Phone number of the Seller.Make sure he has a
+                      Noworri's Account otherwise invite hime HERE
                     </p>
                   </div>
                 </div>
@@ -401,4 +342,5 @@
       </div>
     </div>
   </form>
+  
 </div>

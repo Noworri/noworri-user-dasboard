@@ -1,6 +1,7 @@
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EscrowStep1RoutingModule } from './escrow-step1-routing.module';
 import { EscrowStep1Component } from './escrow-step1.component';
@@ -10,11 +11,16 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import {MatRadioModule} from '@angular/material/radio'; 
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+ 
+ 
 
 
 @NgModule({
   declarations: [EscrowStep1Component],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     EscrowStep1RoutingModule,
     SharedModule, 
@@ -24,7 +30,10 @@ import {MatRadioModule} from '@angular/material/radio';
     MatCheckboxModule,
     MatRadioModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule
+   
+   
   ]
 })
 export class EscrowStep1Module { }

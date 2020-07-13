@@ -50,6 +50,10 @@ import { ContratVendeurComponent } from './theme/contrat-vendeur/contrat-vendeur
 import { SettingsComponent } from './theme/settings/settings.component';
 import { ApiIntegrationComponent } from './theme/api-integration/api-integration.component';
 import {IntlTelInputNgModule} from 'intl-tel-input-ng'
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { EditorModule } from "@tinymce/tinymce-angular";
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 
 @NgModule({
   declarations: [
@@ -96,7 +100,11 @@ import {IntlTelInputNgModule} from 'intl-tel-input-ng'
     ReactiveFormsModule,
     CollapseModule.forRoot(),
     HttpClientModule,
-    IntlTelInputNgModule.forRoot()
+    IntlTelInputNgModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    NgxMaterialTimepickerModule,
+    AmazingTimePickerModule,
+    EditorModule
   ],
   schemas: [],
   providers: [MenuItems, HomeInputService, RegisterService, BsModalRef],
