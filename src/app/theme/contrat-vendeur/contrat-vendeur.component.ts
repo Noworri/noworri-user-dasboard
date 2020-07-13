@@ -12,6 +12,8 @@ export class ContratVendeurComponent implements OnInit {
   message3:string='Hide'
   message4: string = 'keyboard_arrow_down';
 
+  ShowOrNotOpenNoteInput:boolean
+
   constructor() { }
 
   ngOnInit() {
@@ -33,6 +35,9 @@ export class ContratVendeurComponent implements OnInit {
     this.message3='Hide'
     this.message4='keyboard_arrow_up'
   }
- 
 
+
+  OpenNoteInput(){
+    this.ShowOrNotOpenNoteInput=true
+  }
 }
