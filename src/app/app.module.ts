@@ -54,7 +54,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { EditorModule } from "@tinymce/tinymce-angular";
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
-
+import {NgPaymentCardModule}   from 'ng-payment-card';
+import { MerchandiseEscrowStep1Component } from './theme/merchandise-escrow-step1/merchandise-escrow-step1.component';
+import { MerchandiseEscrowStep2Component } from './theme/merchandise-escrow-step2/merchandise-escrow-step2.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +80,9 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
    ContratAcheteurComponent,
    ContratVendeurComponent,
    SettingsComponent,
-   ApiIntegrationComponent
+   ApiIntegrationComponent,
+   MerchandiseEscrowStep1Component,
+   MerchandiseEscrowStep2Component
  
   ],
   imports: [
@@ -104,7 +108,8 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
     BsDatepickerModule.forRoot(),
     NgxMaterialTimepickerModule,
     AmazingTimePickerModule,
-    EditorModule
+    EditorModule,
+    NgPaymentCardModule
   ],
   schemas: [],
   providers: [MenuItems, HomeInputService, RegisterService, BsModalRef],

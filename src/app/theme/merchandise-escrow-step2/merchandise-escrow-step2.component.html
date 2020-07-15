@@ -1,0 +1,66 @@
+<div class="card" style="width: 40rem;">
+  <div class="card-body">
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Go back</a>
+      </li>
+    </ul>
+    <div id="Merchandise">
+      <h5>Merchandise: Step 2 of 2</h5>
+    </div>
+    <hr />
+    <div class="PleaseProvide">
+      <h5>Please provide payment details.</h5>
+    </div>
+    <div class="Wereabout">
+      <h5>We're about to secure</h5>
+    </div>
+    <div class="MultiSpan">
+      <p>
+        <sup class="cidis">
+        <img src="assets\cidies.png">
+        </sup>
+        <span class="Mony"> 180</span>
+        <span class="float">
+          .58
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="Select">
+  <h5>Select your payment methode</h5>
+</div>
+<div class="RadioButton" [formGroup]='Form'>
+  <mat-radio-group formControlName='creditCardValue' (change)='DisplayCardOrWallet()'  aria-label="Select an option">
+    <mat-radio-button     class="creditCard" color='primary' value="creditCard">Credit Cart</mat-radio-button>
+    <mat-radio-button  class="MobileWalet" color='primary' value="MobileWallet">Mobile Wallet</mat-radio-button>
+  </mat-radio-group>
+</div>
+<div class="card2"  *ngIf='Mobilewalet'   style="width: 20rem;">
+  <label class='Label1' for="inlineFormInput">Select your network</label>
+  <div class="card-body">
+    <select class="form-control form-control-sm select">
+      <option class="">MTN</option>
+      <option>VODAPHONE</option>
+      <option>AIRTELTIGO</option>
+    </select>
+    <div>
+      <label class="Label2" for="inlineFormInput"
+        >Enter mobile wallet number</label
+      >
+      <input
+        type="phone"
+        class="form-control mb-2"
+        id="inlineFormInput"
+        placeholder="0279414289"
+      />
+      <button type="button" class="btn btn-light btn-sm">Secure funds</button>
+    </div>
+  </div>
+</div>
+<div class="card card3" *ngIf='CreditCard' style="width: 30rem;">
+  <div class="card-body ng-payment">
+    <ng-payment-card></ng-payment-card>
+  </div>
+</div>
