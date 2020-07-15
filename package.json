@@ -56,6 +56,7 @@
     "jquery": "^3.3.1",
     "ng-click-outside": "^3.3.0",
     "ng-material-datetimepicker": "^1.19.5",
+    "ng-payment-card": "0.0.8",
     "ng-select": "^1.0.0-rc.5",
     "ng2-archwizard": "^2.1.0",
     "ng2-currency-mask": "^5.3.1",

@@ -66,15 +66,13 @@
             [ngClass]="navRight"
             class="nav-right"
           >
-            <li><a (click)="openModal(template)">Send funds</a></li>
-            <li><a (click)="openModal(template1)">Request funds </a></li>
+            <li><a>Get trusted</a></li>
             <li>
               <a id="Notifications"><mat-icon>notifications</mat-icon> </a>
             </li>
             <li>
               <a id="AddBussines" [routerLink]="['/payments']">Add business </a>
             </li>
-
             <li
               (clickOutside)="notificationOutsideClick('profile')"
               class="user-profile header-notification ripple light"

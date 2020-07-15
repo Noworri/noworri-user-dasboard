@@ -20,6 +20,9 @@ import { ContratAcheteurComponent } from "./theme/contrat-acheteur/contrat-achet
 import { ContratVendeurComponent } from "./theme/contrat-vendeur/contrat-vendeur.component";
 import { ApiIntegrationComponent } from './theme/api-integration/api-integration.component';
 import { SettingsComponent } from './theme/settings/settings.component';
+import { MerchandiseEscrowStep1Component } from './theme/merchandise-escrow-step1/merchandise-escrow-step1.component';
+import { MerchandiseEscrowStep2Component } from './theme/merchandise-escrow-step2/merchandise-escrow-step2.component';
+
 
 const routes: Routes = [
   {
@@ -70,6 +73,14 @@ const routes: Routes = [
       {
         path:'Settings',
         component:SettingsComponent
+      },
+      {
+        path:'escrowmerchandisestep1',
+        component:MerchandiseEscrowStep1Component
+      },
+      {
+        path:'escrowmerchandisestep2',
+        component:MerchandiseEscrowStep2Component
       }
     ],
   },

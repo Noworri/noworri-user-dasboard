@@ -108,6 +108,22 @@ const MENUITEMS = [
         icon: '',
         type: 'link',
         target: false
+      },
+      {
+        state: '',
+        short_label: 'CS',
+        name: 'escrowmerchandisestep1',
+        icon: '',
+        type: 'link',
+        target: false
+      },
+      {
+        state: '',
+        short_label: 'CS',
+        name: 'escrowmerchandisestep2',
+        icon: '',
+        type: 'link',
+        target: false
       }
     ]
   }
