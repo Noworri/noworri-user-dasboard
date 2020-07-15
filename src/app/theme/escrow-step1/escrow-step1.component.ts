@@ -6,9 +6,7 @@ import { HomeInputService } from "./../../Service/home-input.service";
 import { Component, OnInit } from "@angular/core";
 import {FormControl} from '@angular/forms';
 
-import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
-import { disableBindings } from '@angular/core/src/render3';
-
+const LOCAL_STORAGE_KEY = 'noworri-escrow-0';
 
 @Component({
   selector: "app-escrow-step1",
@@ -38,9 +36,12 @@ export class EscrowStep1Component implements OnInit {
   YourRole: string;
   //---------Messages a afficher--------//
 
-  BuyinOrSelling: string;
+  buyinOrSelling: string;
+  transactionType: string;
 
-  BuyersOrSeller: string;
+  E164PhoneNumber = '+233544990518';
+
+  buyersOrSeller: string;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
   //--------Boolean-pour activer l'affichage------------//
   BoolAffichage1: boolean;
   BoolAffichage2: boolean;
@@ -70,7 +71,15 @@ export class EscrowStep1Component implements OnInit {
     private EscrowStep1: Escrowstep1Service,
     private Router: Router
   ) {
-    
+    const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    this.transactionType = localData.transactionType;
+    if (localData.role === 'Buyer') {
+      this.buyersOrSeller = "BUYER'S";
+      this.buyinOrSelling = "BUYING";
+    } else {
+      this.buyersOrSeller = "SELLER'S";
+      this.buyinOrSelling = "SELLING";
+    }
   }
 
   ngOnInit() {

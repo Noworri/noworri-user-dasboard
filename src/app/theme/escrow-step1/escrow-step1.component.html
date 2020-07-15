@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="escrowstep1(F)" #F="ngForm">
+  <form (ngSubmit)="escrowstep1(F, form)" #F="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -16,7 +16,7 @@
               <div id="Form1">
                 <div class="form-group">
                   <label id="PrincipaleTitle" for="exampleInputEmail1"
-                    >WHAT SERVICE ARE YOU {{ BuyinOrSelling }}</label
+                    >WHAT {{transactionType | uppercase}} ARE YOU {{ buyinOrSelling }}</label
                   >
                   <input
                     type="text"

@@ -3,28 +3,84 @@ export interface CompanyReference {
   fullname: string;
   profilpicture: string;
   city: string;
-  country:string;
+  country: string;
   sector: string;
   services: string;
   address: string;
   businessphone: string;
   additionnalphone: string;
   identitycard: string;
-  identitycardfile: string,
-  identitycardverifyfile: string,
+  identitycardfile: string;
+  identitycardverifyfile: string;
   facebook: string;
   instagram: string;
   whatsapp: string;
   state: string;
   company_id: string;
-  created_at: string,
+  created_at: string;
 }
 
 export interface DisputeReference {
-  email: string,
-  phone: string,
-  city: string,
-  title: string,
-  description: string,
-  proofs: string
+  email: string;
+  phone: string;
+  city: string;
+  title: string;
+  description: string;
+  proofs: string;
+}
+
+export interface TransactionsReference {
+  id: string;
+  user_id: string;
+  user_role: string;
+  user_name: string;
+  user_phone: string;
+  owner_id: string;
+  owner_role: string;
+  owner_name: string;
+  owner_phone: string;
+  transaction_type: string;
+  service: string;
+  price: number;
+  noworri_fees: string;
+  total_price: number;
+  deadDays: string;
+  deadHours: string;
+  deadline: string;
+  start: string;
+  deadline_type: string;
+  revision: string;
+  transaction_key: string;
+  requirement: string;
+  file_path: string;
+  etat: number;
+  deleted: string;
+  created_at: string;
+  state: string;
+}
+
+export interface UserReference {
+  currentUser: {
+    account: string;
+    buyer: string;
+    code: string;
+    country: string;
+    created_at: string;
+    email: string;
+    email_verified_at: string;
+    expires_in: number;
+    first_name: string;
+    id: number;
+    mobile_phone: string;
+    name: string;
+    photo: string;
+    seller: string;
+    token: string;
+    token_type: string;
+    type: string;
+    updated_at: string;
+    user_name: string;
+    user_uid: string;
+  };
+  error: string;
 }
