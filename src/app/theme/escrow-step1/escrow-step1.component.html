@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="escrowstep1(F)" #F="ngForm">
+  <form (ngSubmit)="fescrowstep1(F, form)" #F="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -16,7 +16,7 @@
               <div id="Form1">
                 <div class="form-group">
                   <label id="PrincipaleTitle" for="exampleInputEmail1"
-                    >WHAT SERVICE ARE YOU {{ BuyinOrSelling }}</label
+                    >WHAT {{transactionType | uppercase}} ARE YOU {{ buyinOrSelling }}</label
                   >
                   <input
                     type="text"
@@ -31,20 +31,20 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1"
-                    >{{ BuyersOrSeller }} PHONE NUMBER</label
+                    >{{ buyersOrSeller }} PHONE NUMBER</label
                   >
                 </div>
               </div>
               <form #form="ngForm">
                 <intl-tel-input
                   (click)="AfficheSide2()"
-                  [name]="'my-name'"
+                  [name]="'phone_number'"
                   [cssClass]="'form-control'"
                   [labelCssClass]="'col-sm-2 col-form-label'"
                   [required]="true"
                   [options]="{
-                    preferredCountries: [''],
-                    localizedCountries: {},
+                    preferredCountries: ['GH'],
+                    localizedCountries: ['GH'],
                     onlyCountries: [
                       'ZA',
                       'DZ',
@@ -161,12 +161,14 @@
                       <div class="row">
                         <div class="col-xs-12 col-12 col-md-4 form-group">
                           <input
+                            id="exampleInputPassword5"
+                            name="exampleInputPassword5"
                            (click)='AfficheSide5()'
                             type="text"
                             placeholder="Datepicker"
                             class="form-control"
                             bsDatepicker
-                            [datesDisabled]="disabledDates"
+                            [datesDisabled]="DateDisableOrNot"
                             [disabled]='DateDisableOrNot'
                           />
                         </div>
@@ -177,6 +179,8 @@
                 <div class="md-form" id="TimeInput">
                   <label for="input">CHOOSE YOU TIME</label>
                   <input
+                  id="exampleInputPassword6"
+                  name="exampleInputPassword6"
                    (click)='AfficheSide6()'
                     type="time"
                     id="input"
@@ -190,10 +194,10 @@
                   <label for="exampleInputEmail1">REQUIREMENTS</label>
                   <textarea
                     class="form-control"
-                    id="exampleInputPassword6"
-                    name="exampleInputPassword6"
+                    id="exampleInputPassword7"
+                    name="exampleInputPassword7"
                     rows="3"
-                    (click)="AfficheSide7()()"
+                    (click)="AfficheSide7()"
                     ngModel
                     [ngClass]="InputControl7"
                   ></textarea>

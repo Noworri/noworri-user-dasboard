@@ -5,7 +5,7 @@
       <div class="col"></div>
       <div class="col"></div>
       <div class="col boutton">
-        <button type="button" class="btn btn-light btn-sm">Sign out</button>
+        <button type="button" class="btn btn-light btn-sm" (click)=logout()>Sign out</button>
       </div>
     </div>
     <div class="h6">
@@ -16,19 +16,13 @@
         <h6>First Name</h6>
       </div>
       <div class="row" id="backgr">
-        <h6>Kader</h6>
+        <h6>{{ first_name }}</h6>
       </div>
       <div class="row titre">
         <h6>Last Name</h6>
       </div>
       <div class="row" id="backgr">
-        <h6>Saka</h6>
-      </div>
-      <div class="row titre">
-        <h6>Username</h6>
-      </div>
-      <div class="row" id="backgr">
-        <h6>@rock</h6>
+        <h6>{{ name }}</h6>
       </div>
       <div class="row titre">
         <h6>Country</h6>
@@ -40,30 +34,30 @@
         <h6>Phone Number</h6>
       </div>
       <div class="row" id="backgr">
-        <h6>+233279414289</h6>
+        <h6>{{ mobile_phone }}</h6>
       </div>
       <div class="row titre">
         <h6>Email Address</h6>
       </div>
       <div class="row" id="backgr">
         <div class="col" id="speci1">
-          <h6>kader@noworri.com</h6>
+          <h6>{{ email }}</h6>
         </div>
-        <div class="col" id="speci4">
+        <!-- <div class="col" id="speci4">
           <mat-icon (click)="openModal4(template4)">create</mat-icon>
-        </div>
+        </div> -->
       </div>
       <div class="row titre">
         <h6>Address</h6>
       </div>
-      <div class="row" id="backgr">
+      <!-- <div class="row" id="backgr">
         <div class="col" id="speci2">
           <h6>Achimota 52 street, Kumasi road behind mall</h6>
         </div>
         <div class="col" id="speci4">
           <mat-icon (click)="openModal3(template3)">create</mat-icon>
         </div>
-      </div>
+      </div> -->
       <div class="row titre">
         <h6>Passwords</h6>
       </div>

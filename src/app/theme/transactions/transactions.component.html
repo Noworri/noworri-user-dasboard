@@ -3,8 +3,7 @@
     <div class="col-sm-12">
       <div id="app-card">
         <app-card>
-         
-          <div class="container" id="container1">
+          <!-- <div class="container" id="container1">
             <div class="row">
               <div class="col-sm" id="Active">
                 <button mat-button><h6 class="active">Active</h6></button>
@@ -16,8 +15,8 @@
                 <button mat-button><h6 class="h6">Cancelled</h6></button>
               </div>
             </div>
-          </div>
-          <div class="container" id="container2">
+          </div> -->
+          <!-- <div class="container" id="container2">
             <div class="row">
               <div class="col-sm">
                 <h6>Transaction ID</h6>
@@ -32,11 +31,11 @@
                 <h6>Noworri Fee</h6>
               </div>
               <div class="col-sm">
-                <h6>Noworri Fee</h6>
+                <h6>status</h6>
               </div>
             </div>
-          </div>
-          <div class="container" id="container3">
+          </div> -->
+          <!-- <div class="container" id="container3">
             <div class="row">
               <div class="col-sm">
                 <h6>45211552215</h6>
@@ -56,10 +55,124 @@
                 </div>
               </div>
             </div>
+          </div> -->
+            <!-- <table [dataSource]="tableData" mat-table class="full-width-table" matSort aria-label="Elements">
+              <! -- Id Column -- >
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+                <mat-cell *matCellDef="let columns">{{columns.id}}</mat-cell>
+              </ng-container>
+        
+              <! -- Title Column -- >
+              <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+                <mat-cell *matCellDef="let columns">{{columns.title}}</mat-cell>
+              </ng-container>
+              < !-- Topic Column -- >
+              <ng-container matColumnDef="topic">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Topic</mat-header-cell>
+                <mat-cell *matCellDef="let columns">{{columns.topic}}</mat-cell>
+              </ng-container>
+            <! -- Subtopic Column -- >
+              <ng-container matColumnDef="subtopic">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Subtopic</mat-header-cell>
+                <mat-cell *matCellDef="let columns">{{columns.subtopic}}</mat-cell>
+              </ng-container>
+              <!- - Type Column -- >
+              <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                <mat-cell *matCellDef="let columns">{{columns.type}}</mat-cell>
+              </ng-container>
+        
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </table>
+        
+            <mat-paginator #paginator
+                [pageIndex]="0"
+                [pageSize]="20"
+                [pageSizeOptions]="[25, 50, 100, 250]">
+            </mat-paginator> -->
+            <!-- <ng-data-table>
+              [id]="'transactions'"
+              [title]="'Transactions'"
+              [showLoadingSpinner]="false"
+              [items]="tableData"
+              [pageable]="true"
+              [page]="1"
+              [limit]="20"
+              [minContentHeight]="200"
+              <ng-data-table-column>
+                [field]="'transaction_key'"
+                [title]="'Transaction ID'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              </ng-data-table-column>
+              <ng-data-table-column>
+                [field]="'transaction_key'"
+                [title]="'Transaction ID'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              </ng-data-table-column>
+              <ng-data-table-column>
+                [field]="'transaction_type'"
+                [title]="'Transaction Type'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              </ng-data-table-column>
+              <ng-data-table-column>
+                [field]="'price'"
+                [title]="'Amount'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              </ng-data-table-column>
+              <ng-data-table-column>
+                [field]="'noworri_fees'"
+                [title]="'Noworri Fee'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              </ng-data-table-column>
+              <ng-data-table-column>
+                [field]="'state'"
+                [title]="'Status'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              </ng-data-table-column>
+            </ng-data-table> -->
+          <div class="table-data">
+            <table class="table table-bordered table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Transaction ID</th>
+                  <th>Transaction Type</th>
+                  <th>Amount</th>
+                  <th>Noworri Fee</th>
+                  <th>status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of tableData">
+                  <td>{{ item.transaction_key }}</td>
+                  <td>{{ item.transaction_type }}</td>
+                  <td>{{ item.price }}</td>
+                  <td>{{ item.noworri_fees }}</td>
+                  <td>{{ item.state }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div #noDataMessage  *ngIf="hasNoTransactions">
+              <h4 text-align="center">
+                NO TRANSACTIONS CREATED YET
+              </h4>
+            </div>
           </div>
-          
-          <div class="Prolongement">
-          </div>
+          <div class="Prolongement"></div>
         </app-card>
       </div>
     </div>

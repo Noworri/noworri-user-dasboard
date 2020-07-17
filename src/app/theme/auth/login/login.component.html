@@ -23,7 +23,10 @@
                 <div class="form-group form-primary">
                   <mat-form-field class="col-md-12" >
                     <mat-label>Password</mat-label>
-                    <input type="tel" matInput  formControlName='password'/>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName='password'/>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-lavel]="'hide password'" [attr.aria-pressed]="hide" >
+                      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
                   </mat-form-field>
                 </div>
                 <div class="row m-t-25 text-left">
@@ -54,9 +57,22 @@
                       class="btn btn-primary btn-md btn-block text-center m-b-20 ripple light"
                       (click)='OnLogin()'
                     >
+                    <div *ngIf="isValidating" class="Loading">
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Validating...
+                    </div>
+                    <div *ngIf="!isValidating">
                       Sign in
+                    </div>
                     </button>
                   </div>
+                </div>
+                <div *ngIf="!isValidUser" class="alert alert-danger" role="alert">
+                  Invalid phone Number/password! Please enter valid credentials.
                 </div>
                 <hr />
                 <div class="row">

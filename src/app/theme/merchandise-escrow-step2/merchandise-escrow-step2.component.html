@@ -2,7 +2,7 @@
   <div class="card-body">
     <ul class="nav justify-content-end">
       <li class="nav-item">
-        <a class="nav-link" href="#">Go back</a>
+        <a (click)="goBack()">Go back</a>
       </li>
     </ul>
     <div id="Merchandise">
@@ -20,11 +20,18 @@
         <sup class="cidis">
         <img src="assets\cidies.png">
         </sup>
+<<<<<<< HEAD
         <span class="Mony"> 5080</span>
         <span class="float">
           .58
         </span>
+=======
+        <span class="Mony">{{ amount }}</span>
+>>>>>>> 17a6f2bef0252e82b4b45691e8f163480d5429bd
       </p>
+    </div>
+    <div class="MultiSpan">
+      <h5>for {{ item }}</h5>
     </div>
   </div>
 </div>
@@ -59,8 +66,22 @@
     </div>
   </div>
 </div>
-<div class="card card3" *ngIf='CreditCard' style="width: 30rem;">
+<div class="card2">
+  <div *ngIf="isValidating" class="Loading">
+    <button >
+      <span
+      class="spinner-border spinner-border-sm"
+      role="status"
+      aria-hidden="true"
+    ></span>
+    processing...
+    </button>
+  </div>
+  <button *ngIf='CreditCard && !isValidating' type="button" class="btn btn-light btn-sm" (click)="onCardPay()">Secure funds</button>
+</div>
+
+<!-- <div class="card card3" *ngIf='CreditCard' style="width: 30rem;">
   <div class="card-body ng-payment">
     <ng-payment-card></ng-payment-card>
   </div>
-</div>
+</div> -->

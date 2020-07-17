@@ -20,17 +20,31 @@ import { ApiIntegrationComponent } from './theme/api-integration/api-integration
 import { SettingsComponent } from './theme/settings/settings.component';
 import { MerchandiseEscrowStep1Component } from './theme/merchandise-escrow-step1/merchandise-escrow-step1.component';
 import { MerchandiseEscrowStep2Component } from './theme/merchandise-escrow-step2/merchandise-escrow-step2.component';
+import { LoginComponent } from "./theme/auth/login/login.component";
+import { RegisterComponent } from "./theme/auth/register/register.component";
 import { BuyerServicesContratComponent } from './theme/buyer-services-contrat/buyer-services-contrat.component';
 import { SellerServicesContratComponent } from './theme/seller-services-contrat/seller-services-contrat.component';
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
 
-
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "admin",
+    redirectTo: "auth/login",
     pathMatch: "full",
+  },
+  {
+    path: "auth",
+    children: [
+      {
+        path: "register",
+        component: RegisterComponent,
+      },
+      {
+        path: "login",
+        component: LoginComponent,
+      },
+    ],
   },
   {
     path: "",
@@ -74,7 +88,7 @@ const routes: Routes = [
       },
       {
         path: "buyermerchandisecontrat",
-        component: BuyerMerchandiseContratComponent,
+        component:BuyerMerchandiseContratComponent,
       },
       
       {
