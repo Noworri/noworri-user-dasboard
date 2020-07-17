@@ -22,13 +22,27 @@ import { ApiIntegrationComponent } from './theme/api-integration/api-integration
 import { SettingsComponent } from './theme/settings/settings.component';
 import { MerchandiseEscrowStep1Component } from './theme/merchandise-escrow-step1/merchandise-escrow-step1.component';
 import { MerchandiseEscrowStep2Component } from './theme/merchandise-escrow-step2/merchandise-escrow-step2.component';
-
+import { LoginComponent } from "./theme/auth/login/login.component";
+import { RegisterComponent } from "./theme/auth/register/register.component";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "admin",
+    redirectTo: "auth/login",
     pathMatch: "full",
+  },
+  {
+    path: "auth",
+    children: [
+      {
+        path: "register",
+        component: RegisterComponent,
+      },
+      {
+        path: "login",
+        component: LoginComponent,
+      },
+    ],
   },
   {
     path: "",

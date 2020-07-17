@@ -12,6 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import {MatRadioModule} from '@angular/material/radio'; 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { IntlTelInputNgModule } from 'intl-tel-input-ng';
 
  
  
@@ -31,7 +32,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    IntlTelInputNgModule
    
    
   ]
