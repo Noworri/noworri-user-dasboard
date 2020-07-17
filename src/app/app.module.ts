@@ -45,8 +45,6 @@ import { HomeComponent } from './theme/home/home.component';
 import { TransactionsComponent } from './theme/transactions/transactions.component';
 import { EscrowStep1Component } from './theme/escrow-step1/escrow-step1.component';
 import { EscrowStep2Component } from './theme/escrow-step2/escrow-step2.component';
-import { ContratAcheteurComponent } from './theme/contrat-acheteur/contrat-acheteur.component';
-import { ContratVendeurComponent } from './theme/contrat-vendeur/contrat-vendeur.component';
 import { SettingsComponent } from './theme/settings/settings.component';
 import { ApiIntegrationComponent } from './theme/api-integration/api-integration.component';
 import {IntlTelInputNgModule} from 'intl-tel-input-ng'
@@ -57,6 +55,10 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
 import {NgPaymentCardModule}   from 'ng-payment-card';
 import { MerchandiseEscrowStep1Component } from './theme/merchandise-escrow-step1/merchandise-escrow-step1.component';
 import { MerchandiseEscrowStep2Component } from './theme/merchandise-escrow-step2/merchandise-escrow-step2.component';
+import { BuyerServicesContratComponent } from './theme/buyer-services-contrat/buyer-services-contrat.component';
+import { SellerServicesContratComponent } from './theme/seller-services-contrat/seller-services-contrat.component';
+import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
+import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,12 +79,14 @@ import { MerchandiseEscrowStep2Component } from './theme/merchandise-escrow-step
    TransactionsComponent,
     EscrowStep1Component,
     EscrowStep2Component,
-   ContratAcheteurComponent,
-   ContratVendeurComponent,
    SettingsComponent,
    ApiIntegrationComponent,
    MerchandiseEscrowStep1Component,
-   MerchandiseEscrowStep2Component
+   MerchandiseEscrowStep2Component,
+   BuyerServicesContratComponent,
+   SellerServicesContratComponent,
+   BuyerMerchandiseContratComponent,
+   SellerMerchandiseContratComponent
  
   ],
   imports: [
