@@ -13,7 +13,7 @@ const SESSION_STORAGE_KEY = 'noworri-user-session';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit,OnDestroy {
-  unsubscribe = new Subject<Object>();
+  unsubscribe = new Subject();
   tableData: any;
   userId: string;
   hasNoTransactions = false;
@@ -36,7 +36,7 @@ export class TransactionsComponent implements OnInit,OnDestroy {
   ngOnInit() {
     console.log('userId', this.userId);
     this.loadTransactions(this.userId);
-    this.testPayment();
+    // this.testPayment();
   }
 
   ngOnDestroy() {
@@ -45,8 +45,8 @@ export class TransactionsComponent implements OnInit,OnDestroy {
   }
 
   loadTransactions(userId: string) {
-    userId = 'a9twRK1JpPPQDrB6hNvfAr2ju682'
-    this.transactionsService.getUerTranactions(userId).pipe(takeUntil(this.unsubscribe)).subscribe(
+    // userId = 'a9twRK1JpPPQDrB6hNvfAr2ju682' this is a test User_uid
+    this.transactionsService.getUserTranactions(userId).pipe(takeUntil(this.unsubscribe)).subscribe(
       transactions => {
         this.tableData = transactions;
         this.hasNoTransactions = transactions.length === 0 ? true : false; 
@@ -55,32 +55,32 @@ export class TransactionsComponent implements OnInit,OnDestroy {
     );
   }
 
-  testPayment() {
-    const body = {
-      "paymentDetails": {
-          "requestId": "4466",
-          "productCode":"GMT112",
-          "amount": "50035",
-          "currency": "GBP",
-          "locale": "en_AU",
-          "orderInfo": "255s353",
-          "returnUrl": "https://unifiedcallbacks.com/corporateclbkservice/callback/qr"
-      },
-      "merchantDetails": {
-          "accessCode": "79742570",
-          "merchantID": "ETZ001",
-          "secureSecret": "sdsffd"
-      },
-      "secureHash":"7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855"
-  };   
-      this.transactionsService.processPayment(body).pipe(takeUntil(this.unsubscribe)).subscribe(
-      response => {
-        this.paymentResponse = response
-        console.log(response);
-        return this.paymentResponse;
-      },
-      error => console.log(error.message)
-    );
-  }
+  // testPayment() {
+  //   const body = {
+  //     "paymentDetails": {
+  //         "requestId": "4466",
+  //         "productCode":"GMT112",
+  //         "amount": "50035",
+  //         "currency": "GBP",
+  //         "locale": "en_AU",
+  //         "orderInfo": "255s353",
+  //         "returnUrl": "https://unifiedcallbacks.com/corporateclbkservice/callback/qr"
+  //     },
+  //     "merchantDetails": {
+  //         "accessCode": "79742570",
+  //         "merchantID": "ETZ001",
+  //         "secureSecret": "sdsffd"
+  //     },
+  //     "secureHash":"7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855"
+  // };   
+  //     this.transactionsService.processPayment(body).pipe(takeUntil(this.unsubscribe)).subscribe(
+  //     response => {
+  //       this.paymentResponse = response
+  //       console.log(response);
+  //       return this.paymentResponse;
+  //     },
+  //     error => console.log(error.message)
+  //   );
+  // }
 
 }

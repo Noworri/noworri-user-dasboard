@@ -1,21 +1,21 @@
-import { Router } from '@angular/router'
-import { HomeInputService } from './../../Service/home-input.service'
+import { Router } from "@angular/router";
+import { HomeInputService } from "./../../Service/home-input.service";
 
-import { Component, OnInit } from '@angular/core'
-import { from } from 'rxjs'
-import { NgForm } from '@angular/forms'
+import { Component, OnInit } from "@angular/core";
+import { from } from "rxjs";
+import { NgForm } from "@angular/forms";
 
-const LOCAL_STORAGE_KEY = 'noworri-escrow-0';
+const LOCAL_STORAGE_KEY = "noworri-escrow-0";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
   InputControl = "custom-select ValidationColor";
 
-  constructor (
+  constructor(
     private HomeInputService: HomeInputService,
     private Router: Router
   ) {}
@@ -34,18 +34,24 @@ export class HomeComponent implements OnInit {
     } else if (
       this.HomeInputService.DataInputHome.TypeOfTransation == "Merchandise"
     ) {
-      this.Router.navigate(["/escrowmerchandisestep1"]);
-    } else {
-      this.InputControl = 'custom-select ValidationColor is-valid'
       const escrow0Data = {
         transactionType: this.HomeInputService.DataInputHome.TypeOfTransation,
-        role: this.HomeInputService.DataInputHome.YourRole
-      }
+        role: this.HomeInputService.DataInputHome.YourRole,
+      };
       const escrow0LocalData = JSON.stringify(escrow0Data);
-      localStorage.setItem(LOCAL_STORAGE_KEY, escrow0LocalData)
+      localStorage.setItem(LOCAL_STORAGE_KEY, escrow0LocalData);
+      this.Router.navigate(["/escrowmerchandisestep1"]);
+    } else {
+      this.InputControl = "custom-select ValidationColor is-valid";
+      const escrow0Data = {
+        transactionType: this.HomeInputService.DataInputHome.TypeOfTransation,
+        role: this.HomeInputService.DataInputHome.YourRole,
+      };
+      const escrow0LocalData = JSON.stringify(escrow0Data);
+      localStorage.setItem(LOCAL_STORAGE_KEY, escrow0LocalData);
       setTimeout(() => {
-        this.Router.navigate(['/escrowstep1'])
-      }, 1000)
+        this.Router.navigate(["/escrowstep1"]);
+      }, 1000);
     }
   }
 }

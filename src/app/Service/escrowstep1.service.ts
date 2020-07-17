@@ -10,7 +10,8 @@ export class Escrowstep1Service {
     inputGroupSelect3:any
     inputGroupSelect4:any
     inputGroupSelect5:any
-    inputGroupSelect6:string
+    inputGroupSelect6:any
+    inputGroupSelect7:string
 
   constructor() { }
 }

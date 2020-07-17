@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="escrowstep1(F)" #F="ngForm">
+  <form (ngSubmit)="onCompleteStep1(F, formDelivery, formSeller)" #F="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -21,17 +21,17 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleInputPassword1"
-                    name="exampleInputPassword1"
+                    id="item"
+                    name="item"
                     ngModel
                     aria-describedby="emailHelp"
                     (click)="AfficheSide1()"
-                    [ngClass]="InputControl1"
+                    [ngClass]="itemControl"
                   />
                 </div>
               </div>
               <div id="Form2">
-                <label id="PrincipaleTitle" for="exampleInputPassword1"
+                <label id="PrincipaleTitle" for="price"
                   >What's the price ?</label
                 >
                 <label
@@ -45,11 +45,11 @@
                       type="text"
                       style="width: 420px;"
                       class="form-control"
-                      id="exampleInputPassword3"
-                      name="exampleInputPassword3"
+                      id="price"
+                      name="price"
                       ngModel
                       (click)="AfficheSide3()"
-                      [ngClass]="InputControl3"
+                      [ngClass]="priceControl"
                     />
                   </div>
                   <div class="col">
@@ -59,21 +59,21 @@
                     </div>
                   </div>
                   <p class="NoworriFee">Noworri Fees :</p>
-                  <span class="fee"> 2.58</span>
+                  <span class="fee">1.95% of the price</span>
                 </div>
 
                 <div id="PetitInput1">
-                  <label class="Sellersphone ">Seller's phone number</label>
-                  <form #form="ngForm">
-                    <intl-tel-input 
+                  <label class="Sellersphone">Seller's phone number</label>
+                  <form #formSeller="ngForm">
+                    <intl-tel-input
                       (click)="AfficheSide2()"
-                      [name]="'my-name'"
+                      [name]="'sellerPhoneNumber'"
                       [cssClass]="'form-control'"
                       [labelCssClass]="'col-sm-2 col-form-label'"
                       [required]="true"
                       [options]="{
-                        preferredCountries: [''],
-                        localizedCountries: {},
+                        preferredCountries: ['GH'],
+                        localizedCountries: ['GH'],
                         onlyCountries: [
                           'ZA',
                           'DZ',
@@ -134,6 +134,8 @@
                       [onlyLocalized]="true"
                       [(E164PhoneNumber)]="E164PhoneNumber"
                     ></intl-tel-input>
+                    <mat-error *ngIf="!Accept2 && !isValidNumber &&!isValidSeller">invalid phone number</mat-error>
+                    <mat-error *ngIf="!isValidSeller && isValidNumber">this Seller is not registered on Noworri</mat-error>
                   </form>
                 </div>
                 <div id="PetitInput2">
@@ -143,16 +145,16 @@
                     leave it empty the seller will fill it.
                   </p>
                   <div class="inp">
-                    <form #form="ngForm">
+                    <form #formDelivery="ngForm">
                       <intl-tel-input
                         (click)="AfficheSide2()"
-                        [name]="'my-name'"
+                        [name]="'deliveryPhoneNumber'"
                         [cssClass]="'form-control'"
                         [labelCssClass]="'col-sm-2 col-form-label'"
                         [required]="true"
                         [options]="{
-                          preferredCountries: [''],
-                          localizedCountries: {},
+                          preferredCountries: ['GH'],
+                          localizedCountries: ['GH'],
                           onlyCountries: [
                             'ZA',
                             'DZ',
@@ -215,26 +217,25 @@
                       ></intl-tel-input>
                     </form>
                   </div>
-                  
                 </div>
 
                 <div id="PetitInput3">
                   <label for="exampleInputEmail1">Descriptions</label>
                   <textarea
                     class="form-control"
-                    id="exampleInputPassword6"
-                    name="exampleInputPassword6"
+                    id="description"
+                    name="description"
                     rows="3"
-                    (click)="AfficheSide7()"
+                    (click)="AfficheSide5()"
                     ngModel
-                    [ngClass]="InputControl7"
+                    [ngClass]="descriptionControl"
                   ></textarea>
                 </div>
                 <div class="container">
                   <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm">
-                      <button type="submit" (click)='RoutToStep2()'   class="btn btn-primary btn-sm">
+                      <button type="submit" class="btn btn-primary btn-sm">
                         Continue
                       </button>
                     </div>
@@ -351,16 +352,17 @@
             </div>
           </div>
           <div class="col" id="card7">
-            <div class="card w-100" *ngIf="BoolAffichage7">
+            <div class="card w-100" *ngIf="BoolAffichage6">
               <div class="card-body">
                 <div class="row">
                   <div class="col-2 local_offer">
                     <mat-icon class="local"> local_offer</mat-icon>
+                    <input type="file" />
                   </div>
                   <div class="col">
                     <p>
                       Attache a file if you have one, it could be an example of
-                      th work you want
+                      the work you want
                     </p>
                   </div>
                 </div>

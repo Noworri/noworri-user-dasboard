@@ -1,4 +1,5 @@
 export interface CompanyReference {
+  user_id: string;
   businessname: string;
   fullname: string;
   profilpicture: string;
@@ -83,4 +84,12 @@ export interface UserReference {
     user_uid: string;
   };
   error: string;
+}
+
+export interface MerchandiseEscrowstep1Reference {
+  item:string;
+  sellerPhoneNumber:string;
+  deliveryPhoneNumber:any;
+  price:any;
+  description:any;
 }

@@ -24,8 +24,9 @@ export class LoginComponent implements OnInit {
   allowedCountries = countryISO;
   isValidUser = true;
   isValidating = false;
+  hide = true;
 
-  unsubscribe = new Subject<Object>();
+  unsubscribe = new Subject();
 
   phone_number: any;
   password: any;

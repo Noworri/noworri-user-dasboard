@@ -4,9 +4,8 @@ import { FormGroup, FormBuilder, NgForm } from "@angular/forms";
 import { HomeInputService } from "./../../Service/home-input.service";
 
 import { Component, OnInit } from "@angular/core";
-import {FormControl} from '@angular/forms';
 
-const LOCAL_STORAGE_KEY = 'noworri-escrow-0';
+const LOCAL_STORAGE_KEY = "noworri-escrow-0";
 
 @Component({
   selector: "app-escrow-step1",
@@ -14,34 +13,22 @@ const LOCAL_STORAGE_KEY = 'noworri-escrow-0';
   styleUrls: ["./escrow-step1.component.scss"],
 })
 export class EscrowStep1Component implements OnInit {
-  
-
- 
-
-
-
-
   searchInputType1: RegExp;
   searchInputType2: RegExp;
 
-
   //-------------------Date or time variable-------------------//
 
-  DateDisableOrNot=''
+  DateDisableOrNot = "";
+  TimeDisabledOrNot = "";
 
-  TimeDisabledOrNot=''
-
-  //--------Donnee recuperees des Inputs du composant Home--------//
-  TypeOfTransation: string;
-  YourRole: string;
   //---------Messages a afficher--------//
 
   buyinOrSelling: string;
   transactionType: string;
 
-  E164PhoneNumber = '+233544990518';
+  E164PhoneNumber = "+233544990518";
 
-  buyersOrSeller: string;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+  buyersOrSeller: string;
   //--------Boolean-pour activer l'affichage------------//
   BoolAffichage1: boolean;
   BoolAffichage2: boolean;
@@ -65,6 +52,7 @@ export class EscrowStep1Component implements OnInit {
   InputControl4 = "form-control";
   InputControl5 = "form-control";
   InputControl6 = "form-control";
+  InputControl7 = "form-control";
 
   constructor(
     private HomeInputService: HomeInputService,
@@ -73,7 +61,7 @@ export class EscrowStep1Component implements OnInit {
   ) {
     const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     this.transactionType = localData.transactionType;
-    if (localData.role === 'Buyer') {
+    if (localData.role === "Buyer") {
       this.buyersOrSeller = "BUYER'S";
       this.buyinOrSelling = "BUYING";
     } else {
@@ -82,19 +70,16 @@ export class EscrowStep1Component implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.RoleMessage();
-     
-    
-  }
+  ngOnInit() {}
   //---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
-  escrowstep1(F: NgForm) {
+  fescrowstep1(F: NgForm, form) {
     this.EscrowStep1.inputGroupSelect1 = F.value["exampleInputPassword1"];
-    this.EscrowStep1.inputGroupSelect2 = F.value["exampleInputPassword2"];
+    this.EscrowStep1.inputGroupSelect2 = form.value["phone_number"];
     this.EscrowStep1.inputGroupSelect3 = F.value["exampleInputPassword3"];
     this.EscrowStep1.inputGroupSelect4 = F.value["exampleInputPassword4"];
     this.EscrowStep1.inputGroupSelect5 = F.value["exampleInputPassword5"];
     this.EscrowStep1.inputGroupSelect6 = F.value["exampleInputPassword6"];
+    this.EscrowStep1.inputGroupSelect7 = F.value["exampleInputPassword7"];
 
     if (this.EscrowStep1.inputGroupSelect1 === "") {
       this.InputControl1 = "form-control is-invalid";
@@ -139,20 +124,20 @@ export class EscrowStep1Component implements OnInit {
       this.Accept4 = false;
     }
     this.searchInputType2 = /^-?(0|[1-9]\d*)?$/;
-    if (
-      this.EscrowStep1.inputGroupSelect5 &&
-      this.EscrowStep1.inputGroupSelect5.match(this.searchInputType2)
-    ) {
-      this.InputControl5 = "form-control is-valid";
-      this.Accept5 = true;
-    } else {
-      this.InputControl5 = "form-control is-invalid";
-      this.Accept5 = false;
-    }
-    if (this.EscrowStep1.inputGroupSelect6 === "") {
+    // if (
+    //   this.EscrowStep1.inputGroupSelect5 &&
+    //   this.EscrowStep1.inputGroupSelect5.match(this.searchInputType2)
+    // ) {
+    //   this.InputControl5 = "form-control is-valid";
+    //   this.Accept5 = true;
+    // } else {
+    //   this.InputControl5 = "form-control is-invalid";
+    //   this.Accept5 = false;
+    // }
+    if (this.EscrowStep1.inputGroupSelect7 === "") {
       this.InputControl6 = "form-control is-invalid";
       this.Accept6 = false;
-    } else if (this.EscrowStep1.inputGroupSelect6) {
+    } else if (this.EscrowStep1.inputGroupSelect7) {
       this.InputControl6 = "form-control is-valid";
       this.Accept6 = true;
     }
@@ -166,22 +151,7 @@ export class EscrowStep1Component implements OnInit {
     ) {
       this.Router.navigate(["/escrowstep2"]);
     }
-  }
-
-
-
-  //-----Methode de recup et affichage de message--------//
-  RoleMessage() {
-    this.TypeOfTransation = this.HomeInputService.DataInputHome.TypeOfTransation;
-    this.YourRole = this.HomeInputService.DataInputHome.YourRole;
-    if ((this.YourRole = "Buyer")) {
-      this.BuyersOrSeller = "BUYER'S";
-      this.BuyinOrSelling = "BUYING";
-    }
-    if ((this.YourRole = "Seller")) {
-      this.BuyersOrSeller = "SELLER'S";
-      this.BuyinOrSelling = "SELLING";
-    }
+    this.Router.navigate(["/escrowstep2"]);
   }
 
   //------Affichage de chaque side a chaque click dans le chanps corespondant-----------//
@@ -228,7 +198,7 @@ export class EscrowStep1Component implements OnInit {
     }
   }
   AfficheSide5() {
-  this.Opendate()
+    this.Opendate();
     this.BoolAffichage5 = true;
     if ((this.BoolAffichage5 = true)) {
       this.BoolAffichage4 = false;
@@ -237,7 +207,7 @@ export class EscrowStep1Component implements OnInit {
     }
   }
   AfficheSide6() {
-    this.OpenTime()
+    this.OpenTime();
     this.BoolAffichage6 = true;
     if ((this.BoolAffichage6 = true)) {
       this.BoolAffichage5 = false;
@@ -254,16 +224,15 @@ export class EscrowStep1Component implements OnInit {
     }
   }
 
-
-//----------------0pen time Methode-----------------------//
-Opendate(){
-if(this.TimeDisabledOrNot==''){
-  this.TimeDisabledOrNot='disabled'
-}
-}
-OpenTime(){
-if(this.DateDisableOrNot==''){
-  this.DateDisableOrNot='disabled'
-}
-}
+  //----------------0pen time Methode-----------------------//
+  Opendate() {
+    if (this.TimeDisabledOrNot == "") {
+      this.TimeDisabledOrNot = "disabled";
+    }
+  }
+  OpenTime() {
+    if (this.DateDisableOrNot == "") {
+      this.DateDisableOrNot = "disabled";
+    }
+  }
 }

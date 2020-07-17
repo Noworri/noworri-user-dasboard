@@ -15,8 +15,8 @@
                     <h3 class="text-center txt-primary">Sign up</h3>
                   </div>
                 </div>
-                <wizard #wizard class="arc-wizard">
-                  <wizard-step stepTitle="Number">
+                <aw-wizard #wizard class="arc-wizard">
+                  <aw-wizard-step stepTitle="Number">
                     <form (ngSubmit)="onMobileNumberSubmit (f1)" #f1="ngForm">
                       <div class="centered-content">
                         <div>
@@ -49,8 +49,8 @@
                         </div>
                       </div>
                     </form>
-                  </wizard-step>
-                  <wizard-step stepTitle="Verification">
+                  </aw-wizard-step>
+                  <aw-wizard-step stepTitle="Verification">
                     <form (ngSubmit)="SubmitVerificationCode(f2)" #f2="ngForm">
                       <div class="centered-content">
                         <div>
@@ -91,8 +91,8 @@
                         </div>
                       </div>
                     </form>
-                  </wizard-step>
-                  <wizard-step id="" stepTitle="Profile">
+                  </aw-wizard-step>
+                  <aw-wizard-step id="" stepTitle="Profile">
                     <form
                       (ngSubmit)="GetProfilInformation(f3)"
                       class="md-float-material form-material"
@@ -177,8 +177,8 @@
                         </div>
                       </div>
                     </form>
-                  </wizard-step>
-                  <wizard-step stepTitle="Password">
+                  </aw-wizard-step>
+                  <aw-wizard-step stepTitle="Password">
                     <form (ngSubmit)="onRegisterSubmit (f4)" #f4="ngForm">
                       <div class="centered-content">
                         <div>
@@ -229,8 +229,8 @@
                         </div>
                       </div>
                     </form>
-                  </wizard-step>
-                </wizard>
+                  </aw-wizard-step>
+                </aw-wizard>
   
                 <hr />
                 <div class="row">

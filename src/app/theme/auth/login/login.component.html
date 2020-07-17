@@ -23,7 +23,10 @@
                 <div class="form-group form-primary">
                   <mat-form-field class="col-md-12" >
                     <mat-label>Password</mat-label>
-                    <input type="password" matInput  formControlName='password'/>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName='password'/>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-lavel]="'hide password'" [attr.aria-pressed]="hide" >
+                      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
                   </mat-form-field>
                 </div>
                 <div class="row m-t-25 text-left">
