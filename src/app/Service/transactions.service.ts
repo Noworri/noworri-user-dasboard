@@ -39,8 +39,8 @@ processPayment(body): Observable<any> {
   const amount = body.paymentDetails.amount.toString();
   
   params = params.append('amount', amount);
-
-  return this.http.post(url, body, { responseType: 'json', params: params}).pipe(
+// , { responseType: 'json', params: params}
+  return this.http.post(url, body).pipe(
     map((response) => {
       return response;
     }),

@@ -119,12 +119,13 @@ export class MerchandiseEscrowStep2Component implements OnInit {
 
   onCardPay() {
     this.isValidating = true;
+    const amount = `${this.amount}`;
     const body = {
       paymentDetails: {
         requestId: "4466",
         productCode: "GMT112",
-        amount: `${this.amount}`,
-        currency: "GHC",
+        amount: "45525.20",
+        currency: "GBP",
         locale: "en_AU",
         orderInfo: "255s353",
         returnUrl: "https://noworri.com",
@@ -137,16 +138,22 @@ export class MerchandiseEscrowStep2Component implements OnInit {
       secureHash:
         "7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855",
     };
+    const newBody = JSON.stringify(body);
+    console.log('newBody', newBody);
+    console.log('type newBody',typeof newBody);
     this.transactionsService
       .processPayment(body)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (response) => {
           this.isValidating = false;
-          if (response.response_message === "success") {
+          if (
+            response.response_message &&
+            response.response_message === "success"
+          ) {
             this.createTransaction(this.transactionDetails);
-            console.log('content', response);
-            window.open(`${response.response_content}`, '_blank');
+            console.log("content", response);
+            window.open(`${response.response_content}`, "_blank");
             // window.location.href = `${response.response_content}`;
           }
           return response;
