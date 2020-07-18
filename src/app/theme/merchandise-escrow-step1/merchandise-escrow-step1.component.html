@@ -48,7 +48,7 @@
                       id="price"
                       name="price"
                       ngModel
-                      (click)="AfficheSide3()"
+                      (click)="AfficheSide2()"
                       [ngClass]="priceControl"
                     />
                   </div>
@@ -66,7 +66,7 @@
                   <label class="Sellersphone">Seller's phone number</label>
                   <form #formSeller="ngForm">
                     <intl-tel-input
-                      (click)="AfficheSide2()"
+                      (click)="AfficheSide3()"
                       [name]="'sellerPhoneNumber'"
                       [cssClass]="'form-control'"
                       [labelCssClass]="'col-sm-2 col-form-label'"
@@ -131,11 +131,17 @@
                           'ZW'
                         ]
                       }"
+                      
                       [onlyLocalized]="true"
                       [(E164PhoneNumber)]="E164PhoneNumber"
                     ></intl-tel-input>
-                    <mat-error *ngIf="!Accept2 && !isValidNumber &&!isValidSeller">invalid phone number</mat-error>
-                    <mat-error *ngIf="!isValidSeller && isValidNumber">this Seller is not registered on Noworri</mat-error>
+                    <mat-error
+                      *ngIf="!Accept2 && !isValidNumber && !isValidSeller"
+                      >invalid phone number</mat-error
+                    >
+                    <mat-error *ngIf="!isValidSeller && isValidNumber"
+                      >this Seller is not registered on Noworri</mat-error
+                    >
                   </form>
                 </div>
                 <div id="PetitInput2">
@@ -147,7 +153,7 @@
                   <div class="inp">
                     <form #formDelivery="ngForm">
                       <intl-tel-input
-                        (click)="AfficheSide2()"
+                        (click)="AfficheSide4()"
                         [name]="'deliveryPhoneNumber'"
                         [cssClass]="'form-control'"
                         [labelCssClass]="'col-sm-2 col-form-label'"
@@ -235,7 +241,11 @@
                   <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm">
-                      <button type="submit" (click)='onCompleteStep1()' class="btn btn-primary btn-sm">
+                      <button
+                        type="submit"
+                        (click)="onCompleteStep1()"
+                        class="btn btn-primary btn-sm"
+                      >
                         Continue
                       </button>
                     </div>
@@ -257,9 +267,9 @@
                   </div>
                   <div class="col">
                     <p>
-                      Tell us what service you want to buy, it could be a a
-                      freelancer work, a contract or anything that doesn't
-                      required a tangible goods
+                      Tell us what items or products you're about to purchase
+                      from the seller. It could be a shoe, a dress , electronic,
+                      etc..
                     </p>
                   </div>
                 </div>
@@ -275,8 +285,9 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the Phone number of the Seller.Make sure he has a
-                      Noworri's Account otherwise invite hime HERE
+                      Put the price of the items or products you want to
+                      purchase. If you don't know the price kindly ask the
+                      seller.
                     </p>
                   </div>
                 </div>
@@ -292,8 +303,10 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the price of the service you want to buy, make sure
-                      both buyer and seller agree to the price
+                      Put the seller's phone number. The seller must have a
+                      Noworri account for you to be able to create this
+                      transaction. If the seller hasn't a Noworri account, tell
+                      him to create an account.
                     </p>
                   </div>
                 </div>
@@ -309,8 +322,10 @@
                   </div>
                   <div class="col">
                     <p>
-                      Select the number of time you will request to the seller
-                      to make a revision on the work he delivered
+                      Put the phone number of the deliveryman who is supposing
+                      to bring you the product or items. If you don't have the
+                      deliveryman's number, ask the seller or leave it empty the
+                      seller will fill it.
                     </p>
                   </div>
                 </div>
@@ -326,43 +341,9 @@
                   </div>
                   <div class="col">
                     <p>
-                      Define a dead time of the transaction so in case anything
-                      was not done after the end of the transaction Noworri will
-                      cancel it
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col" id="card6">
-            <div class="card w-100" *ngIf="BoolAffichage6">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-2 local_offer">
-                    <mat-icon class="local"> local_offer</mat-icon>
-                  </div>
-                  <div class="col">
-                    <p>
-                      Provide all the requirement for the work
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col" id="card7">
-            <div class="card w-100" *ngIf="BoolAffichage6">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-2 local_offer">
-                    <mat-icon class="local"> local_offer</mat-icon>
-                    <input type="file" />
-                  </div>
-                  <div class="col">
-                    <p>
-                      Attache a file if you have one, it could be an example of
-                      the work you want
+                      If you want to give more specifications of the product you
+                      want to purchase you can write it: Ex: l want 2 bags one
+                      should be bleu and the second one black.
                     </p>
                   </div>
                 </div>
