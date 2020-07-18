@@ -15,7 +15,7 @@
               </div>
               <div id="Form1">
                 <div class="form-group">
-                  <label id="PrincipaleTitle" for="exampleInputEmail1"
+                  <label id="PrincipaleTitle" style="margin-bottom: 20px;" for="exampleInputEmail1"
                     >WHAT {{transactionType | uppercase}} ARE YOU {{ buyinOrSelling }}</label
                   >
                   <input
@@ -152,14 +152,22 @@
                     [ngClass]="InputControl4"
                   />
                 </div>
+                <div>
+                  <label class="setTransation" style="margin-top: 20px;">SET TRANSATION DEADLINE</label>
+                </div>
+
+                <div class="radioButton" [formGroup]='transation'>
+                  <mat-radio-group aria-label="" (change)='TransationDead()'  formControlName='radio'  >
+                    <mat-radio-button  value="Days" class="days"  >Days</mat-radio-button>
+                    <mat-radio-button  value="Hours" class="hours">Hours</mat-radio-button>
+                  </mat-radio-group>
+                </div>
                 <div id="PetitInput2">
                   <div class="row">
                     <div class="col">
-                      <label for="exampleInputEmail1"
-                        >SET TRANSACTION DEADLINE</label
-                      >
+                      
                       <div class="row">
-                        <div class="col-xs-12 col-12 col-md-4 form-group">
+                        <div class="col-xs-12 col-12 col-md-4 form-group" >
                           <input
                             id="exampleInputPassword5"
                             name="exampleInputPassword5"
@@ -168,16 +176,14 @@
                             placeholder="Datepicker"
                             class="form-control"
                             bsDatepicker
-                            [datesDisabled]="DateDisableOrNot"
-                            [disabled]='DateDisableOrNot'
+                            *ngIf='DayInput'
                           />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="md-form" id="TimeInput">
-                  <label for="input">CHOOSE YOU TIME</label>
+                <div class="md-form" id="TimeInput"  >
                   <input
                   id="exampleInputPassword6"
                   name="exampleInputPassword6"
@@ -187,7 +193,7 @@
                     class="form-control"
                     value="13:00"
                     mdbInput
-                    [disabled]='TimeDisabledOrNot'
+                    *ngIf='HourInput'
                   />
                 </div>
                 <div id="PetitInput3">
