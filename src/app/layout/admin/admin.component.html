@@ -31,18 +31,18 @@
             <li class="ripple light">
               <div class="main-menu-header">
                 <img
+                  src="{{ pp }}"
                   class="img-menu-user img-radius"
-                  src="assets/images/avatar-4.jpg"
                   alt="User-Profile-Image"
                 />
               </div>
             </li>
             <li class="ripple light" id="ProfilNameEtMail">
               <div class="row">
-                <h6 class="Nom">Marie Larochette</h6>
+                <h6 class="Nom">{{ currentUser }}</h6>
               </div>
               <div class="row">
-                <h6 class="Mail">@Rockiatoo</h6>
+                <h6 class="Mail">{{ userEmail }}</h6>
               </div>
             </li>
             <li class="header-search">
@@ -55,7 +55,7 @@
                     class="form-control"
                     [style.width]="searchWidthString"
                     placeholder="Search & verify any informal businesses"
-                    (click)='routingseachpage()'
+                    (click)="routingseachpage()"
                   />
                 </div>
               </div>
@@ -313,7 +313,7 @@
             <div class="container" id="Buttons">
               <div class="row">
                 <div class="col-sm">
-                  <button class="Cancel" mat-button>Cancel</button>
+                  <button (click)=closeFirstModal() class="Cancel" mat-button>Cancel</button>
                 </div>
                 <div class="col-sm">
                   <button class="Sends" mat-button color="primary">
@@ -367,9 +367,9 @@
                     <li class="nav-item">
                       <a
                         class="nav-link"
-                        [routerLink]="['/',asideItem.name]"
+                        [routerLink]="['/', asideItem.name]"
                         href="#"
-                        >{{asideItem.state}}
+                        >{{ asideItem.state }}
                       </a>
                     </li>
                   </ul>
