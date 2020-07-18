@@ -142,13 +142,14 @@ export class MerchandiseEscrowStep2Component implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (response) => {
-          this.paymentResponse = response;
           this.isValidating = false;
-          if (!response.isEmpty()) {
+          if (response.response_message === "success") {
             this.createTransaction(this.transactionDetails);
-            this.router.navigate([`${response.response_content}`]);
+            console.log('content', response);
+            window.open(`${response.response_content}`, '_blank');
+            // window.location.href = `${response.response_content}`;
           }
-          return this.paymentResponse;
+          return response;
         },
         (error) => {
           this.isValidating = false;

@@ -139,12 +139,12 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
           owner_id: this.owner_id,
           item: this.escrowStep1Data.item,
           seller: this.escrowStep1Data.sellerPhoneNumber,
-          amount: this.totalAmount,
+          amount: this.totalAmount.toFixed(2),
           description: this.escrowStep1Data.description,
           transactionType: this.transactionType,
           role: this.buyinOrSelling,
-          noworriFee: this.noworriFee,
-          price: this.price,
+          noworriFee: this.noworriFee.toFixed(2),
+          price: this.price.toFixed(2),
         };
 
         const orderDetails = JSON.stringify(transactionSummary);
