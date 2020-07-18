@@ -16,7 +16,7 @@
               <div id="Form1">
                 <div class="form-group">
                   <label id="PrincipaleTitle" style="margin-bottom: 20px;" for="exampleInputEmail1"
-                    >WHAT {{transactionType | uppercase}} ARE YOU {{ buyinOrSelling }}</label
+                    >What {{transactionType | lowercase}} are you {{ buyinOrSelling  |lowercase }}</label
                   >
                   <input
                     type="text"
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1"
-                    >{{ buyersOrSeller }} PHONE NUMBER</label
+                    >{{ buyersOrSeller  }} phone number </label
                   >
                 </div>
               </div>
@@ -109,10 +109,10 @@
               <div id="Form2">
                 <div class="WHAT">
                   <label id="PrincipaleTitle" for="exampleInputPassword1"
-                    >WHAT IS THE SERVICE PRICE</label
+                    >What is the service price</label
                   >
                 </div>
-                <label for="exampleInputEmail1">PRICE</label>
+                <label for="exampleInputEmail1">Price</label>
                 <label style="margin-left: 400px;" for="exampleInputEmail1"
                   >CURRENCY</label
                 >
@@ -137,7 +137,7 @@
                   </div>
                 </div>
                 <div id="PetitInput1">
-                  <label for="exampleInputEmail1">NUMBER OF REVISIONS</label>
+                  <label for="exampleInputEmail1">Number of revisions</label>
                   <input
                     type="text"
                     class="form-control"
@@ -153,7 +153,7 @@
                   />
                 </div>
                 <div>
-                  <label class="setTransation" style="margin-top: 20px;">SET TRANSATION DEADLINE</label>
+                  <label class="setTransation" style="margin-top: 20px;">Set transation deadline</label>
                 </div>
 
                 <div class="radioButton" [formGroup]='transation'>
@@ -187,7 +187,7 @@
                   <input
                   id="exampleInputPassword6"
                   name="exampleInputPassword6"
-                   (click)='AfficheSide6()'
+                   (click)='AfficheSide5()'
                     type="time"
                     id="input"
                     class="form-control"
@@ -197,7 +197,7 @@
                   />
                 </div>
                 <div id="PetitInput3">
-                  <label for="exampleInputEmail1">REQUIREMENTS</label>
+                  <label for="exampleInputEmail1">Requirements</label>
                   <textarea
                     class="form-control"
                     id="exampleInputPassword7"
@@ -209,7 +209,7 @@
                   ></textarea>
                 </div>
                 <div class="Link">
-                  <a class="nav-link" (click)="AfficheSide7()">Attached file</a>
+                  <a class="nav-link" (click)='AfficheSide8()' >Attached file</a>
                 </div>
                 <div class="container">
                   <div class="row">
@@ -316,7 +316,7 @@
             </div>
           </div>
           <div class="col" id="card6">
-            <div class="card w-100" *ngIf="BoolAffichage6">
+            <div class="card w-100" *ngIf="BoolAffichage7">
               <div class="card-body">
                 <div class="row">
                   <div class="col-2 local_offer">
@@ -332,7 +332,7 @@
             </div>
           </div>
           <div class="col" id="card7">
-            <div class="card w-100" *ngIf="BoolAffichage7">
+            <div class="card w-100" *ngIf="BoolAffichage8">
               <div class="card-body">
                 <div class="row">
                   <div class="col-2 local_offer">

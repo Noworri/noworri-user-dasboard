@@ -45,6 +45,7 @@ HourInput :boolean
   BoolAffichage5: boolean;
   BoolAffichage6: boolean;
   BoolAffichage7: boolean;
+  BoolAffichage8: boolean;
 
   Accept1: boolean;
   Accept2: boolean;
@@ -71,11 +72,11 @@ HourInput :boolean
     const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     this.transactionType = localData.transactionType;
     if (localData.role === "Buyer") {
-      this.buyersOrSeller = "BUYER'S";
-      this.buyinOrSelling = "BUYING";
+      this.buyersOrSeller = "Buyer's";
+      this.buyinOrSelling = "Buying";
     } else {
-      this.buyersOrSeller = "SELLER'S";
-      this.buyinOrSelling = "SELLING";
+      this.buyersOrSeller = "Seller's";
+      this.buyinOrSelling = "Selling";
     }
   }
 
@@ -169,7 +170,7 @@ HourInput :boolean
 
   AfficheSide1() {
     this.BoolAffichage1 = true;
-    if ((this.BoolAffichage1 = true)) {
+    if (this.BoolAffichage1 = true) {
       this.BoolAffichage2 = false;
       this.BoolAffichage3 = false;
       this.BoolAffichage4 = false;
@@ -180,7 +181,7 @@ HourInput :boolean
   }
   AfficheSide2() {
     this.BoolAffichage2 = true;
-    if ((this.BoolAffichage2 = true)) {
+    if (this.BoolAffichage2 = true) {
       this.BoolAffichage1 = false;
       this.BoolAffichage3 = false;
       this.BoolAffichage4 = false;
@@ -191,48 +192,73 @@ HourInput :boolean
   }
   AfficheSide3() {
     this.BoolAffichage3 = true;
-    if ((this.BoolAffichage3 = true)) {
-      this.BoolAffichage2 = false;
-      this.BoolAffichage4 = false;
-      this.BoolAffichage5 = false;
-      this.BoolAffichage6 = false;
-      this.BoolAffichage7 = false;
+    if (this.BoolAffichage3 = true) {
+     this.BoolAffichage1=false
+     this.BoolAffichage2=false
+     this.BoolAffichage4=false
+     this.BoolAffichage5=false
+     this.BoolAffichage6=false
+     this.BoolAffichage7=false
     }
   }
   AfficheSide4() {
     this.BoolAffichage4 = true;
-    if ((this.BoolAffichage4 = true)) {
+    if (this.BoolAffichage4 = true) {
       this.BoolAffichage3 = false;
       this.BoolAffichage5 = false;
       this.BoolAffichage6 = false;
       this.BoolAffichage7 = false;
     }
   }
-  AfficheSide5() {
-    this.BoolAffichage5 = true;
-    if ((this.BoolAffichage5 = true)) {
-      this.BoolAffichage4 = false;
-      this.BoolAffichage6 = false;
-      this.BoolAffichage7 = false;
+ 
+  AfficheSide5(){
+    this.BoolAffichage5=true
+    if(this.BoolAffichage5=true){
+      this.BoolAffichage1=false
+      this.BoolAffichage2=false
+      this.BoolAffichage3=false
+      this.BoolAffichage4=false
+      this.BoolAffichage6=false
+      this.BoolAffichage7=false
     }
+  
+}
+AfficheSide6(){
+  this.BoolAffichage6=true
+  if(this.BoolAffichage6=true){
+    this.BoolAffichage1=true
+    this.BoolAffichage2=true
+    this.BoolAffichage3=true
+    this.BoolAffichage4=true
+    this.BoolAffichage5=true
+    this.BoolAffichage7=true
+    
   }
-  AfficheSide6() {
-   
-    this.BoolAffichage6 = true;
-    if ((this.BoolAffichage6 = true)) {
-      this.BoolAffichage5 = false;
-      this.BoolAffichage7 = false;
-    }
+}
+AfficheSide7(){
+this.BoolAffichage7=true
+if(this.BoolAffichage7=true){
+  this.BoolAffichage1=false
+  this.BoolAffichage2=false
+  this.BoolAffichage3=false
+  this.BoolAffichage4=false
+  this.BoolAffichage5=false
+  this.BoolAffichage6=false
+}
+}
+AfficheSide8(){
+  this.BoolAffichage8=true
+  if(this.BoolAffichage8=true){
+    this.BoolAffichage1=false
+    this.BoolAffichage2=false
+    this.BoolAffichage3=false
+    this.BoolAffichage4=false
+    this.BoolAffichage5=false
+    this.BoolAffichage6=false
+    this.BoolAffichage7=false
   }
-  AfficheSide7() {
-    this.BoolAffichage7 = true;
-    if ((this.BoolAffichage7 = true)) {
-      this.BoolAffichage3 = false;
-      this.BoolAffichage4 = false;
-      this.BoolAffichage5 = false;
-      this.BoolAffichage6 = false;
-    }
-  }
+}
+  
 
   //----------------transation dead line button methode-----------------------//
   TransationDeadInit(){
