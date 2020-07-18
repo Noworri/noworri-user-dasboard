@@ -18,8 +18,7 @@ export class EscrowStep1Component implements OnInit {
 
   //-------------------Date or time variable-------------------//
 
-  DateDisableOrNot = "";
-  TimeDisabledOrNot = "";
+  transation:FormGroup
 
   //---------Messages a afficher--------//
 
@@ -29,6 +28,15 @@ export class EscrowStep1Component implements OnInit {
   E164PhoneNumber = "+233544990518";
 
   buyersOrSeller: string;
+
+// boolean for display hour or days input -----//
+
+DayInput:boolean
+HourInput :boolean
+
+
+
+
   //--------Boolean-pour activer l'affichage------------//
   BoolAffichage1: boolean;
   BoolAffichage2: boolean;
@@ -57,7 +65,8 @@ export class EscrowStep1Component implements OnInit {
   constructor(
     private HomeInputService: HomeInputService,
     private EscrowStep1: Escrowstep1Service,
-    private Router: Router
+    private Router: Router,
+    private formbuilder:FormBuilder
   ) {
     const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     this.transactionType = localData.transactionType;
@@ -70,7 +79,9 @@ export class EscrowStep1Component implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.TransationDeadInit()
+  }
   //---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
   fescrowstep1(F: NgForm, form) {
     this.EscrowStep1.inputGroupSelect1 = F.value["exampleInputPassword1"];
@@ -198,7 +209,6 @@ export class EscrowStep1Component implements OnInit {
     }
   }
   AfficheSide5() {
-    this.Opendate();
     this.BoolAffichage5 = true;
     if ((this.BoolAffichage5 = true)) {
       this.BoolAffichage4 = false;
@@ -207,7 +217,7 @@ export class EscrowStep1Component implements OnInit {
     }
   }
   AfficheSide6() {
-    this.OpenTime();
+   
     this.BoolAffichage6 = true;
     if ((this.BoolAffichage6 = true)) {
       this.BoolAffichage5 = false;
@@ -224,15 +234,22 @@ export class EscrowStep1Component implements OnInit {
     }
   }
 
-  //----------------0pen time Methode-----------------------//
-  Opendate() {
-    if (this.TimeDisabledOrNot == "") {
-      this.TimeDisabledOrNot = "disabled";
-    }
+  //----------------transation dead line button methode-----------------------//
+  TransationDeadInit(){
+    this.transation=this.formbuilder.group({
+      radio:''
+    })
   }
-  OpenTime() {
-    if (this.DateDisableOrNot == "") {
-      this.DateDisableOrNot = "disabled";
-    }
+TransationDead(){
+  let transation=this.transation.get('radio').value
+  if(transation=='Days'){
+   this.HourInput=false
+   this.DayInput=true
+   
+  } else if(transation=='Hours'){
+    this.DayInput=false
+    this.HourInput=true
   }
+}
+  
 }

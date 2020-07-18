@@ -45,8 +45,6 @@ import { HomeComponent } from "./theme/home/home.component";
 import { TransactionsComponent } from "./theme/transactions/transactions.component";
 import { EscrowStep1Component } from "./theme/escrow-step1/escrow-step1.component";
 import { EscrowStep2Component } from "./theme/escrow-step2/escrow-step2.component";
-import { ContratAcheteurComponent } from "./theme/contrat-acheteur/contrat-acheteur.component";
-import { ContratVendeurComponent } from "./theme/contrat-vendeur/contrat-vendeur.component";
 import { SettingsComponent } from "./theme/settings/settings.component";
 import { ApiIntegrationComponent } from "./theme/api-integration/api-integration.component";
 import { IntlTelInputNgModule } from "intl-tel-input-ng";
@@ -60,6 +58,11 @@ import { MerchandiseEscrowStep2Component } from "./theme/merchandise-escrow-step
 import { RegisterComponent } from "./theme/auth/register/register.component";
 import { LoginComponent } from './theme/auth/login/login.component';
 import { ArchwizardModule } from 'angular-archwizard';
+import { BuyerServicesContratComponent } from './theme/buyer-services-contrat/buyer-services-contrat.component';
+import { SellerServicesContratComponent } from './theme/seller-services-contrat/seller-services-contrat.component';
+import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
+import { BuyerServicesContratModule } from './theme/buyer-services-contrat/buyer-services-contrat.module';
+import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
 
 @NgModule({
   declarations: [
@@ -81,14 +84,16 @@ import { ArchwizardModule } from 'angular-archwizard';
     TransactionsComponent,
     EscrowStep1Component,
     EscrowStep2Component,
-    ContratAcheteurComponent,
-    ContratVendeurComponent,
     SettingsComponent,
     ApiIntegrationComponent,
     RegisterComponent,
     LoginComponent,
     MerchandiseEscrowStep1Component,
     MerchandiseEscrowStep2Component,
+    BuyerServicesContratComponent,
+    SellerServicesContratComponent,
+    SellerMerchandiseContratComponent,
+    BuyerMerchandiseContratComponent
   ],
   imports: [
     BrowserModule,

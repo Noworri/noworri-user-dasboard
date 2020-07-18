@@ -16,14 +16,16 @@ import { DisputesComponent } from "./theme/disputes/disputes.component";
 import { PaymentComponent } from "./theme/payment/payment.component";
 import { EscrowStep1Component } from "./theme/escrow-step1/escrow-step1.component";
 import { EscrowStep2Component } from "./theme/escrow-step2/escrow-step2.component";
-import { ContratAcheteurComponent } from "./theme/contrat-acheteur/contrat-acheteur.component";
-import { ContratVendeurComponent } from "./theme/contrat-vendeur/contrat-vendeur.component";
 import { ApiIntegrationComponent } from './theme/api-integration/api-integration.component';
 import { SettingsComponent } from './theme/settings/settings.component';
 import { MerchandiseEscrowStep1Component } from './theme/merchandise-escrow-step1/merchandise-escrow-step1.component';
 import { MerchandiseEscrowStep2Component } from './theme/merchandise-escrow-step2/merchandise-escrow-step2.component';
 import { LoginComponent } from "./theme/auth/login/login.component";
 import { RegisterComponent } from "./theme/auth/register/register.component";
+import { BuyerServicesContratComponent } from './theme/buyer-services-contrat/buyer-services-contrat.component';
+import { SellerServicesContratComponent } from './theme/seller-services-contrat/seller-services-contrat.component';
+import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
+import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
 
 const routes: Routes = [
   {
@@ -73,13 +75,22 @@ const routes: Routes = [
         component: EscrowStep2Component,
       },
       {
-        path: "contratacheteur",
-        component: ContratAcheteurComponent,
+        path: "buyerservicescontrat",
+        component:BuyerServicesContratComponent,
       },
       {
-        path: "contratvendeur",
-        component: ContratVendeurComponent,
+        path: "sellerservicescontrat",
+        component: SellerServicesContratComponent,
       },
+      {
+        path: "sellermerchandisecontrat",
+        component: SellerMerchandiseContratComponent,
+      },
+      {
+        path: "buyermerchandisecontrat",
+        component:BuyerMerchandiseContratComponent,
+      },
+      
       {
         path:'api',
         component:ApiIntegrationComponent

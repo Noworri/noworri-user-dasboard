@@ -20,8 +20,10 @@
         <sup class="cidis">
         <img src="assets\cidies.png">
         </sup>
-        <span class="Mony">{{ amount }}</span>
+        <span class="Mony">{{wholeAmountpart}}.</span>
+        <span class="float">{{DecimalePart}}</span>
       </p>
+
     </div>
     <div class="MultiSpan">
       <h5>for {{ item }}</h5>
@@ -73,8 +75,8 @@
   <button *ngIf='CreditCard && !isValidating' type="button" class="btn btn-light btn-sm" (click)="onCardPay()">Secure funds</button>
 </div>
 
-<!-- <div class="card card3" *ngIf='CreditCard' style="width: 30rem;">
+<!--   <div class="card card3" *ngIf='CreditCard' style="width: 30rem;">
   <div class="card-body ng-payment">
     <ng-payment-card></ng-payment-card>
-  </div>
-</div> -->
+  </div> 
+</div> ---> 

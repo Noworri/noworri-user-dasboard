@@ -36,6 +36,14 @@ export class MerchandiseEscrowStep2Component implements OnInit {
   transactionType: string;
   description: string;
 
+  wholeAmountpart:number
+  DecimalePart:number
+
+
+  
+
+
+
   unsubscribe = new Subject();
 
   constructor(
@@ -60,6 +68,10 @@ export class MerchandiseEscrowStep2Component implements OnInit {
     this.price = escrowStep2Data.price;
     this.description = escrowStep2Data.description;
     this.owner_id = escrowStep2Data.owner_id;
+    this.wholeAmountpart=Math.trunc(this.amount)
+    this.DecimalePart=parseFloat(Math.abs(this.amount).toString().split('.')[1])
+
+    
 
     this.transactionDetails = {
       user_id: this.user_id,

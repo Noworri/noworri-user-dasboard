@@ -25,14 +25,12 @@
           .Please {
             text-align: left;
             font: Regular 20px/30px Poppins;
-            letter-spacing: 0;
-            color: #686868;
+            letter-spacing: 0px;
+            color: #000000;
             opacity: 1;
-            height: 20px;
-            font-size: small;
-            font-weight: 400;
+            height: 22px;
+            font-weight: 540;
             margin-left: 5px;
-            margin-top: 5px;
           }
         }
       }
@@ -120,7 +118,33 @@
         letter-spacing: 0;
         color: black;
         opacity: 1;
+       
       }
+      .setTransation{
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0;
+        color: #484848;
+        opacity: 1;
+      }
+      .days{
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0;
+        color: #484848;
+        opacity: 1;
+      }
+      .hours{
+        margin-left: 50px;
+        text-align: left;
+        font: Semibold 20px/27px Segoe UI;
+        letter-spacing: 0;
+        color: #484848;
+        opacity: 1;
+      }
+      .radioButton{
+      }
+
       #PetitInput1 {
         margin-top: 18px;
         label {
@@ -217,9 +241,8 @@
         color: #7a4bff;
         opacity: 1;
         font-weight: 400;
-        font-size: 30px;
-        margin-top: -15px;
-        margin-left: 25px;
+        font-size: 24px;
+        margin-left: 20px;
       }
       hr {
         width: 600px;
