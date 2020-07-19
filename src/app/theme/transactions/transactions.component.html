@@ -56,7 +56,7 @@
               </div>
             </div>
           </div> -->
-            <!-- <table [dataSource]="tableData" mat-table class="full-width-table" matSort aria-label="Elements">
+          <!-- <table [dataSource]="tableData" mat-table class="full-width-table" matSort aria-label="Elements">
               <! -- Id Column -- >
               <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
@@ -93,7 +93,7 @@
                 [pageSize]="20"
                 [pageSizeOptions]="[25, 50, 100, 250]">
             </mat-paginator> -->
-            <!-- <ng-data-table>
+          <!-- <ng-data-table>
               [id]="'transactions'"
               [title]="'Transactions'"
               [showLoadingSpinner]="false"
@@ -149,24 +149,34 @@
             <table class="table table-bordered table-striped table-sm">
               <thead>
                 <tr>
+                  <th></th>
                   <th>Transaction ID</th>
                   <th>Transaction Type</th>
                   <th>Amount</th>
                   <th>Noworri Fee</th>
+                  <th>Total Amount</th>
                   <th>status</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let item of tableData">
+                  <td>
+                    <button (click)="onViewTransactionDetails(item.transaction_key)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                  </td>
                   <td>{{ item.transaction_key }}</td>
                   <td>{{ item.transaction_type }}</td>
                   <td>{{ item.price }}</td>
                   <td>{{ item.noworri_fees }}</td>
+                  <td>{{ item.total_price }}</td>
                   <td>{{ item.state }}</td>
+                  <td>{{ item.created_at }}</td>
                 </tr>
               </tbody>
             </table>
-            <div #noDataMessage  *ngIf="hasNoTransactions">
+            <div #noDataMessage *ngIf="hasNoTransactions">
               <h4 text-align="center">
                 NO TRANSACTIONS CREATED YET
               </h4>

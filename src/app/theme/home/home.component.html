@@ -61,8 +61,8 @@
                     ngModel
                     [ngClass]='InputControl'
                   >
-                    <option selected></option>
-                    <option value="Services">Services</option>
+                  <option value="" selected disabled hidden>Choose a type</option>
+                  <option selected="selected" value="Services">Services</option>
                     <option value="Merchandise">Merchandise</option>
                   </select>
                 </div>
@@ -78,7 +78,7 @@
                     ngModel
                     [ngClass]='InputControl'
                   >
-                    <option selected></option>
+                    <option value="" selected disabled hidden>Choose a role</option>
                     <option value="Buyer">Buyer</option>
                     <option value="Seller">Seller</option>
                   </select>

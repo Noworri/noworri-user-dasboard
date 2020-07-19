@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TransactionsReference } from 'src/app/Service/reference-data.interface';
 import { PaymentService } from 'src/app/Service/payment.service';
+import { Router } from '@angular/router';
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
@@ -12,15 +13,21 @@ const SESSION_STORAGE_KEY = 'noworri-user-session';
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
-export class TransactionsComponent implements OnInit,OnDestroy {
+export class TransactionsComponent implements OnInit, OnDestroy {
   unsubscribe = new Subject();
+
   tableData: any;
+  userRole: string;
+  storedTransactionDetails: any;
+  amount: any;
+  transactionType: string;
   userId: string;
   hasNoTransactions = false;
   columns: any[];
   paymentResponse: any;
 
-  constructor(private transactionsService : TransactionsService, private paymentService: PaymentService) { 
+  constructor(private transactionsService: TransactionsService, private router: Router
+    ) {
     const sessionData = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY));
     this.userId = sessionData.user_uid;
     // this.columns = {
@@ -49,38 +56,36 @@ export class TransactionsComponent implements OnInit,OnDestroy {
     this.transactionsService.getUserTranactions(userId).pipe(takeUntil(this.unsubscribe)).subscribe(
       transactions => {
         this.tableData = transactions;
-        this.hasNoTransactions = transactions.length === 0 ? true : false; 
+        transactions.forEach(details => {
+          this.transactionType = details.transaction_type.toLowerCase();
+          console.log('details.owner_id', details.owner_id);
+          console.log('details.user_id', details.user_id);
+          if (userId === details.owner_id) {
+            this.userRole = 'sell';
+          } else if (userId === details.user_id) {
+            this.userRole = 'buy';
+          }
+          this.amount = details.total_price;
+        });
+        this.hasNoTransactions = transactions.length === 0 ? true : false;
       },
       error => console.log(error.message)
     );
   }
 
-  // testPayment() {
-  //   const body = {
-  //     "paymentDetails": {
-  //         "requestId": "4466",
-  //         "productCode":"GMT112",
-  //         "amount": "50035",
-  //         "currency": "GBP",
-  //         "locale": "en_AU",
-  //         "orderInfo": "255s353",
-  //         "returnUrl": "https://unifiedcallbacks.com/corporateclbkservice/callback/qr"
-  //     },
-  //     "merchantDetails": {
-  //         "accessCode": "79742570",
-  //         "merchantID": "ETZ001",
-  //         "secureSecret": "sdsffd"
-  //     },
-  //     "secureHash":"7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855"
-  // };   
-  //     this.transactionsService.processPayment(body).pipe(takeUntil(this.unsubscribe)).subscribe(
-  //     response => {
-  //       this.paymentResponse = response
-  //       console.log(response);
-  //       return this.paymentResponse;
-  //     },
-  //     error => console.log(error.message)
-  //   );
-  // }
+  onViewTransactionDetails(transactionKey) {
+    console.log(transactionKey);
+    console.log(this.userRole, this.transactionType);
+    if (this.userRole === 'buy' && this.transactionType === 'merchandise') {
+      this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
+    } else if (this.userRole === 'sell' && this.transactionType === 'merchandise') {
+      this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
+    } else if (this.userRole === 'buy' && this.transactionType === 'service') {
+      this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
+    } else if (this.userRole === 'sell' && this.transactionType === 'service') {
+      this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
+    }
+
+  }
 
 }
