@@ -55,6 +55,6 @@ export class SettingsComponent implements OnInit {
 
   logout() {
     sessionStorage.clear();
-    this.router.navigate(['login']);
+    this.router.navigate(['/auth/login']);
   }
 }

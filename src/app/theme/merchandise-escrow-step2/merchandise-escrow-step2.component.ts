@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { TransactionsService } from "src/app/Service/transactions.service";
-import { takeUntil, isEmpty } from "rxjs/operators";
-import { Subject } from "rxjs";
-import { Router, NavigationStart } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { TransactionsService } from 'src/app/Service/transactions.service';
+import { takeUntil, isEmpty } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { Router, NavigationStart } from '@angular/router';
 
-const LOCAL_STORAGE_KEY = "merchandise-escrow-1";
-const SESSION_STORAGE_KEY = "noworri-user-session";
+const LOCAL_STORAGE_KEY = 'merchandise-escrow-1';
+const SESSION_STORAGE_KEY = 'noworri-user-session';
 
 @Component({
-  selector: "app-merchandise-escrow-step2",
-  templateUrl: "./merchandise-escrow-step2.component.html",
-  styleUrls: ["./merchandise-escrow-step2.component.scss"],
+  selector: 'app-merchandise-escrow-step2',
+  templateUrl: './merchandise-escrow-step2.component.html',
+  styleUrls: ['./merchandise-escrow-step2.component.scss'],
 })
 export class MerchandiseEscrowStep2Component implements OnInit {
   CreditCard: boolean;
@@ -36,13 +36,8 @@ export class MerchandiseEscrowStep2Component implements OnInit {
   transactionType: string;
   description: string;
 
-  wholeAmountpart:number
-  DecimalePart:number
-
-
-  
-
-
+  wholeAmountPart: number;
+  decimalPart: any;
 
   unsubscribe = new Subject();
 
@@ -61,18 +56,21 @@ export class MerchandiseEscrowStep2Component implements OnInit {
     this.item = escrowStep2Data.item;
     this.amount = escrowStep2Data.amount;
     this.sellerNumber = escrowStep2Data.seller;
-    this.user_role = escrowStep2Data.role == "Buyer" ? "Buy" : "Sell";
-    this.owner_role = this.user_role == "Buy" ? "Sell" : "Buy";
+    this.user_role = escrowStep2Data.role === 'Buyer' ? 'Buy' : 'Sell';
+    this.owner_role = this.user_role === 'Buy' ? 'Sell' : 'Buy';
     this.transactionType = escrowStep2Data.transactionType;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
-    this.description = escrowStep2Data.description;
+    this.description = escrowStep2Data.description || '';
     this.owner_id = escrowStep2Data.owner_id;
-    this.wholeAmountpart=Math.trunc(this.amount)
-    this.DecimalePart=parseFloat(Math.abs(this.amount).toString().split('.')[1])
-
-    
-
+    this.wholeAmountPart = Math.trunc(this.amount);
+    this.decimalPart = parseFloat(
+      Math.abs(this.amount).toString().split('.')[1]
+    );
+    console.log('decimalPart', this.decimalPart);
+    if (!this.decimalPart) {
+      this.decimalPart = '00';
+    }
     this.transactionDetails = {
       user_id: this.user_id,
       user_role: this.user_role,
@@ -80,20 +78,36 @@ export class MerchandiseEscrowStep2Component implements OnInit {
       owner_id: this.owner_id,
       owner_role: this.owner_role,
       owner_phone: this.sellerNumber,
-      transactioType: this.transactionType,
+      transaction_type: this.transactionType,
       service: this.item,
       price: this.price,
-      noworrri_fees: this.noworriFee,
+      noworri_fees: this.noworriFee,
       total_price: this.amount,
       requirement: this.description,
+      etat: 0
     };
+  }
+
+  onSecureFunds() {
+    this.transactionsService.makeMomoPayment().pipe(takeUntil(this.unsubscribe)).subscribe(
+      response => {
+        this.createTransaction(this.transactionDetails);
+        setTimeout(() => {
+          this.router.navigate(['transactions']);
+        }, 5000);
+      },
+      error => console.log(error)
+    );
   }
 
   ngOnInit() {
     this.InitCreditOrWallet();
     this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe((event) => {
       if (event instanceof NavigationStart) {
-        if (!event.url.startsWith("/escrowmerchandisestep1")) {
+        if (
+          !event.url.startsWith('/escrowmerchandisestep1') &&
+          !event.url.startsWith('/transactions')
+        ) {
           this.clearLocalStorage();
         }
       }
@@ -110,20 +124,20 @@ export class MerchandiseEscrowStep2Component implements OnInit {
 
   InitCreditOrWallet() {
     this.Form = this.formbuilder.group({
-      creditCardValue: "",
+      creditCardValue: '',
     });
-    var RadioValue = this.Form.get("creditCardValue").value;
-    if (RadioValue == "") {
+    const RadioValue = this.Form.get('creditCardValue').value;
+    if (RadioValue === '') {
       this.Mobilewalet = true;
     }
   }
 
   DisplayCardOrWallet() {
-    var RadioValue = this.Form.get("creditCardValue").value;
-    if (RadioValue == "creditCard") {
+    const RadioValue = this.Form.get('creditCardValue').value;
+    if (RadioValue === 'creditCard') {
       this.CreditCard = true;
       this.Mobilewalet = false;
-    } else if (RadioValue == "MobileWallet") {
+    } else if (RadioValue === 'mobileWallet') {
       this.Mobilewalet = true;
       this.CreditCard = false;
     }
@@ -131,28 +145,28 @@ export class MerchandiseEscrowStep2Component implements OnInit {
 
   onCardPay() {
     this.isValidating = true;
+    console.log('transactionDetails', this.transactionDetails);
+
     const amount = `${this.amount}`;
     const body = {
       paymentDetails: {
-        requestId: "4466",
-        productCode: "GMT112",
-        amount: "45525.20",
-        currency: "GBP",
-        locale: "en_AU",
-        orderInfo: "255s353",
-        returnUrl: "https://noworri.com",
+        requestId: '4466',
+        productCode: 'GMT112',
+        amount: amount,
+        currency: 'GBP',
+        locale: 'en_AU',
+        orderInfo: '255s353',
+        returnUrl: 'https://web.noworri/transactions',
       },
       merchantDetails: {
-        accessCode: "79742570",
-        merchantID: "ETZ001",
-        secureSecret: "sdsffd",
+        accessCode: '79742570',
+        merchantID: 'ETZ001',
+        secureSecret: 'sdsffd',
       },
       secureHash:
-        "7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855",
+        '7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855',
     };
     const newBody = JSON.stringify(body);
-    console.log('newBody', newBody);
-    console.log('type newBody',typeof newBody);
     this.transactionsService
       .processPayment(body)
       .pipe(takeUntil(this.unsubscribe))
@@ -161,12 +175,14 @@ export class MerchandiseEscrowStep2Component implements OnInit {
           this.isValidating = false;
           if (
             response.response_message &&
-            response.response_message === "success"
+            response.response_message === 'success'
           ) {
             this.createTransaction(this.transactionDetails);
-            console.log("content", response);
-            window.open(`${response.response_content}`, "_blank");
-            // window.location.href = `${response.response_content}`;
+            setTimeout(() => {
+              this.router.navigate(['transactions']);
+            }, 5000);
+
+            window.open(`${response.response_content}`, '_blank');
           }
           return response;
         },
@@ -183,6 +199,10 @@ export class MerchandiseEscrowStep2Component implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response) => {
         return response;
-      });
+      },
+      error => {
+        console.log(error.message);
+      }
+      );
   }
 }

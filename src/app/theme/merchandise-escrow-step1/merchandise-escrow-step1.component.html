@@ -241,7 +241,18 @@
                   <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm">
+                      <div *ngIf="isValidating" class="Loading">
+                        <button >
+                          <span
+                          class="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        processing...
+                        </button>
+                      </div>
                       <button
+                        *ngIf="!isValidating"
                         type="submit"
                         (click)="onCompleteStep1()"
                         class="btn btn-primary btn-sm"

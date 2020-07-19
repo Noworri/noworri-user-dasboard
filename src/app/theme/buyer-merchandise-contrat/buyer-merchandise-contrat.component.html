@@ -6,14 +6,14 @@
       
         <div
           id="collapseBasic"
-          [collapse]="isCollapsed1"
+        >
+                  <!-- [collapse]="isCollapsed1"
           [isAnimated]="true"
           [collapse]="isCollapsed"
           (collapses)="collapses()"
           (expands)="expands()"
           (collapsed)="collapsed()"
-          (expanded)="expanded()"
-        >
+          (expanded)="expanded()" -->
           <div class="card" id="" style="width: 50rem;">
             <hr class="hr">
             <div class="card-body" id="card-body2">
@@ -22,7 +22,7 @@
                   <div class="col-sm col1">
                     <h6 class="Yourdealing">
                       You're dealing with :
-                      <span class="Number">+23333256895</span>
+                      <span class="Number">{{ sellerPhone }}</span>
                     </h6>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
                 <hr />
                 <div class="row">
                   <div class="col-sm col1">
-                    <h6 class="Handbag">Handbag</h6>
+                    <h6 class="Handbag">{{ item }}</h6>
                   </div>
                   <div class="col-sm col2">
                     <h6 class="Amount"></h6>
@@ -53,31 +53,85 @@
                     <h6 class="Deadline"></h6>
                   </div>
                   <div class="col-sm col4">
-                    <h6 class="Revisions">550.00</h6>
+                    <h6 class="Revisions">{{ amount }}</h6>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-sm col1">
+                    <h6 class="Handbag">Noworri Fee</h6>
+                  </div>
+                  <div class="col-sm col2">
+                    <h6 class="Amount"></h6>
+                  </div>
+                  <div class="col-sm col3">
+                    <h6 class="Deadline"></h6>
+                  </div>
+                  <div class="col-sm col4">
+                    <h6 class="Revisions">{{ noworriFee }}</h6>
                   </div>
                 </div>
                 <hr />
                 <div class="row">
                   <div class="col-sm col1">
+                    <h6 class="Item"></h6>
+                  </div>
+                  <div class="col-sm col2">
+                    <h6 class="Amount"></h6>
+                  </div>
+                  <div class="col-sm col3">
+                    <h6 class="Item">NET SECURED</h6>
+                  </div>
+                  <div class="col-sm col4">
+                    <h6 class="Revisions">{{ totalAmount }}</h6>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div *ngIf="!isFundsReleased"  class="col-sm col1">
+                    <h6 class="text1">
+                      Release the funds when you get your product delivered
+                    </h6>
+                  </div>
+                  <div *ngIf="isFundsReleased"  class="col-sm">
+                    <h6 class="text1">
+                      the funds have been Released for this transaction
+                    </h6>
+                  </div>
+                  <div *ngIf="!isFundsReleased"  class="col-sm col4">
+                      <div *ngIf="isValidating" class="Loading">
+                        <button  class="Revisions btn btn-sm btn-light" >
+                          <span
+                          class="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        processing...
+                        </button>
+                      </div>
+                    <button type="button" *ngIf="!isValidating" (click)="onReleaseFunds()" class="Revisions btn btn-sm btn-light">
+                      Release Funds
+                    </button>
+                  </div>
+                </div>
+                <hr />
+
+                <!-- <div class="row">
+                  <div class="col-sm col1">
                     <h6 class="Deliveryman">Deliveryman's phone</h6>
                   </div>
                   <div class="col-sm col2">
-                    <h6 class="Number2">+23327895623</h6>
+                    <h6 class="Number2">{{ deliveryPhone }}</h6>
                   </div>
                   <div class="col-sm col4">
                     <h6 class="Changedeliveryman">Change deliveryman</h6>
                   </div>
                 </div>
-                <hr />
+                <hr /> -->
                 <div class="row">
-                  <h5 class="descriptions">Descriptions</h5>
+                  <h5 class="descriptions">Description</h5>
                   <p class="text">
-                    Define a dead time of the transaction so in case anything
-                    was not done after the end of the transaction Noworri will
-                    cancel it Define a dead time of the transaction so in case
-                    anything was not done after the f the transaction so in case
-                    anything was not done after the end of the transaction
-                    Noworri will cancel it
+                    {{ description }}
                   </p>
                 </div>
               </div>
