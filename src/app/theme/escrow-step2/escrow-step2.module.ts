@@ -6,7 +6,7 @@ import { EscrowStep2Component } from './escrow-step2.component';
 import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
-  declarations: [EscrowStep2Component],
+  // declarations: [EscrowStep2Component],
   imports: [
     CommonModule,
     EscrowStep2RoutingModule,

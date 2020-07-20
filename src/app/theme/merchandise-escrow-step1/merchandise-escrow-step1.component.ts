@@ -20,12 +20,13 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
   rawSeller: string;
   isValidNumber = true;
   isValidating = false;
-
+  orderDetails: any;
   noworriFee: number;
   totalAmount: number;
   owner_id: string;
   price: number;
   escrowStep1Data: MerchandiseEscrowstep1Reference;
+  transactionSummary: any;
 
   inputValidation: RegExp;
 
@@ -36,7 +37,7 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
 
   // ---------Messages a afficher--------//
 
-  buyinOrSelling: string;
+  role: string;
   transactionType: string;
 
   E164PhoneNumber = '+233544990518';
@@ -70,7 +71,7 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
   ) {
     const localData = JSON.parse(localStorage.getItem('noworri-escrow-0'));
     this.transactionType = localData.transactionType;
-    this.buyinOrSelling = localData.role;
+    this.role = localData.role;
     this.owner_id = '';
     this.escrowStep1Data = {
       item: '',
@@ -99,11 +100,11 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
     this.noworriFee = this.getNoworriFee(this.price);
     this.totalAmount = parseInt(this.escrowStep1Data.price, 10) + this.noworriFee;
     this.rawSeller = formSeller.value['sellerPhoneNumber'];
+    this.isValidating = true;
 
     this.getCompanyDetails(this.escrowStep1Data.sellerPhoneNumber);
 
     setTimeout(() => {
-      this.isValidating = true;
       if (this.escrowStep1Data.item === '') {
         this.itemControl = 'form-control is-invalid';
         this.Accept1 = false;
@@ -115,7 +116,7 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
       this.inputValidation = /^-?(0|[1-9]\d*)?$/;
       if (
         !this.isValidSeller ||
-        this.rawSeller === '' ||
+        !this.rawSeller ||
         (this.rawSeller && !this.rawSeller.match(this.inputValidation))
       ) {
         this.Accept2 = false;
@@ -143,36 +144,32 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
         this.Accept4 === true &&
         this.Accept5 === true
       ) {
-        const transactionSummary = {
-          owner_id: this.owner_id,
-          item: this.escrowStep1Data.item,
-          seller: this.escrowStep1Data.sellerPhoneNumber,
-          amount: this.totalAmount.toFixed(2),
-          description: this.escrowStep1Data.description,
-          transactionType: this.transactionType,
-          role: this.buyinOrSelling,
-          noworriFee: this.noworriFee.toFixed(2),
-          price: this.price.toFixed(2),
-          delivery: this.escrowStep1Data.deliveryPhoneNumber
-        };
-
-        const orderDetails = JSON.stringify(transactionSummary);
-        localStorage.setItem(LOCAL_STORAGE_KEY, orderDetails);
-        setTimeout(() => {
+          this.transactionSummary = {
+            owner_id: this.owner_id,
+            item: this.escrowStep1Data.item,
+            seller: this.escrowStep1Data.sellerPhoneNumber,
+            amount: this.totalAmount.toFixed(2),
+            description: this.escrowStep1Data.description,
+            transactionType: this.transactionType,
+            role: this.role,
+            noworriFee: this.noworriFee.toFixed(2),
+            price: this.price.toFixed(2),
+            delivery: this.escrowStep1Data.deliveryPhoneNumber
+          };
+          this.orderDetails = JSON.stringify(this.transactionSummary);
           this.isValidating = false;
-          this.router.navigate(['/escrowmerchandisestep2']);
-        }, 5000);
+          localStorage.setItem(LOCAL_STORAGE_KEY, this.orderDetails);
+          setTimeout(() => {
+            this.router.navigate(['/escrowmerchandisestep2']);
+          }, 2000);
       }
-    }, 1000);
+    }, 5000);
   }
 
-  // get company details
   getCompanyDetails(sellerPhoneNumber) {
-    console.log('sellerphone', sellerPhoneNumber);
     if (this.rawSeller) {
       this.companyService.getCompanyDetails(sellerPhoneNumber).subscribe(
         (company: CompanyReference) => {
-          console.log('company', company);
           if (isEmpty(company)) {
             this.isValidSeller = false;
           } else {
@@ -181,6 +178,7 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
           }
         },
         (error) => {
+          this.isValidSeller = false;
           console.log('Error %j', error.message);
         }
       );

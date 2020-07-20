@@ -57,7 +57,6 @@ import { MerchandiseEscrowStep1Component } from "./theme/merchandise-escrow-step
 import { MerchandiseEscrowStep2Component } from "./theme/merchandise-escrow-step2/merchandise-escrow-step2.component";
 import { RegisterComponent } from "./theme/auth/register/register.component";
 import { LoginComponent } from './theme/auth/login/login.component';
-import { ArchwizardModule } from 'angular-archwizard';
 import { BuyerServicesContratComponent } from './theme/buyer-services-contrat/buyer-services-contrat.component';
 import { SellerServicesContratComponent } from './theme/seller-services-contrat/seller-services-contrat.component';
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
@@ -120,7 +119,6 @@ import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-cont
     AmazingTimePickerModule,
     EditorModule,
     NgPaymentCardModule,
-    ArchwizardModule
   ],
   schemas: [],
   providers: [MenuItems, HomeInputService, RegisterService, BsModalRef],

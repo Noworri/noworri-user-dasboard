@@ -24,6 +24,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   mobileWallet = false;
   isValidating = false;
   isFundsReleased = false;
+  isApproved = false;
 
   sellerPhone: string;
   description: string;
@@ -56,8 +57,10 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     this.isValidating = true;
     this.transactionsService.releaseFunds(transaction_id).pipe(takeUntil(this.unsubscribe)).subscribe(
       response => {
-        this.isValidating = false;
-        this.router.navigate(['transactions']);
+        setTimeout(() => {
+          this.isValidating = false;
+          this.router.navigate(['transactions']);
+        }, 5000);
         return response;
       }
     );
@@ -79,9 +82,11 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.description = details.requirement;
             this.totalAmount = details.total_price;
             this.noworriFee = details.noworri_fees;
-            console.log('state', details.etat);
             if (details.etat === '1') {
               this.isFundsReleased = true;
+            }
+            if (details.etat === '2') {
+              this.isApproved = true;
             }
           });
         },

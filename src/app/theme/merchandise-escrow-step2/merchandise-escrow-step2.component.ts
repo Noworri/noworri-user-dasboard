@@ -46,7 +46,7 @@ export class MerchandiseEscrowStep2Component implements OnInit {
     private transactionsService: TransactionsService,
     private router: Router
   ) {
-    const sessionData = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY));
+    const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.first_name = sessionData.first_name;
     this.email = sessionData.email;
     this.name = sessionData.name;
@@ -67,7 +67,6 @@ export class MerchandiseEscrowStep2Component implements OnInit {
     this.decimalPart = parseFloat(
       Math.abs(this.amount).toString().split('.')[1]
     );
-    console.log('decimalPart', this.decimalPart);
     if (!this.decimalPart) {
       this.decimalPart = '00';
     }
@@ -88,7 +87,7 @@ export class MerchandiseEscrowStep2Component implements OnInit {
     };
   }
 
-  onSecureFunds() {
+  onMobilePay() {
     this.transactionsService.makeMomoPayment().pipe(takeUntil(this.unsubscribe)).subscribe(
       response => {
         this.createTransaction(this.transactionDetails);
@@ -102,16 +101,16 @@ export class MerchandiseEscrowStep2Component implements OnInit {
 
   ngOnInit() {
     this.InitCreditOrWallet();
-    this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (
-          !event.url.startsWith('/escrowmerchandisestep1') &&
-          !event.url.startsWith('/transactions')
-        ) {
-          this.clearLocalStorage();
-        }
-      }
-    });
+    // this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe((event) => {
+    //   if (event instanceof NavigationStart) {
+    //     if (
+    //       !event.url.startsWith('/escrowmerchandisestep1') &&
+    //       !event.url.startsWith('/transactions')
+    //     ) {
+    //       this.clearLocalStorage();
+    //     }
+    //   }
+    // });
   }
 
   goBack() {
@@ -119,7 +118,7 @@ export class MerchandiseEscrowStep2Component implements OnInit {
   }
 
   clearLocalStorage() {
-    localStorage.clear();
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
   }
 
   InitCreditOrWallet() {
@@ -145,7 +144,6 @@ export class MerchandiseEscrowStep2Component implements OnInit {
 
   onCardPay() {
     this.isValidating = true;
-    console.log('transactionDetails', this.transactionDetails);
 
     const amount = `${this.amount}`;
     const body = {
@@ -177,12 +175,8 @@ export class MerchandiseEscrowStep2Component implements OnInit {
             response.response_message &&
             response.response_message === 'success'
           ) {
-            this.createTransaction(this.transactionDetails);
-            setTimeout(() => {
-              this.router.navigate(['transactions']);
-            }, 5000);
-
-            window.open(`${response.response_content}`, '_blank');
+              this.createTransaction(this.transactionDetails);
+            window.location.href = `${response.response_content}`;
           }
           return response;
         },

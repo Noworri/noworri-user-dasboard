@@ -28,22 +28,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   constructor(private transactionsService: TransactionsService, private router: Router
     ) {
-    const sessionData = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY));
+    const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.userId = sessionData.user_uid;
-    // this.columns = {
-    //   Transaction ID
-    //   Transaction Type
-    //   Amount
-    //   Noworri Fee
-    //   status
-
-    // }
   }
 
   ngOnInit() {
-    console.log('userId', this.userId);
     this.loadTransactions(this.userId);
-    // this.testPayment();
   }
 
   ngOnDestroy() {
@@ -58,8 +48,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.tableData = transactions;
         transactions.forEach(details => {
           this.transactionType = details.transaction_type.toLowerCase();
-          console.log('details.owner_id', details.owner_id);
-          console.log('details.user_id', details.user_id);
           if (userId === details.owner_id) {
             this.userRole = 'sell';
           } else if (userId === details.user_id) {
@@ -74,8 +62,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   }
 
   onViewTransactionDetails(transactionKey) {
-    console.log(transactionKey);
-    console.log(this.userRole, this.transactionType);
     if (this.userRole === 'buy' && this.transactionType === 'merchandise') {
       this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
     } else if (this.userRole === 'sell' && this.transactionType === 'merchandise') {

@@ -17,7 +17,7 @@ import { DataTableModule } from 'ornamentum';
 
 
 @NgModule({
-  declarations: [TransactionsComponent],
+  // declarations: [TransactionsComponent],
   imports: [
     CommonModule,
     TransactionsRoutingModule,

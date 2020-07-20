@@ -13,7 +13,7 @@ import {MatInputModule} from '@angular/material/input'
 
 
 @NgModule({
-  declarations: [RegisterComponent],
+  // declarations: [RegisterComponent],
   imports: [
     CommonModule,
     RegisterRoutingModule,

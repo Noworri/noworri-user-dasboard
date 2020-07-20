@@ -102,6 +102,40 @@
                 </div>
                 <hr />
                 <div class="row">
+                  <div *ngIf="!isApproved && !isFundsReleased"  class="col-sm col1">
+                    <h6 class="text1">
+                      Approve Transaction then deliver the product to the buyer to get paid
+                    </h6>
+                  </div>
+                  <div *ngIf="isApproved"  class="col-sm">
+                    <h6 class="text1">
+                      You approved this transaction, the buyer is waiting for his product
+                    </h6>
+                  </div>
+                  <div *ngIf="isFundsReleased"  class="col-sm">
+                    <h6 class="text1">
+                      This transaction is completed and paid
+                    </h6>
+                  </div>
+
+                  <div *ngIf="!isFundsReleased"  class="col-sm col4">
+                      <div *ngIf="isValidating" class="Loading">
+                        <button  class="Revisions btn btn-sm btn-light" >
+                          <span
+                          class="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        processing...
+                        </button>
+                      </div>
+                    <button type="button" *ngIf="!isValidating && !isApproved" (click)="onApproveTransaction()" class="Revisions btn btn-sm btn-light">
+                      Approve
+                    </button>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
                   <h5 class="descriptions">Description</h5>
                   <p class="text">
                     {{ description }}

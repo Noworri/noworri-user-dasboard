@@ -200,7 +200,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     public menuItems: MenuItems,
     private modalService: BsModalService
   ) {
-    const sessionData = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY));
+    const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.currentUser = sessionData.first_name;
     this.userEmail = sessionData.email;
     this. pp = sessionData.photo === null ? 'assets/images/Empty-Profile-Testimonials.jpg' : `https://noworri.com/api/public/uploads/images/pp/${sessionData.photo}`;
