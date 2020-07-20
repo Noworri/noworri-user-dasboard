@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  // declarations: [LoginComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,

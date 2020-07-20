@@ -14,9 +14,10 @@
                 <div class="col-sm">
                   <h6
                     class="HideContrat"
-                    (click)="isCollapsed1 = !isCollapsed1"
-                    [attr.aria-expanded]="!isCollapsed1"
+
                   >
+                  <!-- (click)="isCollapsed1 = !isCollapsed1"
+                  [attr.aria-expanded]="!isCollapsed1" -->
                     {{message1}} Contrat
                   </h6>
                 </div>
@@ -36,14 +37,15 @@
       <div class="row" id="Card2">
         <div
           id="collapseBasic"
-          [collapse]="isCollapsed1"
-          [isAnimated]="true"
-          [collapse]="isCollapsed"
-          (collapses)="collapses()"
-          (expands)="expands()"
-          (collapsed)="collapsed()"
-          (expanded)="expanded()"
+
         >
+        <!-- [collapse]="isCollapsed1"
+        [isAnimated]="true"
+        [collapse]="isCollapsed"
+        (collapses)="collapses()"
+        (expands)="expands()"
+        (collapsed)="collapsed()"
+        (expanded)="expanded()" -->
           <div class="card" id="" style="width: 50rem;">
             <div class="card-body" id="card-body2">
               <div class="container">
@@ -114,9 +116,10 @@
             <div class="col-sm col11">
               <h6
                 class="HideRequirement"
-                (click)="isCollapsed2 = !isCollapsed2"
-                [attr.aria-expanded]="!isCollapsed2"
               >
+              <!-- (click)="isCollapsed2 = !isCollapsed2"
+              [attr.aria-expanded]="!isCollapsed2" -->
+
                 {{message3}} requirement
               </h6>
             </div>
@@ -129,14 +132,15 @@
       <div class="row" id="Card4">
         <div
           id="collapseBasic"
-          [collapse]="isCollapsed2"
-          [isAnimated]="true"
-          [collapse]="isCollapsed"
-          (collapses)="collapsess()"
-          (expands)="expands()"
-          (collapsed)="collapsed()"
-          (expanded)="expandeds()"
         >
+        <!-- [collapse]="isCollapsed2"
+        [isAnimated]="true"
+        [collapse]="isCollapsed"
+        (collapses)="collapsess()"
+        (expands)="expands()"
+        (collapsed)="collapsed()"
+        (expanded)="expandeds()" -->
+
           <div class="card" style="width: 50rem;">
             <div class="card-body">
               <p>

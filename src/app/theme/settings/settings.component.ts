@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core'
-import { TemplateRef } from '@angular/core'
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
+import { Component, OnInit } from '@angular/core';
+import { TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
@@ -19,17 +19,16 @@ export class SettingsComponent implements OnInit {
   email: string;
 
   constructor (private modalService: BsModalService, private router: Router) {
-    const sessionData = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY));
+    const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.first_name = sessionData.first_name;
     this.email = sessionData.email;
     this.name = sessionData.name;
     this.mobile_phone = sessionData.mobile_phone;
-    
 
   }
 
   ngOnInit () {}
-  
+
   openModal1(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
@@ -41,19 +40,20 @@ export class SettingsComponent implements OnInit {
     if (!this.modalRef) {
       return;
     }
- 
+
     this.modalRef.hide();
     this.modalRef = null;
   }
 
   openModal3(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template,{ class: 'modal-sm' });
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
   openModal4(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template,{ class: 'modal-sm' });
-  } 
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
 
   logout() {
+    localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['/auth/login']);
   }

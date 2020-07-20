@@ -20,7 +20,13 @@ getUserTranactions(userId: string): Observable<any> {
         if (typeof values.total_price === undefined) {
           values.total_price = values.price;
         }
-        values.state = values.etat == 1 ? 'Completed' : 'pending';
+        if ( values.etat == 1) {
+          values.state = 'Completed';
+        } else if (values.etat == 2) {
+          values.state = 'approved';
+        } else {
+          values.state = 'pending';
+        }
         return values;
       });
 
@@ -73,6 +79,19 @@ processPayment(body): Observable<any> {
 
 releaseFunds(transaction_id) {
   const url = `https://api.noworri.com/api/releasepayment/${transaction_id}`;
+  return this.http.post(url, null).pipe(
+    map((response) => {
+      return response;
+    }),
+    catchError((error: HttpErrorResponse) => {
+      console.log('Error', error.message);
+      return observableThrowError(error);
+    })
+  );
+}
+
+approveTransaction(transaction_id) {
+  const url = `https://api.noworri.com/api/approveTransaction/${transaction_id}`;
   return this.http.post(url, null).pipe(
     map((response) => {
       return response;

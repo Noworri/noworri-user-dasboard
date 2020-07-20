@@ -88,6 +88,14 @@
                 </div>
                 <hr />
                 <div class="row">
+                  <div *ngIf="isApproved"  class="col-sm">
+                    <h6 class="text1">
+                      The seller approved this transaction and will deliver your product
+                    </h6>
+                  </div>
+                </div>
+                <hr *ngIf="isApproved"/>
+                <div class="row">
                   <div *ngIf="!isFundsReleased"  class="col-sm col1">
                     <h6 class="text1">
                       Release the funds when you get your product delivered

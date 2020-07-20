@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) {
-    const sessionData = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    const sessionData = localStorage.getItem(SESSION_STORAGE_KEY);
     if (sessionData) {
       router.navigate(['home']);
     }
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
                 name: response.currentUser.name,
               };
               const sessionData = JSON.stringify(this.sessionResponse);
-              sessionStorage.setItem(SESSION_STORAGE_KEY, sessionData);
+              localStorage.setItem(SESSION_STORAGE_KEY, sessionData);
               this.router.navigate(['home']);
             }
           },

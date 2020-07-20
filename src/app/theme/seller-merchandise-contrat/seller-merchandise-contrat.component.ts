@@ -21,6 +21,10 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   transactionType: string;
   userId: string;
   columns: any[];
+  isValidating = false;
+  isFundsReleased = false;
+  isApproved = false;
+
 
   buyerPhone: string;
   description: string;
@@ -49,6 +53,24 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     return ((price / 100) * 1.98);
   }
 
+  onApproveTransaction() {
+    this.isValidating = true;
+    this.transactionsService.approveTransaction(this.transactionId).pipe(takeUntil(this.unsubscribe)).subscribe(
+      response => {
+        setTimeout(() => {
+          this.isValidating = false;
+          this.router.navigate(['transactions']);
+        }, 5000);
+        return response;
+      },
+      error => {
+        this.isValidating = false;
+        console.log(error);
+        // this.router.navigate(['transactions']);
+      }
+    );
+  }
+
   loadUserTransaction(transaction_id: string) {
     this.transactionsService
       .getUserTransaction(transaction_id)
@@ -66,6 +88,12 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.item = details.service;
             this.buyerPhone = details.user_phone;
             this.description = details.requirement;
+            if (details.etat === '1') {
+              this.isFundsReleased = true;
+            }
+            if (details.etat === '2') {
+              this.isApproved = true;
+            }
           });
         },
         (error) => console.log(error.message)

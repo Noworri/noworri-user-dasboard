@@ -7,7 +7,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { SelectModule } from 'ng-select';
 
 @NgModule({
-  declarations: [ApiIntegrationComponent],
+  // declarations: [ApiIntegrationComponent],
   imports: [
     CommonModule,
     ApiIntegrationRoutingModule,

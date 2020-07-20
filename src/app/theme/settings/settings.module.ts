@@ -7,7 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
-  declarations: [SettingsComponent],
+  // declarations: [SettingsComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

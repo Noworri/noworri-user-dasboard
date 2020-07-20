@@ -10,11 +10,11 @@ import { FormsModule }   from '@angular/forms';
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  // declarations: [HomeComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule, 
+    SharedModule,
     SelectModule,
     FormsModule
   ]
