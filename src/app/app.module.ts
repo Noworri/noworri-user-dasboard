@@ -62,6 +62,7 @@ import { SellerServicesContratComponent } from './theme/seller-services-contrat/
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 import { BuyerServicesContratModule } from './theme/buyer-services-contrat/buyer-services-contrat.module';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
+import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-merchandise-step1/seller-escrow-merchandise-step1.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-cont
     BuyerServicesContratComponent,
     SellerServicesContratComponent,
     SellerMerchandiseContratComponent,
-    BuyerMerchandiseContratComponent
+    BuyerMerchandiseContratComponent,
+    SellerEscrowMerchandiseStep1Component
   ],
   imports: [
     BrowserModule,

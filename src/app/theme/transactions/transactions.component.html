@@ -150,13 +150,13 @@
               <thead>
                 <tr>
                   <th></th>
+                  <th>Date</th>
                   <th>Transaction ID</th>
                   <th>Transaction Type</th>
-                  <th>Amount</th>
-                  <th>Noworri Fee</th>
-                  <th>Total Amount</th>
+                  <th>Buyer</th>
+                  <th>Seller</th>
+                  <th>Amount Secured</th>
                   <th>status</th>
-                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -166,13 +166,14 @@
                       <i class="fa fa-eye"></i>
                     </button>
                   </td>
+                  <td>{{ item.created_at }}</td>
                   <td>{{ item.transaction_key }}</td>
                   <td>{{ item.transaction_type }}</td>
+                  <td></td>
+                  <td></td>
                   <td>{{ item.price }}</td>
-                  <td>{{ item.noworri_fees }}</td>
-                  <td>{{ item.total_price }}</td>
+                 
                   <td>{{ item.state }}</td>
-                  <td>{{ item.created_at }}</td>
                 </tr>
               </tbody>
             </table>

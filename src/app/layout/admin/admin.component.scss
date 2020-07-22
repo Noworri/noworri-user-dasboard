@@ -31,18 +31,29 @@
         }
       }
     }
+
+
+
     .header-search {
       top: 15px;
       left: 13px;
       #main-search {
+
+        .input-group-text{
+          img{
+            width: 20px;
+          }
+        }
         .input-group {
-          box-shadow: 0px 3px 6px #00000029;
           border-radius: 9px;
           opacity: 1;
           width: 400px;
         }
       }
     }
+
+
+    
   }
   .nav-right {
     margin-right: -26px;
@@ -56,13 +67,7 @@
         opacity: 1;
         font-size: 16px;
       }
-      #AddBussines {
-      margin-right: -45px;
-      }
-      #Notifications {
-        margin-top: 8px;
-        font-weight: bold;
-      }
+      
     }
   }
   // ---sideBar---------//
@@ -509,5 +514,4 @@
 #form-group2 {
   margin-top: 40px;
 }
-
 

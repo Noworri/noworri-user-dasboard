@@ -26,6 +26,7 @@ import { BuyerServicesContratComponent } from './theme/buyer-services-contrat/bu
 import { SellerServicesContratComponent } from './theme/seller-services-contrat/seller-services-contrat.component';
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
+import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-merchandise-step1/seller-escrow-merchandise-step1.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,10 @@ const routes: Routes = [
       {
         path: 'buyermerchandisecontrat/:transactionKey',
         component: BuyerMerchandiseContratComponent,
+      },
+      {
+        path: 'sellerescrowmerchandisestep1',
+        component: SellerEscrowMerchandiseStep1Component
       },
 
       {

@@ -173,10 +173,11 @@
                             name="exampleInputPassword5"
                            (click)='AfficheSide5()'
                             type="text"
-                            placeholder="Datepicker"
+                            placeholder="Date" 
                             class="form-control"
                             bsDatepicker
                             *ngIf='DayInput'
+                            [minDate]='minDate'
                           />
                         </div>
                       </div>
