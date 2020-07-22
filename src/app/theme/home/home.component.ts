@@ -32,7 +32,8 @@ export class HomeComponent implements OnInit {
     } else if (this.HomeInputService.DataInputHome.YourRole == "") {
       this.InputControl = "custom-select ValidationColor is-invalid";
     } else if (
-      this.HomeInputService.DataInputHome.TypeOfTransation == "Merchandise"
+      this.HomeInputService.DataInputHome.TypeOfTransation == "Merchandise" &&
+      this.HomeInputService.DataInputHome.YourRole=='Buyer'
     ) {
       const escrow0Data = {
         transactionType: this.HomeInputService.DataInputHome.TypeOfTransation,
@@ -41,7 +42,13 @@ export class HomeComponent implements OnInit {
       const escrow0LocalData = JSON.stringify(escrow0Data);
       localStorage.setItem(LOCAL_STORAGE_KEY, escrow0LocalData);
       this.Router.navigate(["/escrowmerchandisestep1"]);
-    } else {
+    } else if(
+      this.HomeInputService.DataInputHome.TypeOfTransation=='Merchandise' &&
+      this.HomeInputService.DataInputHome.YourRole=='Seller'
+    ){
+      this.Router.navigate(["/sellerescrowmerchandisestep1"]);
+    }
+    else {
       this.InputControl = "custom-select ValidationColor is-valid";
       const escrow0Data = {
         transactionType: this.HomeInputService.DataInputHome.TypeOfTransation,

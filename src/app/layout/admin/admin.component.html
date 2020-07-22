@@ -48,9 +48,14 @@
             <li class="header-search">
               <div id="main-search" class="main-search morphsearch-search open">
                 <div class="input-group">
-                  <span class="input-group-append search-btn"
-                    ><i class="feather icon-search input-group-text"></i
-                  ></span>
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <img src="assets\Search\flagGhana.png" alt="..." />
+                      <select class="form-control select form-control-sm">
+                        <option>(+233)</option>
+                      </select>
+                    </div>
+                  </div>
                   <input
                     class="form-control"
                     [style.width]="searchWidthString"
@@ -67,25 +72,6 @@
             class="nav-right"
           >
             <li><a>Get trusted</a></li>
-            <li>
-              <a id="Notifications"><mat-icon>notifications</mat-icon> </a>
-            </li>
-            <li>
-              <a id="AddBussines" [routerLink]="['/payments']">Add business </a>
-            </li>
-            <li
-              (clickOutside)="notificationOutsideClick('profile')"
-              class="user-profile header-notification ripple light"
-              (click)="toggleProfileNotification()"
-            >
-              <a href="javascript:">
-                <img
-                  src="assets\images\1.png"
-                  class="img-radius"
-                  alt="User-Profile-Image"
-                />
-              </a>
-            </li>
           </ul>
         </div>
       </div>
@@ -313,7 +299,9 @@
             <div class="container" id="Buttons">
               <div class="row">
                 <div class="col-sm">
-                  <button (click)=closeFirstModal() class="Cancel" mat-button>Cancel</button>
+                  <button (click)="closeFirstModal()" class="Cancel" mat-button>
+                    Cancel
+                  </button>
                 </div>
                 <div class="col-sm">
                   <button class="Sends" mat-button color="primary">
@@ -367,10 +355,7 @@
                     <li class="nav-item">
                       <a
                         class="nav-link"
-                        style="color:#434a69;font-family:Helvetica Neue
-                        -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-                         Helvetica Neue, Ubuntu, sans-serif
-                        "
+                        style="color: #434a69; font-family: Segoe UI;"
                         [routerLink]="['/', asideItem.name]"
                         href="#"
                         >{{ asideItem.state }}

@@ -17,9 +17,19 @@
         color: red;
         cursor: pointer;
       }
+      .Merchandise {
+        text-align: left;
+        font: Regular 40px/60px Poppins;
+        letter-spacing: 0;
+        color: #7a4bff;
+        opacity: 1;
+        font-weight: 400;
+        font-size: 24px;
+        margin-top: -10px;
+      }
       .card-body {
         #Please {
-          background: #2bb996 0% 0% no-repeat padding-box;
+          background: #2bb996;
           opacity: 1;
           margin-top: -22px;
           .Please {
@@ -35,22 +45,22 @@
         }
       }
       #Form1 {
-        margin-top: 40px;
+        margin-top: 27px;
         label {
           text-align: left;
-          font: Semibold 20px/27px Segoe UI;
-          letter-spacing: 0;
+          font: Regular 17px/26px Poppins;
+          letter-spacing: 0px;
           color: #484848;
           opacity: 1;
-          font-size: 14px;
-          margin-bottom: 16px;
-          margin-bottom: -20px;
+          margin-bottom: 10px;
+          margin-left: 2px;
         }
         input {
           border-color: 1px solid #707070;
           border-radius: 6px;
           opacity: 1;
           width: 520px;
+          border-color: #497dd5;
         }
       }
       #Form2 {
@@ -58,7 +68,7 @@
           margin-top: 10px;
         }
         label {
-          margin-top: 8px;
+          margin-top: -80px;
           text-align: left;
           font: Semibold 20px/27px Segoe UI;
           letter-spacing: 0;
@@ -72,6 +82,7 @@
           width: 500px;
           border-top-left-radius: 6px;
           border-bottom-left-radius: 6px;
+          border-color: #497dd5;
         }
         .input-group-text {
           margin-left: -31px;
@@ -117,89 +128,64 @@
         letter-spacing: 0;
         color: black;
         opacity: 1;
-       
-      }
-      .setTransation{
-        text-align: left;
-        font: Semibold 20px/27px Segoe UI;
-        letter-spacing: 0;
-        color: #484848;
-        opacity: 1;
-      }
-      .days{
-        text-align: left;
-        font: Semibold 20px/27px Segoe UI;
-        letter-spacing: 0;
-        color: #484848;
-        opacity: 1;
-      }
-      .hours{
-        margin-left: 50px;
-        text-align: left;
-        font: Semibold 20px/27px Segoe UI;
-        letter-spacing: 0;
-        color: #484848;
-        opacity: 1;
-      }
-      .radioButton{
       }
 
+      .NoworriFee {
+        text-align: left;
+        font: Regular 17px/26px Poppins;
+        letter-spacing: 0px;
+        color: #484848;
+        opacity: 1;
+        margin-left: 18px;
+        margin-top: 20px;
+        font-size: 14px;
+      }
+      .fee {
+        text-align: left;
+        font: Regular 17px/26px Poppins;
+        letter-spacing: 0px;
+        color: #497dd5;
+        opacity: 1;
+        margin-top: 20px;
+        font-weight: 600;
+      }
       #PetitInput1 {
-        margin-top: 18px;
+        margin-top: -6px;
         label {
           text-align: left;
-          font: Semibold 20px/27px Segoe UI;
-          letter-spacing: 0;
+          font: Regular 17px/26px Poppins;
+          letter-spacing: 0px;
           color: #484848;
           opacity: 1;
-        }
-        input {
-          border-color: 1px solid #707070;
-          border-radius: 6px;
-          opacity: 1;
-          width: 100px;
-        }
-        #Days {
-          background-color: red;
+          margin-top: 20px;
         }
       }
       #PetitInput2 {
-        margin-top: 20px;
-        input {
-          border-color: 1px solid #707070;
-          border-radius: 6px;
-          opacity: 1;
-          width: 220px;
-        }
-        #mat-radio-button {
-          margin-top: 40px;
-          margin-left: -350px;
-          text-align: left;
-          font: Semibold 20px/27px Segoe UI;
-          letter-spacing: 0;
-          color: #484848;
-          opacity: 1;
-
-          .mat-radio-button {
-            margin: 7px;
-          }
-        }
-      }
-      #TimeInput {
+        margin-top: -6px;
         label {
           text-align: left;
-          font: Semibold 20px/27px Segoe UI;
-          letter-spacing: 0;
+          font: Regular 17px/26px Poppins;
+          letter-spacing: 0px;
           color: #484848;
           opacity: 1;
+          margin-top: 26px;
         }
-        input {
-          border-color: 1px solid #707070;
-          border-radius: 6px;
+        .inp {
+          margin-top: -13px;
+        }
+        p {
+          text-align: left;
+          font: Regular 15px/23px Poppins;
+          letter-spacing: 0px;
+          color: #ff0045;
           opacity: 1;
-          width: 220px;
+          font-weight: 600px;
+          margin-top: -5px;
+          margin-bottom: 30px;
+          font-size: 13px;
         }
       }
+
       #PetitInput3 {
         margin-top: 18px;
         label {
@@ -213,10 +199,11 @@
         textarea {
           margin-top: 5px;
           width: 530px;
-          height: 150px;
+          height: 100px;
           border-color: 1px solid #707070;
-          border-radius: 13px;
+          border-radius: 8px;
           opacity: 1;
+          border-color: #497dd5;
         }
       }
       .Link {
@@ -235,19 +222,20 @@
     .ServiceStep1 {
       h6 {
         text-align: left;
-        font: Regular 40px/60px Poppins;
-        letter-spacing: 0;
+        font: Regular 28px/42px Poppins;
+        letter-spacing: 0px;
         color: #7a4bff;
         opacity: 1;
-        font-weight: 400;
-        font-size: 24px;
         margin-left: 20px;
+        font-size: 25px;
+        font-weight: 500;
       }
       hr {
         width: 600px;
-        border-color: 1px solid #707070;
-        border-width: 1.9px;
+        border-color: 3px solid;
+        border-width: 1.91px;
         opacity: 1;
+        background-color: rgb(243, 237, 237);
       }
     }
   }
@@ -255,14 +243,14 @@
     margin-left: -40px;
     #card1 {
       width: 350px;
-      margin-top: 240px;
+      margin-top: 220px;
       .card {
         background: #2bb996 0% 0% no-repeat padding-box;
         opacity: 1;
-        height: 110px;
+        height: 80px;
         .card-body {
           .local_offer {
-            margin-top: 13px;
+            margin-top: 8px;
             transform: rotate(90deg);
             margin-right: -30px;
             .local {
@@ -271,6 +259,7 @@
             }
           }
           p {
+            margin-top: -10px;
             text-align: left;
             font: Regular 20px/27px Segoe UI;
             letter-spacing: 0;
@@ -286,14 +275,14 @@
     }
     #card2 {
       width: 350px;
-      margin-top: 340px;
+      margin-top: 320px;
       .card {
         background: #2bb996 0% 0% no-repeat padding-box;
         opacity: 1;
         height: 80px;
         .card-body {
           .local_offer {
-            margin-top: 13px;
+            margin-top: 7px;
             transform: rotate(90deg);
             margin-right: -30px;
             .local {
@@ -318,15 +307,15 @@
     }
     #card3 {
       width: 350px;
-      margin-top: 468px;
+      margin-top: 424px;
       .card {
         margin-top: 100px;
         background: #2bb996 0% 0% no-repeat padding-box;
         opacity: 1;
-        height: 80px;
+        height: 130px;
         .card-body {
           .local_offer {
-            margin-top: 13px;
+            margin-top: 16px;
             transform: rotate(90deg);
             margin-right: -30px;
             .local {
@@ -350,15 +339,15 @@
     }
     #card4 {
       width: 350px;
-      margin-top: 555px;
+      margin-top: 540px;
       .card {
         margin-top: 220px;
         background: #2bb996 0% 0% no-repeat padding-box;
         opacity: 1;
-        height: 85px;
+        height: 120px;
         .card-body {
           .local_offer {
-            margin-top: 13px;
+            margin-top: 18px;
             transform: rotate(90deg);
             margin-right: -30px;
             .local {
@@ -382,15 +371,15 @@
     }
     #card5 {
       width: 350px;
-      margin-top: 650px;
+      margin-top: 680px;
       .card {
         margin-top: 320px;
         background: #2bb996 0% 0% no-repeat padding-box;
         opacity: 1;
-        height: 85px;
+        height: 110px;
         .card-body {
           .local_offer {
-            margin-top: 13px;
+            margin-top: 16px;
             transform: rotate(90deg);
             margin-right: -30px;
             .local {
@@ -415,7 +404,7 @@
 
     #card6 {
       width: 350px;
-      margin-top: 860px;
+      margin-top: 840px;
       .card {
         margin-top: 480px;
         background: #2bb996 0% 0% no-repeat padding-box;
