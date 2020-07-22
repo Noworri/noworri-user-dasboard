@@ -86,17 +86,17 @@
                     <h6 class="Revisions">{{ totalAmount }}</h6>
                   </div>
                 </div>
-                <hr />
+                <hr *ngIf="isCancelled" />
                 <div class="row">
-                  <div *ngIf="isApproved"  class="col-sm">
+                  <div *ngIf="isCancelled"  class="col-sm">
                     <h6 class="text1">
-                      The seller approved this transaction and will deliver your product
+                      The seller cancelled this transaction. Please start another one
                     </h6>
                   </div>
                 </div>
-                <hr *ngIf="isApproved"/>
+                <hr *ngIf="!isCancelled"/>
                 <div class="row">
-                  <div *ngIf="!isFundsReleased"  class="col-sm col1">
+                  <div *ngIf="!isFundsReleased && !isCancelled"  class="col-sm col1">
                     <h6 class="text1">
                       Release the funds when you get your product delivered
                     </h6>
@@ -106,7 +106,7 @@
                       the funds have been Released for this transaction
                     </h6>
                   </div>
-                  <div *ngIf="!isFundsReleased"  class="col-sm col4">
+                  <div *ngIf="!isFundsReleased && !isCancelled"  class="col-sm col4">
                       <div *ngIf="isValidating" class="Loading">
                         <button  class="Revisions btn btn-sm btn-light" >
                           <span
@@ -117,7 +117,7 @@
                         processing...
                         </button>
                       </div>
-                    <button type="button" *ngIf="!isValidating" (click)="onReleaseFunds()" class="Revisions btn btn-sm btn-light">
+                    <button type="button" *ngIf="!isValidating && !isCancelled" (click)="onReleaseFunds()" class="Revisions btn btn-sm btn-light">
                       Release Funds
                     </button>
                   </div>
@@ -156,13 +156,13 @@
           <div class="card-body">
           
             <div class="container">
-              <div class="row">
+              <!-- <div class="row">
                 <mat-icon class="Icon">report</mat-icon>
                 <h6 class="WantTo">Want to cancel this order ?</h6>
               </div>
               <div class="row">
                 <a class="nav-link" href="#">Click Here</a>
-              </div>
+              </div> -->
               <div class="row">
                 <mat-icon class="Icon">report</mat-icon>
                 <h6 class="Somethingunclair">Something unclair ?</h6>

@@ -23,9 +23,9 @@ getUserTranactions(userId: string): Observable<any> {
         if ( values.etat == 1) {
           values.state = 'Completed';
         } else if (values.etat == 2) {
-          values.state = 'approved';
+          values.state = 'Cancelled';
         } else {
-          values.state = 'pending';
+          values.state = 'Pending';
         }
         return values;
       });
@@ -90,8 +90,8 @@ releaseFunds(transaction_id) {
   );
 }
 
-approveTransaction(transaction_id) {
-  const url = `https://api.noworri.com/api/approveTransaction/${transaction_id}`;
+cancelOrder(transaction_id) {
+  const url = `https://api.noworri.com/api/cancelTransaction/${transaction_id}`;
   return this.http.post(url, null).pipe(
     map((response) => {
       return response;

@@ -23,7 +23,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   columns: any[];
   isValidating = false;
   isFundsReleased = false;
-  isApproved = false;
+  isCancelled = false;
 
 
   buyerPhone: string;
@@ -53,9 +53,9 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     return ((price / 100) * 1.98);
   }
 
-  onApproveTransaction() {
+  cancelOrder() {
     this.isValidating = true;
-    this.transactionsService.approveTransaction(this.transactionId).pipe(takeUntil(this.unsubscribe)).subscribe(
+    this.transactionsService.cancelOrder(this.transactionId).pipe(takeUntil(this.unsubscribe)).subscribe(
       response => {
         setTimeout(() => {
           this.isValidating = false;
@@ -92,7 +92,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
               this.isFundsReleased = true;
             }
             if (details.etat === '2') {
-              this.isApproved = true;
+              this.isCancelled = true;
             }
           });
         },

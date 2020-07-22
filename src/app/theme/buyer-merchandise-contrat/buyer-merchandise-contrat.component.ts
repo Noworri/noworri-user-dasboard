@@ -24,7 +24,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   mobileWallet = false;
   isValidating = false;
   isFundsReleased = false;
-  isApproved = false;
+  isCancelled = false;
 
   sellerPhone: string;
   description: string;
@@ -86,7 +86,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
               this.isFundsReleased = true;
             }
             if (details.etat === '2') {
-              this.isApproved = true;
+              this.isCancelled = true;
             }
           });
         },
