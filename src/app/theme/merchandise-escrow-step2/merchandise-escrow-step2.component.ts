@@ -35,6 +35,7 @@ export class MerchandiseEscrowStep2Component implements OnInit {
   owner_role: string;
   transactionType: string;
   description: string;
+  deliveryPhone: string;
 
   wholeAmountPart: number;
   decimalPart: any;
@@ -51,6 +52,7 @@ export class MerchandiseEscrowStep2Component implements OnInit {
     this.email = sessionData.email;
     this.name = sessionData.name;
     this.mobile_phone = sessionData.mobile_phone;
+    this.deliveryPhone = sessionData.delivery;
     this.user_id = sessionData.user_uid;
     const escrowStep2Data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     this.item = escrowStep2Data.item;
@@ -78,12 +80,13 @@ export class MerchandiseEscrowStep2Component implements OnInit {
       owner_role: this.owner_role,
       owner_phone: this.sellerNumber,
       transaction_type: this.transactionType,
+      deadline_type: this.deliveryPhone,
       service: this.item,
       price: this.price,
       noworri_fees: this.noworriFee,
       total_price: this.amount,
       requirement: this.description,
-      etat: 0
+      etat: 1
     };
   }
 
@@ -100,7 +103,7 @@ export class MerchandiseEscrowStep2Component implements OnInit {
   }
 
   ngOnInit() {
-    this.InitCreditOrWallet();
+    this.initCreditOrWallet();
     // this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe((event) => {
     //   if (event instanceof NavigationStart) {
     //     if (
@@ -121,7 +124,7 @@ export class MerchandiseEscrowStep2Component implements OnInit {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
   }
 
-  InitCreditOrWallet() {
+  initCreditOrWallet() {
     this.Form = this.formbuilder.group({
       creditCardValue: '',
     });

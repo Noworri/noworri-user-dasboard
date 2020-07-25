@@ -66,6 +66,15 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     );
   }
 
+  getNoworriFee(price) {
+    return (price / 100) * 1.95;
+  }
+
+  getTotalAmount(price) {
+    const amount  = parseInt(price, 10) + this.getNoworriFee(price);
+    return amount;
+  }
+
   loadUserTransaction(transaction_id: string) {
     this.transactionsService
       .getUserTransaction(transaction_id)
@@ -80,12 +89,13 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.item = details.service;
             this.sellerPhone = details.owner_phone;
             this.description = details.requirement;
-            this.totalAmount = details.total_price;
-            this.noworriFee = details.noworri_fees;
-            if (details.etat === '1') {
+            this.totalAmount = this.getTotalAmount(details.price).toFixed(2);
+            this.noworriFee = this.getNoworriFee(details.price).toFixed(2);
+            this.deliveryPhone = details.deadline_type ? details.deadline_type : 'N/A';
+            if (details.etat === '2') {
               this.isFundsReleased = true;
             }
-            if (details.etat === '2') {
+            if (details.etat === '0') {
               this.isCancelled = true;
             }
           });

@@ -94,19 +94,19 @@
                     <h6 class="Deliveryman">Deliveryman's phone</h6>
                   </div>
                   <div class="col-sm col2">
-                    <h6 class="Number2">+23327895623</h6>
+                    <h6 class="Number2">{{ deliveryPhone }}</h6>
                   </div>
                   <div class="col-sm col4">
-                    <h6 class="Changedeliveryman">Change the phone</h6>
+                    <h6 class="Changedeliveryman" (click)="onUpdateDeliveryPhone()">Change the phone</h6>
                   </div>
                 </div>
                 <hr />
                 <div class="row">
-                  <!-- <div *ngIf="!isApproved && !isFundsReleased"  class="col-sm col1">
+                  <div *ngIf="!isFundsReleased && !isCancelled"  class="col-sm">
                     <h6 class="text1">
-                      Approve Transaction then deliver the product to the buyer to get paid
+                     Deliver the product to the buyer to get your payment
                     </h6>
-                  </div> -->
+                  </div>
                   <div *ngIf="isCancelled"  class="col-sm">
                     <h6 class="text1">
                       You cancelled this transaction, we notified the buyer
@@ -153,12 +153,22 @@
           <hr class="h" />
           <div class="card-body">
             <div class="container">
-              <div class="row">
+              <div *ngIf="!isCancelled" class="row">
                 <mat-icon class="Icon">report</mat-icon>
                 <h6 class="WantTo">Want to cancel this order ?</h6>
               </div>
               <div class="row">
-                <a class="nav-link" (click)="cancelOrder()">Click Here</a>
+                <div *ngIf="isValidating" class="Loading">
+                  <a  class="Revisions btn btn-sm btn-light" >
+                    <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Cancelling...
+                  </a>
+                </div>
+                <a class="nav-link" *ngIf="!isValidating" (click)="cancelOrder()">Click Here</a>
               </div>
               <div class="row">
                 <mat-icon class="Icon">report</mat-icon>
@@ -169,6 +179,32 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="card" *ngIf="isUpdatingDelivery">
+          <form  (ngSubmit)="updateDeliveryPhone(form)" #form="ngForm">
+            <div class="form-group">
+              <label for="exampleInputEmail1">New delivery's phone number</label>
+              <input
+              name="newDelivery"
+                type="tel"
+                ngModel
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+              <div *ngIf="isUpdating" class="Loading">
+                <button  class="Revisions btn btn-sm btn-light" >
+                  <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                processing...
+                </button>
+              </div>
+              <button *ngIf="!isUpdating" type="submit" class="btn btn-light">update</button>    
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -57,7 +57,17 @@
         id="inlineFormInput"
         placeholder="0279414289"
       />
-      <button type="button" (click)="onMobilePay()" class="btn btn-light btn-sm">Secure funds</button>
+      <div *ngIf="isValidating" class="Loading">
+        <button >
+          <span
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        processing...
+        </button>
+      </div>
+      <button *ngIf='!isValidating' type="button" (click)="onMobilePay()" class="btn btn-light btn-sm">Secure funds</button>
     </div>
   </div>
 </div>

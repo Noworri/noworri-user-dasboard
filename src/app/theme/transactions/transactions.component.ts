@@ -43,7 +43,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   loadTransactions(userId: string) {
     // userId = 'a9twRK1JpPPQDrB6hNvfAr2ju682' this is a test User_uid
-    this.transactionsService.getUserTranactions(userId).pipe(takeUntil(this.unsubscribe)).subscribe(
+    this.transactionsService.getUserTransactions(userId).pipe(takeUntil(this.unsubscribe)).subscribe(
       transactions => {
         this.tableData = transactions;
         transactions.forEach(details => {
