@@ -30,16 +30,18 @@
           <ul class="nav-left">
             <li class="ripple light">
               <div class="main-menu-header">
-                <img
+                <a routerLink="settings">
+                  <img
                   src="{{ pp }}"
                   class="img-menu-user img-radius"
                   alt="User-Profile-Image"
                 />
+                </a>
               </div>
             </li>
             <li class="ripple light" id="ProfilNameEtMail">
               <div class="row">
-                <h6 class="Nom">{{ currentUser }}</h6>
+                <a routerLink="settings" class="Nom">{{ currentUser }}</a>
               </div>
               <div class="row">
                 <h6 class="Mail">{{ userEmail }}</h6>

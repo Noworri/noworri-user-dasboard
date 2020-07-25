@@ -68,7 +68,7 @@
                     <h6 class="Deadline"></h6>
                   </div>
                   <div class="col-sm col4">
-                    <h6 class="Revisions">{{ noworriFee }}</h6>
+                    <h6 class="Revisions"> {{ noworriFee }}</h6>
                   </div>
                 </div>
                 <hr />
@@ -84,6 +84,19 @@
                   </div>
                   <div class="col-sm col4">
                     <h6 class="Revisions">{{ totalAmount }}</h6>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm col1">
+                    <h6 class="Deliveryman">Deliveryman's phone</h6>
+                  </div>
+                  <div class="col-sm col2">
+                  </div>
+                  <div class="col-sm col3">
+                  </div>
+                  <div class="col-sm col4">
+                    <h6 class="Number2">{{ deliveryPhone }}</h6>
                   </div>
                 </div>
                 <hr *ngIf="isCancelled" />
@@ -123,19 +136,6 @@
                   </div>
                 </div>
                 <hr />
-
-                <!-- <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Deliveryman">Deliveryman's phone</h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Number2">{{ deliveryPhone }}</h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="Changedeliveryman">Change deliveryman</h6>
-                  </div>
-                </div>
-                <hr /> -->
                 <div class="row" id="Description" >
                   <h5 class="descriptions">Description</h5>
                   <p class="text" style="margin-left: -89.2px;">

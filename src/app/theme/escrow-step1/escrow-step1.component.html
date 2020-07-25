@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="fescrowstep1(F, form)" #F="ngForm">
+  <form (ngSubmit)="fescrowStep1(F, form)" #F="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -16,7 +16,7 @@
               <div id="Form1">
                 <div class="form-group">
                   <label id="PrincipaleTitle" style="margin-bottom: 20px;" for="exampleInputEmail1"
-                    >What {{transactionType | lowercase}} are you {{ buyinOrSelling  |lowercase }}</label
+                    >What {{transactionType | lowercase}} are you {{ role  |lowercase }}</label
                   >
                   <input
                     type="text"
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1"
-                    >{{ buyersOrSeller  }} phone number </label
+                    >{{ buyerOrSeller  }} phone number </label
                   >
                 </div>
               </div>
