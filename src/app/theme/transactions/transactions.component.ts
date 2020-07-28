@@ -48,10 +48,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
         this.tableData = transactions;
         transactions.forEach(details => {
           this.transactionType = details.transaction_type.toLowerCase();
-          if (userId === details.owner_id) {
-            this.userRole = 'sell';
-          } else if (userId === details.user_id) {
-            this.userRole = 'buy';
+          const buyerPhone = details.user_phone;
+          if (details.user_role === 'Sell') {
+            details.user_phone = details.owner_phone;
+            details.owner_phone = buyerPhone;
           }
           this.amount = details.total_price;
         });

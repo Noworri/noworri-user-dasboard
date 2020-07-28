@@ -1,11 +1,11 @@
 <div class="container">
-  <form (ngSubmit)="onCompleteStep1(F, formDelivery, formSeller)" #F="ngForm">
+  <form (ngSubmit)="onCompleteStep1(form, formDelivery, formSeller)" #form="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
           <div class="ServiceStep1">
             <mat-icon class="cancel" routerLink="/home">cancel</mat-icon>
-            <h6 class="Merchandise">Merchandise: Step 1 of 2</h6>
+            <h6 class="Merchandise">Merchandise: Transaction Creation</h6>
             <hr />
             <div class="card-body">
               <div id="Please">
