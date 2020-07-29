@@ -7,6 +7,7 @@ import { isEmpty } from 'lodash';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AuthService } from 'src/app/Service/auth.service';
 
 const LOCAL_STORAGE_KEY_0 = 'noworri-escrow-0';
 const LOCAL_STORAGE_KEY_1 = 'merchandise-escrow-1';
@@ -19,7 +20,7 @@ const SESSION_STORAGE_KEY = 'noworri-user-session';
 })
 export class SellerEscrowMerchandiseStep1Component implements OnInit {
 
-  isValidSeller = true;
+  isValidBuyer = true;
   rawSeller: string;
   isValidNumber = true;
   isValidating = false;
@@ -90,7 +91,7 @@ export class SellerEscrowMerchandiseStep1Component implements OnInit {
 
 
   constructor(    private router: Router,
-    private companyService: NoworriSearchService,
+    private companyService: AuthService,
     private formbuilder: FormBuilder,
     private transactionsService: TransactionsService,
 
@@ -104,8 +105,10 @@ export class SellerEscrowMerchandiseStep1Component implements OnInit {
   this.user_id = sessionData.user_uid;
 
   const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_0));
-  this.user_role = localData.role === 'Buyer' ? 'Buy' : 'Sell';
-  this.owner_role = this.user_role === 'Buy' ? 'Sell' : 'Buy';
+  // this.user_role = localData.role === 'Buyer' ? 'Buy' : 'Sell';
+  // this.owner_role = this.user_role === 'Buy' ? 'Sell' : 'Buy';
+  this.user_role = 'Sell';
+  this.owner_role = 'Buy';
   this.transactionType = localData.transactionType;
 
   this.escrowStep1Data = {
@@ -137,7 +140,7 @@ getNoworriFee(price) {
     this.rawSeller = formSeller.value['sellerPhoneNumber'];
     this.isValidating = true;
 
-    this.getCompanyDetails(this.escrowStep1Data.sellerPhoneNumber);
+    this.getBuyerDetails(this.escrowStep1Data.sellerPhoneNumber);
 
     setTimeout(() => {
       if (this.escrowStep1Data.item === '') {
@@ -150,7 +153,7 @@ getNoworriFee(price) {
       }
       this.inputValidation = /^-?(0|[1-9]\d*)?$/;
       if (
-        !this.isValidSeller ||
+        !this.isValidBuyer ||
         !this.rawSeller ||
         (this.rawSeller && !this.rawSeller.match(this.inputValidation))
       ) {
@@ -217,19 +220,19 @@ getNoworriFee(price) {
       );
   }
 
-  getCompanyDetails(sellerPhoneNumber) {
+  getBuyerDetails(sellerPhoneNumber) {
     if (this.rawSeller) {
-      this.companyService.getCompanyDetails(sellerPhoneNumber).subscribe(
-        (company: CompanyReference) => {
-          if (isEmpty(company)) {
-            this.isValidSeller = false;
+      this.companyService.getUserDetails(sellerPhoneNumber).subscribe(
+        user => {
+          if (isEmpty(user)) {
+            this.isValidBuyer = false;
           } else {
-            this.isValidSeller = true;
-              this.owner_id = company.user_id;
+            this.isValidBuyer = true;
+            this.owner_id = user.user_uid;
           }
         },
         (error) => {
-          this.isValidSeller = false;
+          this.isValidBuyer = false;
           console.log('Error %j', error.message);
         }
       );

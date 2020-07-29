@@ -25,6 +25,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   isValidating = false;
   isFundsReleased = false;
   isCancelled = false;
+  hasDeliveryPhone: boolean;
 
   sellerPhone: string;
   description: string;
@@ -91,6 +92,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.description = details.requirement;
             this.totalAmount = this.getTotalAmount(details.price).toFixed(2);
             this.noworriFee = this.getNoworriFee(details.price).toFixed(2);
+            this.hasDeliveryPhone = details.deadline_type ? true : false;
             this.deliveryPhone = details.deadline_type ? details.deadline_type : 'N/A';
             if (details.etat === '2') {
               this.isFundsReleased = true;

@@ -107,9 +107,9 @@
                     </h6>
                   </div>
                 </div>
-                <hr *ngIf="!isCancelled"/>
+                <hr *ngIf="!isCancelled && hasDeliveryPhone"/>
                 <div class="row">
-                  <div *ngIf="!isFundsReleased && !isCancelled"  class="col-sm col1">
+                  <div *ngIf="!isFundsReleased && !isCancelled && hasDeliveryPhone"  class="col-sm col1">
                     <h6 class="text1">
                       Release the funds when you get your product delivered
                     </h6>
@@ -130,7 +130,7 @@
                         processing...
                         </button>
                       </div>
-                    <button type="button" *ngIf="!isValidating && !isCancelled" (click)="onReleaseFunds()" class="Revisions btn btn-sm btn-light">
+                    <button type="button" *ngIf="!isValidating && !isCancelled && hasDeliveryPhone" (click)="onReleaseFunds()" class="Revisions btn btn-sm btn-light">
                       Release Funds
                     </button>
                   </div>
