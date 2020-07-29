@@ -672,6 +672,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
+  onViewProfile() {
+    this.Router.navigate(['Settings']);
+  }
+
   logout () {
     localStorage.setItem('dataToken', 'false')
   }

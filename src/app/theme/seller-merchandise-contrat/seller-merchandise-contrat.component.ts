@@ -81,7 +81,8 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
 
   updateDeliveryPhone(form: NgForm) {
     this.isUpdating = true;
-    this.transactionsService.updateDeliveryPhone(this.transactionId, form.value['newDelivery']).pipe(takeUntil(this.unsubscribe)).subscribe(
+    const newDelivery = `+233${form.value['newDelivery']}`;
+    this.transactionsService.updateDeliveryPhone(this.transactionId, newDelivery).pipe(takeUntil(this.unsubscribe)).subscribe(
       response => {
         setTimeout(() => {
           this.isUpdating = false;
@@ -112,7 +113,12 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.totalAmount = parseInt(this.amount, 10) - parseInt(this.noworriFee, 10);
             this.totalAmount = this.totalAmount.toFixed(2);
             this.item = details.service;
-            this.buyerPhone = details.user_phone;
+            this.buyerPhone = details.owner_phone;
+            if (details.user_id === this.userId && details.user_role === 'Buy') {
+              this.buyerPhone = details.user_phone;
+            } else if (details.owner_id === this.userId && details.owner_role === 'Buy') {
+              this.buyerPhone = details.owner_phone;
+            }
             this.description = details.requirement;
             this.transactionId = details.id;
             this.deliveryPhone = details.deadline_type ? details.deadline_type : 'N/A';

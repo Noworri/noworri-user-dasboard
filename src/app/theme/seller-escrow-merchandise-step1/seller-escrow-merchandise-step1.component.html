@@ -134,14 +134,13 @@
                       [onlyLocalized]="true"
                       [(E164PhoneNumber)]="E164PhoneNumber"
                     ></intl-tel-input>
-                    <!----   <mat-error
-                      *ngIf="!Accept2 && !isValidNumber && !isValidSeller"
+                      <mat-error
+                      *ngIf="!Accept2 && !isValidNumber && !isValidBuyer"
                       >invalid phone number</mat-error
                     >
-                    <mat-error *ngIf="!isValidSeller && isValidNumber"
-                      >this Seller is not registered on Noworri</mat-error
+                    <mat-error *ngIf="!isValidBuyer && isValidNumber"
+                      >this Buyer is not registered on Noworri</mat-error
                     >
-                    -->
                   </form>
                 </div>
                 <div id="PetitInput2">
