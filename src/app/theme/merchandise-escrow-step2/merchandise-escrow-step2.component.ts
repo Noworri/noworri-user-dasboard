@@ -86,7 +86,7 @@ export class MerchandiseEscrowStep2Component implements OnInit {
       noworri_fees: this.noworriFee,
       total_price: this.amount,
       requirement: this.description,
-      etat: 1
+      etat: 4
     };
   }
 

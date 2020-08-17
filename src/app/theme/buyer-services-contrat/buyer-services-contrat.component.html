@@ -9,7 +9,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm">
-                  <h6 class="TransactionID">Transaction ID 45689230</h6>
+                  <h6 class="TransactionID">Transaction ID {{ transactionId }}</h6>
                 </div>
                 <div class="col-sm">
                   <h6
@@ -64,17 +64,17 @@
                 <div class="row">
                   <div class="col-sm">
                     <h6 class="Anandroidmobile">
-                      An android mobile application
+                      {{ item }}
                     </h6>
                   </div>
                   <div class="col-sm col5">
-                    <h6 class="cinq1">550.00</h6>
+                    <h6 class="cinq1">{{ amount }}</h6>
                   </div>
                   <div class="col-sm col6">
-                    <h6 class="Days12Hours">4 Days 12 Hours</h6>
+                    <h6 class="Days12Hours">{{ deadline }}</h6>
                   </div>
                   <div class="col-sm col7">
-                    <h6 class="Trois">3</h6>
+                    <h6 class="Trois">{{ revisions }}</h6>
                   </div>
                 </div>
                 <div class="row">
@@ -82,7 +82,7 @@
                     <h6 class="NoworriFees">Noworri Fees</h6>
                   </div>
                   <div class="col-sm col9">
-                    <h6 class="quinz">15.14</h6>
+                    <h6 class="quinz">{{ noworriFee }}</h6>
                   </div>
                   <div class="col-sm"></div>
                   <div class="col-sm"></div>
@@ -94,7 +94,7 @@
                     <h6 class="NETPAYABLE">NET PAYABLE</h6>
                   </div>
                   <div class="col-sm">
-                    <h6 class="cinq2">560.14</h6>
+                    <h6 class="cinq2">{{ totalAmount }}</h6>
                   </div>
                   <div class="col-sm"></div>
                 </div>
@@ -107,7 +107,7 @@
         <div class="container">
           <div class="row">
             <div class="col-sm col10">
-              <h6 class="ORDERREQUIREMENTS">ORDER REQUIREMENTS</h6>
+              <h6 class="ORDERREQUIREMENTS">SERVICE REQUIREMENTS</h6>
             </div>
             <div class="col-sm"></div>
             <div class="col-sm col11">
@@ -140,21 +140,10 @@
           <div class="card" style="width: 50rem;">
             <div class="card-body">
               <p>
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
+                {{ description }}
               </p>
               <div class="container">
-                <h6 class="AttachedFile">Attached file</h6>
-                <h6 class="AmelPlan">Amel plan of house.PDF</h6>
-                <h6 class="Architech">Architech building.PNG</h6>
+                <h6 *ngFor="let item of uploadedFiles" class="AttachedFile" (click)=onOpenAttachedFile(item) >{{ item }}</h6>
               </div>
             </div>
           </div>
@@ -164,99 +153,165 @@
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
-              <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
+              <h6 class="HeureEtDate">{{ creationDate }} @ {{ creationTime }}</h6>
             </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card6">
+      <div *ngIf="isUserBuyer" class="row" id="Card6">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              The contact has been sent successfully to
-              <span class="false102">@false102</span> we will let you know when
-              the contact is acceptd
+              <span class="false102">@{{ businessName }} </span> Sent you a contract in which you are to hire his services
             </h6>
-            <button type="button" class="btn btn-light btn-sm">
+            <div class="row">
+              <div class="col" id="Delivred">
+                <div *ngIf="isValidating" class="Loading">
+                  <button >
+                    <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  processing...
+                  </button>
+                </div>
+                <button
+                  *ngIf="!hasAgreed && !isValidating"
+                  type="button"
+                  (click)="approveContract()"
+                  class="btn btn-light btn-sm"
+                >
+                  AGREE
+                </button>
+              </div>
+              <div class="col"></div>
+            </div>
+            <!-- <button type="button" class="btn btn-light btn-sm">
               Send Reminder
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
-      <div class="row" id="Card7">
-        <div class="col-sm col15">
-          <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
-        </div>
-      </div>
-      <div class="row" id="Card8">
+      <div *ngIf="!isUserBuyer" class="row" id="Card6">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              <span class="false102">@false102</span> has agreed to the contract
+              The contract has been sent successfully to
+              <span class="false102">@{{ businessName }} </span>, we will let you know when
+              the seller accepts it.
+            </h6>
+            <!-- <button type="button" class="btn btn-light btn-sm">
+              Send Reminder
+            </button> -->
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hasAgreed" class="row" id="Card7">
+        <div class="col-sm col15">
+          <h6 class="HeureEtDate">{{ agreedDate }} @ {{ agreedTime }}</h6>
+        </div>
+      </div>
+      <div *ngIf="hasAgreed" class="row" id="Card8">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6 *ngIf="!isUserBuyer">
+              <span class="false102">@{{ businessName }}</span> has agreed to the contract
               you can now secure the funds
             </h6>
-            <button type="button" class="btn btn-light btn-sm">
+            <h6 *ngIf="isUserBuyer">
+              You agreed to the contract for the service.
+              You can now secure the funds
+            </h6>
+            <button *ngIf="!hasSecuredFunds" (click)="onSecureFunds()" type="button" class="btn btn-light btn-sm">
               Secure Funds
             </button>
           </div>
         </div>
       </div>
-      <div class="row" id="Card9">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm col14">
-              <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
+      <div *ngIf="hasAgreed && hasSecuredFunds" class="row" id="Card7">
+        <div class="col-sm col15">
+          <h6 class="HeureEtDate">{{ securedDate }} @ {{ securedTime }}</h6>
+        </div>
+      </div>
+      <div *ngIf="hasAgreed && hasSecuredFunds" class="row" id="Card8">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+             You secured the funds for this Service. 
+              <span class="false102"> @{{ businessName }}</span> Has till the end of the count down to submit the work
+            </h6>
+            <div class="row">
+              <div class="col-sm"></div>
+              <div class="col-sm" id="HeureButton">
+                <button type="button" class="btn btn-light">
+                  DD:HH:MM:SS
+                  <h5>
+                  <div class="container">
+                    <div class="row">               
+                      <countdown-timer [end]="countDownStop"></countdown-timer>
+                    </div>
+                  </div>
+                </h5>                    </button>
+              </div>
+              <div class="col-sm"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card10">
+      <div *ngIf="hasStartedService" class="row" id="Card9">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">{{ startedDate }} @ {{ startedTime }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hasStartedService" class="row" id="Card10">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
-            <h6>has agreed to the contract you can now secure the funds</h6>
+            The service has been initiated and is in progress. We will notify you when <span class="false102"> @{{ businessName }}</span>  submits the work
             <div class="row">
               <div class="col speci1"></div>
               <div class="col speci2">
-                <div class="col-sm" id="HeureButton">
+                <!-- <div class="col-sm" id="HeureButton">
                   <button type="button" class="btn btn-light">
                     05 : 25 : 09
                   </button>
-                </div>
+                </div> -->
               </div>
               <div class="col speci3">
               </div>
             </div>
-            <button type="button" id="Button" class="btn btn-light btn-sm">
+            <!-- <button *ngIf="!isFundsReleased" (click)="onReleaseFunds()" type="button"  id="Button" class="btn btn-light btn-sm">
               Release Funds
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
-      <div class="row" id="Card11">
+      <div *ngIf="hasSentDemo" class="row" id="Card11">
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
               <h6 class="HeureEtDate">
-                March 6 @ 4 : 45pm
+                {{ demoDate }} @ {{ demoTime }}
                 ----------------------------------------------------------------------
-                HERE IS YOUR
+                SERVICE
                 ---------------------------------------------------------------------
               </h6>
             </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card12">
+      <div *ngIf="hasSentDemo" class="row" id="Card12">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              I have done the work based on your requirement. I have changed a
-              little things to make aligning with the requirement. l have
-              attached the file to make aligning with the requirement. l have
-              attached the file to make aligning with the requirement. l have
-              attached the file to make aligning with the requirement. l have
-              attached the file
+              @{{ businessName }} sent you the confirmation that he completed the service
             </h6>
+            <p>{{ stepDeliveryDescription }}
+            </p>
             <div class="container">
               <div class="container">
                 <div class="row">
@@ -272,20 +327,20 @@
                 </div>
               </div>
             </div>
-            <div>
+            <!-- <div>
               <h5 class="Video">Video.MP4</h5>
               <h5 class="WebSite">Web site design.adobe.xd</h5>
-            </div>
+            </div> -->
             <div class="container">
               <div class="row">
                 <div class="col-sm" id="ReleaseFundss">
-                  <button type="button" class="btn btn-light btn-sm">
+                  <button (click)="onReleaseFunds()" type="button" class="btn btn-light btn-sm">
                     Release Funds
                   </button>
                 </div>
                 <div class="col-sm" id="Revisions">
                   <button type="button" class="btn btn-light btn-sm">
-                    Revisions <span style="color:#FF0045">(3)</span>
+                    Revisions <span style="color:#FF0045">({{ revisions }})</span>
                   </button>
                 </div>
               </div>
@@ -293,11 +348,11 @@
           </div>
         </div>
       </div>
-      <div class="row" id="Card13">
+      <div *ngIf="hasSentDemo" class="row" id="Card13">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              The work has been delivered,the funds will be automatically
+              The service has been delivered,the funds will be automatically
               release at the end of the time if any action is taken
             </h6>
             <div class="row">
@@ -314,12 +369,13 @@
           </div>
         </div>
       </div>
-      <div class="row" id="Card14">
+      
+      <div *ngIf="hasRevisions" class="row" id="Card14">
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
               <h6 class="HeureEtDate">
-                March 6 @ 4 : 45pm
+                {{ revisionDate }} @ {{ revisionTime }}
                 ------------------------------------------------------------------------
                 Revision
                 -------------------------------------------------------------------------------------------------
@@ -328,14 +384,11 @@
           </div>
         </div>
       </div>
-      <div class="row" id="Card15">
+      <div *ngIf="hasRevisions" class="row" id="Card15">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              1- Change the colour on top <br />
-              2- Make the video more interesting<br />
-              3- You didn't do the speech well kindly review the file l have
-              sent you before and make it
+              {{  revisionDescription }}
             </h6>
             <div class="container">
               <div class="container">
@@ -361,7 +414,7 @@
                 </div>
                 <div class="col-sm" id="Revisions">
                   <button type="button" class="btn btn-light btn-sm">
-                    Revisions <span style="color:#FF0045">(3)</span>
+                    Revisions <span style="color:#FF0045">{{ revisions }}</span>
                   </button>
                 </div>
                 <div class="col-sm" id="HeureButton">
@@ -374,31 +427,69 @@
           </div>
         </div>
       </div>
-      <div class="row" id="Card16">
+
+      <!-- <div *ngIf="hasSentDemo" class="row" id="Card9">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">{{ demoDate }} @ {{ demoTime }}</h6>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div *ngIf="hasSentDemo" class="row" id="Card10">
+        <div class="card" style="width: 50rem;">
+          <div *ngIf="!isFundsReleased" class="card-body">
+            <h6>If you are satisfied with the delivered service, please hit the approve button to complete the transaction</h6>
+            <h6>(The funds will be released automatically)</h6>
+            <div class="row">
+              <div class="col speci1"></div>
+              <div class="col speci2">
+                <!-- <div class="col-sm" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    05 : 25 : 09
+                  </button>
+                </div> -->
+              </div>
+              <div class="col speci3">
+              </div>
+            </div>
+            <button *ngIf="!isFundsReleased" (click)="onApproveService()" type="button"  id="Button" class="btn btn-light btn-sm">
+              Approve
+            </button>
+          </div>
+          <div *ngIf="isFundsReleased" class="card-body">
+            <h6>You confirmed the service completion and released the funds for this transaction</h6>
+            <div class="row">
+              <div class="col speci1"></div>
+              <div class="col speci2">
+              </div>
+              <div class="col speci3">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hasDelivered" class="row" id="Card16">
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
               <h6 class="HeureEtDate">
-                March 6 @ 4 : 45pm
+                {{ deliveredDate }} @ {{ deliveredTime }}
                 --------------------------------------------------------------------
-                HERE IS YOUR
-                ------------------------------------------------------------------------------------------------
+                CONTRACT COMPLETED
+                -------------------------------------------------------------------------------------
               </h6>
             </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card17">
+      <div *ngIf="hasDelivered" class="row" id="Card17">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h4 class="DELIVERED">DELIVERED</h4>
             <h6>
-              I have done the work based on your requirement. I have changed a
-              little things to make aligning with the requirement. l have
-              attached the file to make aligning with the requirement. l have
-              attached the file to make aligning with the requirement. l have
-              attached the file to make aligning with the requirement. l have
-              attached the file
+              {{ stepDeliveryDescription }}
             </h6>
             <div class="container">
               <div class="container">
@@ -415,27 +506,27 @@
                 </div>
               </div>
             </div>
-            <div>
+            <!-- <div>
               <h5 class="Video">Video.MP4</h5>
               <h5 class="WebSite">Web site design.adobe.xd</h5>
-            </div>
+            </div> -->
             <div class="container">
               <div class="row" id="Card16">
                 <div class="col-sm" id="ReleaseFundss">
-                  <button type="button" class="btn btn-light btn-sm">
+                  <button *ngIf="!isFundsReleased" (click)="onReleaseFunds()" type="button" class="btn btn-light btn-sm">
                     Release Funds
                   </button>
                 </div>
-                <div class="col-sm" id="Revisions">
+                <!-- <div class="col-sm" id="Revisions">
                   <button type="button" class="btn btn-light btn-sm">
-                    Revisions <span style="color:#FF0045">(3)</span>
+                    Revisions <span style="color:#FF0045">{{ revisions }}</span>
                   </button>
                 </div>
                 <div class="col-sm" id="HeureButton">
                   <button type="button" class="btn btn-light">
                     05 : 25 : 09
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -450,7 +541,7 @@
             <div class="container">
               <div class="row">
                 <mat-icon class="Icon">report</mat-icon>
-                <h6 class="WantTo">Want to cancel this order ?</h6>
+                <h6 class="WantTo">Want to cancel this service ?</h6>
               </div>
               <div class="row">
                 <a class="nav-link" href="#">Click Here</a>

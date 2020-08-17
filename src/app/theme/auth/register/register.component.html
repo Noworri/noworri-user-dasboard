@@ -1,6 +1,6 @@
-<!-- <div class="full">
+<div class="full">
   <section class="login-block">
-    <!-- Container-fluid starts -- >
+    <!-- Container-fluid starts -->
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
@@ -40,7 +40,7 @@
                         <div class="btn-group mt-10">
                           <button
                             type="submit"
-                            nextStep
+                            awNextStep
                             class="btn btn-success btn-sm"
                             [disabled]="f1.invalid"
                           >
@@ -76,7 +76,7 @@
                           <button
                             type="button"
                             class="btn btn-secondary btn-sm"
-                            previousStep
+                            awPreviousStep
                           >
                             Back
                           </button>
@@ -84,7 +84,7 @@
                             type="submit"
                             class="btn btn-success btn-sm"
                             [disabled]="f2.invalid"
-                            nextStep
+                            awNextStep
                           >
                             Verify
                           </button>
@@ -94,17 +94,17 @@
                   </aw-wizard-step>
                   <aw-wizard-step id="" stepTitle="Profile">
                     <form
-                      (ngSubmit)="GetProfilInformation(f3)"
+                      (ngSubmit)="GetProfileInformation(f3)"
                       class="md-float-material form-material"
                       #f3="ngForm"
                     >
                       <div class="centered-content">
                         <div>
-                          <p>Enter your profile informations</p>
+                          <p>Enter your profile information</p>
                         </div>
                         <div class="form-group form-primary">
                           <mat-form-field class="col-md-12">
-                            <mat-label>Your lastname</mat-label>
+                            <mat-label>Your Last Name</mat-label>
                             <input
                               type="text"
                               matInput
@@ -167,11 +167,11 @@
                           <button
                             type="button"
                             class="btn btn-secondary btn-sm"
-                            previousStep
+                            awPreviousStep
                           >
                             Back
                           </button>
-                          <button type="submit" class="btn btn-primary btn-sm" nextStep [disabled]='f3.invalid' >
+                          <button type="submit" class="btn btn-primary btn-sm" awNextStep [disabled]='f3.invalid' >
                             Continue
                           </button>
                         </div>
@@ -219,7 +219,7 @@
                           <button
                             type="button"
                             class="btn btn-secondary btn-sm"
-                            previousStep
+                            awPreviousStep
                           >
                             Back
                           </button>
@@ -236,7 +236,7 @@
                 <div class="row">
                   <div class="col-md-10">
                     <p class="text-inverse text-right">
-                      Aready have an account ?
+                      Already have an account ?
                       <a [routerLink]="['/auth/login']"><b>Login here</b></a>
                     </p>
                   </div>
@@ -245,11 +245,11 @@
             </div>
           </form>
         </div>
-        <!-- end of col-sm-12 -- >
+        <!-- end of col-sm-12 -->
       </div>
-      <!-- end of row -- >
+      <!-- end of row -->
     </div>
-    <!-- end of container-fluid -- >
+    <!-- end of container-fluid -->
   </section>
   
-</div> -->
+</div>
