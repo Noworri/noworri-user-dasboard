@@ -298,7 +298,7 @@
                         role="status"
                         aria-hidden="true"
                       ></span>
-                      processing...
+                      Starting...
                     </button>
                   </div>
                   <button
@@ -362,7 +362,7 @@
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
-              <h6 class="HeureEtDate">{{ startedTime }} @ {{ startedTime }}</h6>
+              <h6 class="HeureEtDate">{{ startedDate }} @ {{ startedTime }}</h6>
             </div>
           </div>
         </div>
@@ -391,23 +391,30 @@
             </div>
             <div class="container">
               <div class="row">
-                <div class="col"></div>
-                <div class="col" id="HeureButton">
+                <div class="col-sm"></div>
+                <div class="col-sm" id="HeureButton">
                   <button type="button" class="btn btn-light">
-                    {{ deadline }}
-                  </button>
+                    DD:HH:MM:SS
+                    <h5>
+                    <div class="container">
+                      <div class="row">               
+                        <countdown-timer [end]="countDownStop"></countdown-timer>
+                      </div>
+                    </div>
+                  </h5>                    </button>
                 </div>
-                <div class="col"></div>
+                <div class="col-sm"></div>
               </div>
               <div class="row">
                 <div class="col"></div>
                 <div class="col" id="Delivred">
                   <button
+                  *ngIf="!hasSentDemo"
                     type="button"
                     (click)="OpenNoteInput()"
                     class="btn btn-light btn-sm"
                   >
-                    Revise
+                    Submit work
                   </button>
                 </div>
                 <div class="col"></div>
@@ -416,13 +423,16 @@
           </div>
         </div>
       </div>
-      <div class="row" id="Card19" *ngIf="ShowOrNotOpenNoteInput">
+      <div class="row" id="Card19" *ngIf="ShowOrNotOpenNoteInput && !hasSentDemo">
         <form (ngSubmit)="onDeliverService(form)" #form="ngForm">
           <div class="card" style="width: 50rem;">
             <div class="card-body">
               <editor
+                name="editor"
                 apiKey="Get your free API key and paste it here"
                 plugins="wordcount"
+                outputFormat="text"
+                ngModel
               ></editor>
               <input type="hidden" name="details" id="details" />
               <div class="container">
@@ -442,13 +452,29 @@
                     <div class="col-sm"></div>
                   </div>
                 </div>
+                <br>
+                <div class="row">
+                  <input (change)="upload($event.target.files)" type="file" #fileUpload id="fileUpload" name="fileUpload[]" multiple ngModel/>
+                </div>
+                <br>
                 <div class="col" id="Delivred">
+                  <div *ngIf="isSubmitting" class="Loading">
+                    <button>
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Sending...
+                    </button>
+                  </div>
                   <button
+                  *ngIf="!isSubmitting"
                     type="submit"
-                    (click)="OpenNoteInput()"
                     class="btn btn-light btn-sm"
+                    (click)="onDeliverService()"
                   >
-                    Send Revisions
+                    Send Work
                   </button>
                 </div>
               </div>
@@ -457,7 +483,7 @@
         </form>
       </div>
 
-      <div *ngIf="hasStartedService" class="row" id="Card12">
+      <!-- <div *ngIf="hasStartedService" class="row" id="Card12">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
@@ -483,11 +509,11 @@
               <div class="row">
                 <div class="col"></div>
                 <div class="col"></div>
-                <!-- <div class="col" id="HeureButton">
+                <! -- <div class="col" id="HeureButton">
                   <button type="button" class="btn btn-light">
                     {{ deadline }}
                   </button>
-                </div> -->
+                </div> -- >
                 <div class="col"></div>
               </div>
               <div class="row">
@@ -506,7 +532,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div *ngIf="hasSentDemo" class="row" id="Card21">
         <div class="container">
@@ -526,8 +552,8 @@
           <div class="card-body">
             <h6>
               The work has been sent to
-              <span class="rosell">@{{ buyerPhone }}</span> review it
-              <span class="Here">Here</span>
+              <span class="rosell">@{{ buyerPhone }}</span>
+              <!-- <span class="Here">Here</span> -->
             </h6>
             <div class="container">
               <div class="container">

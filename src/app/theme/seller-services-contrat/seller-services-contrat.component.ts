@@ -36,6 +36,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   hasSecuredFunds = false;
   hasStartedService = false;
   isUserSeller = false;
+  isSubmitting = false;
   creationDate: string;
   creationTime: string;
   updateDate: string;
@@ -60,6 +61,10 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   countDownStart: string;
   countDownStop: string;
   uploadedFiles: any;
+  stepUploadedFiles = [];
+  files: any;
+  filePaths = [];
+  stepDescription: string;
 
   buyerPhone: string;
   description: string;
@@ -108,7 +113,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
         description: '',
       };
       this.setStepTransaction(this.stepDetails);
-      this.isValidating = false;
+      this.isAgreeing = false;
       this.getStepTransaction();
   }
 
@@ -347,15 +352,57 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
       );
   }
 
-  onDeliverService() {
+  upload(files: FileList) {
+    this.files = files;
+    for (let i = 0; i < files.length; i++) {
+      this.stepUploadedFiles.push(files[i].name);
+    }
+    console.log('uploadedFiles', this.uploadedFiles);
+    console.log('file', this.files);
+    }
+
+  onDeliverService(form) {
+    this.stepDescription = form.value['editor'];
+    console.log(form.value['editor']);
+
+    this.isSubmitting = true;
+    if (this.files) {
+      for (const file of Array.from(this.files)) {
+        this.uploadFile(file);
+      }
+    }
             this.isValidating = false;
             this.stepDetails = {
               transaction_id: this.transactionKey,
               step: 6,
-              description: '',
+              description: this.stepDescription,
             };
             this.setStepTransaction(this.stepDetails);
             this.getStepTransaction();
+  }
+
+  mapUploadedFiles() {
+    this.transactionsService.mapUploadedFiles(this.transactionKey, this.filePaths).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
+      return response;
+    });
+
+  }
+
+  uploadFile(file) {
+      this.transactionsService.uploadFile(file).subscribe(
+        (response: any) => {
+          this.isSubmitting = false;
+          if (response.path) {
+            this.filePaths.push(response.path);
+            this.mapUploadedFiles();
+            console.log('filePaths after upload', this.filePaths);
+          }
+        },
+        (error) => {
+          this.isSubmitting = false;
+          console.log('Error %j', error.message);
+        }
+      );
   }
 
   collapses(): void {

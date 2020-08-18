@@ -51,6 +51,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   updateDate: string;
   updateTime: string;
   hasStartedService = false;
+  isSecuring = false;
   startedDate: string;
   startedTime: string;
   securedDate: string;
@@ -64,10 +65,11 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   revisionDate: string;
   revisionTime: string;
   stepDescription: string;
-  stepDeliveryDescription = '';
+  stepDeliveryDescription: string;
   businessName: string;
   countDownStop: string;
   uploadedFiles: any;
+  workUploadedFiles: any;
 
   sellerPhone: string;
   description: string;
@@ -79,6 +81,10 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   revisions: string;
   seller: string;
   hasSecuredFunds = false;
+  ShowOrNotOpenNoteInput = false;
+  isSubmitting = false;
+  paymentCountDown: any;
+  isApproving = false;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -107,14 +113,14 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     this.releaseFunds(this.transactionKey);
   }
   approveContract() {
-    this.isValidating = true;
+    this.isApproving = true;
       this.stepDetails = {
         transaction_id: this.transactionKey,
         step: 1,
         description: '',
       };
       this.setStepTransaction(this.stepDetails);
-      this.isValidating = false;
+      this.isApproving = false;
       this.getStepTransaction();
   }
 
@@ -157,6 +163,15 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   getUploadedFiles() {
     this.transactionsService.getTransactionUploads(this.transactionId).pipe(takeUntil(this.unsubscribe)).subscribe((uploads: any) => {
       this.uploadedFiles = uploads.map(file => {
+        return file.path;
+      });
+      console.log('uploaded files', this.uploadedFiles);
+    });
+  }
+
+  getWorkFiles() {
+    this.transactionsService.getTransactionUploads(this.transactionKey).pipe(takeUntil(this.unsubscribe)).subscribe((uploads: any) => {
+      this.workUploadedFiles = uploads.map(file => {
         return file.path;
       });
       console.log('uploaded files', this.uploadedFiles);
@@ -341,6 +356,10 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               this.hasStartedService = true;
             }
             this.getStepTransaction();
+            const todaysDate = new Date();
+            if (this.paymentCountDown && todaysDate >= this.paymentCountDown) {
+              this.releaseFunds(this.transactionKey);
+            }
           });
         },
         (error) => console.log(error.message)
@@ -396,6 +415,12 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               this.hasStartedService = true;
               this.hasAgreed = true;
               this.hasSentDemo = true;
+              const paymentCountDownDate = new Date(details.updated_at);
+              paymentCountDownDate.setHours(paymentCountDownDate.getHours() + 24);
+
+              this.paymentCountDown = paymentCountDownDate;
+              this.stepDeliveryDescription = details.description;
+              this.getWorkFiles();
 
             }
             if (details.step === '8') {
@@ -432,13 +457,13 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   }
 
   onSecureFunds() {
-    this.isValidating = true;
+    this.isSecuring = true;
     this.transactionsService
       .secureFunds(this.transactionKey)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response) => {
         setTimeout(() => {
-          this.isValidating = false;
+          this.isSecuring = false;
             this.stepDetails = {
               transaction_id: this.transactionKey,
               step: 2,
@@ -449,6 +474,14 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
         }, 2000);
         return response;
       });
+  }
+
+  openEditor() {
+    this.ShowOrNotOpenNoteInput =   this.ShowOrNotOpenNoteInput === true ? false : true;
+  }
+
+  onSendRevision() {
+    this.isSubmitting = true;
   }
 
   collapses(): void {
