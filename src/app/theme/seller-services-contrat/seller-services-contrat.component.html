@@ -1,7 +1,7 @@
 <div class="container" id="Container">
   <div class="row">
     <div class="col-sm">
-      <! ------------Main----------- -- >
+      <!------------Main----------- -->
       <div class="row" id="Card1">
         <div class="card">
           <div class="card-body" id="card-body1">
@@ -9,25 +9,21 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm">
-                  <h6 class="TransactionID">Transaction ID 45689230</h6>
-                </div>
-                <div class="col-sm">
-                  <h6
-                    class="HideContrat"
-
-                  >
-                  <!-- (click)="isCollapsed1 = !isCollapsed1"
-                  [attr.aria-expanded]="!isCollapsed1" -->
-                    {{message1}} Contrat
+                  <h6 class="TransactionID">
+                    Transaction ID {{ transactionId }}
                   </h6>
                 </div>
                 <div class="col-sm">
-                  <h6 class="expandmore"><mat-icon>{{message2}}</mat-icon></h6>
+                  <h6 class="HideContrat">
+                    <!-- (click)="isCollapsed1 = !isCollapsed1"
+                  [attr.aria-expanded]="!isCollapsed1" -->
+                    {{ message1 }} Contrat
+                  </h6>
                 </div>
-                <div class="col-sm" id="GH">
-                  <button class="btn btn-light btn-sm" type="submit">
-                    Agree
-                  </button>
+                <div class="col-sm">
+                  <h6 class="expandmore">
+                    <mat-icon>{{ message2 }}</mat-icon>
+                  </h6>
                 </div>
               </div>
             </div>
@@ -35,11 +31,8 @@
         </div>
       </div>
       <div class="row" id="Card2">
-        <div
-          id="collapseBasic"
-
-        >
-        <!-- [collapse]="isCollapsed1"
+        <div id="collapseBasic">
+          <!-- [collapse]="isCollapsed1"
         [isAnimated]="true"
         [collapse]="isCollapsed"
         (collapses)="collapses()"
@@ -51,7 +44,7 @@
               <div class="container">
                 <div class="row">
                   <div class="col-sm col1">
-                    <h6 class="Item ">Item</h6>
+                    <h6 class="Item">Item</h6>
                   </div>
                   <div class="col-sm col2">
                     <h6 class="Amount">Amount</h6>
@@ -67,17 +60,17 @@
                 <div class="row">
                   <div class="col-sm">
                     <h6 class="Anandroidmobile">
-                      An android mobile application
+                      {{ item }}
                     </h6>
                   </div>
                   <div class="col-sm col5">
-                    <h6 class="cinq1">550.00</h6>
+                    <h6 class="cinq1">{{ amount }}</h6>
                   </div>
                   <div class="col-sm col6">
-                    <h6 class="Days12Hours">4 Days 12 Hours</h6>
+                    <h6 class="Days12Hours">{{ deadline }}</h6>
                   </div>
                   <div class="col-sm col7">
-                    <h6 class="Trois">3</h6>
+                    <h6 class="Trois">{{ revisions }}</h6>
                   </div>
                 </div>
                 <div class="row">
@@ -85,7 +78,7 @@
                     <h6 class="NoworriFees">Noworri Fees</h6>
                   </div>
                   <div class="col-sm col9">
-                    <h6 class="quinz">15.14</h6>
+                    <h6 class="quinz">{{ noworriFee }}</h6>
                   </div>
                   <div class="col-sm"></div>
                   <div class="col-sm"></div>
@@ -94,10 +87,10 @@
                 <div class="row">
                   <div class="col-sm"></div>
                   <div class="col-sm">
-                    <h6 class="NETPAYABLE">NET PAYABLE</h6>
+                    <h6 class="NETPAYABLE">NET RECEIVABLE</h6>
                   </div>
                   <div class="col-sm">
-                    <h6 class="cinq2">560.14</h6>
+                    <h6 class="cinq2">{{ totalAmount }}</h6>
                   </div>
                   <div class="col-sm"></div>
                 </div>
@@ -114,26 +107,24 @@
             </div>
             <div class="col-sm"></div>
             <div class="col-sm col11">
-              <h6
-                class="HideRequirement"
-              >
-              <!-- (click)="isCollapsed2 = !isCollapsed2"
+              <h6 class="HideRequirement">
+                <!-- (click)="isCollapsed2 = !isCollapsed2"
               [attr.aria-expanded]="!isCollapsed2" -->
 
-                {{message3}} requirement
+                {{ message3 }} requirement
               </h6>
             </div>
             <div class="col-sm col12">
-              <h6 class="expandmore"><mat-icon>{{message4}}</mat-icon></h6>
+              <h6 class="expandmore">
+                <mat-icon>{{ message4 }}</mat-icon>
+              </h6>
             </div>
           </div>
         </div>
       </div>
       <div class="row" id="Card4">
-        <div
-          id="collapseBasic"
-        >
-        <!-- [collapse]="isCollapsed2"
+        <div id="collapseBasic">
+          <!-- [collapse]="isCollapsed2"
         [isAnimated]="true"
         [collapse]="isCollapsed"
         (collapses)="collapsess()"
@@ -144,21 +135,10 @@
           <div class="card" style="width: 50rem;">
             <div class="card-body">
               <p>
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
+                {{ description }}
               </p>
               <div class="container">
-                <h6 class="AttachedFile">Attached file</h6>
-                <h6 class="AmelPlan">Amel plan of house.PDF</h6>
-                <h6 class="Architech">Architech building.PNG</h6>
+                <h6 *ngFor="let item of uploadedFiles" class="AttachedFile" (click)=onOpenAttachedFile(item) >{{ item }}</h6>
               </div>
             </div>
           </div>
@@ -168,51 +148,193 @@
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
-              <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
+              <h6 class="HeureEtDate">
+                {{ creationDate }} @ {{ creationTime }}
+              </h6>
             </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card6">
+
+      <div class="row" id="Card12">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
-            <h6>
-              <span class="false102">@rose11</span> has sent you a deal's
-              contrat review and approve it
+            <h6 *ngIf="!isUserSeller">
+              <span class="false102">@{{ buyerPhone }}</span> has sent you a
+              deal's contract. Please review and agree to deliver it
             </h6>
+            <h6 *ngIf="isUserSeller">
+              We sent the contract to
+              <span class="false102">@{{ buyerPhone }}</span> We will notify you
+              when he agrees;
+            </h6>
+            <div *ngIf="!hasAgreed" class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h5>
+                      <div class="container">
+                        <div class="row"></div>
+                      </div>
+                    </h5>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <!-- <div class="row">
+                <div class="col"></div>
+                <div class="col" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    05 : 25 : 09
+                  </button>
+                </div>
+                <div class="col"></div>
+              </div> -->
+              <div *ngIf="!isUserSeller" class="row">
+                <div class="col"></div>
+                <div class="col" id="Delivred">
+                  <div *ngIf="isAgreeing" class="Loading">
+                    <button>
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      processing...
+                    </button>
+                  </div>
+                  <button
+                    *ngIf="!hasAgreed && !isAgreeing"
+                    type="button"
+                    (click)="approveService()"
+                    class="btn btn-light btn-sm"
+                  >
+                    AGREE
+                  </button>
+                </div>
+                <div class="col"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card7">
+      <div *ngIf="hasAgreed" class="row" id="Card7">
         <div class="col-sm col15">
-          <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
+          <h6 class="HeureEtDate">{{ agreedDate }} @ {{ agreedTime }}</h6>
         </div>
       </div>
-      <div class="row" id="Card8">
+      <div *ngIf="hasAgreed" class="row" id="Card8">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
-            <h6>
-              We will notify you when
-              <span class="false102">@rose11</span>secure the funds
+            <h6 *ngIf="!isUserSeller">
+              You agreed to deliver the service. We will notify you when
+              <span class="false102">@{{ buyerPhone }} </span>secures the funds
             </h6>
+            <h6 *ngIf="isUserSeller">
+              You agreed to deliver the service. We will notify you when
+              <span class="false102">@{{ buyerPhone }} </span>secures the funds
+            </h6>
+            <!-- Timer mode:
+            <countdown-timer [start]="'2020-07-10 00:00:00'"></countdown-timer> -->
           </div>
         </div>
       </div>
-      <div class="row" id="Card9">
+
+      <div *ngIf="hasSecuredFunds" class="row" id="Card11">
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
-              <h6 class="HeureEtDate">March 6 @ 4 : 45 pm</h6>
+              <h6 class="HeureEtDate">{{ securedDate }} @ {{ securedTime }}</h6>
             </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card10">
+      <div *ngIf="hasSecuredFunds" class="row" id="Card12">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              <span class="rose11">@rose11</span> has successfully secure the
-              funds
+              <span class="false102">@{{ buyerPhone }} </span> has
+              successfully secured the funds
+            </h6>
+            <div class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm" id="HeureButton">
+                    <button type="button" class="btn btn-light">
+                      DD:HH:MM:SS
+                      <h5>
+                      <div class="container">
+                        <div class="row">               
+                          <countdown-timer [end]="countDownStop"></countdown-timer>
+                        </div>
+                      </div>
+                    </h5>                    </button>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <!-- <div class="row">
+                <div class="col"></div>
+                <div class="col" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    05 : 25 : 09
+                  </button>
+                </div>
+                <div class="col"></div>
+              </div> -->
+              <div class="row">
+                <div class="col"></div>
+                <div class="col" id="Delivred">
+                  <div *ngIf="isValidating" class="Loading">
+                    <button>
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Starting...
+                    </button>
+                  </div>
+                  <button
+                    *ngIf="!hasStartedService && !isValidating"
+                    type="button"
+                    (click)="onStartService()"
+                    class="btn btn-light btn-sm"
+                  >
+                    Start Service
+                  </button>
+                </div>
+                <div class="col"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="hasStartedService" class="row" id="Card9">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">{{ startedDate }} @ {{ startedTime }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hasStartedService" class="row" id="Card10">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+              <span class="{{ buyerPhone }}"></span> We notified @{{
+                buyerPhone
+              }}
+              that you started the service. The funds will be released post
+              completion.
             </h6>
             <div class="container">
               <div class="container">
@@ -236,25 +358,137 @@
         </div>
       </div>
 
-
-
-      <div class="row" id="Card11">
+      <div *ngIf="hasStartedService" class="row" id="Card11">
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
-              <h6 class="HeureEtDate">
-                March 6 @ 4 : 45pm
-              </h6>
+              <h6 class="HeureEtDate">{{ startedDate }} @ {{ startedTime }}</h6>
             </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card12">
+      <div *ngIf="hasStartedService" class="row" id="Card12">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              <span class="false102">false102</span> the transaction has
-              started, deliver the work before the end of the time
+              <span class="false102"></span> the service has started, deliver
+              the work before the deadline
+            </h6>
+            <div class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h5>
+                      <div class="container">
+                        <div class="row"></div>
+                      </div>
+                    </h5>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    DD:HH:MM:SS
+                    <h5>
+                    <div class="container">
+                      <div class="row">               
+                        <countdown-timer [end]="countDownStop"></countdown-timer>
+                      </div>
+                    </div>
+                  </h5>                    </button>
+                </div>
+                <div class="col-sm"></div>
+              </div>
+              <div class="row">
+                <div class="col"></div>
+                <div class="col" id="Delivred">
+                  <button
+                  *ngIf="!hasSentDemo"
+                    type="button"
+                    (click)="OpenNoteInput()"
+                    class="btn btn-light btn-sm"
+                  >
+                    Submit work
+                  </button>
+                </div>
+                <div class="col"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card19" *ngIf="ShowOrNotOpenNoteInput && !hasSentDemo">
+        <form (ngSubmit)="onDeliverService(form)" #form="ngForm">
+          <div class="card" style="width: 50rem;">
+            <div class="card-body">
+              <editor
+                name="editor"
+                apiKey="Get your free API key and paste it here"
+                plugins="wordcount"
+                outputFormat="text"
+                ngModel
+              ></editor>
+              <input type="hidden" name="details" id="details" />
+              <div class="container">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">
+                      <h5>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-sm"></div>
+                            <div class="col-sm"></div>
+                          </div>
+                        </div>
+                      </h5>
+                    </div>
+                    <div class="col-sm"></div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <input (change)="upload($event.target.files)" type="file" #fileUpload id="fileUpload" name="fileUpload[]" multiple ngModel/>
+                </div>
+                <br>
+                <div class="col" id="Delivred">
+                  <div *ngIf="isSubmitting" class="Loading">
+                    <button>
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Sending...
+                    </button>
+                  </div>
+                  <button
+                  *ngIf="!isSubmitting"
+                    type="submit"
+                    class="btn btn-light btn-sm"
+                    (click)="onDeliverService()"
+                  >
+                    Send Work
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- <div *ngIf="hasStartedService" class="row" id="Card12">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+              <span class="false102"></span> Mark the service as DONE once it is
+              completed as per requirements
             </h6>
             <div class="container">
               <div class="container">
@@ -274,18 +508,23 @@
             <div class="container">
               <div class="row">
                 <div class="col"></div>
-                <div class="col" id="HeureButton">
+                <div class="col"></div>
+                <! -- <div class="col" id="HeureButton">
                   <button type="button" class="btn btn-light">
-                    05 : 25 : 09
+                    {{ deadline }}
                   </button>
-                </div>
+                </div> -- >
                 <div class="col"></div>
               </div>
               <div class="row">
                 <div class="col"></div>
                 <div class="col" id="Delivred">
-                  <button type="button" (click)='OpenNoteInput()' class="btn btn-light btn-sm">
-                    Delivered
+                  <button
+                    type="button"
+                    (click)="onDeliverService()"
+                    class="btn btn-light btn-sm"
+                  >
+                    submit
                   </button>
                 </div>
                 <div class="col"></div>
@@ -293,56 +532,28 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row" id="Card19" *ngIf='ShowOrNotOpenNoteInput'>
-        <div class="card" style="width: 50rem;">
-          <div class="card-body">
-            <editor
-            apiKey="Get your free API key and paste it here"
-            plugins="wordcount"
-          ></editor>
-            <div class="container">
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm"></div>
-                  <div class="col-sm">
-                    <h5>
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-sm"></div>
-                          <div class="col-sm"></div>
-                        </div>
-                      </div>
-                    </h5>
-                  </div>
-                  <div class="col-sm"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div> -->
 
-      <div class="row" id="Card21">
+      <div *ngIf="hasSentDemo" class="row" id="Card21">
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
               <h6 class="HeureEtDate">
-                March 6 @ 4 : 45pm
-                ------------------------------------------------------------------WORK
+                {{ demoDate }} @ {{ demoTime }}
+                ------------------------------------------------------------------SERVICE
                 DELIVERED-------------------------------------------------------------------------------------------
               </h6>
             </div>
           </div>
         </div>
       </div>
-      <div class="row" id="Card20">
+      <div *ngIf="hasSentDemo" class="row" id="Card20">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
               The work has been sent to
-              <span class="rosell">@rosell</span> succefully review it
-              <span class="Here">Here</span>
+              <span class="rosell">@{{ buyerPhone }}</span>
+              <!-- <span class="Here">Here</span> -->
             </h6>
             <div class="container">
               <div class="container">
@@ -361,38 +572,72 @@
         </div>
       </div>
 
-      <div class="row" id="Card13">
+      <div *ngIf="hasSentDemo" class="row" id="Card13">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              Awaiting feedback from <span class="rosell">@rosell</span> vany
-              respond before the time set time order will be marked as completed
+              Awaiting feedback from
+              <span class="rosell">@{{ buyerPhone }}</span> vany respond before
+              the time set time order will be marked as completed
             </h6>
-           <div class="row">
-             <div class="col">
-
-             </div>
-             <div class="col">
-              <div class="col-sm" id="HeureButton">
-                <button type="button" class="btn btn-light">
-                  05 : 25 : 09
-                </button>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col">
+                <div class="col-sm" id="HeureButton">
+                  <button type="button" class="btn btn-light">
+                    05 : 25 : 09
+                  </button>
+                </div>
               </div>
-             </div>
-             <div class="col">
-
-             </div>
-           </div>
+              <div class="col"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="row" id="Card14">
+      <div *ngIf="hasDelivered" class="row" id="Card21">
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
               <h6 class="HeureEtDate">
-                March 6 @ 4 : 45pm
+                {{ deliveredDate }} @ {{ deliveredTime }}
+                ------------------------------------------------------------------SERVICE
+                DELIVERED-------------------------------------------------------------------------------------------
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hasDelivered" class="row" id="Card20">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <p>
+              <span class="rosell">@{{ buyerPhone }}</span> was satisfied with
+              the service you delivered and the funds have been released
+            </p>
+            <div class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h5>
+                      <div class="container"></div>
+                    </h5>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="hasRevisions" class="row" id="Card14">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">
+                {{ revisionDate }} @ {{ revisionTime }}
                 ------------------------------------------------------------------------
                 Revision
                 -------------------------------------------------------------------------------------------------
@@ -401,7 +646,7 @@
           </div>
         </div>
       </div>
-      <div class="row" id="Card15">
+      <div *ngIf="hasRevisions" class="row" id="Card15">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
@@ -473,4 +718,4 @@
       </div>
     </div>
   </div>
-</div> 
+</div>

@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="fescrowStep1(F, form)" #F="ngForm">
+  <form (ngSubmit)="fescrowStep1(form, formTel)" #form="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -21,8 +21,8 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleInputPassword1"
-                    name="exampleInputPassword1"
+                    id="item"
+                    name="item"
                     ngModel
                     aria-describedby="emailHelp"
                     (click)="AfficheSide1()"
@@ -35,7 +35,7 @@
                   >
                 </div>
               </div>
-              <form #form="ngForm">
+              <form #formTel="ngForm">
                 <intl-tel-input
                   (click)="AfficheSide2()"
                   [name]="'phone_number'"
@@ -105,6 +105,13 @@
                   [onlyLocalized]="true"
                   [(E164PhoneNumber)]="E164PhoneNumber"
                 ></intl-tel-input>
+                <mat-error
+                      *ngIf="!Accept2 && !isValidNumber && !isValidSeller"
+                      >invalid phone number</mat-error
+                    >
+                    <mat-error *ngIf="!isValidSeller && isValidNumber"
+                      >this Seller is not registered on Noworri</mat-error
+                    >
               </form>
               <div id="Form2">
                 <div class="WHAT">
@@ -122,8 +129,8 @@
                       type="text"
                       style="width: 420px;"
                       class="form-control"
-                      id="exampleInputPassword3"
-                      name="exampleInputPassword3"
+                      id="price"
+                      name="price"
                       ngModel
                       (click)="AfficheSide3()"
                       [ngClass]="InputControl3"
@@ -141,8 +148,8 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleInputPassword4"
-                    name="exampleInputPassword4"
+                    id="revisions"
+                    name="revisions"
                     aria-describedby="emailHelp"
                     ngModel
                     max="10"
@@ -153,11 +160,11 @@
                   />
                 </div>
                 <div>
-                  <label class="setTransation" style="margin-top: 20px;">Set transation deadline</label>
+                  <label class="setTransation" style="margin-top: 20px;">Set transaction deadline</label>
                 </div>
 
-                <div class="radioButton" [formGroup]='transation'>
-                  <mat-radio-group aria-label="" (change)='TransationDead()'  formControlName='radio'  >
+                <div class="radioButton" [formGroup]='deadlineTypeRadio'>
+                  <mat-radio-group aria-label="" (change)='getDeadlineType()'  formControlName='radio'  >
                     <mat-radio-button  value="Days" class="days"  >Days</mat-radio-button>
                     <mat-radio-button  value="Hours" class="hours">Hours</mat-radio-button>
                   </mat-radio-group>
@@ -169,14 +176,15 @@
                       <div class="row">
                         <div class="col-xs-12 col-12 col-md-4 form-group" >
                           <input
-                            id="exampleInputPassword5"
-                            name="exampleInputPassword5"
+                            id="deadlineDays"
+                            name="deadlineDays"
                            (click)='AfficheSide5()'
                             type="text"
                             placeholder="Date" 
                             class="form-control"
                             bsDatepicker
                             *ngIf='DayInput'
+                            ngModel
                             [minDate]='minDate'
                           />
                         </div>
@@ -186,14 +194,15 @@
                 </div>
                 <div class="md-form" id="TimeInput"  >
                   <input
-                  id="exampleInputPassword6"
-                  name="exampleInputPassword6"
+                  id="deadlineTime"
+                  name="deadlineTime"
                    (click)='AfficheSide5()'
                     type="time"
                     id="input"
                     class="form-control"
                     value="13:00"
                     mdbInput
+                    ngModel
                     *ngIf='HourInput'
                   />
                 </div>
@@ -201,22 +210,34 @@
                   <label for="exampleInputEmail1">Requirements</label>
                   <textarea
                     class="form-control"
-                    id="exampleInputPassword7"
-                    name="exampleInputPassword7"
+                    id="description"
+                    name="description"
                     rows="3"
                     (click)="AfficheSide7()"
                     ngModel
                     [ngClass]="InputControl7"
                   ></textarea>
                 </div>
-                <div class="Link">
-                  <a class="nav-link" (click)='AfficheSide8()' >Attached file</a>
+                <br>
+                <div class="row">
+                  <input (change)="upload($event.target.files)" type="file" #fileUpload id="fileUpload" name="fileUpload[]" multiple ngModel/>
+                  <!-- <a class="nav-link" (click)='AfficheSide8()' >Attached file</a> -->
                 </div>
                 <div class="container">
                   <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm">
-                      <button type="submit" class="btn btn-primary btn-sm">
+                      <div *ngIf="isValidating" class="Loading">
+                        <button >
+                          <span
+                          class="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        processing...
+                        </button>
+                      </div>
+                      <button *ngIf="!isValidating" type="submit" class="btn btn-primary btn-sm">
                         Continue
                       </button>
                     </div>
@@ -256,8 +277,8 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the Phone number of the Seller.Make sure he has a
-                      Noworri's Account otherwise invite hime HERE
+                      Enter the Phone number of the Seller.Make sure he has an
+                      account with Noworri, otherwise invite him HERE
                     </p>
                   </div>
                 </div>
