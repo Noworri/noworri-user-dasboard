@@ -265,7 +265,6 @@
               end of the count down to submit the work
             </h6>
             <div class="row">
-              <div class="col-sm"></div>
               <div class="col-sm" id="HeureButton">
                 <button type="button" class="btn btn-light">
                   DD:HH:MM:SS
@@ -378,13 +377,13 @@
                 </div> -->
                 <div class="col-sm" id="Revisions">
                   <button
-                    *ngIf="hasRevisions"
+                    *ngIf="!hasRevisions"
                     (click)="openEditor()"
                     type="button"
                     class="btn btn-light btn-sm"
                   >
                     Revise
-                    <span style="color: #ff0045;">({{ revisions }})</span>
+                    <span style="color: #ff0045;">{{ revisionsLeft }} left</span>
                   </button>
                 </div>
               </div>
@@ -451,12 +450,12 @@
           </div>
         </form>
       </div>
-      <div *ngIf="hasSentDemo" class="row" id="Card13">
+      <div *ngIf="hasSentDemo && !hasNewRevision" class="row" id="Card13">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
               The service has been delivered,the funds will be automatically
-              release at the end of the time if any action is taken
+              released at the end of the this countdown if no action is taken
             </h6>
             <div class="row">
               <div class="col"></div>
@@ -487,7 +486,7 @@
         </div>
       </div>
 
-      <div *ngIf="hasRevisions" class="row" id="Card14">
+      <div *ngIf="hasRevisions && hasRevisionResult" class="row" id="Card14">
         <div class="container">
           <div class="row">
             <div class="col-sm col14">
@@ -501,12 +500,22 @@
           </div>
         </div>
       </div>
-      <div *ngIf="hasRevisions" class="row" id="Card15">
+      <div *ngIf="hasRevisions && hasRevisionResult" class="row" id="Card15">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
               {{ revisionDescription }}
             </h6>
+            <div class="container">
+              <h6
+                *ngFor="let item of revisionUploadedFiles"
+                class="AttachedFile"
+                (click)="onOpenAttachedFile(item)"
+                style="font-weight: bold;"
+              >
+                {{ item }}
+              </h6>
+            </div>
             <div class="container">
               <div class="container">
                 <div class="row">
@@ -524,23 +533,116 @@
             </div>
             <div class="container">
               <div class="row" id="Card16">
-                <div class="col-sm" id="ReleaseFundss">
+                <!-- <div class="col-sm" id="ReleaseFundss">
                   <button type="button" class="btn btn-light btn-sm">
                     Release Funds
                   </button>
-                </div>
+                </div> -->
                 <div class="col-sm" id="Revisions">
-                  <button type="button" class="btn btn-light btn-sm">
-                    Revisions
-                    <span style="color: #ff0045;">{{ revisions }}</span>
+                  <button (click)=onOpenRevisionEditor() type="button" class="btn btn-light btn-sm" *ngIf="hasRevisionsLeft">
+                    Revise
+                    <span style="color: #ff0045;">{{ revisionsLeft }} left</span>
                   </button>
-                </div>
-                <div class="col-sm" id="HeureButton">
-                  <button type="button" class="btn btn-light">
-                    05 : 25 : 09
+                  <button type="button" class="btn btn-light btn-sm" *ngIf="!hasRevisionsLeft">
+                    <span style="color: #ff0045;">{{ revisionsLeft }} Revisions left</span>
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="Card19" *ngIf="showRevisionInput">
+        <form (ngSubmit)="onSendRevision(form)" #form="ngForm">
+          <div class="card" style="width: 50rem;">
+            <div class="card-body">
+              <editor
+                name="editor"
+                apiKey="Get your free API key and paste it here"
+                plugins="wordcount"
+                outputFormat="text"
+                ngModel
+              ></editor>
+              <input type="hidden" name="details" id="details" />
+              <div class="container">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">
+                      <h5>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-sm"></div>
+                            <div class="col-sm"></div>
+                          </div>
+                        </div>
+                      </h5>
+                    </div>
+                    <div class="col-sm"></div>
+                  </div>
+                </div>
+                <br />
+                <!-- <div class="row">
+                  <input (change)="upload($event.target.files)" type="file" #fileUpload id="fileUpload" name="fileUpload[]" multiple ngModel/>
+                </div> -->
+                <br />
+                <div class="col" id="Delivred">
+                  <div *ngIf="isSubmitting" class="Loading">
+                    <button>
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Sending...
+                    </button>
+                  </div>
+                  <button
+                    *ngIf="!isSubmitting"
+                    type="submit"
+                    class="btn btn-light btn-sm"
+                    (click)="onSendRevision()"
+                  >
+                    Request Revision
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="hasRevisionResult" class="row" id="Card13">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6>
+              The service has been delivered based on requested revisions.</h6> 
+            <h6>The funds will be automatically
+              released at the end of the this countdown if no action is taken
+            </h6>
+            <div class="row">
+              <div class="col"></div>
+              <div class="col">
+                <div class="col-sm" id="HeureButton">
+                  <div class="row">
+                    <div class="col-sm"></div>
+                    <!-- <div class="col-sm" id="HeureButton"> -->
+                      <button type="button" class="btn btn-light">
+                        <h5>
+                          <div class="container">
+                            <div class="row">
+                              <countdown-timer
+                                [end]="paymentCountDown"
+                              ></countdown-timer>
+                            </div>
+                          </div>
+                        </h5>
+                      </button>
+                    <!-- </div> -->
+                    <div class="col-sm"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col"></div>
             </div>
           </div>
         </div>

@@ -302,17 +302,19 @@ export class TransactionsService {
   }
 
   setStepTransaction(stepDetails) {
-    const url = 'https://api.noworri.com/api/setsteptrans';
+    const url = 'https://api.noworri.com/api/createsteptrans';
     let params = new HttpParams();
-    const accepted = 1;
+    if (!stepDetails.accepted) {
+      stepDetails.accepted = 1;
+    }
 
     params = params.append('transaction_id', stepDetails.transaction_id);
     params = params.append('step', stepDetails.step);
     params = params.append('description', stepDetails.description);
-    params = params.append('accepted', `${accepted}`);
+    params = params.append('accepted', stepDetails.accepted);
 
     return this.http
-      .post(url, stepDetails, { responseType: 'json', params: params })
+      .put(url, stepDetails, { responseType: 'json', params: params })
       .pipe(
         map((response) => {
           return response;

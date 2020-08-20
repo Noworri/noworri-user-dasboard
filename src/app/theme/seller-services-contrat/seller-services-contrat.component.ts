@@ -63,8 +63,11 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   uploadedFiles: any;
   stepUploadedFiles = [];
   files: any;
+  revisionFiles: any;
   filePaths = [];
   stepDescription: string;
+  paymentCountDown: any;
+  revisionDescription: string;
 
   buyerPhone: string;
   description: string;
@@ -107,14 +110,14 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
 
   approveService() {
     this.isAgreeing = true;
-      this.stepDetails = {
-        transaction_id: this.transactionKey,
-        step: 1,
-        description: '',
-      };
-      this.setStepTransaction(this.stepDetails);
-      this.isAgreeing = false;
-      this.getStepTransaction();
+    this.stepDetails = {
+      transaction_id: this.transactionKey,
+      step: 1,
+      description: '',
+    };
+    this.setStepTransaction(this.stepDetails);
+    this.isAgreeing = false;
+    this.getStepTransaction();
   }
 
   setStepTransaction(stepDetails) {
@@ -124,8 +127,8 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (response) => {
-            this.isValidating = false;
-            this.getStepTransaction();
+          this.isValidating = false;
+          this.getStepTransaction();
           return response;
         },
         (error) => {
@@ -142,11 +145,14 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   }
 
   getUploadedFiles() {
-    this.transactionsService.getTransactionUploads(this.transactionId).pipe(takeUntil(this.unsubscribe)).subscribe((uploads: any) => {
-      this.uploadedFiles = uploads.map(file => {
-        return file.path;
+    this.transactionsService
+      .getTransactionUploads(this.transactionId)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((uploads: any) => {
+        this.uploadedFiles = uploads.map((file) => {
+          return file.path;
+        });
       });
-    });
   }
 
   getStepTransaction() {
@@ -190,17 +196,19 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
               this.hasStartedService = true;
               this.hasAgreed = true;
               this.hasSecuredFunds = true;
-
             }
             if (details.step === '6') {
               this.demoDate = new Date(details.updated_at).toDateString();
-              this.demoTime = new Date(
-                details.updated_at
-              ).toLocaleTimeString();
+              this.demoTime = new Date(details.updated_at).toLocaleTimeString();
               this.hasStartedService = true;
               this.hasAgreed = true;
               this.hasSentDemo = true;
               this.hasSecuredFunds = true;
+              const paymentCountDownDate = new Date(details.updated_at);
+              paymentCountDownDate.setHours(
+                paymentCountDownDate.getHours() + 24
+              );
+              this.paymentCountDown = paymentCountDownDate;
             }
 
             if (details.step === '8') {
@@ -214,7 +222,6 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
               this.hasDelivered = true;
               this.isFundsReleased = true;
               this.hasSecuredFunds = true;
-
             }
             if (details.step === '9') {
               this.revisionDate = new Date(details.updated_at).toDateString();
@@ -226,6 +233,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
               this.hasAgreed = true;
               this.hasSentDemo = true;
               this.hasRevisions = true;
+              this.revisionDescription = details.description;
             }
           });
         },
@@ -354,16 +362,14 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
 
   upload(files: FileList) {
     this.files = files;
+    this.revisionFiles = files;
     for (let i = 0; i < files.length; i++) {
       this.stepUploadedFiles.push(files[i].name);
     }
-    console.log('uploadedFiles', this.uploadedFiles);
-    console.log('file', this.files);
-    }
+  }
 
   onDeliverService(form) {
     this.stepDescription = form.value['editor'];
-    console.log(form.value['editor']);
 
     this.isSubmitting = true;
     if (this.files) {
@@ -371,38 +377,76 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
         this.uploadFile(file);
       }
     }
-            this.isValidating = false;
-            this.stepDetails = {
-              transaction_id: this.transactionKey,
-              step: 6,
-              description: this.stepDescription,
-            };
-            this.setStepTransaction(this.stepDetails);
-            this.getStepTransaction();
+    this.isValidating = false;
+    this.stepDetails = {
+      transaction_id: this.transactionKey,
+      step: 6,
+      description: this.stepDescription,
+    };
+    this.setStepTransaction(this.stepDetails);
+    this.getStepTransaction();
   }
 
-  mapUploadedFiles() {
-    this.transactionsService.mapUploadedFiles(this.transactionKey, this.filePaths).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
-      return response;
-    });
+  onSubmitRevision(form) {
+    this.stepDescription = form.value['editor'];
 
+    this.isSubmitting = true;
+    if (this.revisionFiles) {
+      for (const file of Array.from(this.revisionFiles)) {
+        this.uploadRevisionFile(file);
+      }
+    }
+    this.isValidating = false;
+    this.stepDetails = {
+      transaction_id: this.transactionKey,
+      step: 10,
+      description: this.stepDescription,
+    };
+    this.setStepTransaction(this.stepDetails);
+    this.getStepTransaction();
+    this.ShowOrNotOpenNoteInput = false;
+  }
+
+  mapUploadedFiles(transactionKey, filePaths) {
+    this.transactionsService
+      .mapUploadedFiles(transactionKey, filePaths)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((response) => {
+        return response;
+      });
   }
 
   uploadFile(file) {
-      this.transactionsService.uploadFile(file).subscribe(
-        (response: any) => {
-          this.isSubmitting = false;
-          if (response.path) {
-            this.filePaths.push(response.path);
-            this.mapUploadedFiles();
-            console.log('filePaths after upload', this.filePaths);
-          }
-        },
-        (error) => {
-          this.isSubmitting = false;
-          console.log('Error %j', error.message);
+    this.transactionsService.uploadFile(file).subscribe(
+      (response: any) => {
+        this.isSubmitting = false;
+        if (response.path) {
+          this.filePaths.push(response.path);
+          this.mapUploadedFiles(this.transactionKey, this.filePaths);
         }
-      );
+      },
+      (error) => {
+        this.isSubmitting = false;
+        console.log('Error %j', error.message);
+      }
+    );
+  }
+
+  uploadRevisionFile(file) {
+    this.transactionsService.uploadFile(file).subscribe(
+      (response: any) => {
+        this.isSubmitting = false;
+        if (response.path) {
+          this.filePaths.push(response.path);
+          const newKey = `${this.transactionKey}${this.transactionId}`;
+          this.mapUploadedFiles(newKey, this.filePaths);
+        }
+      },
+      (error) => {
+        this.isSubmitting = false;
+        console.log('Error %j', error.message);
+      }
+    );
   }
 
   collapses(): void {
@@ -424,6 +468,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   }
 
   OpenNoteInput() {
-    this.ShowOrNotOpenNoteInput =   this.ShowOrNotOpenNoteInput === true ? false : true;
+    this.ShowOrNotOpenNoteInput =
+      this.ShowOrNotOpenNoteInput === true ? false : true;
   }
 }

@@ -577,16 +577,32 @@
           <div class="card-body">
             <h6>
               Awaiting feedback from
-              <span class="rosell">@{{ buyerPhone }}</span> vany respond before
-              the time set time order will be marked as completed
+              <span class="rosell">@{{ buyerPhone }}</span> 
             </h6>
-            <div class="row">
+            <h6 *ngIf="!hasRevisions">If no response before
+              the countdown elapses, the service will be marked as completed and the funds will be released
+            </h6>
+            <div *ngIf="!hasRevisions" class="row">
               <div class="col"></div>
               <div class="col">
                 <div class="col-sm" id="HeureButton">
-                  <button type="button" class="btn btn-light">
-                    05 : 25 : 09
-                  </button>
+                  <div class="row">
+                    <div class="col-sm"></div>
+                    <!-- <div class="col-sm" id="HeureButton"> -->
+                      <button type="button" class="btn btn-light">
+                        <h5>
+                          <div class="container">
+                            <div class="row">
+                              <countdown-timer
+                                [end]="paymentCountDown"
+                              ></countdown-timer>
+                            </div>
+                          </div>
+                        </h5>
+                      </button>
+                    <!-- </div> -->
+                    <div class="col-sm"></div>
+                  </div>
                 </div>
               </div>
               <div class="col"></div>
@@ -649,11 +665,8 @@
       <div *ngIf="hasRevisions" class="row" id="Card15">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
-            <h6>
-              1- Change the colour on top <br />
-              2- Make the video more interesting<br />
-              3- You didn't do the speech well kindly review the file l have
-              sent you before and make it
+            <h6><span class="rosell">@{{ buyerPhone }}</span> requested a revision on your work</h6>
+            <h6>-{{ revisionDescription }}
             </h6>
             <div class="container">
               <div class="container">
@@ -671,18 +684,11 @@
               </div>
             </div>
             <div class="container">
-              <div class="row" id="Card16">
-                <div class="col-sm" id="HeureButton">
-                  <button type="button" class="btn btn-light">
-                    05 : 25 : 09
-                  </button>
-                </div>
-              </div>
               <div class="row">
                 <div class="col-sm"></div>
                 <div class="col" id="Delivred">
-                  <button type="button" class="btn btn-light btn-sm">
-                    Delivered
+                  <button type="button" (click)="OpenNoteInput()" class="btn btn-light btn-sm">
+                    Revise
                   </button>
                 </div>
                 <div class="col-sm"></div>
@@ -690,6 +696,65 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="row" id="Card19" *ngIf="ShowOrNotOpenNoteInput && hasRevisions">
+        <form (ngSubmit)="onSubmitRevision(form)" #form="ngForm">
+          <div class="card" style="width: 50rem;">
+            <div class="card-body">
+              <editor
+                name="editor"
+                apiKey="Get your free API key and paste it here"
+                plugins="wordcount"
+                outputFormat="text"
+                ngModel
+              ></editor>
+              <input type="hidden" name="details" id="details" />
+              <div class="container">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">
+                      <h5>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-sm"></div>
+                            <div class="col-sm"></div>
+                          </div>
+                        </div>
+                      </h5>
+                    </div>
+                    <div class="col-sm"></div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <input (change)="upload($event.target.files)" type="file" #fileUpload id="fileUpload" name="fileUpload[]" multiple ngModel/>
+                </div>
+                <br>
+                <div class="col" id="Delivred">
+                  <div *ngIf="isSubmitting" class="Loading">
+                    <button>
+                      <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Resending...
+                    </button>
+                  </div>
+                  <button
+                  *ngIf="!isSubmitting"
+                    type="submit"
+                    class="btn btn-light btn-sm"
+                    (click)="onSubmitRevision()"
+                  >
+                    Resend Work
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
     <div class="col-sm" id="Card18">
