@@ -1,41 +1,21 @@
-<div
-  id="pcoded"
-  class="pcoded"
-  [ngClass]="animateSidebar"
-  [attr.nav-type]="navType"
-  [attr.theme-layout]="themeLayout"
-  [attr.vertical-placement]="verticalPlacement"
-  [attr.vertical-layout]="verticalLayout"
-  [attr.pcoded-device-type]="pcodedDeviceType"
-  [attr.vertical-nav-type]="verticalNavType"
-  [attr.vertical-effect]="verticalEffect"
-  [attr.vnavigation-view]="vnavigationView"
-  [attr.fream-type]="freamType"
-  [attr.sidebar-img]="sidebarImg"
-  [attr.sidebar-img-type]="sidebarImgType"
-  [attr.layout-type]="layoutType"
-  (window:resize)="onResize($event)"
->
+<div id="pcoded" class="pcoded" [ngClass]="animateSidebar" [attr.nav-type]="navType" [attr.theme-layout]="themeLayout"
+  [attr.vertical-placement]="verticalPlacement" [attr.vertical-layout]="verticalLayout"
+  [attr.pcoded-device-type]="pcodedDeviceType" [attr.vertical-nav-type]="verticalNavType"
+  [attr.vertical-effect]="verticalEffect" [attr.vnavigation-view]="vnavigationView" [attr.fream-type]="freamType"
+  [attr.sidebar-img]="sidebarImg" [attr.sidebar-img-type]="sidebarImgType" [attr.layout-type]="layoutType"
+  (window:resize)="onResize($event)">
   <div class="pcoded-overlay-box"></div>
   <div class="pcoded-container navbar-wrapper">
     <!---- La NavBar---->
-    <nav
-      id="NavBar"
-      class="navbar header-navbar pcoded-header"
-      [attr.header-theme]="headerTheme"
-      [attr.pcoded-header-position]="pcodedHeaderPosition"
-    >
+    <nav id="NavBar" class="navbar header-navbar pcoded-header" [attr.header-theme]="headerTheme"
+      [attr.pcoded-header-position]="pcodedHeaderPosition">
       <div class="navbar-wrapper">
         <div class="navbar-container container-fluid">
           <ul class="nav-left">
             <li class="ripple light">
               <div class="main-menu-header">
                 <a (click)="onViewProfile()">
-                  <img
-                  src="{{ pp }}"
-                  class="img-menu-user img-radius"
-                  alt="User-Profile-Image"
-                />
+                  <img src="{{ pp }}" class="img-menu-user img-radius" alt="User-Profile-Image" />
                 </a>
               </div>
             </li>
@@ -48,31 +28,30 @@
               </div>
             </li>
             <li class="header-search">
-              <div id="main-search" class="main-search morphsearch-search open">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <img src="assets\Search\flagGhana.png" alt="..." />
-                      <select class="form-control select form-control-sm">
-                        <option>(+233)</option>
-                      </select>
-                    </div>
-                  </div>
-                  <input
-                    class="form-control"
-                    [style.width]="searchWidthString"
-                    placeholder="Search & verify any informal businesses"
-                    (click)="routingseachpage()"
-                  />
-                </div>
-              </div>
+              <form #form="ngForm">
+                <intl-tel-input
+                    [name]="'my-name'"
+                    [cssClass]="'form-control'"
+                    [labelCssClass]="'col-sm-2 col-form-label'"
+                    [required]="true"
+                    [options]="{
+                        preferredCountries: [],
+                        localizedCountries: {ng:'Nigeria',gh:'Ghana',ci:'Côte d Ivoire'},
+                        onlyCountries: [
+                        'GH',
+                        'CI',
+                        'NG'
+                        ]
+                    }"
+                    [onlyLocalized]="true"
+                    [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
+             </form>    
             </li>
           </ul>
-          <ul
-            [@mobileHeaderNavRight]="navRight"
-            [ngClass]="navRight"
-            class="nav-right"
-          >
+          <ul class="UL">
+            <li><button type="button" id="button" class="btn btn-sm btn-light">Search</button></li>
+          </ul>
+          <ul [@mobileHeaderNavRight]="navRight" [ngClass]="navRight" class="nav-right">
             <li><a>Get trusted</a></li>
           </ul>
         </div>
@@ -88,44 +67,25 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <label class="What" for="exampleInputEmail1"
-                >What's your recipient name</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                value="Roselina"
-              />
+              <label class="What" for="exampleInputEmail1">What's your recipient name</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                value="Roselina" />
             </div>
           </form>
           <form>
             <div class="form-group">
-              <label class="HowDo" for="exampleInputEmail1"
-                >How do you want <b class="Roselina">Roselina</b> to receive the
-                money</label
-              >
+              <label class="HowDo" for="exampleInputEmail1">How do you want <b class="Roselina">Roselina</b> to receive
+                the
+                money</label>
               <mat-radio-group>
                 <div class="row">
                   <div class="col">
-                    <mat-radio-button
-                      class="example-margin"
-                      id="example-margin"
-                      value="after"
-                      color="primary"
-                    >
-                      Mobile Wallet</mat-radio-button
-                    >
+                    <mat-radio-button class="example-margin" id="example-margin" value="after" color="primary">
+                      Mobile Wallet</mat-radio-button>
                   </div>
                   <div class="col">
-                    <mat-radio-button
-                      color="primary"
-                      class="example-margin"
-                      id="example-margin1"
-                    >
-                      Bank Account</mat-radio-button
-                    >
+                    <mat-radio-button color="primary" class="example-margin" id="example-margin1">
+                      Bank Account</mat-radio-button>
                   </div>
                 </div>
               </mat-radio-group>
@@ -133,65 +93,35 @@
           </form>
           <form>
             <div class="form-group">
-              <label class="Select" for="exampleInputEmail1"
-                >Select <b class="Roselina">Roselina's</b> mobile wallet
+              <label class="Select" for="exampleInputEmail1">Select <b class="Roselina">Roselina's</b> mobile wallet
               </label>
               <mat-radio-group>
                 <div class="row">
-                  <mat-radio-button
-                    color="primary"
-                    class="example-margin"
-                    value="MTN"
-                    id="MTN"
-                    >MTN</mat-radio-button
-                  >
+                  <mat-radio-button color="primary" class="example-margin" value="MTN" id="MTN">MTN</mat-radio-button>
                 </div>
                 <div class="row">
-                  <mat-radio-button
-                    color="primary"
-                    class="example-margin"
-                    value="VODAFONE"
-                    id="VODAFONE"
-                    >VODAFONE</mat-radio-button
-                  >
+                  <mat-radio-button color="primary" class="example-margin" value="VODAFONE" id="VODAFONE">VODAFONE
+                  </mat-radio-button>
                 </div>
                 <div class="row">
-                  <mat-radio-button
-                    color="primary"
-                    class="example-margin"
-                    value="AIRTELTIGO"
-                    id="AIRTELTIGO"
-                    >AIRTELTIGO</mat-radio-button
-                  >
+                  <mat-radio-button color="primary" class="example-margin" value="AIRTELTIGO" id="AIRTELTIGO">AIRTELTIGO
+                  </mat-radio-button>
                 </div>
               </mat-radio-group>
             </div>
           </form>
           <form>
             <div class="form-group">
-              <label class="EnterRo" for="exampleInputEmail1"
-                >Enter <b class="Roselina">Roselina's</b> mobile wallet</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
+              <label class="EnterRo" for="exampleInputEmail1">Enter <b class="Roselina">Roselina's</b> mobile
+                wallet</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
             </div>
           </form>
           <form>
             <div class="form-group">
-              <label class="Howmuch" for="exampleInputEmail1"
-                >How much are you sending?</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                value="50.00"
-              />
+              <label class="Howmuch" for="exampleInputEmail1">How much are you sending?</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                value="50.00" />
             </div>
           </form>
           <div class="row" id="TransationFee">
@@ -204,19 +134,10 @@
           </div>
           <div class="row" id="Button">
             <div class="col">
-              <button
-                (click)="closeFirstModal()"
-                class="Cancel"
-                mat-raised-button
-              >
+              <button (click)="closeFirstModal()" class="Cancel" mat-raised-button>
                 Cancel
               </button>
-              <button
-                (click)="openModal2(templateNested)"
-                mat-raised-button
-                color="primary"
-                class="Continue"
-              >
+              <button (click)="openModal2(templateNested)" mat-raised-button color="primary" class="Continue">
                 Continue
               </button>
             </div>
@@ -282,20 +203,11 @@
         <div class="modal-body">
           <form>
             <div class="form-group" id="form-group1">
-              <label class="PhoneNumber" for="exampleInputEmail1"
-                >Phone number</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail5"
-                aria-describedby="emailHelp"
-              />
+              <label class="PhoneNumber" for="exampleInputEmail1">Phone number</label>
+              <input type="email" class="form-control" id="exampleInputEmail5" aria-describedby="emailHelp" />
             </div>
             <div class="form-group" id="form-group2">
-              <label class="AmountRequesting" for="exampleInputPassword1"
-                >Amount Requesting</label
-              >
+              <label class="AmountRequesting" for="exampleInputPassword1">Amount Requesting</label>
               <input type="" class="form-control" id="exampleInputPassword5" />
             </div>
             <div class="container" id="Buttons">
@@ -317,50 +229,23 @@
       </ng-template>
       <!--  -->
       <div class="pcoded-wrapper">
-        <nav
-          id="main_navbar"
-          class="pcoded-navbar"
-          (clickOutside)="onClickedOutsideSidebar($event)"
-          [exclude]="'#mobile-collapse'"
-          [attr.navbar-theme]="navBarTheme"
-          [attr.active-item-theme]="activeItemTheme"
-          sub-item-theme="theme2"
-          active-item-style="style0"
-          [attr.pcoded-header-position]="pcodedHeaderPosition"
-          [attr.pcoded-navbar-position]="pcodedSidebarPosition"
-          [style.top]="headerFixedTop"
-          [style.height]="sidebarFixedNavHeight"
-          (mouseleave)="hoverOutsideSidebar()"
-        >
-          <perfect-scrollbar
-            [style.max-width]="'235px'"
-            [style.max-height]="sidebarFixedHeight"
-            [config]="config"
-            [ngClass]="perfectDisable"
-          >
+        <nav id="main_navbar" class="pcoded-navbar" (clickOutside)="onClickedOutsideSidebar($event)"
+          [exclude]="'#mobile-collapse'" [attr.navbar-theme]="navBarTheme" [attr.active-item-theme]="activeItemTheme"
+          sub-item-theme="theme2" active-item-style="style0" [attr.pcoded-header-position]="pcodedHeaderPosition"
+          [attr.pcoded-navbar-position]="pcodedSidebarPosition" [style.top]="headerFixedTop"
+          [style.height]="sidebarFixedNavHeight" (mouseleave)="hoverOutsideSidebar()">
+          <perfect-scrollbar [style.max-width]="'235px'" [style.max-height]="sidebarFixedHeight" [config]="config"
+            [ngClass]="perfectDisable">
             <div class="pcoded-inner-navbar main-menu" appAccordion>
               <div class=""></div>
 
-              <div
-                *ngFor="let asideItems of menuItems.getAll()"
-                class="d-color"
-              >
-                <div
-                  class="pcoded-navigation-label"
-                  [attr.menu-title-theme]="menuTitleTheme"
-                ></div>
+              <div *ngFor="let asideItems of menuItems.getAll()" class="d-color">
+                <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme"></div>
                 <div class="SideBar">
-                  <ul
-                    class="navbar-nav mr-auto"
-                    *ngFor="let asideItem of asideItems.main"
-                  >
+                  <ul class="navbar-nav mr-auto" *ngFor="let asideItem of asideItems.main">
                     <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        style="color: #434a69; font-family: Segoe UI;"
-                        [routerLink]="['/', asideItem.name]"
-                        href="#"
-                        >{{ asideItem.state }}
+                      <a class="nav-link active" [routerLink]="['/', asideItem.name]" routerLinkActive="RouterLinkActive"
+                        href="#">{{ asideItem.state }}
                       </a>
                     </li>
                   </ul>

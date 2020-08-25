@@ -43,9 +43,7 @@ import { DisputesComponent } from "./theme/disputes/disputes.component";
 import { PaymentComponent } from "./theme/payment/payment.component";
 import { HomeComponent } from "./theme/home/home.component";
 import { TransactionsComponent } from "./theme/transactions/transactions.component";
-import { EscrowStep1Component } from "./theme/escrow-step1/escrow-step1.component";
-import { EscrowStep2Component } from "./theme/escrow-step2/escrow-step2.component";
-import { SettingsComponent } from "./theme/settings/settings.component";
+import { SettingsComponent } from "./theme/settings/settings.component"
 import { ApiIntegrationComponent } from "./theme/api-integration/api-integration.component";
 import { IntlTelInputNgModule } from "intl-tel-input-ng";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
@@ -63,6 +61,10 @@ import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-co
 import { BuyerServicesContratModule } from './theme/buyer-services-contrat/buyer-services-contrat.module';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
 import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-merchandise-step1/seller-escrow-merchandise-step1.component';
+import { EscrowServicesBuyersStep1Component } from './theme/escrow-services-buyers-step1/escrow-services-buyers-step1.component';
+import { EscrowServicesSellersStep1Component } from './theme/escrow-services-sellers-step1/escrow-services-sellers-step1.component';
+import { EscrowServicesSellersStep2Component } from './theme/escrow-services-sellers-step2/escrow-services-sellers-step2.component';
+import { EscrowServicesBuyerStep2Component } from './theme/escrow-services-buyer-step2/escrow-services-buyer-step2.component';
 
 @NgModule({
   declarations: [
@@ -82,8 +84,6 @@ import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-mer
     TermConditionsComponent,
     HomeComponent,
     TransactionsComponent,
-    EscrowStep1Component,
-    EscrowStep2Component,
     SettingsComponent,
     ApiIntegrationComponent,
     RegisterComponent,
@@ -94,7 +94,11 @@ import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-mer
     SellerServicesContratComponent,
     SellerMerchandiseContratComponent,
     BuyerMerchandiseContratComponent,
-    SellerEscrowMerchandiseStep1Component
+    SellerEscrowMerchandiseStep1Component,
+    EscrowServicesBuyersStep1Component,
+    EscrowServicesSellersStep1Component,
+    EscrowServicesSellersStep2Component,
+    EscrowServicesBuyerStep2Component
   ],
   imports: [
     BrowserModule,
@@ -126,4 +130,4 @@ import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-mer
   providers: [MenuItems, HomeInputService, RegisterService, BsModalRef],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

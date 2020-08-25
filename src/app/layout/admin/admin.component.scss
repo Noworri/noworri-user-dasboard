@@ -4,6 +4,7 @@
     .navbar-container {
       .main-menu-header {
         margin-top: 20px;
+        margin-left: -15px;
         img {
           width: 45px;
           height: 45px;
@@ -11,7 +12,8 @@
         }
       }
       #ProfilNameEtMail {
-        margin-top: 25px;
+        margin-top: 12px;
+        margin-right: 12px;
         .Nom {
           text-align: left;
           font: Regular 24px/35px Poppins;
@@ -19,6 +21,8 @@
           color: #000000;
           opacity: 1;
           font-size: 13px;
+          margin-left: -10px;
+          
         }
         .Mail {
           text-align: left;
@@ -31,29 +35,10 @@
         }
       }
     }
-
-
-
     .header-search {
-      top: 15px;
-      left: 13px;
-      #main-search {
-
-        .input-group-text{
-          img{
-            width: 20px;
-          }
-        }
-        .input-group {
-          border-radius: 9px;
-          opacity: 1;
-          width: 400px;
-        }
-      }
+    margin-top: 30px; 
+    margin-left: -13px;
     }
-
-
-    
   }
   .nav-right {
     margin-right: -26px;
@@ -67,25 +52,39 @@
         opacity: 1;
         font-size: 16px;
       }
-      
     }
   }
+  .UL{
+    margin-left: -500px;
+    margin-bottom: -32px;
+    #button{
+      color: blue;
+      border-color: blue;
+      border-radius: 6px;
+    }
+  }
+  
   // ---sideBar---------//
   .SideBar {
     margin-top: 120px;
     margin-left: 32px;
     border-width: 0px;
     .nav-link {
+      &:hover{
+        color: #2bb996;
+      }
       text-align: left;
       font: Semibold 26px/35px Segoe UI;
       letter-spacing: 0;
-      &:hover {
-        color: #2bb996;
-      }
+      font-family: Segoe UI;
       opacity: 1;
       font-weight: bold;
-      color: #000000;
+      color: #3f414b;
       margin: 3px;
+      font-family: Segoe UI;
+    }
+    .RouterLinkActive{
+      color: #2bb996;
     }
   }
 }

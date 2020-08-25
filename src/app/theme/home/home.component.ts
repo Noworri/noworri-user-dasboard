@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     } else {
       this.InputControl = 'custom-select ValidationColor is-valid';
       setTimeout(() => {
-        this.router.navigate(['/escrowstep1']);
+        this.router.navigate(['/escrowservicesbuyersstep1']);
       }, 1000);
     }
   }
