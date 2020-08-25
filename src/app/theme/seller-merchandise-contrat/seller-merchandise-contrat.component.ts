@@ -3,6 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { Subject } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-seller-merchandise-contrat',
@@ -22,14 +23,17 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   userId: string;
   columns: any[];
   isValidating = false;
+  isUpdating = false;
   isFundsReleased = false;
   isCancelled = false;
+  isUpdatingDelivery = false;
 
 
   buyerPhone: string;
   description: string;
   item: string;
   deliveryPhone: string;
+  transactionKey: string;
   transactionId: string;
 
   constructor(
@@ -37,11 +41,11 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
   ) {
-    this.transactionId = this.route.snapshot.paramMap.get('transactionKey');
+    this.transactionKey = this.route.snapshot.paramMap.get('transactionKey');
   }
 
   ngOnInit() {
-    this.loadUserTransaction(this.transactionId);
+    this.loadUserTransaction(this.transactionKey);
   }
 
   ngOnDestroy() {
@@ -55,10 +59,33 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
 
   cancelOrder() {
     this.isValidating = true;
-    this.transactionsService.cancelOrder(this.transactionId).pipe(takeUntil(this.unsubscribe)).subscribe(
+    this.transactionsService.cancelOrder(this.transactionKey).pipe(takeUntil(this.unsubscribe)).subscribe(
       response => {
         setTimeout(() => {
           this.isValidating = false;
+          this.router.navigate(['transactions']);
+        }, 5000);
+        return response;
+      },
+      error => {
+        this.isValidating = false;
+        console.log(error);
+        // this.router.navigate(['transactions']);
+      }
+    );
+  }
+
+  onUpdateDeliveryPhone() {
+    this.isUpdatingDelivery = this.isUpdatingDelivery === true ? false : true;
+  }
+
+  updateDeliveryPhone(form: NgForm) {
+    this.isUpdating = true;
+    const newDelivery = `+233${form.value['newDelivery']}`;
+    this.transactionsService.updateDeliveryPhone(this.transactionId, newDelivery).pipe(takeUntil(this.unsubscribe)).subscribe(
+      response => {
+        setTimeout(() => {
+          this.isUpdating = false;
           this.router.navigate(['transactions']);
         }, 5000);
         return response;
@@ -86,12 +113,19 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.totalAmount = parseInt(this.amount, 10) - parseInt(this.noworriFee, 10);
             this.totalAmount = this.totalAmount.toFixed(2);
             this.item = details.service;
-            this.buyerPhone = details.user_phone;
+            this.buyerPhone = details.owner_phone;
+            if (details.user_id === this.userId && details.user_role === 'Buy') {
+              this.buyerPhone = details.user_phone;
+            } else if (details.owner_id === this.userId && details.owner_role === 'Buy') {
+              this.buyerPhone = details.owner_phone;
+            }
             this.description = details.requirement;
-            if (details.etat === '1') {
+            this.transactionId = details.id;
+            this.deliveryPhone = details.deadline_type ? details.deadline_type : 'N/A';
+            if (details.etat === '2') {
               this.isFundsReleased = true;
             }
-            if (details.etat === '2') {
+            if (details.etat === '0') {
               this.isCancelled = true;
             }
           });

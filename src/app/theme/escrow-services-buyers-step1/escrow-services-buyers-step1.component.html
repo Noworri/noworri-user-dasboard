@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="fescrowstep1(F, form)" #F="ngForm">
+  <form (ngSubmit)="fescrowStep1(F, form)" #F="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -15,34 +15,18 @@
               </div>
               <div id="Form1">
                 <div class="form-group">
-                  <label id="PrincipaleTitle" style="margin-bottom: 20px;" for="exampleInputEmail1"
-                    >What {{transactionType | lowercase}} are you {{ buyinOrSelling  |lowercase }}</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                    name="exampleInputPassword1"
-                    ngModel
-                    aria-describedby="emailHelp"
-                    (click)="AfficheSide1()"
-                    [ngClass]="InputControl1"
-                  />
+                  <label id="PrincipaleTitle" style="margin-bottom: 20px;" for="exampleInputEmail1">What
+                    {{transactionType | lowercase}} are you {{ role  |lowercase }}</label>
+                  <input type="text" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1"
+                    ngModel aria-describedby="emailHelp" (click)="AfficheSide1()" [ngClass]="InputControl1" />
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1"
-                    >{{ buyersOrSeller  }} phone number </label
-                  >
+                  <label for="exampleInputPassword1">{{ buyerOrSeller  }} phone number </label>
                 </div>
               </div>
               <form #form="ngForm">
-                <intl-tel-input
-                  (click)="AfficheSide2()"
-                  [name]="'phone_number'"
-                  [cssClass]="'form-control'"
-                  [labelCssClass]="'col-sm-2 col-form-label'"
-                  [required]="true"
-                  [options]="{
+                <intl-tel-input (click)="AfficheSide2()" [name]="'phone_number'" [cssClass]="'form-control'"
+                  [labelCssClass]="'col-sm-2 col-form-label'" [required]="true" [options]="{
                     preferredCountries: ['GH'],
                     localizedCountries: ['GH'],
                     onlyCountries: [
@@ -101,33 +85,18 @@
                       'ZM',
                       'ZW'
                     ]
-                  }"
-                  [onlyLocalized]="true"
-                  [(E164PhoneNumber)]="E164PhoneNumber"
-                ></intl-tel-input>
+                  }" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
               </form>
               <div id="Form2">
                 <div class="WHAT">
-                  <label id="PrincipaleTitle" for="exampleInputPassword1"
-                    >What is the service price</label
-                  >
+                  <label id="PrincipaleTitle" for="exampleInputPassword1">What is the service price</label>
                 </div>
                 <label for="exampleInputEmail1">Price</label>
-                <label style="margin-left: 400px;" for="exampleInputEmail1"
-                  >CURRENCY</label
-                >
+                <label style="margin-left: 400px;" for="exampleInputEmail1">CURRENCY</label>
                 <div class="row">
                   <div class="col">
-                    <input
-                      type="text"
-                      style="width: 420px;"
-                      class="form-control"
-                      id="exampleInputPassword3"
-                      name="exampleInputPassword3"
-                      ngModel
-                      (click)="AfficheSide3()"
-                      [ngClass]="InputControl3"
-                    />
+                    <input type="text" style="width: 420px;" class="form-control" id="exampleInputPassword3"
+                      name="exampleInputPassword3" ngModel (click)="AfficheSide3()" [ngClass]="InputControl3" />
                   </div>
                   <div class="col">
                     <div class="input-group-text">
@@ -138,79 +107,45 @@
                 </div>
                 <div id="PetitInput1">
                   <label for="exampleInputEmail1">Number of revisions</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputPassword4"
-                    name="exampleInputPassword4"
-                    aria-describedby="emailHelp"
-                    ngModel
-                    max="10"
-                    min="1"
-                    required
-                    (click)="AfficheSide4()"
-                    [ngClass]="InputControl4"
-                  />
+                  <input type="text" class="form-control" id="exampleInputPassword4" name="exampleInputPassword4"
+                    aria-describedby="emailHelp" ngModel max="10" min="1" required (click)="AfficheSide4()"
+                    [ngClass]="InputControl4" />
                 </div>
                 <div>
                   <label class="setTransation" style="margin-top: 20px;">Set transation deadline</label>
                 </div>
 
                 <div class="radioButton" [formGroup]='transation'>
-                  <mat-radio-group aria-label="" (change)='TransationDead()'  formControlName='radio'  >
-                    <mat-radio-button  value="Days" class="days"  >Days</mat-radio-button>
-                    <mat-radio-button  value="Hours" class="hours">Hours</mat-radio-button>
+                  <mat-radio-group aria-label="" (change)='TransationDead()' formControlName='radio'>
+                    <mat-radio-button value="Days" class="days">Days</mat-radio-button>
+                    <mat-radio-button value="Hours" class="hours">Hours</mat-radio-button>
                   </mat-radio-group>
                 </div>
                 <div id="PetitInput2">
                   <div class="row">
                     <div class="col">
-                      
+
                       <div class="row">
-                        <div class="col-xs-12 col-12 col-md-4 form-group" >
-                          <input
-                            id="exampleInputPassword5"
-                            name="exampleInputPassword5"
-                           (click)='AfficheSide5()'
-                            type="text"
-                            placeholder="Date" 
-                            class="form-control"
-                            bsDatepicker
-                            *ngIf='DayInput'
-                            [minDate]='minDate'
-                          />
+                        <div class="col-xs-12 col-12 col-md-4 form-group">
+                          <input id="exampleInputPassword5" name="exampleInputPassword5" (click)='AfficheSide5()'
+                            type="text" placeholder="Date" class="form-control" bsDatepicker *ngIf='DayInput'
+                            [minDate]='minDate' />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="md-form" id="TimeInput"  >
-                  <input
-                  id="exampleInputPassword6"
-                  name="exampleInputPassword6"
-                   (click)='AfficheSide5()'
-                    type="time"
-                    id="input"
-                    class="form-control"
-                    value="13:00"
-                    mdbInput
-                    *ngIf='HourInput'
-                  />
+                <div class="md-form" id="TimeInput">
+                  <input id="exampleInputPassword6" name="exampleInputPassword6" (click)='AfficheSide5()' type="time"
+                    id="input" class="form-control" value="13:00" mdbInput *ngIf='HourInput' />
                 </div>
                 <div id="PetitInput3">
                   <label for="exampleInputEmail1">Requirements</label>
-                  <textarea
-                    class="form-control"
-                    id="exampleInputPassword7"
-                    name="exampleInputPassword7"
-                    rows="3"
-                    (click)="AfficheSide7()"
-                    ngModel
-                    [ngClass]="InputControl7"
-                  ></textarea>
+                  <textarea class="form-control" id="exampleInputPassword7" name="exampleInputPassword7" rows="3"
+                    (click)="AfficheSide7()" ngModel [ngClass]="InputControl7"></textarea>
                 </div>
                 <div class="Link">
-                  <a class="nav-link" (click)='AfficheSide8()' >Attached file</a>
+                  <a class="nav-link" (click)='AfficheSide8()'>Attached file</a>
                 </div>
                 <div class="container">
                   <div class="row">
@@ -238,9 +173,7 @@
                   </div>
                   <div class="col">
                     <p>
-                      Tell us what service you want to buy, it could be a a
-                      freelancer work, a contract or anything that doesn't
-                      required a tangible goods
+                      Tell us what service you're providing.
                     </p>
                   </div>
                 </div>
@@ -256,8 +189,7 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the Phone number of the Seller.Make sure he has a
-                      Noworri's Account otherwise invite hime HERE
+                      Enter the Phone number of the buyer.Make sure he has a Noworri's Account otherwise invite him HERE
                     </p>
                   </div>
                 </div>
@@ -273,8 +205,7 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the price of the service you want to buy, make sure
-                      both buyer and seller agree to the price
+                      Enter the price of the service you're providing, make sure both you and buyer agree to the price
                     </p>
                   </div>
                 </div>
@@ -290,8 +221,7 @@
                   </div>
                   <div class="col">
                     <p>
-                      Select the number of time you will request to the seller
-                      to make a revision on the work he delivered
+                      The number of tweaks you offer for the service
                     </p>
                   </div>
                 </div>
@@ -307,9 +237,8 @@
                   </div>
                   <div class="col">
                     <p>
-                      Define a dead time of the transaction so in case anything
-                      was not done after the end of the transaction Noworri will
-                      cancel it
+                      Set a delivery time that makes sense for you, based on the combined time it takes you to create
+                      every part of the service.
                     </p>
                   </div>
                 </div>
@@ -341,8 +270,7 @@
                   </div>
                   <div class="col">
                     <p>
-                      Attache a file if you have one, it could be an example of
-                      th work you want
+                      Do you need any requirements de complete the service? write it down
                     </p>
                   </div>
                 </div>
@@ -353,5 +281,4 @@
       </div>
     </div>
   </form>
-  
 </div>

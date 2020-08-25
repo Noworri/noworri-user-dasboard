@@ -162,17 +162,16 @@
               <tbody>
                 <tr *ngFor="let item of tableData">
                   <td>
-                    <button (click)="onViewTransactionDetails(item.transaction_key)">
+                    <button (click)="onViewTransactionDetails(item.transaction_key, item.user_role, item.owner_phone, item.user_phone)">
                       <i class="fa fa-eye"></i>
                     </button>
                   </td>
                   <td>{{ item.created_at }}</td>
                   <td>{{ item.transaction_key }}</td>
                   <td>{{ item.transaction_type }}</td>
-                  <td></td>
-                  <td></td>
+                  <td>{{ item.user_phone }}</td>
+                  <td>{{ item.owner_phone }}</td>
                   <td>{{ item.price }}</td>
-                 
                   <td>{{ item.state }}</td>
                 </tr>
               </tbody>

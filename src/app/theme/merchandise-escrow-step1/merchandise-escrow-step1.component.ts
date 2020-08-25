@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import {
-  MerchandiseEscrowstep1Reference,
+  MerchandiseEscrowStep1Reference,
   CompanyReference,
 } from 'src/app/Service/reference-data.interface';
 import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
@@ -25,7 +25,7 @@ export class MerchandiseEscrowStep1Component implements OnInit, OnDestroy {
   totalAmount: number;
   owner_id: string;
   price: number;
-  escrowStep1Data: MerchandiseEscrowstep1Reference;
+  escrowStep1Data: MerchandiseEscrowStep1Reference;
   transactionSummary: any;
 
   inputValidation: RegExp;

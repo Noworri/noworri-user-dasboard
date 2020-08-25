@@ -11,7 +11,7 @@ export class TransactionsService {
 
 constructor(private http: HttpClient) { }
 
-getUserTranactions(userId: string): Observable<any> {
+getUserTransactions(userId: string): Observable<any> {
   const url = 'https://api.noworri.com/api/usertransactions/' + userId;
 
   return this.http.get(url).pipe(
@@ -20,12 +20,12 @@ getUserTranactions(userId: string): Observable<any> {
         if (typeof values.total_price === undefined) {
           values.total_price = values.price;
         }
-        if ( values.etat == 1) {
-          values.state = 'Completed';
-        } else if (values.etat == 2) {
+        if ( values.etat === '0') {
           values.state = 'Cancelled';
-        } else {
+        } else if (values.etat === '1') {
           values.state = 'Pending';
+        } else {
+          values.state = 'Completed';
         }
         return values;
       });
@@ -48,7 +48,6 @@ getUserTransaction(transaction_id: string): Observable<any> {
         if (typeof transaction.total_price === undefined) {
           transaction.total_price = transaction.price;
         }
-        console.log('transaction', transaction);
         return transaction;
       });
       return data;
@@ -93,6 +92,23 @@ releaseFunds(transaction_id) {
 cancelOrder(transaction_id) {
   const url = `https://api.noworri.com/api/cancelTransaction/${transaction_id}`;
   return this.http.post(url, null).pipe(
+    map((response) => {
+      return response;
+    }),
+    catchError((error: HttpErrorResponse) => {
+      console.log('Error', error.message);
+      return observableThrowError(error);
+    })
+  );
+}
+
+updateDeliveryPhone(transaction_id, delivery_phone) {
+  const url = `https://api.noworri.com/api/updateecobankescrdevivery`;
+  let params = new HttpParams();
+  params = params.append('deliver', delivery_phone);
+  params = params.append('id', transaction_id);
+
+  return this.http.post(url, null, { responseType: 'json', params: params}).pipe(
     map((response) => {
       return response;
     }),

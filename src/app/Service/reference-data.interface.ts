@@ -54,7 +54,7 @@ export interface TransactionsReference {
   transaction_key: string;
   requirement: string;
   file_path: string;
-  etat: number;
+  etat: string;
   deleted: string;
   created_at: string;
   state: string;
@@ -86,10 +86,10 @@ export interface UserReference {
   error: string;
 }
 
-export interface MerchandiseEscrowstep1Reference {
-  item:string;
-  sellerPhoneNumber:string;
-  deliveryPhoneNumber:any;
-  price:any;
-  description:any;
+export interface MerchandiseEscrowStep1Reference {
+  item: string;
+  sellerPhoneNumber: string;
+  deliveryPhoneNumber: any;
+  price: any;
+  description: any;
 }

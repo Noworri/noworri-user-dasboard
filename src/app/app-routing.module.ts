@@ -14,8 +14,6 @@ import { HomeComponent } from './theme/home/home.component';
 import { TransactionsComponent } from './theme/transactions/transactions.component';
 import { DisputesComponent } from './theme/disputes/disputes.component';
 import { PaymentComponent } from './theme/payment/payment.component';
-import { EscrowStep1Component } from './theme/escrow-step1/escrow-step1.component';
-import { EscrowStep2Component } from './theme/escrow-step2/escrow-step2.component';
 import { ApiIntegrationComponent } from './theme/api-integration/api-integration.component';
 import { SettingsComponent } from './theme/settings/settings.component';
 import { MerchandiseEscrowStep1Component } from './theme/merchandise-escrow-step1/merchandise-escrow-step1.component';
@@ -27,6 +25,8 @@ import { SellerServicesContratComponent } from './theme/seller-services-contrat/
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
 import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-merchandise-step1/seller-escrow-merchandise-step1.component';
+import { EscrowServicesBuyerStep2Component } from './theme/escrow-services-buyer-step2/escrow-services-buyer-step2.component';
+import { EscrowServicesBuyersStep1Component } from './theme/escrow-services-buyers-step1/escrow-services-buyers-step1.component';
 
 const routes: Routes = [
   {
@@ -68,12 +68,12 @@ const routes: Routes = [
         component: PaymentComponent,
       },
       {
-        path: 'escrowstep1',
-        component: EscrowStep1Component,
+        path: 'escrowservicesbuyersstep1',
+        component: EscrowServicesBuyersStep1Component,
       },
       {
-        path: 'escrowstep2',
-        component: EscrowStep2Component,
+        path: 'escrowservicesbuyersstep2',
+        component: EscrowServicesBuyerStep2Component,
       },
       {
         path: 'buyerservicescontrat/:transactionKey',

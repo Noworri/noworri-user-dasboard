@@ -11,7 +11,7 @@ const SESSION_STORAGE_KEY = 'noworri-user-session';
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss']
+  styleUrls: ['./transactions.component.scss'],
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
   unsubscribe = new Subject();
@@ -22,14 +22,18 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   amount: any;
   transactionType: string;
   userId: string;
+  userPhone: string;
   hasNoTransactions = false;
   columns: any[];
   paymentResponse: any;
 
-  constructor(private transactionsService: TransactionsService, private router: Router
-    ) {
+  constructor(
+    private transactionsService: TransactionsService,
+    private router: Router
+  ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.userId = sessionData.user_uid;
+    this.userPhone = sessionData.mobile_phone;
   }
 
   ngOnInit() {
@@ -43,35 +47,52 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   loadTransactions(userId: string) {
     // userId = 'a9twRK1JpPPQDrB6hNvfAr2ju682' this is a test User_uid
-    this.transactionsService.getUserTranactions(userId).pipe(takeUntil(this.unsubscribe)).subscribe(
-      transactions => {
-        this.tableData = transactions;
-        transactions.forEach(details => {
-          this.transactionType = details.transaction_type.toLowerCase();
-          if (userId === details.owner_id) {
-            this.userRole = 'sell';
-          } else if (userId === details.user_id) {
-            this.userRole = 'buy';
-          }
-          this.amount = details.total_price;
-        });
-        this.hasNoTransactions = transactions.length === 0 ? true : false;
-      },
-      error => console.log(error.message)
-    );
+    this.transactionsService
+      .getUserTransactions(userId)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        (transactions) => {
+          this.tableData = transactions;
+          transactions.forEach((details) => {
+            this.transactionType = details.transaction_type.toLowerCase();
+            const buyerPhone = details.user_phone;
+            console.log('userRole in response', details.user_role);
+            if (
+              details.user_role === 'Sell' &&
+              this.userId === details.user_id
+            ) {
+              details.user_phone = details.owner_phone;
+              details.owner_phone = buyerPhone;
+            } else if (
+              details.owner_role === 'Buy' &&
+              this.userId === details.owner_id
+            ) {
+              details.user_phone = details.owner_phone;
+              details.owner_phone = buyerPhone;
+              details.user_role = details.owner_role;
+            }
+            this.amount = details.total_price;
+          });
+          this.hasNoTransactions = transactions.length === 0 ? true : false;
+        },
+        (error) => console.log(error.message)
+      );
   }
 
-  onViewTransactionDetails(transactionKey) {
-    if (this.userRole === 'buy' && this.transactionType === 'merchandise') {
+  onViewTransactionDetails(transactionKey, userRole, ownerPhone, userPhone) {
+    this.userRole = userRole;
+
+    if (this.userRole === 'Buy' && this.transactionType === 'merchandise') {
       this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
-    } else if (this.userRole === 'sell' && this.transactionType === 'merchandise') {
+    } else if (
+      (this.userRole === 'Sell' && this.transactionType === 'merchandise') ||
+      (ownerPhone === this.userPhone && this.transactionType === 'merchandise')
+    ) {
       this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
-    } else if (this.userRole === 'buy' && this.transactionType === 'service') {
+    } else if (this.userRole === 'Buy' && this.transactionType === 'service') {
       this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
-    } else if (this.userRole === 'sell' && this.transactionType === 'service') {
+    } else if (this.userRole === 'Sell' && this.transactionType === 'service') {
       this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
     }
-
   }
-
 }
