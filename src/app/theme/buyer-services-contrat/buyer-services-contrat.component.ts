@@ -25,6 +25,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   unsubscribe = new Subject();
 
   tableData: any;
+  userEmail: string;
   stepDetails: object;
   userRole: string;
   storedTransactionDetails: any;
@@ -45,6 +46,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   hasSentDemo = false;
   hasRevisions = false;
   isUserBuyer = false;
+  hasRevisionResult = false;
   hasDeliveryPhone: boolean;
   creationDate: string;
   creationTime: string;
@@ -70,6 +72,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   countDownStop: string;
   uploadedFiles: any;
   workUploadedFiles: any;
+  revisionUploadedFiles: any;
 
   sellerPhone: string;
   description: string;
@@ -82,9 +85,14 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   seller: string;
   hasSecuredFunds = false;
   ShowOrNotOpenNoteInput = false;
+  showRevisionInput = false;
   isSubmitting = false;
   paymentCountDown: any;
   isApproving = false;
+  hasRevisionsLeft = true;
+  revisionsLeft: number;
+  hasNewRevision = false;
+  transaction_ref:  string;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -98,6 +106,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     this.updateTime = '';
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.userId = sessionData.user_uid;
+    this.userEmail = sessionData.email;
 
   }
   ngOnInit() {
@@ -114,14 +123,14 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   }
   approveContract() {
     this.isApproving = true;
-      this.stepDetails = {
-        transaction_id: this.transactionKey,
-        step: 1,
-        description: '',
-      };
-      this.setStepTransaction(this.stepDetails);
-      this.isApproving = false;
-      this.getStepTransaction();
+    this.stepDetails = {
+      transaction_id: this.transactionKey,
+      step: 1,
+      description: '',
+    };
+    this.setStepTransaction(this.stepDetails);
+    this.isApproving = false;
+    this.getStepTransaction();
   }
 
   onApproveService() {
@@ -134,8 +143,9 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       };
       this.setStepTransaction(this.stepDetails);
       this.releaseFunds(this.transactionKey);
+      this.getStepTransaction();
 
-      this.router.navigate([`transactions`]);
+      // this.router.navigate([`transactions`]);
     }, 2000);
   }
 
@@ -161,21 +171,37 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   }
 
   getUploadedFiles() {
-    this.transactionsService.getTransactionUploads(this.transactionId).pipe(takeUntil(this.unsubscribe)).subscribe((uploads: any) => {
-      this.uploadedFiles = uploads.map(file => {
-        return file.path;
+    this.transactionsService
+      .getTransactionUploads(this.transactionId)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((uploads: any) => {
+        this.uploadedFiles = uploads.map((file) => {
+          return file.path;
+        });
       });
-      console.log('uploaded files', this.uploadedFiles);
-    });
   }
 
   getWorkFiles() {
-    this.transactionsService.getTransactionUploads(this.transactionKey).pipe(takeUntil(this.unsubscribe)).subscribe((uploads: any) => {
-      this.workUploadedFiles = uploads.map(file => {
-        return file.path;
+    this.transactionsService
+      .getTransactionUploads(this.transactionKey)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((uploads: any) => {
+        this.workUploadedFiles = uploads.map((file) => {
+          return file.path;
+        });
       });
-      console.log('uploaded files', this.uploadedFiles);
-    });
+  }
+
+  getRevisionFiles() {
+    const newKey = `${this.transactionKey}${this.transactionId}`;
+    this.transactionsService
+      .getTransactionUploads(newKey)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((uploads: any) => {
+        this.revisionUploadedFiles = uploads.map((file) => {
+          return file.path;
+        });
+      });
   }
 
   getSellerDetails(sellerPhoneNumber) {
@@ -197,14 +223,14 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         setTimeout(() => {
           this.isValidating = false;
-            this.isValidating = false;
-            this.stepDetails = {
-              transaction_id: this.transactionKey,
-              step: 4,
-              description: '',
-            };
-            this.setStepTransaction(this.stepDetails);
-            this.getStepTransaction();
+          this.isValidating = false;
+          this.stepDetails = {
+            transaction_id: this.transactionKey,
+            step: 4,
+            description: '',
+          };
+          this.setStepTransaction(this.stepDetails);
+          this.getStepTransaction();
         }, 2000);
         return response;
       });
@@ -357,7 +383,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
             }
             this.getStepTransaction();
             const todaysDate = new Date();
-            if (this.paymentCountDown && todaysDate >= this.paymentCountDown) {
+            if (!this.hasRevisions && this.paymentCountDown && todaysDate >= this.paymentCountDown) {
               this.releaseFunds(this.transactionKey);
             }
           });
@@ -405,23 +431,21 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               ).toLocaleTimeString();
               this.hasStartedService = true;
               this.hasAgreed = true;
-
             }
             if (details.step === '6') {
               this.demoDate = new Date(details.updated_at).toDateString();
-              this.demoTime = new Date(
-                details.updated_at
-              ).toLocaleTimeString();
+              this.demoTime = new Date(details.updated_at).toLocaleTimeString();
               this.hasStartedService = true;
               this.hasAgreed = true;
               this.hasSentDemo = true;
               const paymentCountDownDate = new Date(details.updated_at);
-              paymentCountDownDate.setHours(paymentCountDownDate.getHours() + 24);
-
+              paymentCountDownDate.setHours(
+                paymentCountDownDate.getHours() + 24
+              );
               this.paymentCountDown = paymentCountDownDate;
               this.stepDeliveryDescription = details.description;
               this.getWorkFiles();
-
+              this.getRevisionFiles();
             }
             if (details.step === '8') {
               this.deliveredDate = new Date(details.updated_at).toDateString();
@@ -433,7 +457,6 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               this.hasSentDemo = true;
               this.hasDelivered = true;
               this.isFundsReleased = true;
-
             }
             if (details.step === '9') {
               this.revisionDate = new Date(details.updated_at).toDateString();
@@ -444,44 +467,112 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               this.hasAgreed = true;
               this.hasSentDemo = true;
               this.hasRevisions = true;
+              this.revisionsLeft = details.accepted;
+            }
+            if (details.step === '10') {
+              this.revisionDate = new Date(details.updated_at).toDateString();
+              this.revisionTime = new Date(
+                details.updated_at
+              ).toLocaleTimeString();
+              this.hasStartedService = true;
+              this.hasAgreed = true;
+              this.hasSentDemo = true;
+              this.hasRevisions = true;
+              this.hasRevisionResult = true;
+              this.hasNewRevision = true;
+              const paymentCountDownDate = new Date(details.updated_at);
+              paymentCountDownDate.setHours(
+                paymentCountDownDate.getHours() + 24
+              );
+              this.paymentCountDown = paymentCountDownDate;
               this.revisionDescription = details.description;
+            }
+            if (this.revisionsLeft <= 0) {
+              this.hasRevisionsLeft = false;
             }
           });
         },
         (error) => {
           this.isValidating = false;
           console.log(error);
-          // this.router.navigate(['transactions']);
         }
       );
   }
 
+  // onCheckout() {
+  //   const transactionData = {
+  //     email: this.userEmail,
+  //     amount: this.totalAmount
+  //   };
+  //   this.transactionsService.payStackPayment(transactionData).pipe(takeUntil(this.unsubscribe)).subscribe((response: any) => {
+  //     window.open(`${response.data.authorization_url}`, 'popup', 'width=200,height=200');
+  //   });
+  // }
+
   onSecureFunds() {
     this.isSecuring = true;
-    this.transactionsService
+    const transactionData = {
+      email: this.userEmail,
+      amount: this.totalAmount
+    };
+    this.transactionsService.payStackPayment(transactionData).pipe(takeUntil(this.unsubscribe)).subscribe((response: any) => {
+      this.transactionsService
       .secureFunds(this.transactionKey)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe((response) => {
+      .subscribe((data) => {
         setTimeout(() => {
           this.isSecuring = false;
-            this.stepDetails = {
-              transaction_id: this.transactionKey,
-              step: 2,
-              description: '',
-            };
+          this.stepDetails = {
+            transaction_id: this.transactionKey,
+            step: 2,
+            description: '',
+          };
           this.setStepTransaction(this.stepDetails);
           this.getStepTransaction();
         }, 2000);
-        return response;
+        return data;
       });
+      this.transaction_ref = response.data.reference;
+      window.open(`${response.data.authorization_url}`, 'popup', 'width=200,height=200');
+    });
   }
 
   openEditor() {
-    this.ShowOrNotOpenNoteInput =   this.ShowOrNotOpenNoteInput === true ? false : true;
+    this.ShowOrNotOpenNoteInput =
+      this.ShowOrNotOpenNoteInput === true ? false : true;
   }
 
-  onSendRevision() {
-    this.isSubmitting = true;
+  onOpenRevisionEditor() {
+    this.showRevisionInput = this.showRevisionInput === true ? false : true;
+  }
+
+  onSendRevision(form) {
+    if (form) {
+      this.isSubmitting = true;
+      this.stepDescription = form.value['editor'];
+      let revisionsLeft = parseInt(this.revisions) - 1;
+      if (this.revisionsLeft) {
+        revisionsLeft = this.revisionsLeft - 1;
+      }
+
+      this.isSubmitting = true;
+      // if (this.files) {
+      //   for (const file of Array.from(this.files)) {
+      //     this.uploadFile(file);
+      //   }
+      // }
+      this.stepDetails = {
+        transaction_id: this.transactionKey,
+        step: 9,
+        description: this.stepDescription,
+        accepted : revisionsLeft
+      };
+      this.setStepTransaction(this.stepDetails);
+      this.isSubmitting = false;
+      this.ShowOrNotOpenNoteInput = false;
+      this.getStepTransaction();
+      this.showRevisionInput = false;
+    }
   }
 
   collapses(): void {
