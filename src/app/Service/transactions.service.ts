@@ -169,6 +169,25 @@ export class TransactionsService {
       );
   }
 
+  payStackPayment(paymentData) {
+    const url = `https://api.noworri.com/api/initiatepaystack`;
+    let params = new HttpParams();
+    params = params.append('email', paymentData.email);
+    params = params.append('amount', paymentData.amount);
+
+    return this.http
+      .post(url, null, { responseType: 'json', params: params })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log('Error', error.message);
+          return observableThrowError(error);
+        })
+      );
+  }
+
   uploadFile(file: File) {
     // 279414289
     const url = `https://api.noworri.com/api/newtransactionupload`;

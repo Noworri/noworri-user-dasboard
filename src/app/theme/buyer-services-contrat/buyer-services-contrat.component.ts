@@ -25,6 +25,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   unsubscribe = new Subject();
 
   tableData: any;
+  userEmail: string;
   stepDetails: object;
   userRole: string;
   storedTransactionDetails: any;
@@ -91,6 +92,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   hasRevisionsLeft = true;
   revisionsLeft: number;
   hasNewRevision = false;
+  transaction_ref:  string;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -104,6 +106,8 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     this.updateTime = '';
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.userId = sessionData.user_uid;
+    this.userEmail = sessionData.email;
+
   }
   ngOnInit() {
     this.loadUserTransaction(this.transactionKey);
@@ -495,12 +499,27 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       );
   }
 
+  // onCheckout() {
+  //   const transactionData = {
+  //     email: this.userEmail,
+  //     amount: this.totalAmount
+  //   };
+  //   this.transactionsService.payStackPayment(transactionData).pipe(takeUntil(this.unsubscribe)).subscribe((response: any) => {
+  //     window.open(`${response.data.authorization_url}`, 'popup', 'width=200,height=200');
+  //   });
+  // }
+
   onSecureFunds() {
     this.isSecuring = true;
-    this.transactionsService
+    const transactionData = {
+      email: this.userEmail,
+      amount: this.totalAmount
+    };
+    this.transactionsService.payStackPayment(transactionData).pipe(takeUntil(this.unsubscribe)).subscribe((response: any) => {
+      this.transactionsService
       .secureFunds(this.transactionKey)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe((response) => {
+      .subscribe((data) => {
         setTimeout(() => {
           this.isSecuring = false;
           this.stepDetails = {
@@ -511,8 +530,11 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
           this.setStepTransaction(this.stepDetails);
           this.getStepTransaction();
         }, 2000);
-        return response;
+        return data;
       });
+      this.transaction_ref = response.data.reference;
+      window.open(`${response.data.authorization_url}`, 'popup', 'width=200,height=200');
+    });
   }
 
   openEditor() {
