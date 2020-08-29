@@ -170,7 +170,7 @@ export class TransactionsService {
   }
 
   payStackPayment(paymentData) {
-    const url = `https://api.noworri.com/api/initiatepaystack`;
+    const url = `https://api.noworri.com/api/securewithpaystack`;
     let params = new HttpParams();
     params = params.append('email', paymentData.email);
     params = params.append('amount', paymentData.amount);
@@ -188,6 +188,51 @@ export class TransactionsService {
       );
   }
 
+  addNewAccount(accountDetails) {
+    const url = 'https://api.noworri.com/api/addnewaccount';
+    let params = new HttpParams();
+    params = params.append('user_id', accountDetails.userId);
+    params = params.append('bank_name', accountDetails.bankName);
+    params = params.append('bank_code', accountDetails.bankCode);
+    params = params.append('holder_name', accountDetails.holderName);
+    params = params.append('account_no', accountDetails.accountNo);
+    params = params.append('recipient_code', accountDetails.recipient_code);
+
+    return this.http.post(url, null, {responseType: 'json', params: params})
+      .pipe(
+        map(response => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log('Error:', error.message);
+          return observableThrowError(error);
+        })
+      );
+  }
+
+  getAccountDetails(user_id) {
+    const url = `https://api.noworri.com/api/getuseraccountdetails/${user_id}`;
+    return this.http.get(url).pipe(map(response => {
+      return response;
+    }),
+    catchError((error: HttpErrorResponse) => {
+      console.log('Error: ', error.message);
+      return observableThrowError(error);
+    })
+    );
+  }
+
+  getBanks() {
+    const url = 'https://api.paystack.co/bank';
+    return this.http.get(url).pipe(map((response: any) => {
+      return response.data;
+    }),
+    catchError((error: HttpErrorResponse) => {
+      console.log('Error: ', error.message);
+      return observableThrowError(error);
+    }));
+  }
+
   uploadFile(file: File) {
     // 279414289
     const url = `https://api.noworri.com/api/newtransactionupload`;
@@ -200,7 +245,6 @@ export class TransactionsService {
       .post(url, formData, {responseType: 'json'})
       .pipe(
         map((response: any) => {
-          console.log(response);
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -220,7 +264,6 @@ export class TransactionsService {
       .post(url, null, {responseType: 'json', params: params})
       .pipe(
         map((response: any) => {
-          console.log(response);
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -235,6 +278,26 @@ export class TransactionsService {
     return this.http.post(url, null).pipe(
       map((response) => {
         return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error', error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  createRecipient(details) {
+    const url = 'https://api.noworri.com/api/createrecipient';
+    let params = new HttpParams();
+    params = params.append('type', details.type);
+    params = params.append('name', details.name);
+    params = params.append('description', details.description);
+    params = params.append('account_number', details.account_number);
+    params = params.append('bank_code', details.bank_code);
+    params = params.append('currency', details.currency);
+    return this.http.post(url, null, { responseType: 'json', params: params}).pipe(
+      map((response: any) => {
+        return response.data;
       }),
       catchError((error: HttpErrorResponse) => {
         console.log('Error', error.message);

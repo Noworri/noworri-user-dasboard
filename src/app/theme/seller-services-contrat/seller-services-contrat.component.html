@@ -541,7 +541,7 @@
               <h6 class="HeureEtDate">
                 {{ demoDate }} @ {{ demoTime }}
                 ------------------------------------------------------------------SERVICE
-                DELIVERED-------------------------------------------------------------------------------------------
+                SUBMITTED-------------------------------------------------------------------------------------------
               </h6>
             </div>
           </div>
@@ -611,43 +611,6 @@
         </div>
       </div>
 
-      <div *ngIf="hasDelivered" class="row" id="Card21">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm col14">
-              <h6 class="HeureEtDate">
-                {{ deliveredDate }} @ {{ deliveredTime }}
-                ------------------------------------------------------------------SERVICE
-                DELIVERED-------------------------------------------------------------------------------------------
-              </h6>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="hasDelivered" class="row" id="Card20">
-        <div class="card" style="width: 50rem;">
-          <div class="card-body">
-            <p>
-              <span class="rosell">@{{ buyerPhone }}</span> was satisfied with
-              the service you delivered and the funds have been released
-            </p>
-            <div class="container">
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm"></div>
-                  <div class="col-sm">
-                    <h5>
-                      <div class="container"></div>
-                    </h5>
-                  </div>
-                  <div class="col-sm"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div *ngIf="hasRevisions" class="row" id="Card14">
         <div class="container">
           <div class="row">
@@ -687,7 +650,7 @@
               <div class="row">
                 <div class="col-sm"></div>
                 <div class="col" id="Delivred">
-                  <button type="button" (click)="OpenNoteInput()" class="btn btn-light btn-sm">
+                  <button *ngIf="!hasDelivered" type="button" (click)="OpenNoteInput()" class="btn btn-light btn-sm">
                     Revise
                   </button>
                 </div>
@@ -755,6 +718,42 @@
             </div>
           </div>
         </form>
+      </div>
+      <div *ngIf="hasDelivered" class="row" id="Card21">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">
+                {{ deliveredDate }} @ {{ deliveredTime }}
+                ------------------------------------------------------------------SERVICE
+                DELIVERED-------------------------------------------------------------------------------------------
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hasDelivered" class="row" id="Card20">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <p>
+              <span class="rosell">@{{ buyerPhone }}</span> was satisfied with
+              the service you delivered and the funds have been released
+            </p>
+            <div class="container">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm"></div>
+                  <div class="col-sm">
+                    <h5>
+                      <div class="container"></div>
+                    </h5>
+                  </div>
+                  <div class="col-sm"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-sm" id="Card18">

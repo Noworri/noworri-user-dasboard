@@ -27,7 +27,7 @@
                   </h6>
                 </div>
                 <div class="col-sm" id="GH">
-                  <h6 class="GH550">GH 550.00</h6>
+                  <h6 class="GH550">GHS 550.00</h6>
                 </div>
               </div>
             </div>
@@ -173,7 +173,7 @@
             </h6>
             <div class="row">
               <div class="col" id="Delivred">
-                <div *ngIf="isValidating" class="Loading">
+                <div *ngIf="isApproving" class="Loading">
                   <button>
                     <span
                       class="spinner-border spinner-border-sm"
@@ -184,7 +184,7 @@
                   </button>
                 </div>
                 <button
-                  *ngIf="!hasAgreed && !isValidating"
+                  *ngIf="!hasAgreed && !isApproving"
                   type="button"
                   (click)="approveContract()"
                   class="btn btn-light btn-sm"
@@ -334,7 +334,7 @@
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              @{{ businessName }} sent you the confirmation that he completed
+              <span class="false102"> @{{ businessName }}</span> sent you the confirmation that he completed
               the service
             </h6>
             <br />
@@ -349,6 +349,7 @@
                 {{ item }}
               </h6>
             </div>
+            <p *ngIf="hasRevisionsLeft">Revision Request sent to  <span class="false102"> @{{ businessName }}</span></p>
             <div class="container">
               <div class="container">
                 <div class="row">
@@ -356,7 +357,8 @@
                   <div class="col-sm">
                     <h5>
                       <div class="container">
-                        <div class="row"></div>
+                        <div class="row">
+                        </div>
                       </div>
                     </h5>
                   </div>
@@ -683,7 +685,7 @@
                   role="status"
                   aria-hidden="true"
                 ></span>
-                Sending...
+                Processing...
               </button>
             </div>
             <button
@@ -728,9 +730,18 @@
           <div class="card-body">
             <h4 class="DELIVERED">DELIVERED</h4>
             <h6>
-              {{ stepDeliveryDescription }}
+              {{ description }}
             </h6>
             <div class="container">
+              <h6
+                *ngFor="let item of revisionUploadedFiles"
+                class="AttachedFile"
+                (click)="onOpenAttachedFile(item)"
+                style="font-weight: bold;"
+              >
+                {{ item }}
+              </h6>
+            </div>            <div class="container">
               <div class="container">
                 <div class="row">
                   <div class="col-sm"></div>
