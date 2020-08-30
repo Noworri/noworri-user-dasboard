@@ -80,6 +80,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   message2 = 'keyboard_arrow_down';
   message3 = 'Hide';
   message4 = 'keyboard_arrow_down';
+  currency: string;
 
   ShowOrNotOpenNoteInput: boolean;
   constructor(
@@ -93,6 +94,11 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
     this.updateTime = '';
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.userId = sessionData.user_uid;
+    if (sessionData.mobile_phone.includes('233')) {
+      this.currency = 'GHS';
+    } else {
+      this.currency = 'NGN';
+    }
   }
 
   ngOnInit() {

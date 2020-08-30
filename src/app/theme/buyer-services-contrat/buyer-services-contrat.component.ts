@@ -73,6 +73,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   uploadedFiles: any;
   workUploadedFiles: any;
   revisionUploadedFiles: any;
+  hasRequestedRevision = true;
 
   sellerPhone: string;
   description: string;
@@ -93,6 +94,11 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   revisionsLeft: number;
   hasNewRevision = false;
   transaction_ref:  string;
+  recipientDetails: object;
+  accountNo: string;
+  holderName: string;
+  bankCode: string;
+  currency: string;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -107,6 +113,11 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.userId = sessionData.user_uid;
     this.userEmail = sessionData.email;
+    if (sessionData.mobile_phone.includes('+233')) {
+      this.currency = 'GHS';
+    } else {
+      this.currency = 'NGN';
+    }
 
   }
   ngOnInit() {
@@ -214,8 +225,11 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       }
     );
   }
-
   releaseFunds(transaction_id) {
+    this.markFundsReleased(transaction_id);
+  }
+
+  markFundsReleased(transaction_id) {
     this.isValidating = true;
     this.transactionsService
       .releaseFunds(transaction_id)
@@ -381,6 +395,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               this.hasAgreed = true;
               this.hasStartedService = true;
             }
+            this.revisionsLeft = parseInt(this.revisions, 10);
             this.getStepTransaction();
             const todaysDate = new Date();
             if (!this.hasRevisions && this.paymentCountDown && todaysDate >= this.paymentCountDown) {
@@ -486,10 +501,13 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               );
               this.paymentCountDown = paymentCountDownDate;
               this.revisionDescription = details.description;
+              this.revisionsLeft = parseInt(details.accepted, 10) - 1;
             }
             if (this.revisionsLeft <= 0) {
               this.hasRevisionsLeft = false;
             }
+            this.ShowOrNotOpenNoteInput = false;
+            this.showRevisionInput = false;
           });
         },
         (error) => {
@@ -513,7 +531,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     this.isSecuring = true;
     const transactionData = {
       email: this.userEmail,
-      amount: this.totalAmount
+      amount: parseInt(this.totalAmount, 10) * 1000
     };
     this.transactionsService.payStackPayment(transactionData).pipe(takeUntil(this.unsubscribe)).subscribe((response: any) => {
       this.transactionsService
@@ -568,10 +586,9 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
         accepted : revisionsLeft
       };
       this.setStepTransaction(this.stepDetails);
+      this.hasRequestedRevision = true;
       this.isSubmitting = false;
-      this.ShowOrNotOpenNoteInput = false;
       this.getStepTransaction();
-      this.showRevisionInput = false;
     }
   }
 
