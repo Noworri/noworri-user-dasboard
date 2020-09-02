@@ -48,16 +48,18 @@
              </form>    
             </li>
           </ul>
-          <ul class="UL">
-            <li><button type="button" id="button" class="btn btn-sm btn-light">Search</button></li>
+          <ul class="input-group-append prospan">
+              <button class="btn btn-secondary btn-sm Prospan-button" type="button"><mat-icon>search</mat-icon></button>
           </ul>
-          <ul [@mobileHeaderNavRight]="navRight" [ngClass]="navRight" class="nav-right">
-            <li><a>Get trusted</a></li>
+          <ul class="OnlineVendor">
+            <h6>Are you online vendor?</h6>
+          </ul>
+          <ul class="UL">
+            <button type="button" class="btn btn-primary btn-sm ul"    (click)='routingToHomegetstrusted()'>Get strusted</button>
           </ul>
         </div>
       </div>
     </nav>
-
     <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
       <div></div>
       <ng-template #template>

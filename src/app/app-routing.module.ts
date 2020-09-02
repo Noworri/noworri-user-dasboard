@@ -27,6 +27,11 @@ import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-cont
 import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-merchandise-step1/seller-escrow-merchandise-step1.component';
 import { EscrowServicesBuyerStep2Component } from './theme/escrow-services-buyer-step2/escrow-services-buyer-step2.component';
 import { EscrowServicesBuyersStep1Component } from './theme/escrow-services-buyers-step1/escrow-services-buyers-step1.component';
+import { HomegetstrustedComponent } from './theme/homegetstrusted/homegetstrusted.component';
+import { FormgetstrustedComponent } from './theme/formgetstrusted/formgetstrusted.component';
+import { IdentityVerificationComponent } from './theme/identity-verification/identity-verification.component';
+import { SelfiVericationComponent } from './theme/selfi-verication/selfi-verication.component';
+import { GetstrutedRecapComponent } from './theme/getstruted-recap/getstruted-recap.component';
 
 const routes: Routes = [
   {
@@ -95,7 +100,26 @@ const routes: Routes = [
         path: 'sellerescrowmerchandisestep1',
         component: SellerEscrowMerchandiseStep1Component
       },
-
+      {
+        path: 'homegetstrusted',
+        component: HomegetstrustedComponent
+      },
+      {
+        path:'formgetstruted',
+        component:FormgetstrustedComponent
+      },
+      {
+        path:'identityverification',
+        component:IdentityVerificationComponent
+      },
+      {
+        path:'selfiverification',
+        component:SelfiVericationComponent
+      },
+      {
+        path:'recapgetstruted',
+        component:GetstrutedRecapComponent
+      },
       {
         path: 'api',
         component: ApiIntegrationComponent

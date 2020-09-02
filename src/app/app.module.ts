@@ -65,6 +65,11 @@ import { EscrowServicesBuyersStep1Component } from './theme/escrow-services-buye
 import { EscrowServicesSellersStep1Component } from './theme/escrow-services-sellers-step1/escrow-services-sellers-step1.component';
 import { EscrowServicesSellersStep2Component } from './theme/escrow-services-sellers-step2/escrow-services-sellers-step2.component';
 import { EscrowServicesBuyerStep2Component } from './theme/escrow-services-buyer-step2/escrow-services-buyer-step2.component';
+import { HomegetstrustedComponent } from './theme/homegetstrusted/homegetstrusted.component';
+import { FormgetstrustedComponent } from './theme/formgetstrusted/formgetstrusted.component';
+import { IdentityVerificationComponent } from './theme/identity-verification/identity-verification.component';
+import { GetstrutedRecapComponent } from './theme/getstruted-recap/getstruted-recap.component';
+import { SelfiVericationComponent } from './theme/selfi-verication/selfi-verication.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +103,14 @@ import { EscrowServicesBuyerStep2Component } from './theme/escrow-services-buyer
     EscrowServicesBuyersStep1Component,
     EscrowServicesSellersStep1Component,
     EscrowServicesSellersStep2Component,
-    EscrowServicesBuyerStep2Component
+    EscrowServicesBuyerStep2Component,
+    HomegetstrustedComponent,
+    FormgetstrustedComponent,
+    IdentityVerificationComponent,
+    SelfiVericationComponent,
+    GetstrutedRecapComponent
+
+
   ],
   imports: [
     BrowserModule,

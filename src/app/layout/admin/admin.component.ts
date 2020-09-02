@@ -292,7 +292,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.setBackgroundPattern('theme1')
   }
   searchInputStyle() {
-    document.getElementsByTagName('input')[0].setAttribute('style','border-radius:9px; opacity: 1;width: 400px;border-color:blue')
+    document.getElementsByTagName('input')[0].setAttribute('style','border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:blue')
    
 
   }
@@ -686,5 +686,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
   routingseachpage() {
     this.Router.navigate(['searchpage'])
+  }
+  routingToHomegetstrusted(){
+    this.Router.navigate(['homegetstrusted'])
   }
 }
