@@ -145,8 +145,24 @@
                 </div>
                 <div id="PetitInput1">
                   <label for="exampleInputEmail1">Number of revisions</label>
-                  <input
-                    type="text"
+                  <select
+                  class="form-control"
+                  id="revisions"
+                  name="revisions"
+                  aria-describedby="emailHelp"
+                  ngModel
+                  required
+                  [ngClass]="InputControl4"
+
+                  >
+                    <option value="0" selected>0</option>
+                    <option value="1" >1</option>
+                    <option value="2" >2</option>
+                    <option value="3" >3</option>
+                    <option value="4" >4</option>
+                    <option value="5" >5</option>
+                  </select>
+                  <!-- <input
                     class="form-control"
                     id="revisions"
                     name="revisions"
@@ -157,7 +173,7 @@
                     required
                     (click)="AfficheSide4()"
                     [ngClass]="InputControl4"
-                  />
+                  /> -->
                 </div>
                 <div>
                   <label class="setTransation" style="margin-top: 20px;">Set transaction deadline</label>

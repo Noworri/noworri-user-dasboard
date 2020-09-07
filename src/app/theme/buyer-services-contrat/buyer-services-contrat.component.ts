@@ -35,11 +35,13 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   transactionType: string;
   userId: string;
   columns: any[];
-  revisionDescription = '';
+  revisionResutDescription = '';
   isRegisteredBusiness = true;
+  hasCancelled = false;
   mobileWallet = false;
   isValidating = false;
   isFundsReleased = false;
+  hasUploadedFiles = true;
   isCancelled = false;
   hasAgreed = false;
   hasDelivered = false;
@@ -66,6 +68,8 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   deliveredDate: string;
   revisionDate: string;
   revisionTime: string;
+  revisionResultDate: string;
+  revisionResultTime: string;
   stepDescription: string;
   stepDeliveryDescription: string;
   businessName: string;
@@ -73,7 +77,12 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   uploadedFiles: any;
   workUploadedFiles: any;
   revisionUploadedFiles: any;
-  hasRequestedRevision = true;
+  hasRequestedRevision = false;
+  newDeadline: any;
+  recipientCode: string;
+  revisionDescription: string;
+  cancelDate: string;
+  cancelTime: string;
 
   sellerPhone: string;
   description: string;
@@ -93,12 +102,13 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   hasRevisionsLeft = true;
   revisionsLeft: number;
   hasNewRevision = false;
-  transaction_ref:  string;
+  transaction_ref: string;
   recipientDetails: object;
   accountNo: string;
   holderName: string;
   bankCode: string;
   currency: string;
+  country: string;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -113,15 +123,18 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.userId = sessionData.user_uid;
     this.userEmail = sessionData.email;
-    if (sessionData.mobile_phone.includes('+233')) {
+    if (sessionData.mobile_phone.startsWith('+233')) {
       this.currency = 'GHS';
+      this.country = 'Ghana';
     } else {
       this.currency = 'NGN';
+      this.country = 'Nigeria';
     }
-
+    console.log('country', this.country);
   }
   ngOnInit() {
     this.loadUserTransaction(this.transactionKey);
+    this.getPaymentRecipient();
   }
 
   ngOnDestroy() {
@@ -129,9 +142,6 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  onReleaseFunds() {
-    this.releaseFunds(this.transactionKey);
-  }
   approveContract() {
     this.isApproving = true;
     this.stepDetails = {
@@ -144,20 +154,23 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     this.getStepTransaction();
   }
 
-  onApproveService() {
-    setTimeout(() => {
-      this.isValidating = false;
-      this.stepDetails = {
+  onCancelService() {
+    this.transactionsService.cancelOrder(this.transactionKey)
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe(response => {
+      const stepDetails = {
         transaction_id: this.transactionKey,
-        step: 8,
-        description: '',
-      };
-      this.setStepTransaction(this.stepDetails);
-      this.releaseFunds(this.transactionKey);
-      this.getStepTransaction();
+        step: 0,
+        description: 'Service Cancelled',
+      }
+      this.setStepTransaction(stepDetails);
+      return response;
+    })
+  }
 
-      // this.router.navigate([`transactions`]);
-    }, 2000);
+  onReleaseFunds() {
+    this.isValidating = true;
+    this.releaseFunds(this.transactionKey);
   }
 
   getSellerCompanyDetails(sellerPhoneNumber) {
@@ -178,7 +191,8 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
 
   onOpenAttachedFile(path) {
     const url = `https://noworri.com/api/public/uploads/trs/upf/${path}`;
-    window.open(url, 'blank');
+    window.open(url, 'popup', 'width=500,height=600');
+    return false;
   }
 
   getUploadedFiles() {
@@ -186,9 +200,14 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       .getTransactionUploads(this.transactionId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((uploads: any) => {
-        this.uploadedFiles = uploads.map((file) => {
-          return file.path;
-        });
+        console.log('uploads', uploads);
+        if (uploads.length) {
+          this.uploadedFiles = uploads.map((file) => {
+            return file.path;
+          });
+        } else {
+          this.hasUploadedFiles = false;
+        }
       });
   }
 
@@ -225,8 +244,43 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  getPaymentRecipient() {
+    this.transactionsService
+      .getAccountDetails(this.userId)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((details: any) => {
+        this.recipientCode = details[0].recipient_code;
+        console.log('recipientCode', this.recipientCode);
+        return this.recipientCode;
+      });
+  }
+
+  getSellerNoworriFee(price: number) {
+    return (price / 100) * 1.98;
+  }
+
   releaseFunds(transaction_id) {
-    this.markFundsReleased(transaction_id);
+    this.initiateRelease(transaction_id);
+  }
+
+  initiateRelease(transactionId) {
+    const fee = this.getSellerNoworriFee(this.amount);
+    const sellerPayment = fee + parseInt(this.amount, 10);
+    const data = {
+      amount: sellerPayment,
+      recipient: this.recipientCode,
+    };
+    this.transactionsService
+      .initiateReleasePaystack(data)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((response) => {
+        if (response) {
+          this.markFundsReleased(transactionId);
+          this.getStepTransaction();
+        }
+        return response;
+      });
   }
 
   markFundsReleased(transaction_id) {
@@ -235,17 +289,13 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       .releaseFunds(transaction_id)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response) => {
-        setTimeout(() => {
-          this.isValidating = false;
-          this.isValidating = false;
-          this.stepDetails = {
-            transaction_id: this.transactionKey,
-            step: 4,
-            description: '',
-          };
-          this.setStepTransaction(this.stepDetails);
-          this.getStepTransaction();
-        }, 2000);
+        this.isValidating = false;
+        this.stepDetails = {
+          transaction_id: this.transactionKey,
+          step: 8,
+          description: '',
+        };
+        this.setStepTransaction(this.stepDetails);
         return response;
       });
   }
@@ -271,56 +321,56 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       );
   }
 
-  onCardPay() {
-    this.isValidating = true;
+  // onCardPay() {
+  //   this.isValidating = true;
 
-    const amount = `${this.amount}`;
-    const body = {
-      paymentDetails: {
-        requestId: '4466',
-        productCode: 'GMT112',
-        amount: amount,
-        currency: 'GBP',
-        locale: 'en_AU',
-        orderInfo: '255s353',
-        returnUrl: 'https://web.noworri/transactions',
-      },
-      merchantDetails: {
-        accessCode: '79742570',
-        merchantID: 'ETZ001',
-        secureSecret: 'sdsffd',
-      },
-      secureHash:
-        '7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855',
-    };
-    const newBody = JSON.stringify(body);
-    this.transactionsService
-      .processPayment(body)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(
-        (response) => {
-          this.isValidating = false;
-          if (
-            response.response_message &&
-            response.response_message === 'success'
-          ) {
-            // this.onSecureFunds(this.transactionKey);
-            this.stepDetails = {
-              transaction_id: this.transactionKey,
-              step: 2,
-              description: '',
-            };
-            this.setStepTransaction(this.stepDetails);
-            window.location.href = `${response.response_content}`;
-          }
-          return response;
-        },
-        (error) => {
-          this.isValidating = false;
-          console.log(error.message);
-        }
-      );
-  }
+  //   const amount = `${this.amount}`;
+  //   const body = {
+  //     paymentDetails: {
+  //       requestId: '4466',
+  //       productCode: 'GMT112',
+  //       amount: amount,
+  //       currency: 'GBP',
+  //       locale: 'en_AU',
+  //       orderInfo: '255s353',
+  //       returnUrl: 'https://web.noworri/transactions',
+  //     },
+  //     merchantDetails: {
+  //       accessCode: '79742570',
+  //       merchantID: 'ETZ001',
+  //       secureSecret: 'sdsffd',
+  //     },
+  //     secureHash:
+  //       '7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855',
+  //   };
+  //   const newBody = JSON.stringify(body);
+  //   this.transactionsService
+  //     .processPayment(body)
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe(
+  //       (response) => {
+  //         this.isValidating = false;
+  //         if (
+  //           response.response_message &&
+  //           response.response_message === 'success'
+  //         ) {
+  //           // this.onSecureFunds(this.transactionKey);
+  //           this.stepDetails = {
+  //             transaction_id: this.transactionKey,
+  //             step: 2,
+  //             description: '',
+  //           };
+  //           this.setStepTransaction(this.stepDetails);
+  //           window.location.href = `${response.response_content}`;
+  //         }
+  //         return response;
+  //       },
+  //       (error) => {
+  //         this.isValidating = false;
+  //         console.log(error.message);
+  //       }
+  //     );
+  // }
 
   getNoworriFee(price) {
     return (price / 100) * 1.95;
@@ -377,9 +427,6 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
             this.creationTime = new Date(
               details.created_at
             ).toLocaleTimeString();
-            if (details.etat === '2') {
-              this.isFundsReleased = true;
-            }
             if (details.etat === '0') {
               this.isCancelled = true;
             }
@@ -389,6 +436,9 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
             if (details.etat === '4') {
               this.hasSecuredFunds = true;
               this.hasAgreed = true;
+              if (parseInt(this.revisions) > 0) {
+                this.hasRevisions = true;
+              }
             }
             if (details.etat === '5') {
               this.hasSecuredFunds = true;
@@ -398,7 +448,11 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
             this.revisionsLeft = parseInt(this.revisions, 10);
             this.getStepTransaction();
             const todaysDate = new Date();
-            if (!this.hasRevisions && this.paymentCountDown && todaysDate >= this.paymentCountDown) {
+            if (
+              !this.hasRevisions &&
+              this.paymentCountDown &&
+              todaysDate >= this.paymentCountDown
+            ) {
               this.releaseFunds(this.transactionKey);
             }
           });
@@ -414,6 +468,18 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       .subscribe(
         (stepDetails: any) => {
           stepDetails.forEach((details) => {
+            if (details.step === '0') {
+              this.cancelDate = new Date(details.updated_at).toDateString();
+              this.cancelTime = new Date(
+                details.updated_at
+              ).toLocaleTimeString();
+              this.hasStartedService = true;
+              this.hasAgreed = true;
+              this.hasSentDemo = false;
+              this.hasDelivered = false;
+              this.isFundsReleased = false;
+              this.hasCancelled = true;
+            }
             if (details.step === '7') {
               this.updateDate = new Date(details.updated_at).toDateString();
               this.updateTime = new Date(
@@ -483,10 +549,15 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               this.hasSentDemo = true;
               this.hasRevisions = true;
               this.revisionsLeft = details.accepted;
+              this.countDownStop = this.deadline;
+              this.hasRequestedRevision = true;
+              this.revisionDescription = details.description;
             }
             if (details.step === '10') {
-              this.revisionDate = new Date(details.updated_at).toDateString();
-              this.revisionTime = new Date(
+              this.revisionResultDate = new Date(
+                details.updated_at
+              ).toDateString();
+              this.revisionResultTime = new Date(
                 details.updated_at
               ).toLocaleTimeString();
               this.hasStartedService = true;
@@ -500,8 +571,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
                 paymentCountDownDate.getHours() + 24
               );
               this.paymentCountDown = paymentCountDownDate;
-              this.revisionDescription = details.description;
-              this.revisionsLeft = parseInt(details.accepted, 10) - 1;
+              this.revisionResutDescription = details.description;
             }
             if (this.revisionsLeft <= 0) {
               this.hasRevisionsLeft = false;
@@ -517,29 +587,50 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       );
   }
 
-  // onCheckout() {
-  //   const transactionData = {
-  //     email: this.userEmail,
-  //     amount: this.totalAmount
-  //   };
-  //   this.transactionsService.payStackPayment(transactionData).pipe(takeUntil(this.unsubscribe)).subscribe((response: any) => {
-  //     window.open(`${response.data.authorization_url}`, 'popup', 'width=200,height=200');
-  //   });
-  // }
-
   onSecureFunds() {
     this.isSecuring = true;
     const transactionData = {
       email: this.userEmail,
-      amount: parseInt(this.totalAmount, 10) * 1000
+      amount: parseInt(this.totalAmount) * 100,
     };
-    this.transactionsService.payStackPayment(transactionData).pipe(takeUntil(this.unsubscribe)).subscribe((response: any) => {
-      this.transactionsService
-      .secureFunds(this.transactionKey)
+    this.transactionsService
+      .payStackPayment(transactionData)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe((data) => {
+      .subscribe((response: any) => {
+        window.open(
+          `${response.data.authorization_url}`,
+          'popup',
+          'width=500,height=650'
+        );
+        this.transaction_ref = response.data.reference;
+        this.setStepTransaction(this.stepDetails);
         setTimeout(() => {
-          this.isSecuring = false;
+          this.markSecuredFunds();
+          this.isValidating = false;
+          this.getStepTransaction();  
+        }, 25000);
+        // setTimeout(() => {
+        //   this.checkSuccessSecuredFunds(this.transaction_ref);
+        // }, 30000);
+        return false;
+      });
+  }
+
+  markSecuredFunds() {
+    this.transactionsService
+      .markSecuredFunds(this.transactionKey)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((secureResponse) => {
+        return secureResponse;
+      });
+  }
+
+  checkSuccessSecuredFunds(ref) {
+    this.transactionsService
+      .checkTransactionStatus(ref)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((statusData) => {
+        if (statusData.data && statusData.data.status === 'success') {
           this.stepDetails = {
             transaction_id: this.transactionKey,
             step: 2,
@@ -547,12 +638,9 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
           };
           this.setStepTransaction(this.stepDetails);
           this.getStepTransaction();
-        }, 2000);
-        return data;
+          this.isSecuring = false;
+        }
       });
-      this.transaction_ref = response.data.reference;
-      window.open(`${response.data.authorization_url}`, 'popup', 'width=200,height=200');
-    });
   }
 
   openEditor() {
@@ -568,6 +656,14 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     if (form) {
       this.isSubmitting = true;
       this.stepDescription = form.value['editor'];
+      this.newDeadline = new Date(form.value['deadline'])
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ');
+      const deadlineData = {
+        transaction_id: this.transactionKey,
+        new_deadline: this.newDeadline,
+      };
       let revisionsLeft = parseInt(this.revisions) - 1;
       if (this.revisionsLeft) {
         revisionsLeft = this.revisionsLeft - 1;
@@ -583,13 +679,27 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
         transaction_id: this.transactionKey,
         step: 9,
         description: this.stepDescription,
-        accepted : revisionsLeft
+        accepted: revisionsLeft,
       };
-      this.setStepTransaction(this.stepDetails);
+      this.updateDeadline(deadlineData);
       this.hasRequestedRevision = true;
       this.isSubmitting = false;
       this.getStepTransaction();
     }
+  }
+
+  updateDeadline(data) {
+    return this.transactionsService
+      .updateDeadline(data)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((response) => {
+        this.setStepTransaction(this.stepDetails);
+        return response;
+      });
+  }
+
+  onNoworriSearch(WarningModal, ResultModal) {
+    ResultModal.show();
   }
 
   collapses(): void {
