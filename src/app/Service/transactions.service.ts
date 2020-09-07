@@ -13,6 +13,8 @@ import { TransactionsReference } from './reference-data.interface';
   providedIn: 'root',
 })
 export class TransactionsService {
+  status: string;
+
   constructor(private http: HttpClient) {}
 
   getUserTransactions(userId: string): Observable<any> {
@@ -26,9 +28,9 @@ export class TransactionsService {
           }
           if (values.etat === '0') {
             values.state = 'Cancelled';
-          } else if (values.etat === '1') {
-            values.state = 'Pending';
           } else if (values.etat === '2') {
+            values.state = 'Pending';
+          } else if (values.etat === '1') {
             values.state = 'Completed';
           } else if (values.etat === '3') {
             values.state = 'Approved';
@@ -67,6 +69,7 @@ export class TransactionsService {
       })
     );
   }
+
   processPayment(body): Observable<any> {
     const url = 'https://api.noworri.com/api/makecardpayment';
     let params = new HttpParams();
@@ -85,7 +88,7 @@ export class TransactionsService {
     );
   }
 
-  secureFunds(transaction_id) {
+  markSecuredFunds(transaction_id) {
     const url = `https://api.noworri.com/api/securefunds/${transaction_id}`;
     return this.http.post(url, null).pipe(
       map((response) => {
@@ -109,6 +112,48 @@ export class TransactionsService {
         return observableThrowError(error);
       })
     );
+  }
+  initiateReleasePaystack(data) {
+    const url = `https://api.noworri.com/api/initiateRelease`;
+    let params = new HttpParams();
+    params = params.append('source', 'balance');
+    params = params.append('reason', 'Noworri Payment Release');
+    params = params.append('amount', data.amount);
+    params = params.append('recipient', data.recipient);
+
+    return this.http
+      .post(url, null, { responseType: 'json', params: params })
+      .pipe(
+        map((response: any) => {
+          const releaseFundsData = response.data;
+          if (releaseFundsData) {
+            this.finalizeReleasePaystack(releaseFundsData);
+          }
+          return releaseFundsData;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log('Error', error.message);
+          return observableThrowError(error);
+        })
+      );
+  }
+
+  finalizeReleasePaystack(data) {
+    const url = `https://api.noworri.com/api/paystackrelease`;
+    let params = new HttpParams();
+    params = params.append('transfer_code', data.transfer_code);
+
+    return this.http
+      .post(url, null, { responseType: 'json', params: params })
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log('Error', error.message);
+          return observableThrowError(error);
+        })
+      );
   }
 
   cancelOrder(transaction_id) {
@@ -178,7 +223,7 @@ export class TransactionsService {
     return this.http
       .post(url, null, { responseType: 'json', params: params })
       .pipe(
-        map((response) => {
+        map((response: any) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -186,6 +231,20 @@ export class TransactionsService {
           return observableThrowError(error);
         })
       );
+  }
+
+  checkTransactionStatus(ref) {
+    const url = `https://api.noworri.com/api/chektransactionstatus/${ref}`;
+    return this.http.get(url).pipe(
+      map((response: any) => {
+        console.log('transaction status', response);
+        let statusData = response.data;
+        if (statusData) {
+          this.status = response.data.status;
+        }
+        return response;
+      })
+    );
   }
 
   addNewAccount(accountDetails) {
@@ -198,9 +257,10 @@ export class TransactionsService {
     params = params.append('account_no', accountDetails.accountNo);
     params = params.append('recipient_code', accountDetails.recipient_code);
 
-    return this.http.post(url, null, {responseType: 'json', params: params})
+    return this.http
+      .post(url, null, { responseType: 'json', params: params })
       .pipe(
-        map(response => {
+        map((response) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -212,25 +272,30 @@ export class TransactionsService {
 
   getAccountDetails(user_id) {
     const url = `https://api.noworri.com/api/getuseraccountdetails/${user_id}`;
-    return this.http.get(url).pipe(map(response => {
-      return response;
-    }),
-    catchError((error: HttpErrorResponse) => {
-      console.log('Error: ', error.message);
-      return observableThrowError(error);
-    })
+    return this.http.get(url).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error: ', error.message);
+        return observableThrowError(error);
+      })
     );
   }
 
-  getBanks() {
+  getBanks(country) {
     const url = 'https://api.paystack.co/bank';
-    return this.http.get(url).pipe(map((response: any) => {
-      return response.data;
-    }),
-    catchError((error: HttpErrorResponse) => {
-      console.log('Error: ', error.message);
-      return observableThrowError(error);
-    }));
+    let params = new HttpParams();
+    params = params.append('country', country);
+    return this.http.get(url, { responseType: 'json', params: params }).pipe(
+      map((response: any) => {
+        return response.data;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error: ', error.message);
+        return observableThrowError(error);
+      })
+    );
   }
 
   uploadFile(file: File) {
@@ -241,17 +306,15 @@ export class TransactionsService {
     const formData: FormData = new FormData();
     formData.append('fichier', file);
 
-    return this.http
-      .post(url, formData, {responseType: 'json'})
-      .pipe(
-        map((response: any) => {
-          return response;
-        }),
-        catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
-          return observableThrowError(error);
-        })
-      );
+    return this.http.post(url, formData, { responseType: 'json' }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error', error.message);
+        return observableThrowError(error);
+      })
+    );
   }
 
   mapUploadedFiles(transaction_id, paths) {
@@ -261,7 +324,7 @@ export class TransactionsService {
     params = params.append('transaction_id', transaction_id);
 
     return this.http
-      .post(url, null, {responseType: 'json', params: params})
+      .post(url, null, { responseType: 'json', params: params })
       .pipe(
         map((response: any) => {
           return response;
@@ -286,6 +349,20 @@ export class TransactionsService {
     );
   }
 
+  updateDeadline(data) {
+    const url = `https://api.noworri.com/api/updatedeadline/${data.transaction_id}/${data.new_deadline}`;
+
+    return this.http.post(url, null).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error', error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
   createRecipient(details) {
     const url = 'https://api.noworri.com/api/createrecipient';
     let params = new HttpParams();
@@ -295,15 +372,17 @@ export class TransactionsService {
     params = params.append('account_number', details.account_number);
     params = params.append('bank_code', details.bank_code);
     params = params.append('currency', details.currency);
-    return this.http.post(url, null, { responseType: 'json', params: params}).pipe(
-      map((response: any) => {
-        return response.data;
-      }),
-      catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
-        return observableThrowError(error);
-      })
-    );
+    return this.http
+      .post(url, null, { responseType: 'json', params: params })
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log('Error', error.message);
+          return observableThrowError(error);
+        })
+      );
   }
 
   createTransaction(transactionDetails) {
@@ -341,7 +420,7 @@ export class TransactionsService {
     params = params.append('revision', transactionDetails.revision);
     params = params.append('requirement', transactionDetails.requirement);
     params = params.append('file_path', transactionDetails.file_path);
-    params = params.append('etat', '1');
+    params = params.append('etat', '2');
     params = params.append('deleted', '0');
 
     return this.http
@@ -387,7 +466,7 @@ export class TransactionsService {
     const url = 'https://api.noworri.com/api/createsteptrans';
     let params = new HttpParams();
     if (!stepDetails.accepted) {
-      stepDetails.accepted = 1;
+      stepDetails.accepted = 0;
     }
 
     params = params.append('transaction_id', stepDetails.transaction_id);

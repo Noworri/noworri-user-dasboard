@@ -36,6 +36,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   recipientDetails: object;
   currency: string;
   bankList: any;
+  country: string;
 
   CloseAddbank: boolean;
 
@@ -49,16 +50,18 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.name = sessionData.name;
     this.mobile_phone = sessionData.mobile_phone;
     this.userId = sessionData.user_uid;
-    if (this.mobile_phone.includes('233')) {
+    if (this.mobile_phone.startsWith('+233')) {
       this.currency = 'GHS';
+      this.country = 'Ghana';
     } else {
       this.currency = 'NGN';
+      this.country = 'Nigeria';
     }
   }
 
   ngOnInit() {
     this.getAccountDetails();
-    this.getBankList();
+    this.getBankList(this.country);
   }
 
   ngOnDestroy() {
@@ -66,8 +69,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  getBankList() {
-    this.transactionService.getBanks()
+  getBankList(country) {
+    this.transactionService.getBanks(country)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(banks => {
         return this.bankList = banks;
@@ -83,12 +86,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
           holderName: form.value['holderName'],
           accountNo: form.value['accountNo'],
           userId: this.userId,
-          recipient_code: 'RCP_7h6n04cjjzu2lhf'
+          recipient_code: ''
         };
       });
-      this.addAccountDetails(this.accountDetails);
-
-      // this.createRecipient(this.accountDetails);
+      this.createRecipient(this.accountDetails);
     }
   }
 
@@ -100,7 +101,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       description: 'Noworri Transaction',
       account_number: accountDetails.accountNo,
       bank_code: accountDetails.bankCode,
-      currency: 'NGN'
+      currency: this.currency
     };
     this.transactionService.createRecipient(this.recipientDetails)
       .pipe(takeUntil(this.unsubscribe))

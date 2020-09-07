@@ -37,6 +37,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   hasStartedService = false;
   isUserSeller = false;
   isSubmitting = false;
+  hasCancelled = false;
   creationDate: string;
   creationTime: string;
   updateDate: string;
@@ -58,6 +59,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   hasSentDemo = false;
   hasRevisions = false;
   hasDelivered = false;
+  hasSentRevisions = false;
   countDownStart: string;
   countDownStop: string;
   uploadedFiles: any;
@@ -68,6 +70,10 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   stepDescription: string;
   paymentCountDown: any;
   revisionDescription: string;
+  hasRevisionsRequested = false;
+  cancelDate: string;
+  cancelTime: string;
+
 
   buyerPhone: string;
   description: string;
@@ -147,7 +153,8 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
 
   onOpenAttachedFile(path) {
     const url = `https://noworri.com/api/public/uploads/trs/upf/${path}`;
-    window.open(url, 'blank');
+    window.open(url,'popup','width=500,height=600');
+    return false;
   }
 
   getUploadedFiles() {
@@ -240,6 +247,32 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
               this.hasSentDemo = true;
               this.hasRevisions = true;
               this.revisionDescription = details.description;
+              this.hasRevisionsRequested = true;
+            }
+            if (details.step === '10') {
+              this.revisionDate = new Date(details.updated_at).toDateString();
+              this.revisionTime = new Date(
+                details.updated_at
+              ).toLocaleTimeString();
+              this.hasStartedService = true;
+              this.hasSecuredFunds = true;
+              this.hasAgreed = true;
+              this.hasSentDemo = true;
+              this.hasRevisions = true;
+              this.hasSentRevisions = true;
+              // this.revisionDescription = details.description;
+            }
+            if (details.step === "0") {
+              this.cancelDate = new Date(details.updated_at).toDateString();
+              this.cancelTime = new Date(
+                details.updated_at
+              ).toLocaleTimeString();
+              this.hasStartedService = true;
+              this.hasAgreed = true;
+              this.hasSentDemo = false;
+              this.hasDelivered = false;
+              this.isFundsReleased = false;
+              this.hasCancelled = true;
             }
           });
         },
@@ -248,6 +281,20 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       );
+  }
+
+  onCancelService() {
+    this.transactionsService.cancelOrder(this.transactionKey)
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe(response => {
+      const stepDetails = {
+        transaction_id: this.transactionKey,
+        step: 0,
+        description: "Service Cancelled",
+      }
+      this.setStepTransaction(stepDetails);
+      return response;
+    })
   }
 
   cancelOrder() {
@@ -340,7 +387,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
             this.deliveryPhone = details.deadline_type
               ? details.deadline_type
               : 'N/A';
-            if (details.etat === '2') {
+            if (details.etat === '4') {
               this.isFundsReleased = true;
               this.hasSecuredFunds = true;
               this.hasAgreed = true;
@@ -410,6 +457,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
     };
     this.setStepTransaction(this.stepDetails);
     this.getStepTransaction();
+    this.hasSentRevisions = true;
     this.ShowOrNotOpenNoteInput = false;
   }
 

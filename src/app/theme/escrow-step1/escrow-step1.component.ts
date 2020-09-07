@@ -140,8 +140,6 @@ export class EscrowStep1Component implements OnInit {
     for (let i = 0; i < files.length; i++) {
       this.uploadedFiles.push(files[i].name);
     }
-    console.log('uploadedFiles', this.uploadedFiles);
-    console.log('file', this.files);
     }
 
   // ---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
@@ -193,7 +191,7 @@ export class EscrowStep1Component implements OnInit {
         if (
           (this.escrowStep1Data.sellerPhoneNumber &&
           this.escrowStep1Data.sellerPhoneNumber.match(this.searchInputType1)) ||
-          (this.rawSeller && this.isValidSeller)
+          (this.rawSeller && this.isValidSeller) || this.rawSeller.length == 9
         ) {
           this.InputControl2 = 'form-control is-valid';
           this.Accept2 = true;
@@ -261,7 +259,6 @@ export class EscrowStep1Component implements OnInit {
             }
           }
           setTimeout(() => {
-          console.log('filePaths', this.filePaths);
           this.transactionSummary = {
             owner_id: this.owner_id,
             item: this.escrowStep1Data.item,
@@ -295,7 +292,6 @@ export class EscrowStep1Component implements OnInit {
         (response: any) => {
           if (response.path) {
             this.filePaths.push(response.path);
-            console.log('filePaths after upload', this.filePaths);
           }
         },
         (error) => {

@@ -99,17 +99,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     ownerPhone,
     transactionType
   ) {
-    console.log('ownerRole', ownerRole);
     transactionType = transactionType.toLowerCase();
     if (this.userPhone === userPhone) {
       this.userRole = userRole;
     } else if (this.userPhone === ownerPhone) {
       this.userRole = ownerRole;
     }
-    console.log(transactionType);
-    console.log('userRole', this.userRole);
-    console.log('ownerPhone', ownerPhone);
-    console.log('userPhone', userPhone);
 
     if (this.userRole === 'Buy' && transactionType === 'merchandise') {
       this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);

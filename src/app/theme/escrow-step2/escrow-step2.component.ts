@@ -61,6 +61,9 @@ export class EscrowStep2Component implements OnInit {
     const escrowStep2Data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY1));
     this.item = escrowStep2Data.item;
     this.uploadedFiles = escrowStep2Data.uploadedFiles;
+    if (!this.uploadedFiles.length) {
+      this.uploadedFiles = 'N/A';
+    }
     this.files = escrowStep2Data.files;
     this.amount = escrowStep2Data.amount;
     this.sellerNumber = escrowStep2Data.seller;
@@ -99,7 +102,7 @@ export class EscrowStep2Component implements OnInit {
       total_price: this.amount,
       requirement: this.description,
       file_path: this.files.toString(),
-      etat: 1
+      etat: 2
     };
 }
 

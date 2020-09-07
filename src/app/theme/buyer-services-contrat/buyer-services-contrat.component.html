@@ -140,14 +140,16 @@
               <p>
                 {{ description }}
               </p>
-              <div class="container">
-                <h6
-                  *ngFor="let item of uploadedFiles"
-                  class="AttachedFile"
-                  (click)="onOpenAttachedFile(item)"
-                >
+              <!-- <div class="container">
+                <h6 *ngFor="let item of uploadedFiles" class="AttachedFile" (click)="onOpenAttachedFile(item)">
                   {{ item }}
                 </h6>
+              </div> -->
+              <div class="container" *ngIf="hasUploadedFiles">
+                <a *ngFor="let item of uploadedFiles" href="https://noworri.com/api/public/uploads/trs/upf/{{ item }}"
+                  target="popup" (click)=onOpenAttachedFile(item)>
+                  <h6 class="AttachedFile">{{ item }}</h6>
+                </a>
               </div>
             </div>
           </div>
@@ -175,20 +177,12 @@
               <div class="col" id="Delivred">
                 <div *ngIf="isApproving" class="Loading">
                   <button>
-                    <span
-                      class="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     processing...
                   </button>
                 </div>
-                <button
-                  *ngIf="!hasAgreed && !isApproving"
-                  type="button"
-                  (click)="approveContract()"
-                  class="btn btn-light btn-sm"
-                >
+                <button *ngIf="!hasAgreed && !isApproving" type="button" (click)="approveContract()"
+                  class="btn btn-light btn-sm">
                   AGREE
                 </button>
               </div>
@@ -206,7 +200,7 @@
             <h6>
               The contract has been sent successfully to
               <span class="false102">@{{ businessName }} </span>, we will let
-              you know when the seller accepts it.
+              you know when the service is accepted.
             </h6>
             <!-- <button type="button" class="btn btn-light btn-sm">
               Send Reminder
@@ -232,20 +226,19 @@
             </h6>
             <div *ngIf="isSecuring" class="Loading">
               <button>
-                <span
-                  class="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 processing...
               </button>
             </div>
-            <button
-              *ngIf="!hasSecuredFunds && !isSecuring"
-              (click)="onSecureFunds()"
-              type="button"
-              class="btn btn-light btn-sm"
-            >
+            <div *ngIf="!hasSecuredFunds && !isSecuring" class="container">
+              <!-- <a *ngFor="let item of uploadedFiles" target="popup" (click)=onSecureFunds()>
+                <button class="btn btn-light btn-sm">
+                  Secure Funds
+                </button>
+              </a> -->
+            </div>
+            <button *ngIf="!hasSecuredFunds && !isSecuring" (click)="onSecureFunds()" type="button"
+              class="btn btn-light btn-sm">
               Secure Funds
             </button>
           </div>
@@ -264,16 +257,14 @@
               <span class="false102"> @{{ businessName }}</span> Has till the
               end of the count down to submit the work
             </h6>
-            <div class="row">
+            <div *ngIf="!hasSentDemo" class="row">
               <div class="col-sm" id="HeureButton">
                 <button type="button" class="btn btn-light">
                   DD:HH:MM:SS
                   <h5>
                     <div class="container">
                       <div class="row">
-                        <countdown-timer
-                          [end]="countDownStop"
-                        ></countdown-timer>
+                        <countdown-timer [end]="countDownStop"></countdown-timer>
                       </div>
                     </div>
                   </h5>
@@ -296,9 +287,8 @@
       <div *ngIf="hasStartedService" class="row" id="Card10">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
-            The service has been initiated and is in progress. We will notify
-            you when <span class="false102"> @{{ businessName }}</span> submits
-            the work
+            <span class="false102"> @{{ businessName }}</span>
+            has started the work. We will notify you when submitted
             <div class="row">
               <div class="col speci1"></div>
               <div class="col speci2">
@@ -316,6 +306,21 @@
           </div>
         </div>
       </div>
+      <div *ngIf="!hasRevisionResult && hasSentDemo" class="row">
+        <div class="col-sm" id="HeureButton">
+          <button type="button" class="btn btn-light">
+            DD:HH:MM:SS
+            <h5>
+              <div class="container">
+                <div class="row">
+                  <countdown-timer [end]="countDownStop"></countdown-timer>
+                </div>
+              </div>
+            </h5>
+          </button>
+        </div>
+        <div class="col-sm"></div>
+      </div>
       <div *ngIf="hasSentDemo" class="row" id="Card11">
         <div class="container">
           <div class="row">
@@ -323,7 +328,7 @@
               <h6 class="HeureEtDate">
                 {{ demoDate }} @ {{ demoTime }}
                 ----------------------------------------------------------------------
-                SERVICE
+                SERVICE SUBMITTED
                 ---------------------------------------------------------------------
               </h6>
             </div>
@@ -334,22 +339,22 @@
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              <span class="false102"> @{{ businessName }}</span> sent you the confirmation that he completed
-              the service
+              <span class="false102"> @{{ businessName }}</span> sent you the confirmation for work completion
             </h6>
             <br />
             <p>{{ stepDeliveryDescription }}</p>
-            <div class="container">
-              <h6
-                *ngFor="let item of workUploadedFiles"
-                class="AttachedFile"
-                (click)="onOpenAttachedFile(item)"
-                style="font-weight: bold;"
-              >
+            <!-- <div class="container">
+              <h6 *ngFor="let item of workUploadedFiles" class="AttachedFile" (click)="onOpenAttachedFile(item)"
+                style="font-weight: bold;">
                 {{ item }}
               </h6>
+            </div> -->
+            <div class="container">
+              <a *ngFor="let item of workUploadedFiles" href="https://noworri.com/api/public/uploads/trs/upf/{{ item }}"
+                target="popup" (click)=onOpenAttachedFile(item)>
+                <h6 style="font-weight: bold;" class="AttachedFile">{{ item }}</h6>
+              </a>
             </div>
-            <p *ngIf="hasRevisionsLeft">Revision Request sent to  <span class="false102"> @{{ businessName }}</span></p>
             <div class="container">
               <div class="container">
                 <div class="row">
@@ -377,16 +382,45 @@
                     Release Funds
                   </button>
                 </div> -->
-                <div class="col-sm" id="Revisions">
-                  <button
-                    *ngIf="!hasRevisions"
-                    (click)="openEditor()"
-                    type="button"
-                    class="btn btn-light btn-sm"
-                  >
+                <div *ngIf="hasRevisions && hasRevisionsLeft && !hasRevisionResult" class="col-sm" id="Revisions">
+                  <button  (click)="openEditor()" type="button" class="btn btn-light btn-sm" [disabled]="!hasRevisionsLeft">
                     Revise
                     <span style="color: #ff0045;">{{ revisionsLeft }} left</span>
                   </button>
+                  <div class="row">
+                    <div *ngIf="!isFundsReleased" class="card-body">
+                      <h6>
+                        If you are satisfied with the delivered service, please hit the
+                        Release button to complete the transaction
+                      </h6>
+                      <div class="row">
+                        <div class="col speci1"></div>
+                        <div class="col speci2">
+                        </div>
+                        <div class="col speci3"></div>
+                      </div>
+                      <div *ngIf="isApproving" class="Loading">
+                        <button>
+                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          Processing...
+                        </button>
+                      </div>
+                      <button *ngIf="!isFundsReleased && !isApproving" (click)="onReleaseFunds()" type="button" id="Button"
+                        class="btn btn-light btn-sm">
+                        Release
+                      </button>
+                    </div>
+                  </div>
+                  <!-- <div *ngIf="isApproving" class="Loading">
+                    <button>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Releasing...
+                    </button>
+                  </div>
+                  <button *ngIf="!isFundsReleased && !isApproving" (click)="onApproveService()" type="button" id="Button"
+                    class="btn btn-light btn-sm">
+                    Release Funds
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -397,13 +431,12 @@
         <form (ngSubmit)="onSendRevision(form)" #form="ngForm">
           <div class="card" style="width: 50rem;">
             <div class="card-body">
-              <editor
-                name="editor"
-                apiKey="Get your free API key and paste it here"
-                plugins="wordcount"
-                outputFormat="text"
-                ngModel
-              ></editor>
+              <textarea class="form-control" id="description" name="editor" rows="5" ngModel></textarea>
+              <br>
+              <input id="deadlineDays" name="deadline" type="text" placeholder="New deadline for revisions"
+                class="form-control" bsDatepicker ngModel [minDate]='minDate'/>
+              <!-- <editor name="editor" apiKey="Get your free API key and paste it here" plugins="wordcount"
+                outputFormat="text" ngModel></editor> -->
               <input type="hidden" name="details" id="details" />
               <div class="container">
                 <div class="container">
@@ -426,24 +459,14 @@
                 <!-- <div class="row">
                   <input (change)="upload($event.target.files)" type="file" #fileUpload id="fileUpload" name="fileUpload[]" multiple ngModel/>
                 </div> -->
-                <br />
                 <div class="col" id="Delivred">
                   <div *ngIf="isSubmitting" class="Loading">
                     <button>
-                      <span
-                        class="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                      Sending...
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Requesting...
                     </button>
                   </div>
-                  <button
-                    *ngIf="!isSubmitting"
-                    type="submit"
-                    class="btn btn-light btn-sm"
-                    (click)="onSendRevision()"
-                  >
+                  <button *ngIf="!isSubmitting" type="submit" class="btn btn-light btn-sm" (click)="onSendRevision()">
                     Request Revision
                   </button>
                 </div>
@@ -452,7 +475,31 @@
           </div>
         </form>
       </div>
-      <div *ngIf="hasSentDemo && !hasNewRevision" class="row" id="Card13">
+
+      <div *ngIf="hasRequestedRevision" class="row" id="Card5">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">
+                {{ revisionDate }} @ {{ revisionTime }}
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hasRequestedRevision" class="=row" id="Card13">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <h6 *ngIf="hasRequestedRevision">
+              You requested some revisions to <span class="false102"> @{{ businessName }}</span>
+            </h6>
+            <p>details:</p>
+            <p> {{ revisionDescription }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="hasSentDemo && !hasNewRevision && !hasDelivered" class="row" id="Card13">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
@@ -465,19 +512,17 @@
                 <div class="col-sm" id="HeureButton">
                   <div class="row">
                     <div class="col-sm"></div>
-                    <!-- <div class="col-sm" id="HeureButton"> -->
-                      <button type="button" class="btn btn-light">
-                        <h5>
-                          <div class="container">
-                            <div class="row">
-                              <countdown-timer
-                                [end]="paymentCountDown"
-                              ></countdown-timer>
-                            </div>
+                    <div class="col-sm" id="HeureButton">
+                    <button type="button" class="btn btn-light">
+                      <h5>
+                        <div class="container">
+                          <div class="row">
+                            <countdown-timer [end]="paymentCountDown"></countdown-timer>
                           </div>
-                        </h5>
-                      </button>
-                    <!-- </div> -->
+                        </div>
+                      </h5>
+                    </button>
+                    </div>
                     <div class="col-sm"></div>
                   </div>
                 </div>
@@ -493,9 +538,9 @@
           <div class="row">
             <div class="col-sm col14">
               <h6 class="HeureEtDate">
-                {{ revisionDate }} @ {{ revisionTime }}
+                {{ revisionResultDate }} @ {{ revisionResultTime }}
                 ------------------------------------------------------------------------
-                Revision
+                REVISION
                 -------------------------------------------------------------------------------------------------
               </h6>
             </div>
@@ -505,18 +550,23 @@
       <div *ngIf="hasRevisions && hasRevisionResult" class="row" id="Card15">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
+            <h6> <span class="false102"> @{{ businessName }}</span> sent the requested revisions</h6>
+            <br>
             <h6>
-              {{ revisionDescription }}
+              {{ revisionResutDescription }}
             </h6>
-            <div class="container">
-              <h6
-                *ngFor="let item of revisionUploadedFiles"
-                class="AttachedFile"
-                (click)="onOpenAttachedFile(item)"
-                style="font-weight: bold;"
-              >
+            <!-- <div class="container">
+              <h6 *ngFor="let item of revisionUploadedFiles" class="AttachedFile" (click)="onOpenAttachedFile(item)"
+                style="font-weight: bold;">
                 {{ item }}
               </h6>
+            </div> -->
+            <div class="container">
+              <a *ngFor="let item of revisionUploadedFiles"
+                href="https://noworri.com/api/public/uploads/trs/upf/{{ item }}" target="popup"
+                (click)=onOpenAttachedFile(item)>
+                <h6 style="font-weight: bold;" class="AttachedFile">{{ item }}</h6>
+              </a>
             </div>
             <div class="container">
               <div class="container">
@@ -541,13 +591,48 @@
                   </button>
                 </div> -->
                 <div class="col-sm" id="Revisions">
-                  <button (click)=onOpenRevisionEditor() type="button" class="btn btn-light btn-sm" *ngIf="hasRevisionsLeft">
+                  <button (click)=onOpenRevisionEditor() type="button" class="btn btn-light btn-sm"
+                    *ngIf="hasRevisionsLeft && !hasDelivered">
                     Revise
                     <span style="color: #ff0045;">{{ revisionsLeft }} left</span>
                   </button>
-                  <button type="button" class="btn btn-light btn-sm" *ngIf="!hasRevisionsLeft">
+                  <button type="button" class="btn btn-light btn-sm" *ngIf="!hasRevisionsLeft && !hasDelivered">
                     <span style="color: #ff0045;">{{ revisionsLeft }} Revisions left</span>
                   </button>
+                  <div class="row">
+                    <div *ngIf="!isFundsReleased" class="card-body">
+                      <h6 *ngIf="hasRevisionsLeft">
+                        If you are satisfied with the delivered service, please hit the
+                        Release button to complete the transaction
+                      </h6>
+                      <div class="row">
+                        <div class="col speci1"></div>
+                        <div class="col speci2">
+                        </div>
+                        <div class="col speci3"></div>
+                      </div>
+                      <div *ngIf="isApproving" class="Loading">
+                        <button>
+                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          Processing...
+                        </button>
+                      </div>
+                      <button *ngIf="!isFundsReleased && !isApproving" (click)="onReleaseFunds()" type="button" id="Button"
+                        class="btn btn-light btn-sm">
+                        Release
+                      </button>
+                    </div>
+                  </div>
+                  <!-- <div *ngIf="isApproving" class="Loading">
+                    <button>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Releasing...
+                    </button>
+                  </div>
+                  <button *ngIf="!isFundsReleased && !isApproving" (click)="onApproveService()" type="button" id="Button"
+                    class="btn btn-light btn-sm">
+                    Release Funds
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -558,13 +643,12 @@
         <form (ngSubmit)="onSendRevision(form)" #form="ngForm">
           <div class="card" style="width: 50rem;">
             <div class="card-body">
-              <editor
-                name="editor"
-                apiKey="Get your free API key and paste it here"
-                plugins="wordcount"
-                outputFormat="text"
-                ngModel
-              ></editor>
+              <textarea class="form-control" id="description" name="editor" rows="5" ngModel></textarea>
+              <br>
+              <input id="deadlineDays" name="deadline" type="text" placeholder="New deadline for revisions"
+                class="form-control" bsDatepicker ngModel [minDate]='minDate'/>
+              <!-- <editor name="editor" apiKey="Get your free API key and paste it here" plugins="wordcount"
+                outputFormat="text" ngModel></editor> -->
               <input type="hidden" name="details" id="details" />
               <div class="container">
                 <div class="container">
@@ -591,20 +675,11 @@
                 <div class="col" id="Delivred">
                   <div *ngIf="isSubmitting" class="Loading">
                     <button>
-                      <span
-                        class="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       Sending...
                     </button>
                   </div>
-                  <button
-                    *ngIf="!isSubmitting"
-                    type="submit"
-                    class="btn btn-light btn-sm"
-                    (click)="onSendRevision()"
-                  >
+                  <button *ngIf="!isSubmitting" type="submit" class="btn btn-light btn-sm" (click)="onSendRevision()">
                     Request Revision
                   </button>
                 </div>
@@ -613,11 +688,11 @@
           </div>
         </form>
       </div>
-      <div *ngIf="hasRevisionResult" class="row" id="Card13">
+      <div *ngIf="hasRevisionResult && !isFundsReleased" class="row" id="Card13">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
             <h6>
-              The service has been delivered based on requested revisions.</h6> 
+              The service has been delivered based on your requirements.</h6>
             <h6>The funds will be automatically
               released at the end of the this countdown if no action is taken
             </h6>
@@ -628,17 +703,15 @@
                   <div class="row">
                     <div class="col-sm"></div>
                     <!-- <div class="col-sm" id="HeureButton"> -->
-                      <button type="button" class="btn btn-light">
-                        <h5>
-                          <div class="container">
-                            <div class="row">
-                              <countdown-timer
-                                [end]="paymentCountDown"
-                              ></countdown-timer>
-                            </div>
+                    <button type="button" class="btn btn-light">
+                      <h5>
+                        <div class="container">
+                          <div class="row">
+                            <countdown-timer [end]="paymentCountDown"></countdown-timer>
                           </div>
-                        </h5>
-                      </button>
+                        </div>
+                      </h5>
+                    </button>
                     <!-- </div> -->
                     <div class="col-sm"></div>
                   </div>
@@ -659,7 +732,8 @@
           </div>
         </div>
       </div> -->
-      <div *ngIf="hasSentDemo" class="row" id="Card10">
+
+      <!-- <div *ngIf="hasSentDemo" class="row" id="Card10">
         <div class="card" style="width: 50rem;">
           <div *ngIf="!isFundsReleased" class="card-body">
             <h6>
@@ -670,31 +744,22 @@
             <div class="row">
               <div class="col speci1"></div>
               <div class="col speci2">
-                <!-- <div class="col-sm" id="HeureButton">
+                <!  -- <div class="col-sm" id="HeureButton">
                   <button type="button" class="btn btn-light">
                     05 : 25 : 09
                   </button>
-                </div> -->
+                </div> -- >
               </div>
               <div class="col speci3"></div>
             </div>
             <div *ngIf="isApproving" class="Loading">
               <button>
-                <span
-                  class="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Processing...
               </button>
             </div>
-            <button
-              *ngIf="!isFundsReleased && !isApproving"
-              (click)="onApproveService()"
-              type="button"
-              id="Button"
-              class="btn btn-light btn-sm"
-            >
+            <button *ngIf="!isFundsReleased && !isApproving" (click)="onApproveService()" type="button" id="Button"
+              class="btn btn-light btn-sm">
               Approve
             </button>
           </div>
@@ -710,7 +775,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div *ngIf="hasDelivered" class="row" id="Card16">
         <div class="container">
           <div class="row">
@@ -728,20 +793,17 @@
       <div *ngIf="hasDelivered" class="row" id="Card17">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
-            <h4 class="DELIVERED">DELIVERED</h4>
+            <h4 class="DELIVERED">SERVICE COMPLETED</h4>
             <h6>
               {{ description }}
             </h6>
             <div class="container">
-              <h6
-                *ngFor="let item of revisionUploadedFiles"
-                class="AttachedFile"
-                (click)="onOpenAttachedFile(item)"
-                style="font-weight: bold;"
-              >
+              <h6 *ngFor="let item of revisionUploadedFiles" class="AttachedFile" (click)="onOpenAttachedFile(item)"
+                style="font-weight: bold;">
                 {{ item }}
               </h6>
-            </div>            <div class="container">
+            </div>
+            <div class="container">
               <div class="container">
                 <div class="row">
                   <div class="col-sm"></div>
@@ -760,29 +822,39 @@
               <h5 class="Video">Video.MP4</h5>
               <h5 class="WebSite">Web site design.adobe.xd</h5>
             </div> -->
-            <div class="container">
+            <!-- <div class="container">
               <div class="row" id="Card16">
                 <div class="col-sm" id="ReleaseFundss">
-                  <button
-                    *ngIf="!isFundsReleased"
-                    (click)="onReleaseFunds()"
-                    type="button"
-                    class="btn btn-light btn-sm"
-                  >
+                  <button *ngIf="!isFundsReleased" (click)="onReleaseFunds()" type="button"
+                    class="btn btn-light btn-sm">
                     Release Funds
                   </button>
                 </div>
-                <!-- <div class="col-sm" id="Revisions">
-                  <button type="button" class="btn btn-light btn-sm">
-                    Revisions <span style="color:#FF0045">{{ revisions }}</span>
-                  </button>
-                </div>
-                <div class="col-sm" id="HeureButton">
-                  <button type="button" class="btn btn-light">
-                    05 : 25 : 09
-                  </button>
-                </div> -->
               </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="hasStartedService" class="row" id="Card9">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm col14">
+              <h6 class="HeureEtDate">{{ cancelDate }} @ {{ cancelTime }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="hasCancelled" class="row" id="Card10">
+        <div class="card" style="width: 50rem;">
+          <div class="card-body">
+            <span class="false102"> @{{ businessName }}</span>
+            This service was cancelled.
+            <div class="row">
+              <div class="col speci1"></div>
+              <div class="col speci2">
+              </div>
+              <div class="col speci3"></div>
             </div>
           </div>
         </div>
@@ -794,12 +866,14 @@
           <div class="card-body">
             <hr />
             <div class="container">
-              <div class="row">
-                <mat-icon class="Icon">report</mat-icon>
-                <h6 class="WantTo">Want to cancel this service ?</h6>
-              </div>
-              <div class="row">
-                <a class="nav-link" href="#">Click Here</a>
+              <div *ngIf="!hasSentDemo && !hasDelivered">
+                <div class="row">
+                  <mat-icon class="Icon">report</mat-icon>
+                  <h6 class="WantTo">Want to cancel this service ?</h6>
+                </div>
+                <div class="row">
+                  <a class="nav-link" href="#" (click)="onCancelService()">Click Here</a>
+                </div>
               </div>
               <div class="row">
                 <mat-icon class="Icon">report</mat-icon>
@@ -815,3 +889,14 @@
     </div>
   </div>
 </div>
+
+<!-- <div mdbModal #ResultModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div> -->
