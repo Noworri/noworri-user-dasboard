@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   verificationCode: any;
   user: any;
   confirmation: {};
-  countryCode = '+233';
+  countryCode = '+225';
   sessionInfo: any;
 
   mobile_phone: string;
@@ -57,8 +57,10 @@ export class RegisterComponent implements OnInit {
     firebase
       .auth()
       .signInWithPhoneNumber(this.mobile_phone, ApVerifier)
-      .then((confirmations) => {
-        this.windowsRef.confirmationResult = confirmations;
+      .then(confirmationResult => {
+        this.windowsRef.confirmationResult = confirmationResult;
+      }).catch(error => {
+        console.log('firebase error', error);
       });
   }
 
@@ -68,6 +70,7 @@ export class RegisterComponent implements OnInit {
       .confirm(VerificationCode)
       .then((sessionInfo) => {
         this.sessionInfo = sessionInfo;
+        this.router.navigate(['home']);
       })
       .catch((error) => {
         console.log('Error', error.message);
