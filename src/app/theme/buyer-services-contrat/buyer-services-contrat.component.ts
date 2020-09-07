@@ -130,7 +130,6 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       this.currency = 'NGN';
       this.country = 'Nigeria';
     }
-    console.log('country', this.country);
   }
   ngOnInit() {
     this.loadUserTransaction(this.transactionKey);
@@ -155,17 +154,18 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   }
 
   onCancelService() {
-    this.transactionsService.cancelOrder(this.transactionKey)
-    .pipe(takeUntil(this.unsubscribe))
-    .subscribe(response => {
-      const stepDetails = {
-        transaction_id: this.transactionKey,
-        step: 0,
-        description: 'Service Cancelled',
-      }
-      this.setStepTransaction(stepDetails);
-      return response;
-    })
+    this.transactionsService
+      .cancelOrder(this.transactionKey)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((response) => {
+        const stepDetails = {
+          transaction_id: this.transactionKey,
+          step: 0,
+          description: 'Service Cancelled',
+        };
+        this.setStepTransaction(stepDetails);
+        return response;
+      });
   }
 
   onReleaseFunds() {
@@ -200,7 +200,6 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       .getTransactionUploads(this.transactionId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((uploads: any) => {
-        console.log('uploads', uploads);
         if (uploads.length) {
           this.uploadedFiles = uploads.map((file) => {
             return file.path;
@@ -251,7 +250,6 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((details: any) => {
         this.recipientCode = details[0].recipient_code;
-        console.log('recipientCode', this.recipientCode);
         return this.recipientCode;
       });
   }
@@ -607,7 +605,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.markSecuredFunds();
           this.isValidating = false;
-          this.getStepTransaction();  
+          this.getStepTransaction();
         }, 25000);
         // setTimeout(() => {
         //   this.checkSuccessSecuredFunds(this.transaction_ref);

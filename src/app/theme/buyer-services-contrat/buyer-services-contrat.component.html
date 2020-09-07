@@ -237,7 +237,7 @@
                 </button>
               </a> -->
             </div>
-            <button *ngIf="!hasSecuredFunds && !isSecuring" (click)="onSecureFunds()" type="button"
+            <button *ngIf="!hasSecuredFunds && !isSecuring && !hasCancelled" (click)="onSecureFunds()" type="button"
               class="btn btn-light btn-sm">
               Secure Funds
             </button>
@@ -848,8 +848,7 @@
       <div *ngIf="hasCancelled" class="row" id="Card10">
         <div class="card" style="width: 50rem;">
           <div class="card-body">
-            <span class="false102"> @{{ businessName }}</span>
-            This service was cancelled.
+            This service has been cancelled.
             <div class="row">
               <div class="col speci1"></div>
               <div class="col speci2">
@@ -866,7 +865,7 @@
           <div class="card-body">
             <hr />
             <div class="container">
-              <div *ngIf="!hasSentDemo && !hasDelivered">
+              <div *ngIf="!hasSentDemo && !hasDelivered && !hasCancelled">
                 <div class="row">
                   <mat-icon class="Icon">report</mat-icon>
                   <h6 class="WantTo">Want to cancel this service ?</h6>
