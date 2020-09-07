@@ -35,6 +35,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   transactionType: string;
   userId: string;
   columns: any[];
+  ownerId: string;
   revisionResutDescription = '';
   isRegisteredBusiness = true;
   hasCancelled = false;
@@ -83,6 +84,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   revisionDescription: string;
   cancelDate: string;
   cancelTime: string;
+  todaysDate: Date;
 
   sellerPhone: string;
   description: string;
@@ -117,6 +119,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     private companyService: NoworriSearchService,
     private userService: AuthService
   ) {
+    this.todaysDate = new Date();
     this.transactionKey = this.route.snapshot.paramMap.get('transactionKey');
     this.updateDate = '';
     this.updateTime = '';
@@ -133,7 +136,6 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.loadUserTransaction(this.transactionKey);
-    this.getPaymentRecipient();
   }
 
   ngOnDestroy() {
@@ -244,9 +246,9 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     );
   }
 
-  getPaymentRecipient() {
+  getPaymentRecipient(sellerId) {
     this.transactionsService
-      .getAccountDetails(this.userId)
+      .getAccountDetails(sellerId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((details: any) => {
         this.recipientCode = details[0].recipient_code;
@@ -406,6 +408,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               details.owner_role === 'Buy'
             ) {
               this.isUserBuyer = true;
+              this.ownerId = details.owner_id;
             }
             if (
               details.owner_id === this.userId &&
@@ -417,9 +420,11 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               details.user_role === 'Buy'
             ) {
               this.sellerPhone = details.owner_phone;
+              this.ownerId = details.owner_id;
             }
             // this.getSellerDetails(this.sellerPhone);
             this.getSellerCompanyDetails(this.sellerPhone);
+            this.getPaymentRecipient(this.ownerId);
             this.getUploadedFiles();
             this.creationDate = new Date(details.created_at).toDateString();
             this.creationTime = new Date(
@@ -445,11 +450,11 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
             }
             this.revisionsLeft = parseInt(this.revisions, 10);
             this.getStepTransaction();
-            const todaysDate = new Date();
             if (
               !this.hasRevisions &&
               this.paymentCountDown &&
-              todaysDate >= this.paymentCountDown
+              this.todaysDate >= this.paymentCountDown &&
+              !this.isFundsReleased
             ) {
               this.releaseFunds(this.transactionKey);
             }
@@ -570,6 +575,14 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
               );
               this.paymentCountDown = paymentCountDownDate;
               this.revisionResutDescription = details.description;
+            }
+            if (
+              !this.hasRevisions &&
+              this.paymentCountDown &&
+              this.todaysDate >= this.paymentCountDown &&
+              !this.isFundsReleased
+            ) {
+              this.releaseFunds(this.transactionKey);
             }
             if (this.revisionsLeft <= 0) {
               this.hasRevisionsLeft = false;

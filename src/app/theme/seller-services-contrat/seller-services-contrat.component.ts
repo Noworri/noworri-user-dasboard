@@ -74,7 +74,6 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   cancelDate: string;
   cancelTime: string;
 
-
   buyerPhone: string;
   description: string;
   item: string;
@@ -153,7 +152,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
 
   onOpenAttachedFile(path) {
     const url = `https://noworri.com/api/public/uploads/trs/upf/${path}`;
-    window.open(url,'popup','width=500,height=600');
+    window.open(url, 'popup', 'width=500,height=600');
     return false;
   }
 
@@ -262,7 +261,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
               this.hasSentRevisions = true;
               // this.revisionDescription = details.description;
             }
-            if (details.step === "0") {
+            if (details.step === '0') {
               this.cancelDate = new Date(details.updated_at).toDateString();
               this.cancelTime = new Date(
                 details.updated_at
@@ -284,17 +283,18 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
   }
 
   onCancelService() {
-    this.transactionsService.cancelOrder(this.transactionKey)
-    .pipe(takeUntil(this.unsubscribe))
-    .subscribe(response => {
-      const stepDetails = {
-        transaction_id: this.transactionKey,
-        step: 0,
-        description: "Service Cancelled",
-      }
-      this.setStepTransaction(stepDetails);
-      return response;
-    })
+    this.transactionsService
+      .cancelOrder(this.transactionKey)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((response) => {
+        const stepDetails = {
+          transaction_id: this.transactionKey,
+          step: 0,
+          description: 'Service Cancelled',
+        };
+        this.setStepTransaction(stepDetails);
+        return response;
+      });
   }
 
   cancelOrder() {
