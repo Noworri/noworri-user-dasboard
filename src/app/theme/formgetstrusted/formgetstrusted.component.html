@@ -1,0 +1,115 @@
+<div class="card" style="width: 40rem; margin-top: 100px;">
+  <div>
+    <mat-icon class="cancel" routerLink="/home">cancel</mat-icon>
+  </div>
+  <div class="container">
+    <form>
+      <div class="form-group col-sm-10">
+        <label for="input">Your full name</label>
+        <input type="text" class="form-control" id="input">
+      </div>
+      <div class="form-group col-sm-10">
+        <label for="input">Business Name</label>
+        <input type="text" class="form-control" id="input">
+      </div>
+      <div class="container col-sm-10">
+        <div class="row">
+          <label class="Businesslogo" for="input">Business logo</label>
+        </div>
+        <div class="row">
+          <p class="Uploadyour">Upload you business logo</p>
+        </div>
+        <div class="row">
+          <button type="button" class="btn btn-light btn-sm Upload">Upload</button>
+        </div>
+      </div>
+      <div class="BusinessFieldLabel">
+        <label for="input">Business Field</label>
+      </div>
+      <div class="container BusinessFieldSelect">
+        <select class="custom-select col-sm-10 " id="inlineFormCustomSelectPref">
+          <option value="1"></option>
+          <option value="2"></option>
+          <option value="3"></option>
+        </select>
+      </div>
+      <div class="container ProspentDiv">
+        <label class="col-sm-8 ">What products or services are you providing ?</label>
+        <div class="input-group col-sm-12">
+          <input type="text" class="form-control col-sm-4">
+          <div class="input-group-prepend ">
+            <span class="input-group-text-light">Add</span>
+          </div>
+        </div>
+      </div>
+      <div class="row  product">
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm" disabled>Foods</button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm" disabled>Foods</button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm" disabled>Foods</button>
+        </div>
+
+      </div>
+      <div class="form-group YourAddressLocation">
+        <label for="FormControlTextarea1">Your address location</label>
+        <textarea class="form-control col-sm-10" id="FormControlTextarea1" rows="3"></textarea>
+      </div>
+      <div class="container  BusinessPhoneNumber col-sm-10">
+        <label style=" margin-left: -45px;">Business phone number</label>
+        <div class="input-group businessPhoneNumber">
+          <div class="input-group-prepend-light">
+            <span class="input-group-text">+233 |</span>
+          </div>
+          <input type="text" class="form-control" required>
+        </div>
+      </div>
+      <div class="container  col-sm-10 AdditionalPhoneNumbers">
+        <label>Additional phone numbers</label>
+        <div class="input-group businessPhoneNumber">
+          <div class="input-group-prepend-light">
+            <span class="input-group-text">+233 |</span>
+          </div>
+          <input type="text" class="form-control" required>
+          <span class="input-group-text span-right">Add</span>
+        </div>
+
+      </div>
+      <div class="row  product">
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm" disabled>+233279451296</button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm" disabled>+233279451296</button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm" disabled>+233279451296</button>
+        </div>
+
+      </div>
+      <div class="form-group" style="margin-top: 10px;">
+        <div class="form-group col-sm-10">
+          <label for="input">Facebook link</label>
+          <input type="text" class="form-control" id="input">
+        </div>
+      </div>
+      <div class="container  col-sm-10 AdditionalPhoneNumbers WhatsAppPhoneNumber ">
+        <label>WhatsApp phone number</label>
+        <div class="input-group businessPhoneNumber">
+          <div class="input-group-prepend-light">
+            <span class="input-group-text">+233 |</span>
+          </div>
+          <input type="text" class="form-control" required>
+        </div>
+
+      </div>
+      <div  class="continusButton text-center">
+        <button type="button" class="btn btn-primary btn-sm " (click)='continueToIdentityVerication()'>Continue</button>
+      </div>
+    </form>
+  </div>
+
+</div>

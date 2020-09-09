@@ -14,8 +14,6 @@ import { HomeComponent } from './theme/home/home.component';
 import { TransactionsComponent } from './theme/transactions/transactions.component';
 import { DisputesComponent } from './theme/disputes/disputes.component';
 import { PaymentComponent } from './theme/payment/payment.component';
-import { EscrowStep1Component } from './theme/escrow-step1/escrow-step1.component';
-import { EscrowStep2Component } from './theme/escrow-step2/escrow-step2.component';
 import { ApiIntegrationComponent } from './theme/api-integration/api-integration.component';
 import { SettingsComponent } from './theme/settings/settings.component';
 import { MerchandiseEscrowStep1Component } from './theme/merchandise-escrow-step1/merchandise-escrow-step1.component';
@@ -27,6 +25,12 @@ import { SellerServicesContratComponent } from './theme/seller-services-contrat/
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
 import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-merchandise-step1/seller-escrow-merchandise-step1.component';
+import { EscrowServicesBuyersStep1Component } from './theme/escrow-services-buyers-step1/escrow-services-buyers-step1.component';
+import { HomegetstrustedComponent } from './theme/homegetstrusted/homegetstrusted.component';
+import { FormgetstrustedComponent } from './theme/formgetstrusted/formgetstrusted.component';
+import { IdentityVerificationComponent } from './theme/identity-verification/identity-verification.component';
+import { SelfiVericationComponent } from './theme/selfi-verication/selfi-verication.component';
+import { GetstrutedRecapComponent } from './theme/getstruted-recap/getstruted-recap.component';
 
 const routes: Routes = [
   {
@@ -68,13 +72,10 @@ const routes: Routes = [
         component: PaymentComponent,
       },
       {
-        path: 'escrowstep1',
-        component: EscrowStep1Component,
+        path: 'escrowservicesbuyersstep1',
+        component: EscrowServicesBuyersStep1Component,
       },
-      {
-        path: 'escrowstep2',
-        component: EscrowStep2Component,
-      },
+     
       {
         path: 'buyerservicescontrat/:transactionKey',
         component: BuyerServicesContratComponent,
@@ -95,7 +96,30 @@ const routes: Routes = [
         path: 'sellerescrowmerchandisestep1',
         component: SellerEscrowMerchandiseStep1Component
       },
-
+      {
+        path: 'homegetstrusted',
+        component: HomegetstrustedComponent
+      },
+      {
+        path:'formgetstruted',
+        component:FormgetstrustedComponent
+      },
+      {
+        path:'identityverification',
+        component:IdentityVerificationComponent
+      },
+      {
+        path:'selfiverification',
+        component:SelfiVericationComponent
+      },
+      {
+        path:'getstustedrecap',
+        component:GetstrutedRecapComponent
+      },
+      {
+        path:'git',
+        component:GetstrutedRecapComponent
+      },
       {
         path: 'api',
         component: ApiIntegrationComponent

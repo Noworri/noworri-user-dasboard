@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EscrowStep1Component } from './escrow-step1.component';
+import { GetstrutedRecapComponent } from './getstruted-recap.component';
 
-describe('EscrowStep1Component', () => {
-  let component: EscrowStep1Component;
-  let fixture: ComponentFixture<EscrowStep1Component>;
+describe('GetstrutedRecapComponent', () => {
+  let component: GetstrutedRecapComponent;
+  let fixture: ComponentFixture<GetstrutedRecapComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EscrowStep1Component ]
+      declarations: [ GetstrutedRecapComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EscrowStep1Component);
+    fixture = TestBed.createComponent(GetstrutedRecapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

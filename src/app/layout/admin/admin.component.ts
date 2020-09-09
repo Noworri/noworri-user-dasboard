@@ -176,6 +176,15 @@ export class AdminComponent implements OnInit, OnDestroy {
   public config: any
   public searchInterval: any
 
+  // ----For search input ---------//
+
+   
+
+
+
+
+
+
   scroll = (): void => {
     const scrollPosition = window.pageYOffset
     if (scrollPosition > 50) {
@@ -195,15 +204,15 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor (
-    private Router:Router,
+  constructor(
+    private Router: Router,
     public menuItems: MenuItems,
     private modalService: BsModalService
   ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.currentUser = sessionData.first_name;
     this.userEmail = sessionData.email;
-    this. pp = sessionData.photo === null ? 'assets/images/Empty-Profile-Testimonials.jpg' : `https://noworri.com/api/public/uploads/images/pp/${sessionData.photo}`;
+    this.pp = sessionData.photo === null ? 'assets/images/Empty-Profile-Testimonials.jpg' : `https://noworri.com/api/public/uploads/images/pp/${sessionData.photo}`;
     this.animateSidebar = ''
     this.navType = 'st2'
     this.themeLayout = 'vertical'
@@ -277,27 +286,19 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.setVerticalLayout();*/
   }
 
-  ngOnInit () {
+  ngOnInit() {
+    this.searchInputStyle();
+
     this.setBackgroundPattern('theme1')
   }
-  openModal (template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, this.config1)
-  }
-  openModal2 (template: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(template, { class: 'second' })
-    this.closeFirstModal()
-  }
-  closeFirstModal () {
-    if (!this.modalRef) {
-      return
-    }
+  searchInputStyle() {
+    document.getElementsByTagName('input')[0].setAttribute('style','border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:blue')
+   
 
-    this.modalRef.hide()
-    this.modalRef = null
   }
 
-  onResize (event) {
-    this.windowWidth = event.target.innerWidth
+  onResize(event) {
+    this.windowWidth = event.target.innerWidth;
     this.setHeaderAttributes(this.windowWidth)
 
     let reSizeFlag = true
@@ -316,7 +317,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  setHeaderAttributes (windowWidth) {
+  setHeaderAttributes(windowWidth) {
     if (windowWidth <= 992) {
       this.navRight = 'nav-off'
     } else {
@@ -324,7 +325,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  setMenuAttributes (windowWidth) {
+  setMenuAttributes(windowWidth) {
     if (windowWidth >= 768 && windowWidth <= 992) {
       this.pcodedDeviceType = 'tablet'
       this.verticalNavType = 'offcanvas'
@@ -357,7 +358,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }*/
   }
 
-  toggleHeaderNavRight () {
+  toggleHeaderNavRight() {
     this.navRight = this.navRight === 'nav-on' ? 'nav-off' : 'nav-on'
     this.chatTopPosition = this.chatTopPosition === 'nav-on' ? '112px' : ''
     if (this.navRight === 'nav-off' && this.innerChatSlideInOut === 'in') {
@@ -368,7 +369,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleLiveNotification () {
+  toggleLiveNotification() {
     if (this.profileNotification === 'an-animate') {
       this.toggleProfileNotification()
     }
@@ -392,7 +393,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleProfileNotification () {
+  toggleProfileNotification() {
     if (this.liveNotification === 'an-animate') {
       this.toggleLiveNotification()
     }
@@ -416,7 +417,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  notificationOutsideClick (ele: string) {
+  notificationOutsideClick(ele: string) {
     if (ele === 'live' && this.liveNotification === 'an-animate') {
       this.toggleLiveNotification()
     } else if (ele === 'profile' && this.profileNotification === 'an-animate') {
@@ -424,7 +425,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleChat () {
+  toggleChat() {
     if (this.innerChatSlideInOut === 'in') {
       this.innerChatSlideInOut = 'out'
     } else {
@@ -432,11 +433,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleInnerChat () {
+  toggleInnerChat() {
     this.innerChatSlideInOut = this.innerChatSlideInOut === 'out' ? 'in' : 'out'
   }
 
-  searchOn () {
+  searchOn() {
     document.querySelector('#main-search').classList.add('open')
     this.searchInterval = setInterval(() => {
       if (this.searchWidth >= 200) {
@@ -448,7 +449,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }, 35)
   }
 
-  searchOff () {
+  searchOff() {
     this.searchInterval = setInterval(() => {
       if (this.searchWidth <= 0) {
         document.querySelector('#main-search').classList.remove('open')
@@ -460,13 +461,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     }, 35)
   }
 
-  ngOnDestroy () {
+  ngOnDestroy() {
     if (this.searchInterval) {
       clearInterval(this.searchInterval)
     }
   }
 
-  toggleOpened (e) {
+  toggleOpened(e) {
     if (this.windowWidth <= 992) {
       this.toggleOn =
         this.verticalNavType === 'offcanvas' ? true : this.toggleOn
@@ -504,7 +505,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }, 500)
   }
 
-  onClickedOutsideSidebar (e: Event) {
+  onClickedOutsideSidebar(e: Event) {
     if (
       (this.windowWidth <= 992 &&
         this.toggleOn &&
@@ -517,11 +518,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleRightbar () {
+  toggleRightbar() {
     this.configOpenRightBar = this.configOpenRightBar === 'open' ? '' : 'open'
   }
 
-  setNavBarTheme (theme: string) {
+  setNavBarTheme(theme: string) {
     if (theme === 'themelight1') {
       this.navBarTheme = 'themelight1'
       this.menuTitleTheme = 'theme1'
@@ -533,7 +534,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  setLayoutType (type: string) {
+  setLayoutType(type: string) {
     if (type === 'dark') {
       this.headerTheme = 'theme1'
       this.navBarTheme = 'theme1'
@@ -565,7 +566,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  setVerticalLayout () {
+  setVerticalLayout() {
     this.isVerticalLayoutChecked = !this.isVerticalLayoutChecked
     if (this.isVerticalLayoutChecked) {
       this.verticalLayout = 'box'
@@ -582,12 +583,12 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  setBackgroundPattern (pattern: string) {
+  setBackgroundPattern(pattern: string) {
     document.querySelector('body').setAttribute('themebg-pattern', pattern)
     // this.menuTitleTheme = this.freamType = this.activeItemTheme = this.headerTheme = pattern;
   }
 
-  setSidebarPosition () {
+  setSidebarPosition() {
     if (this.verticalNavType !== 'collapsed') {
       this.isSidebarChecked = !this.isSidebarChecked
       this.pcodedSidebarPosition =
@@ -601,7 +602,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  setHeaderPosition () {
+  setHeaderPosition() {
     this.isHeaderChecked = !this.isHeaderChecked
     this.pcodedHeaderPosition =
       this.isHeaderChecked === true ? 'fixed' : 'relative'
@@ -624,7 +625,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleOpenedSidebar () {
+  toggleOpenedSidebar() {
     this.isCollapsedSideBar =
       this.isCollapsedSideBar === 'yes-block' ? 'no-block' : 'yes-block'
     if (this.verticalNavType !== 'collapsed') {
@@ -635,7 +636,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  hoverOutsideSidebar () {
+  hoverOutsideSidebar() {
     if (this.verticalNavType === 'collapsed') {
       const mainEle = document.querySelectorAll('.pcoded-trigger')
       for (let i = 0; i < mainEle.length; i++) {
@@ -644,7 +645,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  fireClick (e) {
+  fireClick(e) {
     if (this.verticalNavType === 'collapsed') {
       const parentEle = e.target.parentNode.parentNode
       if (parentEle.classList.contains('pcoded-trigger')) {
@@ -660,7 +661,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  fireClickLeave (e) {
+  fireClickLeave(e) {
     if (this.verticalNavType === 'collapsed') {
       const parentEle = <HTMLElement>e.target.parentNode.parentNode
       const subEle = parentEle.querySelectorAll('.pcoded-hasmenu')
@@ -676,14 +677,17 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.Router.navigate(['Settings']);
   }
 
-  logout () {
+  logout() {
     localStorage.setItem('dataToken', 'false')
   }
 
-  lock () {
+  lock() {
     localStorage.setItem('lockScreen', 'true')
   }
-  routingseachpage(){
+  routingseachpage() {
     this.Router.navigate(['searchpage'])
+  }
+  routingToHomegetstrusted(){
+    this.Router.navigate(['homegetstrusted'])
   }
 }

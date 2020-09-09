@@ -1,0 +1,43 @@
+<div class="card" style="width: 40rem;">
+  <div>
+    <mat-icon class="cancel" routerLink="/home">cancel</mat-icon>
+  </div>
+  <div class="card-body">
+    <div>
+      <h6 class="text-center IdentityVerification">Selfie verification</h6>
+    </div>
+    <div>
+      <p class="text-center  UploadOneOf">
+        To complete selfie verification, please take a picture<br> of yourself while holding up your ID
+      </p>
+    </div>
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-sm Idcard">
+          <label class="btn btn-secondary" for="my-file-selector">
+            <input id="my-file-selector" type="text" class="d-none">
+            <div class="mat-icon">
+
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="text-center Upload">
+      <button type="button" class="btn btn-primary btn-sm-12">
+        <div class="row">
+        </div>
+        <div class="row">
+          <div>
+            <mat-icon>camera_alt</mat-icon>
+          </div>
+          <div class="takepicture"> Take picture</div>
+
+        </div>
+      </button>
+    </div>
+    <div class="text-center Continue">
+      <button type="button" (click)='routeToRecapGetStrusted()' class="btn btn-primary btn-sm">Continue</button>
+    </div>
+  </div>
+</div>

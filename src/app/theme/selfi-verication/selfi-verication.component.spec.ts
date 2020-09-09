@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EscrowStep2Component } from './escrow-step2.component';
+import { SelfiVericationComponent } from './selfi-verication.component';
 
-describe('EscrowStep2Component', () => {
-  let component: EscrowStep2Component;
-  let fixture: ComponentFixture<EscrowStep2Component>;
+describe('SelfiVericationComponent', () => {
+  let component: SelfiVericationComponent;
+  let fixture: ComponentFixture<SelfiVericationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EscrowStep2Component ]
+      declarations: [ SelfiVericationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EscrowStep2Component);
+    fixture = TestBed.createComponent(SelfiVericationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

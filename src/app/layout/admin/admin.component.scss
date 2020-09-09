@@ -4,6 +4,7 @@
     .navbar-container {
       .main-menu-header {
         margin-top: 20px;
+        margin-left: -15px;
         img {
           width: 45px;
           height: 45px;
@@ -11,7 +12,8 @@
         }
       }
       #ProfilNameEtMail {
-        margin-top: 25px;
+        margin-top: 12px;
+        margin-right: 12px;
         .Nom {
           text-align: left;
           font: Regular 24px/35px Poppins;
@@ -19,6 +21,7 @@
           color: #000000;
           opacity: 1;
           font-size: 13px;
+          margin-left: -10px;
         }
         .Mail {
           text-align: left;
@@ -31,29 +34,10 @@
         }
       }
     }
-
-
-
     .header-search {
-      top: 15px;
-      left: 13px;
-      #main-search {
-
-        .input-group-text{
-          img{
-            width: 20px;
-          }
-        }
-        .input-group {
-          border-radius: 9px;
-          opacity: 1;
-          width: 400px;
-        }
-      }
+      margin-top: 30px;
+      margin-left: 40px;
     }
-
-
-    
   }
   .nav-right {
     margin-right: -26px;
@@ -67,25 +51,60 @@
         opacity: 1;
         font-size: 16px;
       }
-      
     }
   }
+
+  .prospan {
+    margin-left: -472px;
+    margin-right: 10px;
+    margin-top: 30px;
+    button{
+      background-color: white;
+      border-color: blue;
+      border-radius: 9px;
+      height: 35px;
+      color: black;
+    }
+  }
+  .OnlineVendor {
+    margin-left: -390px;
+    margin-top: 35px;
+    h6 {
+      font: normal normal normal 18px/35px Poppins;
+      letter-spacing: 0px;
+      color: #686868;
+      opacity: 1;
+    }
+  }
+  .ul {
+    margin-left: -400px;
+    margin-top: 27px;
+    background: #497dd5 0% 0% no-repeat padding-box;
+    border-radius: 11px;
+    opacity: 1;
+  }
+
   // ---sideBar---------//
   .SideBar {
     margin-top: 120px;
     margin-left: 32px;
     border-width: 0px;
     .nav-link {
-      text-align: left;
-      font: Semibold 26px/35px Segoe UI;
-      letter-spacing: 0;
       &:hover {
         color: #2bb996;
       }
+      text-align: left;
+      font: Semibold 26px/35px Segoe UI;
+      letter-spacing: 0;
+      font-family: Segoe UI;
       opacity: 1;
       font-weight: bold;
-      color: #000000;
+      color: #3f414b;
       margin: 3px;
+      font-family: Segoe UI;
+    }
+    .RouterLinkActive {
+      color: #2bb996;
     }
   }
 }
@@ -514,4 +533,3 @@
 #form-group2 {
   margin-top: 40px;
 }
-

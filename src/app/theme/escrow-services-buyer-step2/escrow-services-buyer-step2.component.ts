@@ -1,17 +1,18 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 
 const LOCAL_STORAGE_KEY1 = 'noworri-escrow-service-1';
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
 @Component({
-  selector: 'app-escrow-step2',
-  templateUrl: './escrow-step2.component.html',
-  styleUrls: ['./escrow-step2.component.scss']
+  selector: 'app-escrow-services-buyer-step2',
+  templateUrl: './escrow-services-buyer-step2.component.html',
+  styleUrls: ['./escrow-services-buyer-step2.component.scss']
 })
 export class EscrowStep2Component implements OnInit {
   CreditCard: boolean;
@@ -141,4 +142,5 @@ export class EscrowStep2Component implements OnInit {
       }
       );
   }
+
 }
