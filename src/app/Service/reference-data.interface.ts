@@ -93,3 +93,21 @@ export interface MerchandiseEscrowStep1Reference {
   price: any;
   description: any;
 }
+
+export interface ServiceEscrowStep1Reference {
+  item: string;
+  sellerPhoneNumber: string;
+  price: any;
+  revisionNo: any;
+  deadlineType: string;
+  deadline: any;
+  description: any;
+  file: any;
+}
+
+export interface AccountDetails {
+  user_id: string;
+  bank_name: string;
+  bank_code: string;
+  holder_name: string;
+}

@@ -24,10 +24,10 @@
             </h5>
             <div class="row" id="Calcule1">
               <div class="col-sm">
-                <h6 class="Shoesandsock">Shoes and sock</h6>
+                <h6 class="Shoesandsock">{{ item }}</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Tolale1">150.00</h6>
+                <h6 class="Tolale1">{{ price }}</h6>
               </div>
             </div>
             <div class="row" id="Calcule2">
@@ -38,7 +38,7 @@
                       <h6 class="NoworriFees">Noworri Fees</h6>
                     </div>
                     <div class="col-sm">
-                      <h6 class="Tolale2">52.00</h6>
+                      <h6 class="Tolale2">{{ noworriFee }}</h6>
                     </div>
                   </div>
                 </h6>
@@ -55,7 +55,7 @@
                 <h6 class="NETPAYABLE">NET PAYABLE</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Tolale3">202.00</h6>
+                <h6 class="Tolale3">{{ amount }}</h6>
               </div>
             </div>
           </div>
@@ -66,15 +66,15 @@
                 <h6 class="NumberofRevisions">Number of Revisions</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcule1">2</h6>
+                <h6 class="Calcule1">{{ revisions }}</h6>
               </div>
             </div>
             <div class="row">
               <div class="col-sm">
-                <h6 class="Transactiondeadtime">Transaction dead time</h6>
+                <h6 class="Transactiondeadtime">Service deadline</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcule2">8 Hours</h6>
+                <h6 class="Calcule2">{{ deadlineCheckout }}</h6>
               </div>
             </div>
             <div class="row">
@@ -82,7 +82,7 @@
                 <h6 class="Buyersusername">Buyer's Phone number</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcule3">Kira.121</h6>
+                <h6 class="Calcule3">{{ mobile_phone }}</h6>
               </div>
             </div>
             <div class="row">
@@ -90,7 +90,7 @@
                 <h6 class="Sellersusername">Seller's Phone number</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcul3">Rorona</h6>
+                <h6 class="Calcul3">{{ sellerNumber }}</h6>
               </div>
             </div>
           </div>
@@ -98,30 +98,30 @@
             <h6 class="Requirement">REQUIREMENTS</h6>
             <div id="Paragraphe">
               <p class="paragraphe">
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
-                Define a dead time of the transaction so in case anything was
-                not done after the end of the transaction Noworri will cancel it
+                {{ description }}
               </p>
               <div class="Link">
                 <a class="nav-link" href="#">Attached file</a>
               </div>
               <div class="Fichiers">
-                <h6 class="Amelplan">Amel plan of house.PDF</h6>
-                <h6 class="Architech">Architech building.PNG</h6>
+                <h6 class="Amelplan">{{ uploadedFiles }}</h6>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm" id="STARTNOWORRI">
-              <button type="submit" (click)='RoutingToTransation()'  class="btn btn-primary btn-sm">
+              <div *ngIf="isValidating" class="Loading">
+                <button >
+                  <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                STARTING...
+                </button>
+              </div>
+              <button *ngIf="!isValidating" type="submit" (click)='createTransaction()'  class="btn btn-primary btn-sm">
                 START NOWORRI
               </button>
             </div>

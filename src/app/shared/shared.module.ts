@@ -14,6 +14,8 @@ import {ModalAnimationComponent} from './modal-animation/modal-animation.compone
 import {SpinnerComponent} from './spinner/spinner.component';
 import {ClickOutsideModule} from 'ng-click-outside';
 import {DataFilterPipe} from './elements/data-filter.pipe';
+import { ArchwizardModule } from 'angular-archwizard';
+import { CountdownTimerModule } from 'ngx-countdown-timer';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -24,7 +26,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CommonModule,
     HttpClientModule,
     PerfectScrollbarModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    ArchwizardModule,
+    CountdownTimerModule.forRoot()
   ],
   exports: [
     ToggleFullScreenDirective,
@@ -40,7 +44,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModalAnimationComponent,
     SpinnerComponent,
     ClickOutsideModule,
-    DataFilterPipe
+    DataFilterPipe,
+    ArchwizardModule,
+    CountdownTimerModule
   ],
   declarations: [
     ToggleFullScreenDirective,

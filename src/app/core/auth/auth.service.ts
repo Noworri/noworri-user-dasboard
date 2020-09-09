@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { DataToken, VerifyData, ResetData } from ".";
-import { environment } from "../../../environments/environment.prod";
-import { capitalizeTokenType } from "../../shared/utils/functions";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { DataToken, VerifyData, ResetData } from '.';
+import { environment } from '../../../environments/environment.prod';
+import { capitalizeTokenType } from '../../shared/utils/functions';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthService {
   public jwtHelper: JwtHelperService = new JwtHelperService();
@@ -68,26 +68,26 @@ export class AuthService {
   }
 
   getDataToken(): DataToken {
-    return JSON.parse(localStorage.getItem("dataToken"));
+    return JSON.parse(localStorage.getItem('dataToken'));
   }
 
   setDataToken(value: DataToken): void {
-    localStorage.setItem("dataToken", JSON.stringify(value));
+    localStorage.setItem('dataToken', JSON.stringify(value));
   }
 
   removeDataToken() {
-    localStorage.removeItem("dataToken");
+    localStorage.removeItem('dataToken');
   }
 
   getLockScreen(): DataToken {
-    return JSON.parse(localStorage.getItem("lockScreen"));
+    return JSON.parse(localStorage.getItem('lockScreen'));
   }
 
   setLockScreen(value: boolean): void {
-    localStorage.setItem("lockScreen", JSON.stringify(value));
+    localStorage.setItem('lockScreen', JSON.stringify(value));
   }
 
   removeLockScreen() {
-    localStorage.removeItem("lockScreen");
+    localStorage.removeItem('lockScreen');
   }
 }
