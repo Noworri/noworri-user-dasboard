@@ -117,7 +117,11 @@ const routes: Routes = [
         component:SelfiVericationComponent
       },
       {
-        path:'recapgetstruted',
+        path:'getstustedrecap',
+        component:GetstrutedRecapComponent
+      },
+      {
+        path:'git',
         component:GetstrutedRecapComponent
       },
       {

@@ -1,6 +1,7 @@
 //-----------App card----------//
 .page-body {
   margin-top: 80px;
+  margin-left: 50px;
   .app-card1 {
     h2 {
       text-align: left;
@@ -73,15 +74,16 @@
   }
   .col-sm-4 {
     margin-top: 50px;
-    #inputGroupSelect01,#inputGroupSelect02 {
+    #inputGroupSelect01,
+    #inputGroupSelect02 {
       width: 200px;
       height: 33px;
       border-color: 0.5px solid #686868;
       border-radius: 7px;
       opacity: 1;
     }
-    .TypeOf{
-     top: 30px;
+    .TypeOf {
+      top: 30px;
     }
     .YourRole {
       top: 60px;
@@ -104,8 +106,8 @@
     }
   }
   .col-sm-5 {
-    margin-left: 260px;
-    margin-top: 80px;
+    margin-left: 560px;
+    margin-top: -230px;
     #GeneraleMerchandise,
     #Service {
       background: #f2f2f2 0% 0% no-repeat padding-box;
