@@ -64,7 +64,6 @@ import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-mer
 import { EscrowServicesBuyersStep1Component } from './theme/escrow-services-buyers-step1/escrow-services-buyers-step1.component';
 import { EscrowServicesSellersStep1Component } from './theme/escrow-services-sellers-step1/escrow-services-sellers-step1.component';
 import { EscrowServicesSellersStep2Component } from './theme/escrow-services-sellers-step2/escrow-services-sellers-step2.component';
-import { EscrowServicesBuyerStep2Component } from './theme/escrow-services-buyer-step2/escrow-services-buyer-step2.component';
 import { HomegetstrustedComponent } from './theme/homegetstrusted/homegetstrusted.component';
 import { FormgetstrustedComponent } from './theme/formgetstrusted/formgetstrusted.component';
 import { IdentityVerificationComponent } from './theme/identity-verification/identity-verification.component';
@@ -103,7 +102,6 @@ import { SelfiVericationComponent } from './theme/selfi-verication/selfi-vericat
     EscrowServicesBuyersStep1Component,
     EscrowServicesSellersStep1Component,
     EscrowServicesSellersStep2Component,
-    EscrowServicesBuyerStep2Component,
     HomegetstrustedComponent,
     FormgetstrustedComponent,
     IdentityVerificationComponent,

@@ -25,7 +25,6 @@ import { SellerServicesContratComponent } from './theme/seller-services-contrat/
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
 import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-merchandise-step1/seller-escrow-merchandise-step1.component';
-import { EscrowServicesBuyerStep2Component } from './theme/escrow-services-buyer-step2/escrow-services-buyer-step2.component';
 import { EscrowServicesBuyersStep1Component } from './theme/escrow-services-buyers-step1/escrow-services-buyers-step1.component';
 import { HomegetstrustedComponent } from './theme/homegetstrusted/homegetstrusted.component';
 import { FormgetstrustedComponent } from './theme/formgetstrusted/formgetstrusted.component';
@@ -76,10 +75,7 @@ const routes: Routes = [
         path: 'escrowservicesbuyersstep1',
         component: EscrowServicesBuyersStep1Component,
       },
-      {
-        path: 'escrowservicesbuyersstep2',
-        component: EscrowServicesBuyerStep2Component,
-      },
+     
       {
         path: 'buyerservicescontrat/:transactionKey',
         component: BuyerServicesContratComponent,
