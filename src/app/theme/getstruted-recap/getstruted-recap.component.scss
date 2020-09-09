@@ -1,0 +1,107 @@
+.card {
+    width: 700px;
+    margin-top: 70px;
+    .cancel {
+        margin-left: 630px;
+        font-size: 25px;
+        margin-bottom: 9px;
+        margin-top: -50px;
+        opacity: 1;
+        color: red;
+        cursor: pointer;
+    }
+
+    .container {
+        .titre {
+            margin-top: 19px;
+            h6 {
+               font-size: 14px;
+                letter-spacing: 0px;
+                color: #484848;
+                opacity: 1;
+            }
+        }
+        .product {
+            margin-left: -20px;
+            button {
+                margin: 9px;
+                border-radius: 18px;
+                opacity: 1;
+            }
+        }
+        #backgr {
+            background: #f3f3f3 0% 0% no-repeat padding-box;
+            opacity: 1;
+            margin-top: -2px;
+
+            h6 {
+                font-size: 13px;
+                letter-spacing: 0px;
+                color: #484848;
+                opacity: 1;
+                margin-left: 10px;
+            }
+            #speci1 {
+                margin-left: -15px;
+            }
+            #speci2 {
+                margin-left: -15px;
+            }
+            #speci3 {
+                margin-left: -15px;
+                height: 60px;
+                h6 {
+                    margin-top: 10px;
+                }
+            }
+            #speci4 {
+                margin-right: -570px;
+                color: #2bb996;
+                cursor: pointer;
+                font-size: small;
+            }
+            #Number {
+                h6 {
+                    margin-left: 20px;
+                }
+            }
+        }
+    }
+    #doc {
+        margin-top: 40px;
+        .Document {
+            text-align: left;
+            font: Regular 20px/30px Poppins;
+            letter-spacing: 0px;
+            color: #5607f8;
+            opacity: 1;
+            font-size: 20px;
+            margin-left: -12px;
+        }
+        .Upload {
+            text-align: left;
+            font: Regular 15px/23px Poppins;
+            letter-spacing: 0px;
+            color: #6a6a6a;
+            opacity: 1;
+            font-size: small;
+            font-weight: 400;
+            margin-left: -12px;
+            margin-top: 10px;
+        }
+        button {
+            border: 1px solid #2bb996;
+            border-radius: 13px;
+            opacity: 1;
+            margin-top: 10px;
+        }
+    }
+    .Button {
+        margin-top: 30px;
+        button {
+            background: #497dd5 0% 0% no-repeat padding-box;
+            border-radius: 11px;
+            opacity: 1;
+        }
+    }
+}
