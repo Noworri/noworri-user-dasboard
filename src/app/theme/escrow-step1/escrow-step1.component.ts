@@ -10,7 +10,7 @@ import {
 } from 'src/app/Service/reference-data.interface';
 import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
 import { isEmpty } from 'lodash';
-import { AuthService } from 'src/app/Service/auth.service';
+import { AuthenticationService } from 'src/app/Service/auth.service';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -101,7 +101,7 @@ export class EscrowStep1Component implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private companyService: NoworriSearchService,
-    private userService: AuthService,
+    private userService: AuthenticationService,
     private transactionsService: TransactionsService
   ) {
     this.escrowStep1Data = {

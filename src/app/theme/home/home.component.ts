@@ -6,6 +6,7 @@ import { from } from 'rxjs';
 import { NgForm } from '@angular/forms';
 
 const LOCAL_STORAGE_KEY = 'noworri-escrow-0';
+const SESSION_STORAGE_KEY = 'user_session_data';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,12 @@ export class HomeComponent implements OnInit {
   constructor(
     private homeInputService: HomeInputService,
     private router: Router
-  ) {}
+  ) {
+    const sessionData = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    if (!sessionData) {
+      router.navigate(['auth/login'])
+    }
+  }
 
   ngOnInit() {}
   // ---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
