@@ -1,4 +1,4 @@
-import { from } from 'rxjs';
+import { from, Subject } from 'rxjs';
 import { RegisterService } from './register.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,6 +8,8 @@ import { countryISO } from '../../../shared/utils/country';
 import * as firebase from 'firebase';
 import { NgForm } from '@angular/forms';
 import { setTNodeAndViewData } from '@angular/core/src/render3/state';
+import { takeUntil } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/Service/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -18,12 +20,12 @@ export class RegisterComponent implements OnInit {
   allowedCountries = countryISO;
   registerForm: FormGroup;
   error: string;
+  unsubscribe$ = new Subject();
 
   windowsRef: any;
   verificationCode: any;
   user: any;
   confirmation: {};
-  countryCode = '+225';
   sessionInfo: any;
 
   mobile_phone: string;
@@ -33,12 +35,25 @@ export class RegisterComponent implements OnInit {
   username: string;
   password: string;
   password_confirm: string;
+  userData: object;
+  file: File;
+  codeError: string;
+
+  country: string;
+  uid: string;
+  isBuyer: number;
+  isSeller: number;
+  type: any;
+  account: number;
+  code: any;
+  photo: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
+    private authService: AuthenticationService,
     private registerService: RegisterService
   ) {}
   ngOnInit() {
@@ -50,16 +65,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onMobileNumberSubmit(form: NgForm) {
-    this.mobile_phone = `${this.countryCode}${form.value['mobile_phone']}`;
+    this.mobile_phone = `${form.value['countryCode']}${form.value['mobile_phone']}`;
     console.log(this.mobile_phone);
 
     const ApVerifier = this.windowsRef.recaptchartVerifier;
     firebase
       .auth()
       .signInWithPhoneNumber(this.mobile_phone, ApVerifier)
-      .then(confirmationResult => {
+      .then((confirmationResult) => {
         this.windowsRef.confirmationResult = confirmationResult;
-      }).catch(error => {
+      })
+      .catch((error) => {
         console.log('firebase error', error);
       });
   }
@@ -70,11 +86,10 @@ export class RegisterComponent implements OnInit {
       .confirm(VerificationCode)
       .then((sessionInfo) => {
         this.sessionInfo = sessionInfo;
-        this.router.navigate(['home']);
       })
       .catch((error) => {
         console.log('Error', error.message);
-        this.router.navigate(['/auth/login']);
+        this.codeError = error.message;
       });
   }
 
@@ -83,6 +98,22 @@ export class RegisterComponent implements OnInit {
     this.firstName = form.value['firstname'];
     this.email = form.value['Email'];
     this.username = form.value['Username'];
+    this.photo = '';
+    this.code = form.value['code'];
+    this.country = form.value['country'];
+    this.isBuyer = null;
+    this.isSeller = null;
+    this.account = form.value['account'];
+    this.type = form.value['type'];
+  }
+
+  registerUser(userData) {
+    this.authService
+      .register(userData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
+        return response;
+      });
   }
 
   onRegisterSubmit(form: NgForm) {
@@ -115,7 +146,26 @@ export class RegisterComponent implements OnInit {
                 username,
                 password,
               })
-              .then(() => {
+              .then((response: any) => {
+                console.log('createUserWithEmailAndPassword', response);
+                this.userData = {
+                  photo: this.photo,
+                  mobile: mobilPhone,
+                  lastName: lastname,
+                  firstName: firstname,
+                  email: Email,
+                  userName: username,
+                  password: password,
+                  country: this.country,
+                  uid: response.localId,
+                  isBuyer: this.isBuyer,
+                  isSeller: this.isSeller,
+                  type: this.type,
+                  account: this.account,
+                  code: this.code,
+                };
+                console.log('userData', this.userData);
+                this.registerUser(this.userData);
                 this.router.navigate(['home']);
               })
               .catch((error) => {

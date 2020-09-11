@@ -6,7 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   login(phoneNumber, password): Observable<any> {
@@ -17,6 +17,34 @@ export class AuthService {
     };
 
     return this.http.post(url, body).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error', error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  register(userData): Observable<any> {
+    const url = 'hhtps/api.noworri.com/api/register';
+    let params = new HttpParams();
+    params = params.append('user_uid', userData.uid);
+    params = params.append('email', userData.email);
+    params = params.append('name', userData.lastName);
+    params = params.append('first_name', userData.firstName);
+    params = params.append('mobile_phone', userData.mobile);
+    params = params.append('user_name', userData.userName);
+    params = params.append('country', userData.country);
+    params = params.append('photo', userData.photo);
+    params = params.append('buyer', userData.isBuyer);
+    params = params.append('seller', userData.isSeller);
+    params = params.append('type', userData.type);
+    params = params.append('account', userData.account);
+    params = params.append('password', userData.password);
+    params = params.append('code', userData.code);
+    return this.http.post(url, null, { responseType: 'json',  params: params}).pipe(
       map((response) => {
         return response;
       }),

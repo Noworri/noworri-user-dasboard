@@ -9,6 +9,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule, MatRadioGroup, MatRadioButton, MatOptionModule, MatSelectModule } from '@angular/material';
 
 
 @NgModule({
@@ -21,6 +22,8 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule,
     InternationalPhoneNumberModule,
     MatInputModule,
+    MatOptionModule,
+    MatSelectModule
   ]
 })
 export class RegisterModule { }

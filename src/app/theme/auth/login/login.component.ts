@@ -7,10 +7,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { countryISO } from '../../../shared/utils/country';
 import { takeUntil } from 'rxjs/operators';
-import { AuthService } from 'src/app/Service/auth.service';
+import { AuthenticationService } from 'src/app/Service/auth.service';
 import { UserReference } from 'src/app/Service/reference-data.interface';
 
-const SESSION_STORAGE_KEY = 'noworri-user-session';
+const USER_SESSION_KEY = 'noworri-user-session';
+const SESSION_STORAGE_KEY = 'user_session_data';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,10 +38,11 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthenticationService
   ) {
-    const sessionData = localStorage.getItem(SESSION_STORAGE_KEY);
-    if (sessionData) {
+    const sessionData = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    const userData = localStorage.getItem(USER_SESSION_KEY);
+    if (userData && sessionData) {
       router.navigate(['home']);
     }
   }
@@ -72,13 +75,17 @@ export class LoginComponent implements OnInit {
                 first_name: response.currentUser.first_name,
                 email: response.currentUser.email,
                 mobile_phone: response.currentUser.mobile_phone,
-                token: response.currentUser.token,
                 user_uid: response.currentUser.user_uid,
                 photo: response.currentUser.photo,
                 name: response.currentUser.name,
               };
-              const sessionData = JSON.stringify(this.sessionResponse);
-              localStorage.setItem(SESSION_STORAGE_KEY, sessionData);
+              const sessionData = {
+                token: response.currentUser.token,
+              }
+              const sessionStorageData = JSON.stringify(sessionData);
+              sessionStorage.setItem('user_session_data',sessionStorageData);
+              const userData = JSON.stringify(this.sessionResponse);
+              localStorage.setItem(USER_SESSION_KEY, userData);
               this.router.navigate(['home']);
             }
           },

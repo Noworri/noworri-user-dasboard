@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AuthService } from 'src/app/Service/auth.service';
+import { AuthenticationService } from 'src/app/Service/auth.service';
 
 const LOCAL_STORAGE_KEY_0 = 'noworri-escrow-0';
 const LOCAL_STORAGE_KEY_1 = 'merchandise-escrow-1';
@@ -91,7 +91,7 @@ export class SellerEscrowMerchandiseStep1Component implements OnInit {
 
 
   constructor(    private router: Router,
-    private companyService: AuthService,
+    private companyService: AuthenticationService,
     private formbuilder: FormBuilder,
     private transactionsService: TransactionsService,
 
