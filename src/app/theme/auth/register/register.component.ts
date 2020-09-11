@@ -96,15 +96,15 @@ export class RegisterComponent implements OnInit {
   GetProfileInformation(form: NgForm) {
     this.lastName = form.value['lastname'];
     this.firstName = form.value['firstname'];
-    this.email = form.value['Email'];
-    this.username = form.value['Username'];
+    this.email = form.value['email'];
+    this.username = form.value['username'];
     this.photo = '';
-    this.code = form.value['code'];
+    this.code = '';
     this.country = form.value['country'];
     this.isBuyer = null;
     this.isSeller = null;
-    this.account = form.value['account'];
-    this.type = form.value['type'];
+    this.account = null;
+    this.type = '';
   }
 
   registerUser(userData) {
@@ -112,6 +112,7 @@ export class RegisterComponent implements OnInit {
       .register(userData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
+        console.log('register response', response);
         return response;
       });
   }
@@ -170,6 +171,7 @@ export class RegisterComponent implements OnInit {
               })
               .catch((error) => {
                 setTimeout(() => {
+                  this.codeError = error.message;
                   this.router.navigate(['/auth/login']);
                 }, 4000);
               });
