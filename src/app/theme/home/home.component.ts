@@ -6,6 +6,7 @@ import { from } from 'rxjs';
 import { NgForm } from '@angular/forms';
 
 const LOCAL_STORAGE_KEY = 'noworri-escrow-0';
+const SESSION_STORAGE_KEY = 'user_session_data';
 
 @Component({
   selector: 'app-home',

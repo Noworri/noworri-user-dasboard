@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { DataToken, VerifyData, ResetData } from '.';
 import { environment } from '../../../environments/environment.prod';
@@ -23,6 +23,10 @@ export class AuthService {
           this.setDataToken(res);
         }
         return res;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error', error.message);
+        return throwError(error);
       })
     );
   }

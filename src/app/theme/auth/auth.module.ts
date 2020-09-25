@@ -1,7 +1,7 @@
 import { AngularFireModule } from '@angular/fire';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule, MatCheckboxModule } from '@angular/material';
+import { MatCardModule, MatCheckboxModule, MatOptionModule } from '@angular/material';
 
 
 
