@@ -56,10 +56,10 @@
                   <p><b class="TexteSelect">Type of transaction</b></p>
                   <select
                     class="custom-select"
-                    id="inputGroupSelect01"
-                    name="inputGroupSelect01"
+                    id="TypeOfTransation"
+                    name="TypeOfTransation"
                     ngModel
-                    [ngClass]='InputControl'
+                    [ngClass]=' TypeOfTransationInputControl'
                   >
                   <option value="" selected disabled hidden>Choose a type</option>
                   <option selected="selected" value="Services">Services</option>
@@ -72,11 +72,11 @@
                 <div class="form-group">
                   <p><b class="TexteSelect">Your role</b></p>
                   <select
-                    class="custom-select ValidationColor "
-                    id="inputGroupSelect02"
-                    name="inputGroupSelect02"
+                    class="custom-select "
+                    id="role"
+                    name="role"
                     ngModel
-                    [ngClass]='InputControl'
+                    [ngClass]='YourRoleInputControl'
                   >
                     <option value="" selected disabled hidden>Choose a role</option>
                     <option value="Buyer">Buyer</option>
@@ -85,13 +85,7 @@
                 </div>
               </div>
               <div class="row" id="StartNoworri">
-                <button
-                  type="submit"
-                  class="btn btn-sm btn-success m-b-0 ripple light"
-                  desabled
-                >
-                  Start Noworri
-                </button>
+                <button mat-raised-button >Start Noworri</button>
               </div>
             </form>
           </div>

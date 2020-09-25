@@ -18,44 +18,43 @@
                   <img src="{{ pp }}" class="img-menu-user img-radius" alt="User-Profile-Image" />
                 </a>
               </div>
+              
             </li>
+
             <li class="ripple light" id="ProfilNameEtMail">
               <div class="row">
                 <a (click)="onViewProfile()" class="Nom">{{ currentUser }}</a>
-              </div>
-              <div class="row">
-                <h6 class="Mail">{{ userEmail }}</h6>
+                <a class="Settings">
+                  <a [matMenuTriggerFor]="menu">
+                    <mat-icon class="icon">settings</mat-icon>
+                  </a>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item>PROFIL</button>
+                    <button mat-menu-item>ACCOUNT</button>
+                    <button mat-menu-item>SINGOUT</button>
+                  </mat-menu>
+                </a>
               </div>
             </li>
-            <li class="header-search">
+            <li class="header-search" *ngIf='waitingDisplayInput'>
               <form #form="ngForm">
-                <intl-tel-input
-                    [name]="'my-name'"
-                    [cssClass]="'form-control'"
-                    [labelCssClass]="'col-sm-2 col-form-label'"
-                    [required]="true"
-                    [options]="{
-                        preferredCountries: [],
-                        localizedCountries: {ng:'Nigeria',gh:'Ghana',ci:'Côte d Ivoire'},
-                        onlyCountries: [
-                        'GH',
-                        'CI',
-                        'NG'
-                        ]
-                    }"
-                    [onlyLocalized]="true"
-                    [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
-             </form>    
+                <intl-tel-input  [name]="'my-name'" [cssClass]="'form-control'"
+                  [labelCssClass]="'col-sm-2 col-form-label'" [required]="true"  [options]="countryData" 
+                  [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
+              </form>
             </li>
           </ul>
-          <ul class="input-group-append prospan">
-              <button class="btn btn-secondary btn-sm Prospan-button" type="button"><mat-icon>search</mat-icon></button>
+          <ul  class="input-group-append prospan" *ngIf='waitingDisplayInput'>
+            <button class="btn btn-secondary btn-sm Prospan-button" type="button">
+              <mat-icon>search</mat-icon>
+            </button>
           </ul>
           <ul class="OnlineVendor">
             <h6>Are you an online vendor?</h6>
           </ul>
           <ul class="UL">
-            <button type="button" class="btn btn-primary btn-sm ul"    (click)='routingToHomegetstrusted()'>Get strusted</button>
+            <button type="button" class="btn btn-primary btn-sm ul" (click)='routingToHomegetstrusted()'>Get
+              strusted</button>
           </ul>
         </div>
       </div>
@@ -246,8 +245,8 @@
                 <div class="SideBar">
                   <ul class="navbar-nav mr-auto" *ngFor="let asideItem of asideItems.main">
                     <li class="nav-item">
-                      <a class="nav-link active" [routerLink]="['/', asideItem.name]" routerLinkActive="RouterLinkActive"
-                        href="#">{{ asideItem.state }}
+                      <a class="nav-link active" [routerLink]="['/', asideItem.name]"
+                        routerLinkActive="RouterLinkActive" href="#">{{ asideItem.state }}
                       </a>
                     </li>
                   </ul>
