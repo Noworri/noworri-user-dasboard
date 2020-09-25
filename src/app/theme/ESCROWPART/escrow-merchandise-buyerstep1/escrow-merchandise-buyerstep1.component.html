@@ -1,0 +1,186 @@
+<div class="container">
+  <form (ngSubmit)="onCompleteStep1(F,sellersForms,deliveryForms)" #F="ngForm">
+    <div class="row">
+      <div class="col-sm" id="col-sm">
+        <div class="card">
+          <div class="ServiceStep1">
+            <mat-icon class="cancel" routerLink="/home">cancel</mat-icon>
+            <h6 class="Merchandise">Merchandise: Step 1 of 2</h6>
+            <hr />
+            <div class="card-body">
+              <div id="Please">
+                <h5 class="Please">
+                  Please provide details for the transaction
+                </h5>
+              </div>
+              <div id="Form1">
+                <div class="form-group">
+                  <label id="PrincipaleTitle" for="exampleInputEmail1">What are you purchasing?</label>
+                  <input type="text" class="form-control" id="item" name="item" ngModel aria-describedby="emailHelp"
+                    (click)="AfficheSide1()" [ngClass]="itemControl" />
+                </div>
+              </div>
+              <div id="Form2">
+                <label id="PrincipaleTitle" for="price">What's the price ?</label>
+                <label style="margin-left: 303px; font-weight: 600;" for="exampleInputEmail1">CURRENCY</label>
+                <div class="row">
+                  <div class="col">
+                    <input type="text" style="width: 420px;" class="form-control" id="price" name="price" ngModel
+                      (click)="AfficheSide2()" [ngClass]="priceControl" />
+                  </div>
+                  <div class="col">
+                    <div class="input-group-text">
+                      <img src="assets/images/devise.png" />
+                      <h1 class="GHC">GHC</h1>
+                    </div>
+                  </div>
+                  <p class="NoworriFee">Noworri Fees :</p>
+                  <span class="fee">1.95% of the price</span>
+                </div>
+
+                <div id="PetitInput1">
+                  <label class="Sellersphone">Seller's phone number</label>
+                  <form #sellersForms="ngForm">
+                    <intl-tel-input (click)="AfficheSide3()" [name]="'sellerPhoneNumber'" [options]="countryData"
+                      [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                    </intl-tel-input>
+                  </form>
+                </div>
+                <div id="PetitInput2">
+                  <label>Delivery phone number</label>
+                  <p>
+                    If you don't have the delivery number, ask the seller or
+                    leave it empty the seller will fill it.
+                  </p>
+                  <div class="inp">
+                    <form #deliveryForms="ngForm">
+                      <intl-tel-input (click)="AfficheSide4()" [name]="'deliveryPhoneNumber'" [options]="countryData"
+                        [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                      </intl-tel-input>
+                    </form>
+                  </div>
+                </div>
+
+                <div id="PetitInput3">
+                  <label for="exampleInputEmail1">Descriptions</label>
+                  <textarea class="form-control" id="description" name="description" rows="3" (click)="AfficheSide5()"
+                    ngModel [ngClass]="descriptionControl"></textarea>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm"></div>
+                    <div class="col-sm">
+                      <div class="Loading">
+                        <button *ngIf="isValidating" mat-raised-button>
+                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          processing...
+                        </button>
+                      </div>
+                      <button type="submit" *ngIf="!isValidating" mat-raised-button> Continue</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="container" id="CARDS">
+          <div class="col" id="card1" *ngIf="BoolAffichage1">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Tell us what items or products you're about to purchase
+                      from the seller. It could be a shoe, a dress , electronic,
+                      etc..
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card2">
+            <div class="card w-100" *ngIf="BoolAffichage2">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Put the price of the items or products you want to
+                      purchase. If you don't know the price kindly ask the
+                      seller.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card3">
+            <div class="card w-100" *ngIf="BoolAffichage3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Put the seller's phone number. The seller must have a
+                      Noworri account for you to be able to create this
+                      transaction. If the seller hasn't a Noworri account, tell
+                      him to create an account.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card4">
+            <div class="card w-100" *ngIf="BoolAffichage4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      Put the phone number of the deliveryman who is supposing
+                      to bring you the product or items. If you don't have the
+                      deliveryman's number, ask the seller or leave it empty the
+                      seller will fill it.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" id="card5">
+            <div class="card w-100" *ngIf="BoolAffichage5">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      If you want to give more specifications of the product you
+                      want to purchase you can write it: Ex: l want 2 bags one
+                      should be bleu and the second one black.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

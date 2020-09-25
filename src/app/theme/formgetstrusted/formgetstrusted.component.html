@@ -6,11 +6,11 @@
     <form>
       <div class="form-group col-sm-10">
         <label for="input">Your full name</label>
-        <input type="text" class="form-control" id="input">
+        <input type="text" class="form-control" id="input1">
       </div>
       <div class="form-group col-sm-10">
         <label for="input">Business Name</label>
-        <input type="text" class="form-control" id="input">
+        <input type="text" class="form-control" id="input1">
       </div>
       <div class="container col-sm-10">
         <div class="row">
@@ -61,19 +61,25 @@
       <div class="container  BusinessPhoneNumber col-sm-10">
         <label style=" margin-left: -45px;">Business phone number</label>
         <div class="input-group businessPhoneNumber">
-          <div class="input-group-prepend-light">
-            <span class="input-group-text">+233 |</span>
+          <div class="input-group-prepend-light" *ngIf='waitingDisplayInput'>
+            <form  #formSeller="ngForm">
+              <intl-tel-input [name]="'my-name'" [cssClass]="'form-control'" [labelCssClass]="'col-sm-2 col-form-label'"
+                [required]="true" [options]="countryData" [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
+            </form>
           </div>
-          <input type="text" class="form-control" required>
+
         </div>
       </div>
       <div class="container  col-sm-10 AdditionalPhoneNumbers">
         <label>Additional phone numbers</label>
         <div class="input-group businessPhoneNumber">
-          <div class="input-group-prepend-light">
-            <span class="input-group-text">+233 |</span>
+          <div class="input-group-prepend-light" *ngIf='waitingDisplayInput'>
+            <form  #formSeller="ngForm">
+              <intl-tel-input [name]="'my-name'" [cssClass]="'form-control'" [labelCssClass]="'col-sm-2 col-form-label'"
+                [required]="true" [options]="countryData" [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
+            </form>
           </div>
-          <input type="text" class="form-control" required>
+
           <span class="input-group-text span-right">Add</span>
         </div>
 
@@ -93,20 +99,22 @@
       <div class="form-group" style="margin-top: 10px;">
         <div class="form-group col-sm-10">
           <label for="input">Facebook link</label>
-          <input type="text" class="form-control" id="input">
+          <input type="text" class="form-control" id="input1">
         </div>
       </div>
       <div class="container  col-sm-10 AdditionalPhoneNumbers WhatsAppPhoneNumber ">
         <label>WhatsApp phone number</label>
         <div class="input-group businessPhoneNumber">
-          <div class="input-group-prepend-light">
-            <span class="input-group-text">+233 |</span>
+          <div class="input-group-prepend-light" *ngIf='waitingDisplayInput'>
+            <form  #formSeller="ngForm">
+              <intl-tel-input [name]="'my-name'" [cssClass]="'form-control'" [labelCssClass]="'col-sm-2 col-form-label'"
+                [required]="true" [options]="countryData" [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
+            </form>
           </div>
-          <input type="text" class="form-control" required>
         </div>
 
       </div>
-      <div  class="continusButton text-center">
+      <div class="continusButton text-center">
         <button type="button" class="btn btn-primary btn-sm " (click)='continueToIdentityVerication()'>Continue</button>
       </div>
     </form>

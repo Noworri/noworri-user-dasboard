@@ -39,7 +39,6 @@ import { CollapseModule } from "ngx-bootstrap/collapse";
 import { HttpClientModule } from "@angular/common/http";
 import { CoolComponent } from "./view/cool/cool.component";
 import { DisputPageComponent } from "./theme/disput-page/disput-page.component";
-import { DisputesComponent } from "./theme/disputes/disputes.component";
 import { PaymentComponent } from "./theme/payment/payment.component";
 import { HomeComponent } from "./theme/home/home.component";
 import { TransactionsComponent } from "./theme/transactions/transactions.component";
@@ -51,8 +50,6 @@ import { EditorModule } from "@tinymce/tinymce-angular";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { AmazingTimePickerModule } from "amazing-time-picker";
 import { NgPaymentCardModule } from "ng-payment-card";
-import { MerchandiseEscrowStep1Component } from "./theme/merchandise-escrow-step1/merchandise-escrow-step1.component";
-import { MerchandiseEscrowStep2Component } from "./theme/merchandise-escrow-step2/merchandise-escrow-step2.component";
 import { RegisterComponent } from "./theme/auth/register/register.component";
 import { LoginComponent } from './theme/auth/login/login.component';
 import { BuyerServicesContratComponent } from './theme/buyer-services-contrat/buyer-services-contrat.component';
@@ -60,16 +57,22 @@ import { SellerServicesContratComponent } from './theme/seller-services-contrat/
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 import { BuyerServicesContratModule } from './theme/buyer-services-contrat/buyer-services-contrat.module';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
-import { SellerEscrowMerchandiseStep1Component } from './theme/seller-escrow-merchandise-step1/seller-escrow-merchandise-step1.component';
-import { EscrowServicesBuyersStep1Component } from './theme/escrow-services-buyers-step1/escrow-services-buyers-step1.component';
-import { EscrowServicesSellersStep1Component } from './theme/escrow-services-sellers-step1/escrow-services-sellers-step1.component';
-import { EscrowServicesSellersStep2Component } from './theme/escrow-services-sellers-step2/escrow-services-sellers-step2.component';
+
 import { HomegetstrustedComponent } from './theme/homegetstrusted/homegetstrusted.component';
 import { FormgetstrustedComponent } from './theme/formgetstrusted/formgetstrusted.component';
 import { IdentityVerificationComponent } from './theme/identity-verification/identity-verification.component';
 import { GetstrutedRecapComponent } from './theme/getstruted-recap/getstruted-recap.component';
 import { SelfiVericationComponent } from './theme/selfi-verication/selfi-verication.component';
-import { MatOptionModule, MatSelectModule } from '@angular/material';
+import {MatMenuModule} from '@angular/material/menu';
+import { GeoLocationService } from './Service/geo-location.service';
+import { EscrowServiceBuyerstep1Component } from './theme/ESCROWPART/escrow-service-buyerstep1/escrow-service-buyerstep1.component';
+import { EscrowServiceSellerstep1Component } from './theme/ESCROWPART/escrow-service-sellerstep1/escrow-service-sellerstep1.component';
+import { EscrowServiceSellerstep2Component } from './theme/ESCROWPART/escrow-service-sellerstep2/escrow-service-sellerstep2.component';
+import { EscrowServiceBuyerstep2Component } from './theme/ESCROWPART/escrow-service-buyerstep2/escrow-service-buyerstep2.component';
+import { EscrowMerchandiseBuyerstep1Component } from './theme/ESCROWPART/escrow-merchandise-buyerstep1/escrow-merchandise-buyerstep1.component';
+import { EscrowMerchandiseSellerstep1Component } from './theme/ESCROWPART/escrow-merchandise-sellerstep1/escrow-merchandise-sellerstep1.component';
+import { EscrowMerchandiseSellerstep2Component } from './theme/ESCROWPART/escrow-merchandise-sellerstep2/escrow-merchandise-sellerstep2.component';
+import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-merchandise-buyerstep2/escrow-merchandise-buyerstep2.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +85,6 @@ import { MatOptionModule, MatSelectModule } from '@angular/material';
     LandingPageComponent,
     ResultPageComponent,
     DisputPageComponent,
-    DisputesComponent,
     PrivacyComponent,
     PolicyComponent,
     PaymentComponent,
@@ -93,21 +95,24 @@ import { MatOptionModule, MatSelectModule } from '@angular/material';
     ApiIntegrationComponent,
     RegisterComponent,
     LoginComponent,
-    MerchandiseEscrowStep1Component,
-    MerchandiseEscrowStep2Component,
+   
     BuyerServicesContratComponent,
     SellerServicesContratComponent,
     SellerMerchandiseContratComponent,
     BuyerMerchandiseContratComponent,
-    SellerEscrowMerchandiseStep1Component,
-    EscrowServicesBuyersStep1Component,
-    EscrowServicesSellersStep1Component,
-    EscrowServicesSellersStep2Component,
     HomegetstrustedComponent,
     FormgetstrustedComponent,
     IdentityVerificationComponent,
     SelfiVericationComponent,
-    GetstrutedRecapComponent
+    GetstrutedRecapComponent,
+    EscrowServiceBuyerstep1Component,
+    EscrowServiceSellerstep1Component,
+    EscrowServiceSellerstep2Component,
+    EscrowServiceBuyerstep2Component,
+    EscrowMerchandiseBuyerstep1Component,
+    EscrowMerchandiseSellerstep1Component,
+    EscrowMerchandiseSellerstep2Component,
+    EscrowMerchandiseBuyerstep2Component
 
 
   ],
@@ -123,8 +128,6 @@ import { MatOptionModule, MatSelectModule } from '@angular/material';
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatOptionModule,
-    MatSelectModule,
     MatRadioModule,
     MatFormFieldModule,
     MatIconModule,
@@ -138,9 +141,10 @@ import { MatOptionModule, MatSelectModule } from '@angular/material';
     AmazingTimePickerModule,
     EditorModule,
     NgPaymentCardModule,
+    MatMenuModule
   ],
   schemas: [],
-  providers: [MenuItems, HomeInputService, RegisterService, BsModalRef],
+  providers: [MenuItems, HomeInputService, RegisterService, BsModalRef,GeoLocationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

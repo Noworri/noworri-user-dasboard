@@ -10,6 +10,7 @@ import {
 } from '@angular/animations'
 import { MenuItems } from '../../shared/menu-items/menu-items'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
+import { GeoLocationService } from '../../Service/geo-location.service'
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
@@ -106,11 +107,19 @@ export class AdminComponent implements OnInit, OnDestroy {
     backdrop: true,
     ignoreBackdropClick: true,
     class: 'cool'
-  }
+  };
 
-  currentUser: string
-  userEmail: string
-  pp: string
+  countryData: any;
+  locationData: string;
+  waitingDisplayInput: boolean;
+  inputIsSet: boolean;
+
+
+
+
+  currentUser: string;
+  userEmail: string;
+  pp: string;
 
   public animateSidebar: string
   public navType: string
@@ -178,7 +187,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   // ----For search input ---------//
 
-   
+
 
 
 
@@ -207,24 +216,25 @@ export class AdminComponent implements OnInit, OnDestroy {
   constructor(
     private Router: Router,
     public menuItems: MenuItems,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private geoLocationService: GeoLocationService
   ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.currentUser = sessionData.first_name;
     this.userEmail = sessionData.email;
-    this.pp = sessionData.photo === null ? 'assets/images/Empty-Profile-Testimonials.jpg' : `https://noworri.com/api/public/uploads/images/pp/${sessionData.photo}`;
-    this.animateSidebar = ''
-    this.navType = 'st2'
-    this.themeLayout = 'vertical'
-    this.verticalPlacement = 'left'
-    this.verticalLayout = 'wide'
-    this.pcodedDeviceType = 'desktop'
-    this.verticalNavType = 'expanded'
-    this.verticalEffect = 'shrink'
-    this.vnavigationView = 'view1'
-    this.freamType = 'theme1'
-    this.sidebarImg = 'false'
-    this.sidebarImgType = 'img1'
+    this.pp = sessionData.photo === null ? './../../../assets/profilPhotoAnimation.gif' : `https://noworri.com/api/public/uploads/images/pp/${sessionData.photo}`;
+    this.animateSidebar = '';
+    this.navType = 'st2';
+    this.themeLayout = 'vertical';
+    this.verticalPlacement = 'left';
+    this.verticalLayout = 'wide';
+    this.pcodedDeviceType = 'desktop';
+    this.verticalNavType = 'expanded';
+    this.verticalEffect = 'shrink';
+    this.vnavigationView = 'view1';
+    this.freamType = 'theme1';
+    this.sidebarImg = 'false';
+    this.sidebarImgType = 'img1';
     this.layoutType = 'light' // light(default) dark(dark)
 
     this.headerTheme = 'theme1' // theme1(default)
@@ -287,19 +297,17 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.searchInputStyle();
-
-    this.setBackgroundPattern('theme1')
+    this.getDataLocation();
+    this.setBackgroundPattern('theme1');
   }
-  searchInputStyle() {
-    document.getElementsByTagName('input')[0].setAttribute('style','border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:blue')
-   
 
+  searchInputStyle() {
+    document.getElementsByTagName('input')[0].setAttribute('style', 'border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:blue')
   }
 
   onResize(event) {
     this.windowWidth = event.target.innerWidth;
-    this.setHeaderAttributes(this.windowWidth)
+    this.setHeaderAttributes(this.windowWidth);
 
     let reSizeFlag = true
     if (
@@ -678,16 +686,39 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    localStorage.setItem('dataToken', 'false')
+    localStorage.setItem('dataToken', 'false');
   }
 
   lock() {
-    localStorage.setItem('lockScreen', 'true')
+    localStorage.setItem('lockScreen', 'true');
   }
   routingseachpage() {
-    this.Router.navigate(['searchpage'])
+    this.Router.navigate(['searchpage']);
   }
-  routingToHomegetstrusted(){
-    this.Router.navigate(['homegetstrusted'])
+  routingToHomegetstrusted() {
+    this.Router.navigate(['homegetstrusted']);
   }
+
+
+
+  // --For contry location-- then set input style ----//
+  getDataLocation() {
+    new Promise((resolve) => {
+      this.geoLocationService.getLocation().subscribe((data) => {
+        resolve(this.locationData = data['country'])
+      });
+    }).then(() => {
+      this.countryData = {
+        preferredCountries: [`${this.locationData}`],
+        localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d Ivoire' },
+        onlyCountries: ['GH', 'NG', 'BJ']
+      };
+    }).then(() => {
+      this.waitingDisplayInput = true;
+      setTimeout(() => {
+        this.searchInputStyle();
+      });
+    });
+    }
+
 }

@@ -56,9 +56,9 @@ const MENUITEMS = [
         type: "link",
       },
       {
-        state: "Payments",
+        state: "",
         short_label: "P",
-        name: "payments",
+        name: "",
         icon: "",
         type: "link",
       },
@@ -113,9 +113,9 @@ const MENUITEMS = [
         target: false,
       },
       {
-        state: "Settings",
+        state: "",
         short_label: "CS",
-        name: "Settings",
+        name: "",
         icon: "",
         type: "link",
         target: false,
