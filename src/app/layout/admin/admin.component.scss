@@ -13,7 +13,7 @@
       }
       #ProfilNameEtMail {
         margin-top: 12px;
-        margin-right: 12px;
+        margin-left: -25px;
         .Nom {
           text-align: left;
           font: Regular 24px/35px Poppins;
@@ -21,22 +21,25 @@
           color: #000000;
           opacity: 1;
           font-size: 13px;
-          margin-left: -10px;
+          margin-left: -6px;
+          margin-top: 13px;
         }
-        .Mail {
-          text-align: left;
-          font: Regular 20px/27px Segoe UI;
-          letter-spacing: 0;
-          color: #9b9b9b;
-          opacity: 1;
-          font-size: small;
-          font-weight: 100;
+        .Settings{
+          margin-left: -20px;
+          margin-top: 18px;
+         .icon{
+           font-size: medium;
+           margin-left: 6px;
+          
+         }
+          
         }
+       
       }
     }
     .header-search {
       margin-top: 30px;
-      margin-left: 40px;
+      margin-left: 96px;
     }
   }
   .nav-right {
@@ -86,9 +89,8 @@
 
   // ---sideBar---------//
   .SideBar {
-    margin-top: 120px;
+    margin-top: 92px;
     margin-left: 32px;
-    border-width: 0px;
     .nav-link {
       &:hover {
         color: #2bb996;
@@ -318,7 +320,7 @@
 }
 #modal-body {
   .Youwill {
-    ext-align: left;
+   text-align: left;
     font: Semibold 20px/27px Segoe UI;
     letter-spacing: 0;
     color: #707070;

@@ -2,6 +2,7 @@
 .page-body {
   margin-top: 80px;
   margin-left: 50px;
+ 
   .app-card1 {
     h2 {
       text-align: left;
@@ -98,11 +99,15 @@
       opacity: 1;
       margin-left: 17px;
       text-align: left;
-      font: Regular 24px/35px Poppins;
+      font-size: small;
+      font: Regular 4px/35px Poppins;
       letter-spacing: 0;
       color: #ffffff;
       opacity: 1;
       top: 20px;
+      &:after{
+        border-color: red;
+      }
     }
   }
   .col-sm-5 {
