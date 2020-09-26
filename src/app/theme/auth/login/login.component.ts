@@ -1,3 +1,4 @@
+import { AuthserviceService } from './../../../Service/authservice.service';
 import { AuthModule } from './../auth.module';
 import { from, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -7,7 +8,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { countryISO } from '../../../shared/utils/country';
 import { takeUntil } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/Service/auth.service';
 import { UserReference } from 'src/app/Service/reference-data.interface';
 
 const USER_SESSION_KEY = 'noworri-user-session';
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthserviceService
   ) {
     const sessionData = sessionStorage.getItem(SESSION_STORAGE_KEY);
     const userData = localStorage.getItem(USER_SESSION_KEY);

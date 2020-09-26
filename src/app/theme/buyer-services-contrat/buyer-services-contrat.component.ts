@@ -1,3 +1,5 @@
+import { AuthserviceService } from './../../Service/authservice.service';
+import { AuthService } from './../../core/auth/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TransactionsService } from 'src/app/Service/transactions.service';
@@ -5,7 +7,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { isEmpty } from 'lodash';
 import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
-import { AuthenticationService } from 'src/app/Service/auth.service';
 import { TrustedString } from '@angular/core/src/sanitization/bypass';
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
@@ -117,7 +118,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private companyService: NoworriSearchService,
-    private userService: AuthenticationService
+    private userService: AuthserviceService
   ) {
     this.todaysDate = new Date();
     this.transactionKey = this.route.snapshot.paramMap.get('transactionKey');
