@@ -1,3 +1,5 @@
+import { AuthserviceService } from './../../../Service/authservice.service';
+
 import { Component, OnInit } from '@angular/core';
 import { MerchandiseEscrowStep1Reference, CompanyReference } from 'src/app/Service/reference-data.interface';
 import { Router } from '@angular/router';
@@ -7,8 +9,9 @@ import { isEmpty } from 'lodash';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AuthService } from 'src/app/Service/auth.service';
 import { GeoLocationService } from '../../../Service/geo-location.service';
+
+
 
 const LOCAL_STORAGE_KEY_0 = 'noworri-escrow-0';
 const LOCAL_STORAGE_KEY_1 = 'merchandise-escrow-1';
@@ -103,7 +106,7 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
 
   constructor(
     private router: Router,
-    private companyService: AuthService,
+    private companyService: AuthserviceService,
     private formbuilder: FormBuilder,
     private transactionsService: TransactionsService,
     private geoLocationService: GeoLocationService

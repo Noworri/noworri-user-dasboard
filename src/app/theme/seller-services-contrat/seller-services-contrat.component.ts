@@ -1,9 +1,10 @@
+import { AuthserviceService } from './../../Service/authservice.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/Service/auth.service';
+
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
@@ -92,7 +93,7 @@ export class SellerServicesContratComponent implements OnInit, OnDestroy {
     private transactionsService: TransactionsService,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: AuthenticationService
+    private userService: AuthserviceService
   ) {
     this.transactionKey = this.route.snapshot.paramMap.get('transactionKey');
     this.updateDate = '';

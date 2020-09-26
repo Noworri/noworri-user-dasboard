@@ -3,10 +3,11 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Observable, throwError as observableThrowError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthserviceService {
   constructor(private http: HttpClient) {}
 
   login(phoneNumber, password): Observable<any> {
@@ -70,4 +71,6 @@ export class AuthenticationService {
       })
     );
   }
+
+ 
 }

@@ -1,3 +1,4 @@
+import { AuthserviceService } from './../../../Service/authservice.service';
 import { from, Subject } from 'rxjs';
 import { RegisterService } from './register.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +10,7 @@ import * as firebase from 'firebase';
 import { NgForm } from '@angular/forms';
 import { setTNodeAndViewData } from '@angular/core/src/render3/state';
 import { takeUntil } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/Service/auth.service';
+
 
 @Component({
   selector: 'app-register',
@@ -52,8 +53,7 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private auth: AuthService,
-    private authService: AuthenticationService,
+    private authService: AuthserviceService,
     private registerService: RegisterService
   ) {}
   ngOnInit() {

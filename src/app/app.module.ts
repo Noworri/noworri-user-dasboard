@@ -1,12 +1,12 @@
+
+
 import { TermConditionsComponent } from "./theme/privacy/term-conditions/term-conditions.component";
 import { PolicyComponent } from "./theme/privacy/policy/policy.component";
 import { PrivacyComponent } from "./theme/privacy/privacy.component";
 import { LandingPageComponent } from "./theme/landing-page/landing-page.component";
 import { SearchPageComponent } from "./theme/search-page/search-page.component";
 import { ResultPageComponent } from "./theme/result-page/result-page.component";
-
 import { Router, Routes, RouterModule } from "@angular/router";
-
 import { RegisterService } from "./theme/auth/register/register.service";
 import { environment } from "./../environments/environment.prod";
 import { HomeInputService } from "./Service/home-input.service";
@@ -28,6 +28,8 @@ import { MenuItems } from "./shared/menu-items/menu-items";
 import { BreadcrumbsComponent } from "./layout/admin/breadcrumbs/breadcrumbs.component";
 import { ModalModule, BsModalRef } from "ngx-bootstrap/modal";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+
+
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
@@ -57,13 +59,12 @@ import { SellerServicesContratComponent } from './theme/seller-services-contrat/
 import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
 import { BuyerServicesContratModule } from './theme/buyer-services-contrat/buyer-services-contrat.module';
 import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
-
 import { HomegetstrustedComponent } from './theme/homegetstrusted/homegetstrusted.component';
 import { FormgetstrustedComponent } from './theme/formgetstrusted/formgetstrusted.component';
 import { IdentityVerificationComponent } from './theme/identity-verification/identity-verification.component';
 import { GetstrutedRecapComponent } from './theme/getstruted-recap/getstruted-recap.component';
 import { SelfiVericationComponent } from './theme/selfi-verication/selfi-verication.component';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { GeoLocationService } from './Service/geo-location.service';
 import { EscrowServiceBuyerstep1Component } from './theme/ESCROWPART/escrow-service-buyerstep1/escrow-service-buyerstep1.component';
 import { EscrowServiceSellerstep1Component } from './theme/ESCROWPART/escrow-service-sellerstep1/escrow-service-sellerstep1.component';
@@ -73,6 +74,7 @@ import { EscrowMerchandiseBuyerstep1Component } from './theme/ESCROWPART/escrow-
 import { EscrowMerchandiseSellerstep1Component } from './theme/ESCROWPART/escrow-merchandise-sellerstep1/escrow-merchandise-sellerstep1.component';
 import { EscrowMerchandiseSellerstep2Component } from './theme/ESCROWPART/escrow-merchandise-sellerstep2/escrow-merchandise-sellerstep2.component';
 import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-merchandise-buyerstep2/escrow-merchandise-buyerstep2.component';
+
 
 @NgModule({
   declarations: [
@@ -95,7 +97,6 @@ import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-
     ApiIntegrationComponent,
     RegisterComponent,
     LoginComponent,
-   
     BuyerServicesContratComponent,
     SellerServicesContratComponent,
     SellerMerchandiseContratComponent,
@@ -112,9 +113,7 @@ import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-
     EscrowMerchandiseBuyerstep1Component,
     EscrowMerchandiseSellerstep1Component,
     EscrowMerchandiseSellerstep2Component,
-    EscrowMerchandiseBuyerstep2Component
-
-
+    EscrowMerchandiseBuyerstep2Component,
   ],
   imports: [
     BrowserModule,
@@ -144,7 +143,7 @@ import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-
     MatMenuModule
   ],
   schemas: [],
-  providers: [MenuItems, HomeInputService, RegisterService, BsModalRef,GeoLocationService],
+  providers: [MenuItems, HomeInputService, RegisterService, BsModalRef, GeoLocationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
