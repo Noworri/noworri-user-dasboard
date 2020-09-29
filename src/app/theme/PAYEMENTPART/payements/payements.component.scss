@@ -1,0 +1,452 @@
+#card {
+  margin-top: 100px;
+  margin-left: 50px;
+  height: 560px;
+  hr {
+    background-color: #ff3400;
+    margin-top: -1px;
+    height: 0.9px;
+  }
+
+  .card-body {
+    margin-top: -30px;
+  }
+}
+.mat-tab-label {
+  font: normal normal normal 15px/30px Poppins;
+  letter-spacing: 0px;
+  color: #60be92;
+  font-size: medium;
+  margin-right: 60px;
+}
+#bankCard {
+  margin-top: 36px;
+  .bankCard1 {
+    .FidelityBankGhana {
+      font-size: small;
+    }
+  }
+}
+/*---------------Banque account Part--------------*/
+.tabs {
+  .Addabankaccount {
+    margin-top: 20px;
+    a {
+      text-decoration: underline;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+  .BankImag {
+    width: 20px;
+    margin-top: 90px;
+  }
+  .thatYoud {
+    margin-top: 8px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #292929;
+    opacity: 1;
+    font-size: small;
+    font-weight: 400;
+  }
+}
+#bank {
+  .card1 {
+    background-color: #e3e8ee;
+    margin-left: -13px;
+    margin-top: 10px;
+    .FidelityBank {
+      color: #373737;
+      font-weight: 500;
+      margin-left: 14px;
+      margin-top: 14px;
+    }
+    .Delete {
+      margin-left: 40px;
+      color: #373737;
+      font-size: small;
+      font-weight: 300;
+      margin-top: 12px;
+      cursor: pointer;
+      min-width: 10%;
+    }
+    .AccountNumber {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #9d9d9d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .CardNumber {
+      text-align: left;
+      font: normal normal normal 15px/21px Poppins;
+      letter-spacing: 0px;
+      color: #3d3d3d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .play_arrow {
+      margin-left: 110px;
+      height: 24px;
+      transform: scale(2.5);
+      margin-top: 12px;
+    }
+    .AccountName {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #9d9d9d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .Name {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #3d3d3d;
+      opacity: 1;
+      margin-left: 13px;
+    }
+    .PrimaryAccount {
+      text-align: left;
+      letter-spacing: 0px;
+      color: #2bb996;
+      opacity: 1;
+      margin-top: 30px;
+      margin-left: 50px;
+      font-size: small;
+      font-weight: 200;
+    }
+  }
+}
+
+//-----------add bank account scs----//
+.AddBankaccountCss {
+  
+  margin-top: 180px;
+  .BankAccountDetails {
+    text-align: left;
+    font: normal normal medium 16px/25px Poppins;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    margin-top: 6px;
+  }
+  .cancel {
+    margin-left: 240px;
+    font-size: 25px;
+    margin-bottom: 9px;
+    opacity: 1;
+    color: red;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+  .modal-body {
+    background: #e3e8ee;
+    label {
+      text-align: center;
+      font-size: small;
+      letter-spacing: 0px;
+      color: #131313;
+      opacity: 1;
+      font-weight: bold;
+    }
+    .form-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  button {
+    background: #3aadd9;
+    border-radius: 4px;
+    opacity: 1;
+  }
+}
+
+/*--------------------------------Mobile wallet account part --------*/
+
+.tabs {
+  .Addamobilewallet {
+    margin-top: 20px;
+    a {
+      text-decoration: underline;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+  .WalletImag {
+    width: 20px;
+    margin-top: 27px;
+  }
+  .thatYoud {
+    margin-top: 8px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #292929;
+    opacity: 1;
+    font-size: small;
+    font-weight: 400;
+  }
+}
+#bank {
+  .card1 {
+    background-color: #e3e8ee;
+    margin-left: -13px;
+    margin-top: 10px;
+    .MTN {
+      color: #373737;
+      font-weight: 500;
+      margin-left: 14px;
+      margin-top: 14px;
+    }
+    .Delete {
+      margin-left: 40px;
+      color: #373737;
+      font-size: small;
+      font-weight: 300;
+      margin-top: 12px;
+      cursor: pointer;
+      min-width: 10%;
+    }
+    .Mobilemoneynumbe {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #9d9d9d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .CardNumber {
+      text-align: left;
+      font: normal normal normal 15px/21px Poppins;
+      letter-spacing: 0px;
+      color: #3d3d3d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .play_arrow {
+      margin-left: 110px;
+      height: 24px;
+      transform: scale(2.5);
+      margin-top: 12px;
+    }
+    .AccountName {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #9d9d9d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .Name {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #3d3d3d;
+      opacity: 1;
+      margin-left: 13px;
+    }
+    .PrimaryAccount {
+      text-align: left;
+      letter-spacing: 0px;
+      color: #2bb996;
+      opacity: 1;
+      margin-top: 30px;
+      margin-left: 50px;
+      font-size: small;
+      font-weight: 200;
+    }
+  }
+}
+
+//-----------add Mobile wallet  account sccs----//
+.AddBankaccountCss {
+  margin-top: 180px;
+  .WalletAccount {
+    text-align: left;
+    font: normal normal medium 16px/25px Poppins;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    margin-top: 6px;
+  }
+  .cancel {
+    margin-left: 200px;
+    font-size: 25px;
+    margin-bottom: 9px;
+    opacity: 1;
+    color: red;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+  .modal-body {
+    background: #e3e8ee;
+    label {
+      text-align: center;
+      font-size: small;
+      letter-spacing: 0px;
+      color: #131313;
+      opacity: 1;
+      font-weight: bold;
+    }
+    .form-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  button {
+    background: #3aadd9;
+    border-radius: 4px;
+    opacity: 1;
+  }
+}
+/*-----------------------for card part----------------------*/
+
+.tabs {
+  .AddACreditCard {
+    margin-top: 20px;
+    a {
+      text-decoration: underline;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+  .BankImag {
+    width: 20px;
+    margin-top: 20px;
+  }
+  .thatYoud {
+    margin-top: 8px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #292929;
+    opacity: 1;
+    font-size: small;
+    font-weight: 400;
+  }
+}
+#bank {
+  .card1 {
+    background-color: #e3e8ee;
+    margin-left: -13px;
+    margin-top: 10px;
+    .Visa {
+      color: #373737;
+      font-weight: 500;
+      margin-left: 14px;
+      margin-top: 14px;
+    }
+    .Delete {
+      margin-left: 40px;
+      color: #373737;
+      font-size: small;
+      font-weight: 300;
+      margin-top: 12px;
+      cursor: pointer;
+      min-width: 10%;
+    }
+    .AccountNumber {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #9d9d9d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .ExpireDate {
+      text-align: left;
+      font: normal normal normal 15px/21px Poppins;
+      letter-spacing: 0px;
+      color: #3d3d3d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .play_arrow {
+      margin-left: 110px;
+      height: 24px;
+      transform: scale(2.5);
+      margin-top: 12px;
+    }
+    .AccountDate {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #9d9d9d;
+      opacity: 1;
+      margin-left: 14px;
+    }
+    .Name {
+      text-align: left;
+      font: normal normal normal 14px/21px Poppins;
+      letter-spacing: 0px;
+      color: #3d3d3d;
+      opacity: 1;
+      margin-left: 13px;
+    }
+    .PrimaryAccount {
+      text-align: left;
+      letter-spacing: 0px;
+      color: #2bb996;
+      opacity: 1;
+      margin-top: 30px;
+      margin-left: 50px;
+      font-size: small;
+      font-weight: 200;
+    }
+  }
+}
+
+//-----------add bank Modale account scs----//
+.AddBankaccountCss {
+  
+  margin-top: 180px;
+  .CreditCardDetail {
+    text-align: left;
+    font: normal normal medium 16px/25px Poppins;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    margin-top: 6px;
+  }
+  .cancel {
+    margin-left: 180px;
+    font-size: 25px;
+    margin-bottom: 9px;
+    opacity: 1;
+    color: red;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+  .modal-body {
+    background: #e3e8ee;
+    label {
+      text-align: center;
+      font-size: small;
+      letter-spacing: 0px;
+      color: #131313;
+      opacity: 1;
+      font-weight: bold;
+    }
+    .form-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  button {
+    background: #3aadd9;
+    border-radius: 4px;
+    opacity: 1;
+    margin-top: 20px;
+  }
+}
+
+
+

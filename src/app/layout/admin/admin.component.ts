@@ -217,7 +217,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     private Router: Router,
     public menuItems: MenuItems,
     private modalService: BsModalService,
-    private geoLocationService: GeoLocationService
+    private geoLocationService: GeoLocationService,
+    private router:Router
   ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.currentUser = sessionData.first_name;
@@ -719,6 +720,12 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.searchInputStyle();
       });
     });
-    }
+  }
+
+  // for payement//
+  onRoutingTopayement() {
+   this.router.navigate(['/payement'])
+   console.log('cool')
+  }
 
 }
