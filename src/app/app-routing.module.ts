@@ -1,3 +1,4 @@
+import { PayementsComponent } from './theme/PAYEMENTPART/payements/payements.component';
 import { ResultPageComponent } from './theme/result-page/result-page.component';
 
 import { PrivacyComponent } from './theme/privacy/privacy.component';
@@ -106,6 +107,13 @@ const routes: Routes = [
         path: 'escrowmerchandisesellerstep2',
         component: EscrowMerchandiseSellerstep2Component,
       },
+
+      // ------for payement---------//
+       {
+         path:'payement',
+         component:PayementsComponent
+       },
+       //------//
       {
         path: 'buyerservicescontrat/:transactionKey',
         component: BuyerServicesContratComponent,

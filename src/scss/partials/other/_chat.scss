@@ -84,7 +84,7 @@
 
         .chat-menu-reply {
             text-align: right;
-            padding-right: 10px;
+            padding-right: 40px;
             > div {
                 border-radius: 10px 10px 0;
                 background: $theme-bg-color;
@@ -101,7 +101,6 @@
                 }
             }
         }
-
         .chat-menu-content {
             > div {
                 background: lighten($primary-color,30%);

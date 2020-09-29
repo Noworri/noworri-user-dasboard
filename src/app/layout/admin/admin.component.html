@@ -18,7 +18,7 @@
                   <img src="{{ pp }}" class="img-menu-user img-radius" alt="User-Profile-Image" />
                 </a>
               </div>
-              
+            
             </li>
 
             <li class="ripple light" id="ProfilNameEtMail">
@@ -26,13 +26,13 @@
                 <a (click)="onViewProfile()" class="Nom">{{ currentUser }}</a>
                 <a class="Settings">
                   <a [matMenuTriggerFor]="menu">
-                    <mat-icon class="icon">settings</mat-icon>
+                    <mat-icon class="icon" (click)='onRoutingTopayement()'  >settings</mat-icon>
                   </a>
-                  <mat-menu #menu="matMenu">
+                 <!---- <mat-menu #menu="matMenu">
                     <button mat-menu-item>PROFIL</button>
                     <button mat-menu-item>ACCOUNT</button>
                     <button mat-menu-item>SINGOUT</button>
-                  </mat-menu>
+                  </mat-menu> -->
                 </a>
               </div>
             </li>

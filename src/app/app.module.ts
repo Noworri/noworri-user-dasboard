@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 
 
 import { TermConditionsComponent } from "./theme/privacy/term-conditions/term-conditions.component";
@@ -28,12 +29,14 @@ import { MenuItems } from "./shared/menu-items/menu-items";
 import { BreadcrumbsComponent } from "./layout/admin/breadcrumbs/breadcrumbs.component";
 import { ModalModule, BsModalRef } from "ngx-bootstrap/modal";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import {NgbTabset} from '@ng-bootstrap/ng-bootstrap'
 import { MatRadioModule } from "@angular/material/radio";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
@@ -50,6 +53,7 @@ import { IntlTelInputNgModule } from "intl-tel-input-ng";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
+ import {TabsModule} from 'ngx-bootstrap/tabs';
 import { AmazingTimePickerModule } from "amazing-time-picker";
 import { NgPaymentCardModule } from "ng-payment-card";
 import { RegisterComponent } from "./theme/auth/register/register.component";
@@ -74,6 +78,15 @@ import { EscrowMerchandiseBuyerstep1Component } from './theme/ESCROWPART/escrow-
 import { EscrowMerchandiseSellerstep1Component } from './theme/ESCROWPART/escrow-merchandise-sellerstep1/escrow-merchandise-sellerstep1.component';
 import { EscrowMerchandiseSellerstep2Component } from './theme/ESCROWPART/escrow-merchandise-sellerstep2/escrow-merchandise-sellerstep2.component';
 import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-merchandise-buyerstep2/escrow-merchandise-buyerstep2.component';
+import { PayementsComponent } from './theme/PAYEMENTPART/payements/payements.component';
+import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatDialogModule} from '@angular/material/dialog';
+ 
+
+
+
+
+
 
 
 @NgModule({
@@ -114,6 +127,8 @@ import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-
     EscrowMerchandiseSellerstep1Component,
     EscrowMerchandiseSellerstep2Component,
     EscrowMerchandiseBuyerstep2Component,
+    PayementsComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -140,7 +155,10 @@ import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-
     AmazingTimePickerModule,
     EditorModule,
     NgPaymentCardModule,
-    MatMenuModule
+    MatMenuModule,
+    TabsModule.forRoot(),
+    MatTabsModule,
+    MatDialogModule
   ],
   schemas: [],
   providers: [MenuItems, HomeInputService, RegisterService, BsModalRef, GeoLocationService],

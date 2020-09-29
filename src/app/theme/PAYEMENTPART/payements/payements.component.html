@@ -1,0 +1,354 @@
+<div id="card" class="card" style="width: 45rem;">
+  <hr>
+  <div class="card-body">
+    <mat-tab-group class='tabs'>
+      <!-----------------Banque Account---------------->
+      <mat-tab value="accent" label="Bank Account">
+        <ul class="nav">
+          <li class="nav-item">
+            <img src="assets\payement\banque.png" class="WalletImag">
+          </li>
+          <li class="nav-item" class="Addabankaccount">
+            <a class="nav-link" (click)=" openAddBankAccountModal(AddBankAccounttemplate)">Add a bank account</a>
+          </li>
+        </ul>
+        <h6 class="thatYoud">
+          Add a bank accounts that you’d like to withdraw funds to
+        </h6>
+        <div class="container" id="bank">
+          <div class="row">
+            <div class="col-6">
+              <div class="card card1  sm-3" style="width: 20rem">
+                <div class="row">
+                  <div class="col-8">
+                    <h6 class="FidelityBank ">Fidelity Bank Ghana</h6>
+                  </div>
+                  <div class="col-4">
+                    <h6 class="Delete">Delete</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountNumber">Account number</h6>
+                    <h6 class="CardNumber">02550789002566125</h6>
+                  </div>
+                  <div class="col-6">
+                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountName">Account name</h6>
+                    <h6 class="Name">Robert Fernandeze</h6>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="PrimaryAccount">Primary Acount</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card card1  sm-3" style="width: 20rem;">
+                <div class="row">
+                  <div class="col-8">
+                    <h6 class="FidelityBank ">Zenith Bank of Ghana</h6>
+                  </div>
+                  <div class="col-4">
+                    <h6 class="Delete">Delete</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountNumber">Account number</h6>
+                    <h6 class="CardNumber">02550789002566125</h6>
+                  </div>
+                  <div class="col-6">
+                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountName">Account name</h6>
+                    <h6 class="Name">Robert Fernandeze</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!------------------ Add bank account Modale-------------------------------------------->
+        <ng-template #AddBankAccounttemplate>
+
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <h6 class="BankAccountDetails">Bank account details</h6>
+                </div>
+                <div class="col-sm">
+                  <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <form>
+              <div class="form-row ">
+                <div class="col-md-6 mb-3">
+                  <label for="input">Select your Bank</label>
+                  <input type="text" class="form-control" id="input" required>
+                </div>
+
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="input">Enter account number</label>
+                  <input type="text" class="form-control" id="input" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="input">Enter account name</label>
+                  <input type="text" class="form-control" id="input" required>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary btn-sm" type="submit">Add Bank</button>
+              </div>
+
+            </form>
+          </div>
+        </ng-template>
+
+      </mat-tab>
+
+      <!---------------MobileWallet part---------------------->
+      <mat-tab label="Wallet Account">
+        <ul class="nav">
+          <li class="nav-item">
+            <img src="assets\payement\banque.png" class="WalletImag">
+          </li>
+          <li class="nav-item" class="Addamobilewallet">
+            <a class="nav-link" (click)="openAddBankAccountModal(AddMobileWallerAccounttemplate)">Add a mobile wallet
+              account</a>
+          </li>
+        </ul>
+        <h6 class="thatYoud">
+          Add a mobile wallet accounts that you’d like to withdraw funds to
+        </h6>
+        <div class="container" id="bank">
+          <div class="row">
+            <div class="col-6">
+              <div class="card card1  sm-3" style="width: 20rem">
+                <div class="row">
+                  <div class="col-8">
+                    <h6 class="MTN">MTN</h6>
+                  </div>
+                  <div class="col-4">
+                    <h6 class="Delete">Delete</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="Mobilemoneynumbe">Mobile money number</h6>
+                    <h6 class="CardNumber">0544990518</h6>
+                  </div>
+                  <div class="col-6">
+                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountName">Account name</h6>
+                    <h6 class="Name">Robert Fernandeze</h6>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="PrimaryAccount">Primary Acount</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card card1  sm-3" style="width: 20rem;">
+                <div class="row">
+                  <div class="col-8">
+                    <h6 class="FidelityBank ">AirtelTigo</h6>
+                  </div>
+                  <div class="col-4">
+                    <h6 class="Delete">Delete</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountNumber">Mobile money number</h6>
+                    <h6 class="CardNumber">0544990518</h6>
+                  </div>
+                  <div class="col-6">
+                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountName">Account name</h6>
+                    <h6 class="Name">Robert Fernandeze</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!------------------ Add mobile wallet  account Modale-------------------------------------------->
+        <ng-template #AddMobileWallerAccounttemplate>
+
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <h6 class="WalletAccount">Wallet account details</h6>
+                </div>
+                <div class="col-2">
+                  <mat-icon class="cancel" (click)="modalRef.hide()" >cancel</mat-icon>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <form>
+              <div class="form-row ">
+                <div class="col-md-6 mb-3">
+                  <label for="input">Select your network</label>
+                  <input type="text" class="form-control" id="input" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="input">Wallet phone number</label>
+                  <input type="text" class="form-control" id="input" required>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary btn-sm" type="submit">Add wallet</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+      </mat-tab>
+      <!----------------Card part ---------------------------->
+      <mat-tab label="Cards">
+        <ul class="nav">
+          <li class="nav-item">
+            <img src="assets\payement\banque.png" class="WalletImag">
+          </li>
+          <li class="nav-item" class="AddACreditCard">
+            <a class="nav-link" (click)="openAddBankAccountModal(AddCardAccounttemplate)">Add a credit card</a>
+          </li>
+        </ul>
+        <h6 class="thatYoud">
+          Add a credit card that you’d like to use to transact
+        </h6>
+        <div class="container" id="bank">
+          <div class="row">
+            <div class="col-6">
+              <div class="card card1  sm-3" style="width: 20rem">
+                <div class="row">
+                  <div class="col-8">
+                    <h6 class="Visa">Visa</h6>
+                  </div>
+                  <div class="col-4">
+                    <h6 class="Delete">Delete</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountNumber">**************5263</h6>
+                    <h6 class="ExpireDate">Expire date</h6>
+                  </div>
+                  <div class="col-6">
+                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountDate">12/21</h6>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="PrimaryAccount">Primary Acount</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card card1  sm-3" style="width: 20rem;height: 150px;">
+                <div class="row">
+                  <div class="col-8">
+                    <h6 class="FidelityBank ">Visa</h6>
+                  </div>
+                  <div class="col-4">
+                    <h6 class="Delete">Delete</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountNumber">**************5263</h6>
+                    <h6 class="CardNumber">Expire date</h6>
+                  </div>
+                  <div class="col-6">
+                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountName">12/21</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!------------------ Add bank account Modale-------------------------------------------->
+        <ng-template #AddCardAccounttemplate>
+
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <h6 class="CreditCardDetail">Credit Card detail</h6>
+                </div>
+                <div class="col-sm">
+                  <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <form>
+              <div class="form-row ">
+                <div class="col-md-6 mb-3">
+                  <label for="input">Card Number</label>
+                  <input type="text" class="form-control" id="input" required>
+                </div>
+
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="input">Enter account number</label>
+                  <input type="text" class="form-control" id="input" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-4">
+                  <label for="input">Expire Date</label>
+                  <input type="date" class="form-control" id="input" required>
+                </div>
+                <div class="col-4">
+                  <label for="input">Secret Code</label>
+                  <input type="text" class="form-control" id="input" required>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary btn-sm" type="submit">Save</button>
+              </div>
+            </form>
+          </div>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
