@@ -13,11 +13,14 @@
   }
 }
 .mat-tab-label {
-  font: normal normal normal 15px/30px Poppins;
   letter-spacing: 0px;
-  color: #60be92;
-  font-size: medium;
+  color:black;
+
+  font-size: small;
   margin-right: 60px;
+  &:hover{
+    color: #60be92;
+  }
 }
 #bankCard {
   margin-top: 36px;

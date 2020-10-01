@@ -18,7 +18,7 @@
                   <img src="{{ pp }}" class="img-menu-user img-radius" alt="User-Profile-Image" />
                 </a>
               </div>
-            
+
             </li>
 
             <li class="ripple light" id="ProfilNameEtMail">
@@ -26,9 +26,9 @@
                 <a (click)="onViewProfile()" class="Nom">{{ currentUser }}</a>
                 <a class="Settings">
                   <a [matMenuTriggerFor]="menu">
-                    <mat-icon class="icon" (click)='onRoutingTopayement()'  >settings</mat-icon>
+                    <mat-icon class="icon" (click)='onRoutingTopayement()'>settings</mat-icon>
                   </a>
-                 <!---- <mat-menu #menu="matMenu">
+                  <!---- <mat-menu #menu="matMenu">
                     <button mat-menu-item>PROFIL</button>
                     <button mat-menu-item>ACCOUNT</button>
                     <button mat-menu-item>SINGOUT</button>
@@ -38,15 +38,18 @@
             </li>
             <li class="header-search" *ngIf='waitingDisplayInput'>
               <form #form="ngForm">
-                <intl-tel-input  [name]="'my-name'" [cssClass]="'form-control'"
-                  [labelCssClass]="'col-sm-2 col-form-label'" [required]="true"  [options]="countryData" 
+                <intl-tel-input [name]="'my-name'" [cssClass]="'form-control'"
+                  [labelCssClass]="'col-sm-2 col-form-label'" [required]="true" [options]="countryData"
                   [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
               </form>
             </li>
           </ul>
-          <ul  class="input-group-append prospan" *ngIf='waitingDisplayInput'>
-            <button class="btn btn-secondary btn-sm Prospan-button" type="button">
-              <mat-icon>search</mat-icon>
+          <ul class="input-group-append prospan" *ngIf='waitingDisplayInput'>
+            <button (click)="onSearchCompany(resultModal,warningModale)" class="btn btn-primary" type="button">
+              <div class="spinner-border text-primary" *ngIf='LoadingStatus' role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <mat-icon *ngIf='!LoadingStatus' >search</mat-icon>
             </button>
           </ul>
           <ul class="OnlineVendor">
@@ -146,7 +149,8 @@
         </div>
       </ng-template>
 
-      <ng-template #templateNested>
+      <!---------------------
+        <ng-template #templateNested>
         <div class="modal-header" id="Youre">
           <h6 class="modal-title pull-left">
             You're sending to <b class="Roselina">Roselina</b>
@@ -197,7 +201,9 @@
           </div>
         </div>
       </ng-template>
-      <ng-template #template1>
+        -------->
+        <!----------------
+           <ng-template #template1>
         <div class="modal-header">
           <h4 class="modal-title pull-left">Request Funds</h4>
         </div>
@@ -228,6 +234,9 @@
           </form>
         </div>
       </ng-template>
+        
+        -->
+     
       <!--  -->
       <div class="pcoded-wrapper">
         <nav id="main_navbar" class="pcoded-navbar" (clickOutside)="onClickedOutsideSidebar($event)"
@@ -273,3 +282,293 @@
     </div>
   </div>
 </div>
+<ng-template #resultModal >
+  <section id="CancelSection">
+    <div class="col">
+      <mat-icon class="cancel"(click)="modalRefResult.hide()">cancel</mat-icon>
+    </div>
+  </section>
+  <div id="Result" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="card col-12 col-md-12 col-lg-12">
+      <div class="row row1">
+        <div class="col-12 col-sm-12 col1">
+          <img *ngIf="RealPictureProfil" src="https://noworri.com/api/public/uploads/company/trusted/{{
+              profilpicture
+            }}" class="card-img-top" alt="..." />
+          <img *ngIf="FalsePictureProfil" src="assets\resultpage\defaultProfi.jpeg" class="card-img-top" alt="..." />
+        </div>
+        <div class="col col-12 col-lg-6 col-xl-6 col2">
+          <div class="row">
+            <h6 class="BeautyVenture col-12 col-sm-12 col-md-12 col-lg-12">
+              {{ businessname }}
+            </h6>
+          </div>
+          <div class="row">
+            <mat-icon class="verifiedUser">verified_user</mat-icon>
+            <h6 class="VerifiedOn">
+              {{ created_at | date: "mediumDate" }}
+            </h6>
+          </div>
+        </div>
+        <div class="col-12 col3 col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6">
+          <h6 class="OpenA col-sm-12 col-md-12 col-lg-12 col-xl-6" (click)="onOpenDispute(disputModal)">
+            Open a dispute
+          </h6>
+        </div>
+      </div>
+      <hr />
+      <div class="row row3">
+        <div class="col col1"></div>
+        <div class="col col3">
+          <a href="{{ facebook }}" target="_blank">
+            <img src="assets\resultpage\Facebook.png" class="card-img-top" alt="..." />
+          </a>
+        </div>
+        <div class="col col4">
+          <a href="{{ instagram }}" target="_blank">
+            <img src="assets\resultpage\Instagram.png" class="card-img-top" alt="..." />
+          </a>
+        </div>
+        <div class="col col5">
+          <a href="https://wa.me/{{ whatsapp }}" target="_blank">
+            <img src="assets\resultpage\whatsapp.png" class="card-img-top" alt="..." />
+          </a>
+        </div>
+      </div>
+      <hr />
+      <div class="row row2">
+        <div class="col col"></div>
+        <div class="container">
+          <h6 class="text-center">
+            Noworri has trusted this vendor, in case you don't receive
+            the product you paid for, open a dispute so we can help you
+            get your money back
+          </h6>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <h6 class="AboutBisiness">ABOUT THE BUSINESS</h6>
+      </div>
+      <div class="row row4">
+        <div class="row">
+          <h6 class="Product">Product or services</h6>
+        </div>
+        <div class="row col-12 col-xl-12 rowSpeci">
+          <div class="col col{{ i + 1 }}" *ngFor="let service of services; let i = index" [attr.data-index]="i">
+            <h6>
+              <span class="badge badge-pill badge-primary">{{
+                service
+              }}</span>
+            </h6>
+          </div>
+        </div>
+      </div>
+      <hr style="margin-top: 20px;" />
+      <div class="row row5">
+        <div class="row">
+          <h6 class="BusinessSector">Business sector</h6>
+        </div>
+        <div class="row">
+          <h6 class="BeautyAnd">{{ sector }}</h6>
+        </div>
+      </div>
+      <hr style="margin-top: 20px;" />
+      <div class="row row5">
+        <div class="row">
+          <h6 class="BusinessSector">Country</h6>
+        </div>
+        <div class="row">
+          <h6 class="country">{{ country }}</h6>
+        </div>
+      </div>
+      <hr style="margin-top: 20px;" />
+      <div class="row row5">
+        <div class="row">
+          <h6 class="BusinessSector">City</h6>
+        </div>
+        <div class="row">
+          <h6 class="city">{{ city }}</h6>
+        </div>
+      </div>
+      <hr />
+      <div class="row row6">
+        <div class="row">
+          <h6>Phone numbers</h6>
+        </div>
+        <div class="row rowSpeci">
+          <div class="col col{{ i + 1 }}" *ngFor="let number of additionnalphone; let i = index" [attr.data-index]="i">
+            {{ number }}
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <h6 class="Verifications">VERIFICATIONS</h6>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col col1">
+            <h6>Owner's name</h6>
+          </div>
+          <div class="col col2">
+            <h6>Verified</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col1">
+            <h6>Physical Address</h6>
+          </div>
+          <div class="col col2">
+            <h6>Verified</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col1">
+            <h6>Physical Identity</h6>
+          </div>
+          <div class="col col2">
+            <h6>Verified</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col1">
+            <h6>Phone number</h6>
+          </div>
+          <div class="col col2">
+            <h6>Verified</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col1">
+            <h6>{{ identitycard }}</h6>
+          </div>
+          <div class="col col2">
+            <h6>Verified</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #warningModale>
+  <section id="CancelSectionDispute">
+    <div class="col">
+      <mat-icon class="cancel" (click)="modalRef.hide()" >cancel</mat-icon>
+    </div>
+  </section>
+  <div class="modal-body">
+    <div class="temp">
+      <div class="modalHeader">
+        <img src="assets\Search\warning.gif" class="card-img-top" alt="..." />
+      </div>
+      <p class="p1 co-lg-12">
+        This online vendor's phone number {{ phoneNumber }} is not verified
+      </p>
+      <p class="p2">Security tips</p>
+      <p class="p3">
+        * Don't pay in advance any money even for delivery
+      </p>
+      <p class="p4">
+        * Meet the seller in a public environment and triple<br />
+        check the product before purchasing it
+      </p>
+      <p class="p5">
+        * Suggest the seller to get verified with Noworri so you can open
+        a dispute if anything goes wrong
+      </p>
+      <div class="container">
+        <div class="row">
+          <div class="col"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--------------DipsuteModale----------------->
+<ng-template #disputModal>
+  
+  <div class="container">
+    <div class="row row1">
+      <section id="CancelSection">
+        <div class="col" style="  margin-left:-150px;">
+          <mat-icon class="cancel" (click)="modalRefDispute.hide()">cancel</mat-icon>
+        </div>
+      </section>
+      <div class="col-sm"></div>
+      <div class="col-sm">
+        
+        <img src="assets\Dispute\iconisa190306133@2x.png" class="card-img-top" alt="..." />
+      </div>
+      <div class="col-sm"></div>
+    </div>
+    <div class="row2">
+      <div class="col col-sm-12"></div>
+      <div class="col-12  col-sm-12 col-md-12 col-lg-12">
+        <h6 class="YouAreOpening">
+          You are opening a disput with
+          <span class="beauty">{{ businessname }}</span>
+        </h6>
+      </div>
+      <div class="col col-sm-2"></div>
+      <div class="row SpeciRow col-12">
+        <h6 class="col-12">We will reply within 24 hours</h6>
+      </div>
+    </div>
+    <section>
+      <div class="container container2">
+        <div class="row">
+          <div class="col col-sm col-md-3"></div>
+          <div class="col-12 col-sm-8 col-md-8">
+            <form (ngSubmit)="onCreateDispute(dispute,phoneNumber)" #dispute="ngForm" >
+              <div class="form-group">
+                <label for="exampleInputEmail1">Your email address *</label>
+                <input name="email" type="email" class="form-control" id="email"
+                  aria-describedby="emailHelp" required ngModel />
+              </div>
+              <div class="form-group" >
+                <label for="exampleInputPassword1">Your phone number *</label>
+                <div  class="input-group" id="Prospand">
+                  <form  #phoneNumber="ngForm" *ngIf='waitingDisplayInput'>
+                    <intl-tel-input [labelCssClass]="'col-form-label'"
+                      [cssClass]="'col-8 col-4 col-md-12 col-lg-12 col-xl-12  form-control'" [required]="true"
+                      [options]="countryData" [name]="'phoneNumber'"  [onlyLocalized]="true" ngModel>
+                    </intl-tel-input>
+                  </form>
+                </div>
+              </div>
+              <div class="form-group" style="margin-top: -10px;">
+                <label for="exampleInputPassword1">Dispute title *</label>
+                <input name="disputTilte" type="text" class="form-control" id="disputTilte" required  ngModel/>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Describe in detail the problem *</label>
+                <textarea name="details" class="form-control" id="details"
+                  rows="3" required ngModel></textarea>
+              </div>
+              <label class="UploadLabel" for="exampleFormControlTextarea1">Add a transation proof *</label>
+              <div class="Upload">
+                <input   type="file" />
+              </div>
+              <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                  <button type="submit" class="btn btn-light">
+                    Open dispute
+                  </button>
+                </div>
+                <div class="col-sm"></div>
+              </div>
+            </form>
+          </div>
+          <div class="col col-sm col-md-3"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+
+</ng-template>
+
