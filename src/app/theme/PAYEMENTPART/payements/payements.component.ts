@@ -18,7 +18,7 @@ export class PayementsComponent implements OnInit {
     class: 'AddBankaccountCss'
   };
 
-
+ 
 
   constructor(private modalService: BsModalService) { }
 
@@ -28,5 +28,6 @@ export class PayementsComponent implements OnInit {
   openAddBankAccountModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, this.addBankAccountconfig);
   }
+  
 
 }

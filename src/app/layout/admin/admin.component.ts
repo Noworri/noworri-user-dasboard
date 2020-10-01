@@ -1,3 +1,6 @@
+import { FormGroup } from '@angular/forms';
+import { DisputeDataService } from 'src/app/Service/dispute-data.service';
+import { NoworriSearchService } from './../../Service/noworri-search.service';
 import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core'
 import {
@@ -11,6 +14,9 @@ import {
 import { MenuItems } from '../../shared/menu-items/menu-items'
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
 import { GeoLocationService } from '../../Service/geo-location.service'
+import { CompanyReference } from 'src/app/Service/reference-data.interface';
+import { isEmpty } from 'lodash';
+
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
@@ -99,7 +105,52 @@ const SESSION_STORAGE_KEY = 'noworri-user-session';
   ]
 })
 export class AdminComponent implements OnInit, OnDestroy {
-  modalRef: BsModalRef | null
+
+  // -------Company data variable-- (all declaration of search imput  )-----//
+  businessname: string;
+  profilpicture: string;
+  city: string;
+  sector: string;
+  services: string[];
+  country: string;
+  businessphone: string;
+  additionnalphone: string[];
+  identitycardverifyfile: string;
+  facebook: string;
+  instagram: string;
+  identitycard: string;
+  whatsapp: string;
+  state: string;
+  company_id: string;
+  created_at: string;
+  modalRefResult: BsModalRef;
+  modalRefDispute: BsModalRef;
+  searchInputType: any;
+  isValideInputType: boolean;
+  prefixContryCode: string;
+  searchInputStyleAttribut = 'style';
+  searInputSuccesStyleattribute =
+    'border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:#4040a1';
+  searInputFailStyleattribute =
+    'border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:red';
+  SearchButtonStatus: boolean;
+  LoadingStatus: boolean;
+  phoneNumber: string;
+  ValidInvalidColor: string;
+  RealPictureProfil: boolean;
+  FalsePictureProfil: boolean;
+
+
+  resultWarning = {
+    ignoreBackdropClick: true,
+    class: 'modal-lg'
+  };
+  disputetWarning = {
+    ignoreBackdropClick: true,
+  };
+
+
+
   modalRef2: BsModalRef
   config1 = {
     animated: true,
@@ -113,6 +164,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   locationData: string;
   waitingDisplayInput: boolean;
   inputIsSet: boolean;
+
+  // for disput modal//
+
+  isFormSubmitted
+  form: FormGroup
 
 
 
@@ -218,7 +274,9 @@ export class AdminComponent implements OnInit, OnDestroy {
     public menuItems: MenuItems,
     private modalService: BsModalService,
     private geoLocationService: GeoLocationService,
-    private router:Router
+    private router: Router,
+    private searchService: NoworriSearchService,
+    private dataService: DisputeDataService
   ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.currentUser = sessionData.first_name;
@@ -724,8 +782,146 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   // for payement//
   onRoutingTopayement() {
-   this.router.navigate(['/payement'])
-   console.log('cool')
+    this.router.navigate(['/payement'])
+
   }
 
+  defaultPictureOrNot() {
+    setTimeout(() => {
+      if (this.profilpicture) {
+        this.RealPictureProfil = true;
+      } else {
+        this.RealPictureProfil = false;
+        this.FalsePictureProfil = true;
+      }
+    }, 7000);
+  }
+
+  // ---------------input type validation function-------------------------//
+  validateInputType(phoneNumber) {
+    this.searchInputType = /^\d*\d*$/;
+    if (phoneNumber.match(this.searchInputType)) {
+      return (this.isValideInputType = true);
+    } else {
+      return (this.isValideInputType = false);
+    }
+  }
+
+  onSearchCompany(resultModal: TemplateRef<any>, warningModale: TemplateRef<any>) {
+    const searchInputNumberValue = document.getElementsByTagName('input')[0]
+      .value;
+    //      remove space and first 0 of seachInput value    //
+    const rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
+
+    //     validation   //
+    this.validateInputType(rigthValue);
+
+    //  to choice a number corresponding  some contry  //
+
+    if (searchInputNumberValue.length === 12) {
+      this.prefixContryCode = '+233';
+    } else if (searchInputNumberValue.length === 11) {
+      this.prefixContryCode = '+234';
+    }
+    // ----- if input data is not correct ------//
+    if (
+      rigthValue === '' ||
+      rigthValue.length < 8 ||
+      rigthValue.length > 10 ||
+      !this.isValideInputType
+    ) {
+      document
+        .getElementsByTagName('input')[0]
+        .setAttribute(
+          this.searchInputStyleAttribut,
+          this.searInputFailStyleattribute
+        );
+      // -------if input data is correct -----------//
+    } else {
+      document
+        .getElementsByTagName('input')[0]
+        .setAttribute(
+          this.searchInputStyleAttribut,
+          this.searInputSuccesStyleattribute
+        );
+      this.LoadingStatus = true;
+      this.SearchButtonStatus = false;
+      this.phoneNumber = this.prefixContryCode + rigthValue;
+      console.log(this.phoneNumber)
+      this.searchService.countSearch(this.phoneNumber).subscribe((response) => {
+        return response;
+      });
+      this.searchService.getCompanyDetails(this.phoneNumber).subscribe(
+        (company: CompanyReference) => {
+          if (isEmpty(company) || company.state !== 'approved') {
+            this.modalRefResult = this.modalService.show(warningModale);
+            this.ValidInvalidColor = '';
+            this.LoadingStatus = false;
+            this.SearchButtonStatus = true;
+          } else {
+            this.modalRefResult = this.modalService.show(resultModal, this.resultWarning);
+            this.LoadingStatus = false;
+            this.SearchButtonStatus = true;
+            // Company data variable--------------------//
+            this.businessname = company.businessname;
+            this.profilpicture = company.profilpicture;
+            this.city = company.city;
+            this.sector = company.sector;
+            const services = company.services;
+            this.services = services.split(',');
+            this.country = company.country;
+            this.businessphone = company.businessphone;
+            const additionnalphone = company.additionnalphone;
+            this.additionnalphone = additionnalphone.split(',');
+            this.identitycardverifyfile = company.identitycardverifyfile;
+            this.facebook = company.facebook;
+            this.instagram = company.instagram;
+            this.whatsapp = company.whatsapp.split('+233').pop();
+            this.state = company.state;
+            this.created_at = company.created_at;
+            this.identitycard = company.identitycard;
+            // -----------Profil picture of not---------------//
+            this.defaultPictureOrNot();
+          }
+        },
+        (error) => {
+          console.log('Error %j', error.message);
+        }
+
+      );
+    }
+  }
+  onOpenDispute(disputeModale: TemplateRef<any>) {
+    new Promise((resolve) => {
+      this.geoLocationService.getLocation().subscribe((data) => {
+        resolve(this.locationData = data['country'])
+      });
+    }).then(() => {
+      this.countryData = {
+        preferredCountries: [`${this.locationData}`],
+        localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d Ivoire' },
+        onlyCountries: ['GH', 'NG', 'BJ']
+      };
+    }).then(() => {
+      this.waitingDisplayInput = true;
+      setTimeout(() => {
+        this.searchInputStyle();
+      });
+    });
+    this.modalRefDispute = this.modalService.show(disputeModale, this.disputetWarning);
+  }
+  onCreateDispute(r, v) {
+      this.isFormSubmitted = true;
+      if (this.form.valid) {
+        const data = this.form.value;
+        this.dataService.openDistpute(data).subscribe(
+          (response) => {
+            this.isFormSubmitted = true;
+          },
+          (error) => {
+            console.log('Error %j', error);
+          }
+        );
+      }
+  }
 }

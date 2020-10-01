@@ -24,17 +24,14 @@
           margin-left: -6px;
           margin-top: 13px;
         }
-        .Settings{
+        .Settings {
           margin-left: -20px;
           margin-top: 18px;
-         .icon{
-           font-size: medium;
-           margin-left: 6px;
-          
-         }
-          
+          .icon {
+            font-size: medium;
+            margin-left: 6px;
+          }
         }
-       
       }
     }
     .header-search {
@@ -61,7 +58,7 @@
     margin-left: -472px;
     margin-right: 10px;
     margin-top: 30px;
-    button{
+    button {
       background-color: white;
       border-color: blue;
       border-radius: 9px;
@@ -320,7 +317,7 @@
 }
 #modal-body {
   .Youwill {
-   text-align: left;
+    text-align: left;
     font: Semibold 20px/27px Segoe UI;
     letter-spacing: 0;
     color: #707070;
@@ -534,4 +531,566 @@
 }
 #form-group2 {
   margin-top: 40px;
+}
+
+/*-------------------------------ResultModale----------------------------------------------*/
+.AboutBisiness {
+  margin-left: 15px;
+}
+.Verifications {
+  margin-left: 20px;
+}
+#CancelSection {
+  margin-left: 670px;
+  margin-top: 200px;
+  .cancel {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    opacity: 1;
+    border-radius: 7;
+    color: red;
+    cursor: pointer;
+  }
+}
+#Result {
+  .card {
+    margin-left: 50px;
+    margin-top: 10px;
+    height: 1100px;
+    width: 40rem;
+    .row1 {
+      .col1 {
+        margin-left: 10px;
+        margin-top: 10px;
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 60px;
+          box-shadow: 2.5px 2.5px 2.5px 0px rgba(167, 162, 162, 0.75);
+          box-shadow: 0 0 65px rgba(167, 162, 162, 0.75) inset,
+            0 0 20px rgba(167, 162, 162, 0.75) inset,
+            0 0 5px rgba(167, 162, 162, 0.75);
+        }
+      }
+      .col2 {
+        margin-left: -550px;
+        margin-top: 15px;
+
+        .BeautyVenture {
+          text-align: left;
+          font: Regular 20px/30px Poppins;
+          letter-spacing: 0px;
+          color: #3e3e3e;
+          opacity: 1;
+          font-size: 20px;
+        }
+        .verifiedUser {
+          color: #5662fe;
+          margin-left: 10px;
+        }
+        .VerifiedOn {
+          text-align: left;
+          font: Regular 14px/21px Poppins;
+          letter-spacing: 0px;
+          color: #484848;
+          opacity: 1;
+          margin-top: 7px;
+          font-size: small;
+          margin-left: 5px;
+        }
+      }
+      .col3 {
+        margin-top: -60px;
+        margin-left: 440px;
+        .OpenA {
+          text-align: left;
+          text-decoration: underline;
+          font: Regular 15px/37px Poppins;
+          letter-spacing: 0.19px;
+          color: #ff0045;
+          opacity: 1;
+          cursor: pointer;
+        }
+      }
+    }
+    .row2 {
+      h6 {
+        font: Regular 16px/25px Poppins;
+        letter-spacing: 0px;
+        color: #101010;
+        opacity: 1;
+        font-size: small;
+      }
+    }
+    .row3 {
+      margin-left: -10px;
+      .col1 {
+        img {
+          width: 20px;
+          margin-left: 110px;
+        }
+      }
+      .AboutBisiness {
+        margin-left: 30px;
+      }
+      .col2 {
+        h6 {
+          font: Regular 15px/23px Poppins;
+          letter-spacing: 0px;
+          color: #8e8e8e;
+          opacity: 1;
+          font-weight: 500;
+          margin-top: 5px;
+          margin-right: -30px;
+        }
+      }
+      .col3 {
+        img {
+          width: 20px;
+        }
+      }
+      .col4 {
+        img {
+          width: 20px;
+        }
+      }
+      .col5 {
+        img {
+          width: 27px;
+        }
+      }
+    }
+    .row4 {
+      .Product {
+        margin-left: 30px;
+        font: Regular 18px/27px Poppins;
+        letter-spacing: 0px;
+        color: #497dd5;
+        opacity: 1;
+        font-size: small;
+        margin-top: 10px;
+        font-weight: 700;
+      }
+      .rowSpeci {
+        margin-top: 40px;
+        margin-left: -120px;
+        button {
+          background: #b8b8b8 0% 0% no-repeat padding-box;
+          border-radius: 9px;
+          opacity: 1;
+          font: Regular 17px/26px Poppins;
+          letter-spacing: 0px;
+          color: #3d3d3d;
+          opacity: 1;
+          width: 130px;
+          font-size: 9px;
+          margin-top: 8px;
+        }
+      }
+    }
+    .row5 {
+      .BusinessSector {
+        text-align: left;
+        font: Regular 18px/27px Poppins;
+        letter-spacing: 0px;
+        color: #497dd5;
+        opacity: 1;
+        margin-left: 30px;
+        font-size: small;
+        font-weight: 700;
+      }
+      .BeautyAnd {
+        margin-top: 30px;
+        text-align: left;
+        font: Regular 15px/23px Poppins;
+        letter-spacing: 0px;
+        color: #3d3d3d;
+        opacity: 1;
+        margin-left: -70px;
+        font-size: small;
+      }
+      .country {
+        margin-top: 30px;
+        text-align: left;
+        font: Regular 15px/23px Poppins;
+        letter-spacing: 0px;
+        color: #3d3d3d;
+        opacity: 1;
+        font-size: small;
+        margin-left: -20px;
+      }
+      .city {
+        margin-top: 30px;
+        text-align: left;
+        font: Regular 15px/23px Poppins;
+        letter-spacing: 0px;
+        color: #3d3d3d;
+        opacity: 1;
+        font-size: small;
+        margin-left: 7px;
+      }
+    }
+    .row6 {
+      h6 {
+        font: Regular 18px/27px Poppins;
+        letter-spacing: 0px;
+        color: #497dd5;
+        opacity: 1;
+        margin-left: 30px;
+        font-size: small;
+        font-weight: 700;
+      }
+      .rowSpeci {
+        margin-top: 18px;
+        margin-left: -117px;
+        .col {
+          font: Regular 15px/23px Poppins;
+          letter-spacing: 0px;
+          color: #8e8e8e;
+          opacity: 1;
+          font-size: small;
+          margin: 15px;
+        }
+      }
+    }
+    .container {
+      .row {
+        background: #eeeeee 0% 0% no-repeat padding-box;
+        opacity: 1;
+        margin-top: 20px;
+        .col1 {
+          h6 {
+            text-align: left;
+            font: Medium 21px/31px Poppins;
+            letter-spacing: 0px;
+            color: #3d3d3d;
+            opacity: 1;
+            margin-top: 8px;
+          }
+        }
+        .col2 {
+          margin-right: -430px;
+          h6 {
+            text-align: left;
+            font: Regular 22px/33px Poppins;
+            letter-spacing: 0px;
+            color: #5662fe;
+            opacity: 1;
+            margin-top: 8px;
+            margin-left: -67px;
+          }
+        }
+      }
+    }
+  }
+  .ResultModale {
+    margin-left: 50px;
+  }
+}
+
+/*------------------------- WarningModal-------------------------------------*/
+#CancelSection {
+  margin-top: 20px;
+  .cancel {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    opacity: 1;
+    border-radius: 7;
+    color: red;
+    cursor: pointer;
+  }
+}
+.SpeciContainer {
+  margin-top: 20px;
+  // buttton {
+  // }
+}
+.nav {
+  .image1 {
+    width: 130px;
+    margin-top: 10px;
+    margin-right: 24px;
+    margin-left: 40px;
+    cursor: pointer;
+  }
+  .image2 {
+    width: 120px;
+    margin-top: 20px;
+    margin-right: 24px;
+    cursor: pointer;
+  }
+}
+
+.jumbo {
+  background-color: white;
+  #cont {
+    margin-top: -43px;
+    margin-left: 22px;
+    img {
+      width: 300px;
+    }
+  }
+  #row3 {
+    .row {
+      margin-top: -50px;
+      display: flex;
+      justify-content: center;
+      .Loading {
+        color: blue;
+      }
+    }
+    button {
+      font-weight: 700;
+      font-size: small;
+    }
+  }
+
+  #row2 {
+    margin-left: 400px;
+    .SeachBy {
+      text-align: left;
+      text-decoration: underline;
+      font: Regular 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+    }
+    .BusinessName {
+      margin-left: -350px;
+      text-align: left;
+      font: Regular 14px/16px Arial;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+    }
+    .BusinessPhone {
+      margin-left: 20px;
+      font: Regular 14px/16px Arial;
+      letter-spacing: 0px;
+      color: #484848;
+      opacity: 1;
+    }
+  }
+
+  #SeachInput {
+    margin-left: -40px;
+    margin-top: 30px;
+    input {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      box-shadow: 1px 1px 7px #00000029;
+      border-top-right-radius: 40px;
+      border-bottom-right-radius: 40px;
+      border-left-color: white;
+      opacity: 1;
+      width: 400px;
+      height: 50px;
+    }
+
+    .search {
+      font-size: medium;
+    }
+
+    .input-group-prepend {
+      margin-left: 300px;
+      .select {
+        border: none;
+      }
+      img {
+        width: 30px;
+      }
+      .input-group-text {
+        background-color: white;
+        height: 50px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border-right-color: white;
+        background: white 0% 0%;
+        color: #2699fb;
+        opacity: 1;
+        margin-bottom: 40px;
+        font-size: medium;
+        font-weight: bold;
+        box-shadow: 1px 1px 7px #00000029;
+      }
+    }
+  }
+}
+.BuyingItems {
+  margin-bottom: 50px;
+  text-align: center;
+  font: Regular 20px/30px Poppins;
+  letter-spacing: 0px;
+  color: #484848;
+  opacity: 1;
+  font-size: 16px;
+  .VerifyThem {
+    color: #2699fb;
+  }
+}
+.temp {
+  .modalHeader {
+    img {
+      position: relative;
+      max-width: 40%;
+      max-height: 100%;
+      margin-left: 30%;
+      margin-top: -50px;
+    }
+  }
+  .p1 {
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    color: red;
+  }
+  .p2 {
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .p3 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .p4 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .p5 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+  }
+}
+
+/*------------------spiner-----------------*/
+.spinner-border {
+  width: 20px;
+  height: 20px;
+}
+.ResultModale {
+  width: 500px;
+}
+
+/*------dispute Modale ------*/
+#CancelSectionDispute {
+  margin-top: 20px;
+  
+  
+  
+  .cancel {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    opacity: 1;
+    border-radius: 7;
+    color: red;
+    cursor: pointer;
+  }
+}
+.container {
+  .row1 {
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 200px;
+      height: auto;
+    }
+  }
+  .row2 {
+    margin-top: 20px;
+    width: 500px;
+    .YouAreOpening {
+      font: Regular 25px/38px Poppins;
+      letter-spacing: 0px;
+      color: #363636;
+      opacity: 1;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      .beauty {
+        text-decoration: underline;
+        font: Regular 25px/38px Poppins;
+        letter-spacing: 0px;
+        color: #ff0045;
+        opacity: 1;
+        margin-right: 10%;
+      }
+    }
+    .SpeciRow {
+      margin-top: 10px;
+      h6 {
+        text-align: center;
+        font: Regular 12px/18px Poppins;
+        letter-spacing: 0px;
+        color: #497dd5;
+        opacity: 1;
+        margin-top: 10px;
+        font-size: 10px;
+      }
+    }
+  }
+}
+.container2 {
+  margin-top: 30px;
+  margin-left: -25px;
+  .row {
+  }
+  label {
+    text-align: left;
+    font: Regular 17px/26px Poppins;
+    letter-spacing: 0px;
+    color: #3e3e3e;
+    opacity: 1;
+  }
+  .UploadLabel {
+    text-align: left;
+    font: Regular 17px/26px Poppins;
+    letter-spacing: 0px;
+    color: #3e3e3e;
+    opacity: 1;
+  }
+
+  #Input {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #497dd5;
+    border-radius: 5px;
+    opacity: 1;
+  }
+  textarea {
+    height: 120px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #497dd5;
+    opacity: 1;
+  }
+  .Upload {
+    margin-top: 50px;
+    margin-top: -5px;
+    h6 {
+      text-align: left;
+      font: Regular 20px/30px Poppins;
+      letter-spacing: 0px;
+      color: #497dd5;
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+  button {
+    margin-top: 30px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #497dd5;
+    border-radius: 16px;
+    opacity: 1;
+    margin-bottom: 50px;
+    font: Medium 20px/30px Poppins;
+    letter-spacing: 0px;
+    color: #292929;
+    opacity: 1;
+    width: 140px;
+  }
+}
+#SeachInput {
+  #inp {
+    margin-left: 340px;
+    margin-top: -30px;
+  }
 }
