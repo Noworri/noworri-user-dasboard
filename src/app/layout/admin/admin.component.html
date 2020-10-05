@@ -47,18 +47,19 @@
           <ul class="input-group-append prospan" *ngIf='waitingDisplayInput'>
             <button (click)="onSearchCompany(resultModal,warningModale)" class="btn btn-primary" type="button">
               <div class="spinner-border text-primary" *ngIf='LoadingStatus' role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only loading">Loading...</span>
               </div>
-              <mat-icon *ngIf='!LoadingStatus' >search</mat-icon>
+              <mat-icon *ngIf='!LoadingStatus'>search</mat-icon>
             </button>
           </ul>
-          <ul class="OnlineVendor">
+          <!---- <ul class="OnlineVendor">
             <h6>Are you an online vendor?</h6>
-          </ul>
-          <ul class="UL">
+          </ul> --->
+          <!----- <ul class="UL">
             <button type="button" class="btn btn-primary btn-sm ul" (click)='routingToHomegetstrusted()'>Get
               strusted</button>
           </ul>
+          --->
         </div>
       </div>
     </nav>
@@ -202,7 +203,7 @@
         </div>
       </ng-template>
         -------->
-        <!----------------
+      <!----------------
            <ng-template #template1>
         <div class="modal-header">
           <h4 class="modal-title pull-left">Request Funds</h4>
@@ -236,7 +237,7 @@
       </ng-template>
         
         -->
-     
+
       <!--  -->
       <div class="pcoded-wrapper">
         <nav id="main_navbar" class="pcoded-navbar" (clickOutside)="onClickedOutsideSidebar($event)"
@@ -248,7 +249,6 @@
             [ngClass]="perfectDisable">
             <div class="pcoded-inner-navbar main-menu" appAccordion>
               <div class=""></div>
-
               <div *ngFor="let asideItems of menuItems.getAll()" class="d-color">
                 <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme"></div>
                 <div class="SideBar">
@@ -282,10 +282,10 @@
     </div>
   </div>
 </div>
-<ng-template #resultModal >
+<ng-template #resultModal>
   <section id="CancelSection">
     <div class="col">
-      <mat-icon class="cancel"(click)="modalRefResult.hide()">cancel</mat-icon>
+      <mat-icon class="cancel" (click)="modalRefResult.hide()">cancel</mat-icon>
     </div>
   </section>
   <div id="Result" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -454,7 +454,7 @@
 <ng-template #warningModale>
   <section id="CancelSectionDispute">
     <div class="col">
-      <mat-icon class="cancel" (click)="modalRef.hide()" >cancel</mat-icon>
+      <mat-icon class="cancel"  (click)="modalRefResult.hide()">cancel</mat-icon>
     </div>
   </section>
   <div class="modal-body">
@@ -488,7 +488,7 @@
 
 <!--------------DipsuteModale----------------->
 <ng-template #disputModal>
-  
+
   <div class="container">
     <div class="row row1">
       <section id="CancelSection">
@@ -498,7 +498,7 @@
       </section>
       <div class="col-sm"></div>
       <div class="col-sm">
-        
+
         <img src="assets\Dispute\iconisa190306133@2x.png" class="card-img-top" alt="..." />
       </div>
       <div class="col-sm"></div>
@@ -521,35 +521,34 @@
         <div class="row">
           <div class="col col-sm col-md-3"></div>
           <div class="col-12 col-sm-8 col-md-8">
-            <form (ngSubmit)="onCreateDispute(dispute,phoneNumber)" #dispute="ngForm" >
+            <form (ngSubmit)="onCreateDispute(dispute,phoneNumber)" #dispute="ngForm">
               <div class="form-group">
                 <label for="exampleInputEmail1">Your email address *</label>
-                <input name="email" type="email" class="form-control" id="email"
-                  aria-describedby="emailHelp" required ngModel />
+                <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" required
+                  ngModel />
               </div>
-              <div class="form-group" >
+              <div class="form-group">
                 <label for="exampleInputPassword1">Your phone number *</label>
-                <div  class="input-group" id="Prospand">
-                  <form  #phoneNumber="ngForm" *ngIf='waitingDisplayInput'>
+                <div class="input-group" id="Prospand">
+                  <form #phoneNumber="ngForm" *ngIf='waitingDisplayInput'>
                     <intl-tel-input [labelCssClass]="'col-form-label'"
                       [cssClass]="'col-8 col-4 col-md-12 col-lg-12 col-xl-12  form-control'" [required]="true"
-                      [options]="countryData" [name]="'phoneNumber'"  [onlyLocalized]="true" ngModel>
+                      [options]="countryData" [name]="'phoneNumber'" [onlyLocalized]="true" ngModel>
                     </intl-tel-input>
                   </form>
                 </div>
               </div>
               <div class="form-group" style="margin-top: -10px;">
                 <label for="exampleInputPassword1">Dispute title *</label>
-                <input name="disputTilte" type="text" class="form-control" id="disputTilte" required  ngModel/>
+                <input name="disputTilte" type="text" class="form-control" id="disputTilte" required ngModel />
               </div>
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">Describe in detail the problem *</label>
-                <textarea name="details" class="form-control" id="details"
-                  rows="3" required ngModel></textarea>
+                <textarea name="details" class="form-control" id="details" rows="3" required ngModel></textarea>
               </div>
               <label class="UploadLabel" for="exampleFormControlTextarea1">Add a transation proof *</label>
               <div class="Upload">
-                <input   type="file" />
+                <input type="file" />
               </div>
               <div class="row">
                 <div class="col-sm"></div>
@@ -571,4 +570,3 @@
 
 
 </ng-template>
-
