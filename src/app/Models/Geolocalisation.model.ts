@@ -1,3 +1,3 @@
-export class Geolocalisation{
-    country_code: string
+export class Geolocalisation {
+  country_code: string;
 }

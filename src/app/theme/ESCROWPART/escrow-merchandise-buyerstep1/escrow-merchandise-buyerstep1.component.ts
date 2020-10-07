@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import {
@@ -8,15 +8,19 @@ import {
 import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
 import { isEmpty } from 'lodash';
 import { GeoLocationService } from './../../../Service/geo-location.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 const LOCAL_STORAGE_KEY = 'merchandise-escrow-1';
 
 @Component({
   selector: 'app-escrow-merchandise-buyerstep1',
   templateUrl: './escrow-merchandise-buyerstep1.component.html',
-  styleUrls: ['./escrow-merchandise-buyerstep1.component.scss']
+  styleUrls: ['./escrow-merchandise-buyerstep1.component.scss'],
 })
-export class EscrowMerchandiseBuyerstep1Component implements OnInit {
+export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
+  unsubscribe$ = new Subject();
+
   isValidSeller = true;
   rawSeller: string;
   isValidNumber = true;
@@ -24,7 +28,7 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
   orderDetails: any;
   noworriFee: number;
   totalAmount: number;
-  owner_id: string;
+  destinator_id: string;
   price: number;
   escrowStep1Data: MerchandiseEscrowStep1Reference;
   transactionSummary: object;
@@ -74,7 +78,6 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
   priceControl = 'form-control';
   descriptionControl = 'form-control';
 
-
   constructor(
     private router: Router,
     private companyService: NoworriSearchService,
@@ -83,7 +86,7 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
     const localData = JSON.parse(localStorage.getItem('noworri-escrow-0'));
     this.transactionType = localData.transactionType;
     this.role = localData.role;
-    this.owner_id = '';
+    this.destinator_id = '';
     this.escrowStep1Data = {
       item: '',
       sellerPhoneNumber: '',
@@ -94,25 +97,35 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
   }
 
   ngOnInit() {
-    this.getDataLocation()
+    this.getDataLocation();
   }
-  ngOnDestroy() { }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   getNoworriFee(price) {
     return (price / 100) * 1.95;
   }
   onCompleteStep1(F: NgForm, sellersForms, deliveryForms) {
     this.escrowStep1Data.item = F.value['item'];
     this.escrowStep1Data.price = F.value['price'];
-    this.escrowStep1Data.sellerPhoneNumber = sellersForms.value['sellerPhoneNumber'];
-    this.escrowStep1Data.deliveryPhoneNumber = deliveryForms.value['deliveryPhoneNumber'];
+    this.escrowStep1Data.sellerPhoneNumber = `+233${sellersForms.value['sellerPhoneNumber']}`;
+    this.escrowStep1Data.deliveryPhoneNumber = deliveryForms.value['deliveryPhoneNumber'] !== undefined ?
+      `+233${deliveryForms.value['deliveryPhoneNumber']}` :
+      `+233${sellersForms.value['sellerPhoneNumber']}`;
     this.escrowStep1Data.description = F.value['description'];
     this.price = parseInt(this.escrowStep1Data.price, 10);
     this.noworriFee = this.getNoworriFee(this.price);
-    this.totalAmount = parseInt(this.escrowStep1Data.price, 10) + this.noworriFee;
-    // this.rawSeller = formSeller.value['sellerPhoneNumber'];
+    this.totalAmount =
+    parseInt(this.escrowStep1Data.price, 10) + this.noworriFee;
+    this.rawSeller = sellersForms.value['sellerPhoneNumber']
     this.isValidating = true;
-    // this.getCompanyDetails(this.escrowStep1Data.sellerPhoneNumber);
+    this.getSellerDetails(this.escrowStep1Data.sellerPhoneNumber);
+  }
 
+  processFormData() {
     if (this.escrowStep1Data.item === '') {
       this.itemControl = 'form-control is-invalid';
       this.Accept1 = false;
@@ -123,7 +136,7 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
     }
     this.inputValidation = /^-?(0|[1-9]\d*)?$/;
     // if (
-    //   !this.isValidSeller ||
+    // !this.isValidSeller ||
     //   !this.escrowStep1Data.sellerPhoneNumber ||
     //   (this.escrowStep1Data.sellerPhoneNumber && !this.escrowStep1Data.sellerPhoneNumber.match(this.inputValidation))
     // ) {
@@ -155,9 +168,8 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
       this.Accept4 === true &&
       this.Accept5 === true
     ) {
-      setTimeout(() => {
         this.transactionSummary = {
-          owner_id: this.owner_id,
+          destinator_id: this.destinator_id,
           item: this.escrowStep1Data.item,
           seller: this.escrowStep1Data.sellerPhoneNumber,
           amount: this.totalAmount.toFixed(2),
@@ -166,25 +178,30 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
           role: this.role,
           noworriFee: this.noworriFee.toFixed(2),
           price: this.price.toFixed(2),
-          delivery: this.escrowStep1Data.deliveryPhoneNumber
+          delivery: this.escrowStep1Data.deliveryPhoneNumber,
         };
         this.orderDetails = JSON.stringify(this.transactionSummary);
-        this.isValidating = false;
         localStorage.setItem(LOCAL_STORAGE_KEY, this.orderDetails);
-        this.router.navigate(['/escrowmerchandisebuyerstep2'])
-      }, 10000);
+        this.isValidating = false;
+        this.router.navigate(['/escrowmerchandisebuyerstep2']);
     }
   }
-  getCompanyDetails(sellerPhoneNumber) {
+
+  getSellerDetails(sellerPhoneNumber) {
     if (this.rawSeller) {
-      this.companyService.getCompanyDetails(sellerPhoneNumber).subscribe(
+      this.companyService.getCompanyDetails(sellerPhoneNumber)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
         (company: CompanyReference) => {
           if (isEmpty(company)) {
-            this.isValidSeller = false;
+            // this.isValidSeller = false;
+            // this.isValidating = false;
           } else {
             this.isValidSeller = true;
-            this.owner_id = company.user_id;
+            this.destinator_id = company.user_id;
+            this.processFormData();
           }
+          return sellerPhoneNumber;
         },
         (error) => {
           this.isValidSeller = false;
@@ -256,6 +273,7 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
   RoutToStep2() {
     this.router.navigate(['/escrowmerchandisestep2']);
   }
+
   getDataLocation() {
     this.geoLocationService.getLocation().subscribe((data) => {
       this.locationData = data['country'];
@@ -265,9 +283,8 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit {
       this.countryData = {
         preferredCountries: [`${this.locationData}`],
         localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d Ivoire' },
-        onlyCountries: ['GH', 'NG', 'BJ']
+        onlyCountries: ['GH', 'NG', 'BJ'],
       };
     });
   }
-
 }

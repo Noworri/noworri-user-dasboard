@@ -22,8 +22,6 @@ import { MatFormFieldModule, MatRadioGroup, MatRadioButton, MatOptionModule, Mat
     ReactiveFormsModule,
     InternationalPhoneNumberModule,
     MatInputModule,
-    MatOptionModule,
-    MatSelectModule
   ]
 })
 export class RegisterModule { }

@@ -81,6 +81,7 @@ import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-
 import { PayementsComponent } from './theme/PAYEMENTPART/payements/payements.component';
 import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatOptionModule, MatSelectModule } from '@angular/material';
  
 
 
@@ -158,7 +159,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatMenuModule,
     TabsModule.forRoot(),
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   schemas: [],
   providers: [MenuItems, HomeInputService, RegisterService, BsModalRef, GeoLocationService],

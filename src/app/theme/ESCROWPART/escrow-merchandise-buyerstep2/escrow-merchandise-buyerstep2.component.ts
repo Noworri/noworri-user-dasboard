@@ -29,13 +29,14 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
   first_name: string;
   name: string;
   mobile_phone: string;
-  user_id: string;
-  owner_id: string;
-  user_role: string;
-  owner_role: string;
+  initiator_id: string;
+  destinator_id: string;
+  initiator_role: string;
+  destinator_role: string;
   transactionType: string;
   description: string;
   deliveryPhone: string;
+  transaction_ref: string;
 
   wholeAmountPart: number;
   decimalPart: any;
@@ -48,23 +49,24 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     private router: Router
   ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
+    console.log('session', sessionData);
     this.first_name = sessionData.first_name;
     this.email = sessionData.email;
     this.name = sessionData.name;
     this.mobile_phone = sessionData.mobile_phone;
-    this.deliveryPhone = sessionData.delivery;
-    this.user_id = sessionData.user_uid;
+    this.initiator_id = sessionData.user_uid;
     const escrowStep2Data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     this.item = escrowStep2Data.item;
     this.amount = escrowStep2Data.amount;
     this.sellerNumber = escrowStep2Data.seller;
-    this.user_role = escrowStep2Data.role === 'Buyer' ? 'Buy' : 'Sell';
-    this.owner_role = this.user_role === 'Buy' ? 'Sell' : 'Buy';
+    this.deliveryPhone = escrowStep2Data.delivery;
+    this.initiator_role = escrowStep2Data.role === 'Buyer' ? 'Buy' : 'Sell';
+    this.destinator_role = this.initiator_role === 'Buy' ? 'Sell' : 'Buy';
     this.transactionType = escrowStep2Data.transactionType;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
     this.description = escrowStep2Data.description || '';
-    this.owner_id = escrowStep2Data.owner_id;
+    this.destinator_id = escrowStep2Data.destinator_id;
     this.wholeAmountPart = Math.trunc(this.amount);
     this.decimalPart = parseFloat(
       Math.abs(this.amount).toString().split('.')[1]
@@ -73,33 +75,22 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       this.decimalPart = '00';
     }
     this.transactionDetails = {
-      user_id: this.user_id,
-      user_role: this.user_role,
-      user_phone: this.mobile_phone,
-      owner_id: this.owner_id,
-      owner_role: this.owner_role,
-      owner_phone: this.sellerNumber,
+      initiator_id: this.initiator_id,
+      initiator_role: this.initiator_role,
+      // initiator_phone: this.mobile_phone,
+      destinator_id: this.destinator_id,
+      // destinator_role: this.destinator_role,
+      // destinator_phone: this.sellerNumber,
       transaction_type: this.transactionType,
-      deadline_type: this.deliveryPhone,
+      delivery_phone: this.deliveryPhone,
       service: this.item,
       price: this.price,
       noworri_fees: this.noworriFee,
       total_price: this.amount,
       requirement: this.description,
+      transaction_ref: '',
       etat: 4
     };
-  }
-
-  onMobilePay() {
-    this.transactionsService.makeMomoPayment().pipe(takeUntil(this.unsubscribe)).subscribe(
-      response => {
-        this.createTransaction(this.transactionDetails);
-        setTimeout(() => {
-          this.router.navigate(['transactions']);
-        }, 5000);
-      },
-      error => console.log(error)
-    );
   }
 
   ngOnInit() {
@@ -145,62 +136,105 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     }
   }
 
-  onCardPay() {
-    this.isValidating = true;
+  // onCardPay() {
+  //   this.isValidating = true;
 
-    const amount = `${this.amount}`;
-    const body = {
-      paymentDetails: {
-        requestId: '4466',
-        productCode: 'GMT112',
-        amount: amount,
-        currency: 'GBP',
-        locale: 'en_AU',
-        orderInfo: '255s353',
-        returnUrl: 'https://web.noworri/transactions',
-      },
-      merchantDetails: {
-        accessCode: '79742570',
-        merchantID: 'ETZ001',
-        secureSecret: 'sdsffd',
-      },
-      secureHash:
-        '7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855',
+  //   const amount = `${this.amount}`;
+  //   const body = {
+  //     paymentDetails: {
+  //       requestId: '4466',
+  //       productCode: 'GMT112',
+  //       amount: amount,
+  //       currency: 'GBP',
+  //       locale: 'en_AU',
+  //       orderInfo: '255s353',
+  //       returnUrl: 'https://web.noworri/transactions',
+  //     },
+  //     merchantDetails: {
+  //       accessCode: '79742570',
+  //       merchantID: 'ETZ001',
+  //       secureSecret: 'sdsffd',
+  //     },
+  //     secureHash:
+  //       '7f137705f4caa39dd691e771403430dd23d27aa53cefcb97217927312e77847bca6b8764f487ce5d1f6520fd7227e4d4c470c5d1e7455822c8ee95b10a0e9855',
+  //   };
+  //   const newBody = JSON.stringify(body);
+  //   this.transactionsService
+  //     .processPayment(body)
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe(
+  //       (response) => {
+  //         this.isValidating = false;
+  //         if (
+  //           response.response_message &&
+  //           response.response_message === 'success'
+  //         ) {
+  //           this.createTransaction();
+  //           window.location.href = `${response.response_content}`;
+  //         }
+  //         return response;
+  //       },
+  //       (error) => {
+  //         this.isValidating = false;
+  //         console.log(error.message);
+  //       }
+  //     );
+  // }
+
+  onSecureFunds() {
+    this.isValidating = true;
+    const transactionData = {
+      email: this.email,
+      amount: this.amount * 100
     };
-    const newBody = JSON.stringify(body);
     this.transactionsService
-      .processPayment(body)
+      .payStackPayment(transactionData)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(
-        (response) => {
-          this.isValidating = false;
-          if (
-            response.response_message &&
-            response.response_message === 'success'
-          ) {
-            this.createTransaction(this.transactionDetails);
-            window.location.href = `${response.response_content}`;
-          }
-          return response;
-        },
-        (error) => {
-          this.isValidating = false;
-          console.log(error.message);
-        }
-      );
+      .subscribe((response: any) => {
+        window.open(
+          `${response.data.authorization_url}`,
+          'popup',
+          'width=500,height=650'
+        );
+        this.transaction_ref = response.data.reference;
+        setTimeout(() => {
+          this.checkSuccessSecuredFunds(this.transaction_ref);
+        }, 40000);
+        return false;
+      });
   }
 
-  createTransaction(transactionDetails) {
+  createTransaction() {
+    this.transactionDetails['transaction_ref'] = this.transaction_ref;
     this.transactionsService
-      .createTransaction(transactionDetails)
+      .createTransaction(this.transactionDetails)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe((response) => {
-        return response;
+      .subscribe((transaction: any) => {
+        this.isValidating = false;
+        if (transaction.initiator_id && transaction.initiator_id === this.initiator_id && transaction.initiator_role === 'Buy') {
+          this.router.navigate([`/buyermerchandisecontrat/${transaction.transaction_key}`]);
+        } else if (transaction.initiator_id && transaction.user_id === this.initiator_id && transaction.initiator_role === 'Sell') {
+          this.router.navigate([`/sellermerchandisecontrat/${transaction.transaction_key}`]);
+        } else {
+          console.log('error', transaction);
+        }
+        return transaction;
       },
         error => {
           console.log(error.message);
         }
       );
+  }
+
+  checkSuccessSecuredFunds(ref) {
+    this.transactionsService
+      .checkTransactionStatus(ref)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((statusData) => {
+        if (statusData.data && statusData.data.status === 'success') {
+          this.createTransaction();
+        }
+      });
   }
 
 }

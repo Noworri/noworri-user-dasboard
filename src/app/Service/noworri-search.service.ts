@@ -28,6 +28,20 @@ export class NoworriSearchService {
     );
   }
 
+  getCompanyDetailsByUid(uid: string): Observable<any> {
+    const url = 'https://api.noworri.com/api/getcompany/' + uid;
+
+    return this.http.get(url).pipe(
+      map((data: CompanyReference) => {
+        return data;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error', error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
   countSearch(phoneNumber: string) {
     const url = 'https://api.noworri.com/api/countsearch';
     let params = new HttpParams();

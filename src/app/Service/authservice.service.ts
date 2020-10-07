@@ -72,5 +72,19 @@ export class AuthserviceService {
     );
   }
 
- 
+  getUserDetailsById(uid): Observable<any> {
+    const url = 'https://api.noworri.com/api/getuserbyid';
+    let params = new HttpParams();
+    params = params.append('uid', uid);
+
+    return this.http.post(url, null, { responseType: 'json', params: params}).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error', error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
 }

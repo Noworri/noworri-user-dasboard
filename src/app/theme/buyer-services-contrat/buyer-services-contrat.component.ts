@@ -615,15 +615,15 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
           'width=500,height=650'
         );
         this.transaction_ref = response.data.reference;
-        this.setStepTransaction(this.stepDetails);
-        setTimeout(() => {
-          this.markSecuredFunds();
-          this.isValidating = false;
-          this.getStepTransaction();
-        }, 25000);
+        // this.setStepTransaction(this.stepDetails);
         // setTimeout(() => {
-        //   this.checkSuccessSecuredFunds(this.transaction_ref);
-        // }, 30000);
+        //   this.markSecuredFunds();
+        //   this.isValidating = false;
+        //   this.getStepTransaction();
+        // }, 25000);
+        setTimeout(() => {
+          this.checkSuccessSecuredFunds(this.transaction_ref);
+        }, 30000);
         return false;
       });
   }
@@ -648,6 +648,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
             step: 2,
             description: '',
           };
+          this.markSecuredFunds();
           this.setStepTransaction(this.stepDetails);
           this.getStepTransaction();
           this.isSecuring = false;

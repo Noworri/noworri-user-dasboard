@@ -219,6 +219,7 @@ export class TransactionsService {
     let params = new HttpParams();
     params = params.append('email', paymentData.email);
     params = params.append('amount', paymentData.amount);
+    params = params.append('callback_url', 'https://web.noworri.com/home');
 
     return this.http
       .post(url, null, { responseType: 'json', params: params })
@@ -386,40 +387,36 @@ export class TransactionsService {
   }
 
   createTransaction(transactionDetails) {
-    const url = 'https://api.noworri.com/api/createusertransaction';
+    const url = 'https://api.noworri.com/api/newtransaction';
+    // const url = 'https://api.noworri.com/api/createusertransaction';
     let params = new HttpParams();
     if (!transactionDetails.deadline || !transactionDetails.revision) {
       transactionDetails.deadline = '';
-      transactionDetails.revision = '';
+      transactionDetails.revision = 0;
     }
     if (!transactionDetails.file_path) {
-      transactionDetails.file_path = '';
+      transactionDetails.file_path = 'N/A';
     }
 
-    params = params.append('user_id', transactionDetails.user_id);
-    params = params.append('user_role', transactionDetails.user_role);
-    params = params.append('user_phone', transactionDetails.user_phone);
-    params = params.append('user_name', '');
-    params = params.append('owner_id', transactionDetails.owner_id);
-    params = params.append('owner_role', transactionDetails.owner_role);
-    params = params.append('owner_phone', transactionDetails.owner_phone);
-    params = params.append('owner_name', '');
+    params = params.append('initiator_id', transactionDetails.initiator_id);
+    params = params.append('initiator_role', transactionDetails.initiator_role);
+    params = params.append('destinator_id', transactionDetails.destinator_id);
     params = params.append(
       'transaction_type',
       transactionDetails.transaction_type
     );
-    params = params.append('service', transactionDetails.service);
+    params = params.append('name', transactionDetails.service);
     params = params.append('price', transactionDetails.price);
-    params = params.append('noworri_fees', transactionDetails.noworri_fees);
-    params = params.append('total-price', transactionDetails.total_price);
     params = params.append('deadDays', '0');
     params = params.append('deadHours', '0');
     params = params.append('deadline', transactionDetails.deadline);
     params = params.append('start', '');
     params = params.append('deadline_type', transactionDetails.deadline_type);
+    params = params.append('delivery_phone', transactionDetails.delivery_phone);
     params = params.append('revision', transactionDetails.revision);
     params = params.append('requirement', transactionDetails.requirement);
     params = params.append('file_path', transactionDetails.file_path);
+    params = params.append('payment_id', transactionDetails.transaction_ref);
     params = params.append('etat', '2');
     params = params.append('deleted', '0');
 

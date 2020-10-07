@@ -4,6 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { Subject } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
+import { isEmpty } from 'lodash';
+import { AuthserviceService } from 'src/app/Service/authservice.service';
+
+const SESSION_STORAGE_KEY = 'noworri-user-session';
 
 @Component({
   selector: 'app-seller-merchandise-contrat',
@@ -11,7 +16,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./seller-merchandise-contrat.component.scss']
 })
 export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
-  unsubscribe = new Subject();
+  unsubscribe$ = new Subject();
+  initiator_phone: string;
 
   tableData: any;
   userRole: string;
@@ -40,8 +46,11 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     private transactionsService: TransactionsService,
     private router: Router,
     private route: ActivatedRoute,
+    private userService: AuthserviceService
   ) {
     this.transactionKey = this.route.snapshot.paramMap.get('transactionKey');
+    const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
+    this.userId = sessionData.user_uid;
   }
 
   ngOnInit() {
@@ -49,8 +58,8 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   getNoworriFee(price: number) {
@@ -59,7 +68,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
 
   cancelOrder() {
     this.isValidating = true;
-    this.transactionsService.cancelOrder(this.transactionKey).pipe(takeUntil(this.unsubscribe)).subscribe(
+    this.transactionsService.cancelOrder(this.transactionKey).pipe(takeUntil(this.unsubscribe$)).subscribe(
       response => {
         setTimeout(() => {
           this.isValidating = false;
@@ -82,7 +91,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   updateDeliveryPhone(form: NgForm) {
     this.isUpdating = true;
     const newDelivery = `+233${form.value['newDelivery']}`;
-    this.transactionsService.updateDeliveryPhone(this.transactionId, newDelivery).pipe(takeUntil(this.unsubscribe)).subscribe(
+    this.transactionsService.updateDeliveryPhone(this.transactionId, newDelivery).pipe(takeUntil(this.unsubscribe$)).subscribe(
       response => {
         setTimeout(() => {
           this.isUpdating = false;
@@ -98,30 +107,43 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     );
   }
 
+  getBuyerDetails(buyerUid) {
+      this.userService.getUserDetailsById(buyerUid)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (user) => {
+          if (isEmpty(user)) {
+            this.buyerPhone  = 'N/A';
+          } else {
+            this.buyerPhone = user.mobile_phone;
+          }
+          return this.initiator_phone;
+        },
+        (error) => {
+          console.log('Error %j', error.message);
+        }
+      );
+  }
+
   loadUserTransaction(transaction_id: string) {
     this.transactionsService
       .getUserTransaction(transaction_id)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (transactions) => {
           this.tableData = transactions;
           transactions.forEach((details) => {
             this.transactionType = details.transaction_type.toLowerCase();
-            this.userRole = details.owner_role.toLowerCase();
+            this.userRole = 'Sell';
             this.amount = parseInt(details.price, 10).toFixed(2);
             this.noworriFee = this.getNoworriFee(this.amount).toFixed(2);
             this.totalAmount = parseInt(this.amount, 10) - parseInt(this.noworriFee, 10);
             this.totalAmount = this.totalAmount.toFixed(2);
-            this.item = details.service;
-            this.buyerPhone = details.owner_phone;
-            if (details.user_id === this.userId && details.user_role === 'Buy') {
-              this.buyerPhone = details.user_phone;
-            } else if (details.owner_id === this.userId && details.owner_role === 'Buy') {
-              this.buyerPhone = details.owner_phone;
-            }
+            this.item = details.name;
+            this.getBuyerDetails(details.initiator_id);
             this.description = details.requirement;
             this.transactionId = details.id;
-            this.deliveryPhone = details.deadline_type ? details.deadline_type : 'N/A';
+            this.deliveryPhone = details.delivery_phone ? details.delivery_phone : 'N/A';
             if (details.etat === '2') {
               this.isFundsReleased = true;
             }
