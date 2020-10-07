@@ -57,31 +57,32 @@ export class TransactionsComponent implements OnInit, OnDestroy {
           this.tableData = transactions;
           transactions.forEach((details) => {
             this.transactionType = details.transaction_type.toLowerCase();
+            details.destinator_role = details.initiator_role === 'Buy' ? 'Sell' : 'Buy';
             if (
-              details.user_role === 'Sell' &&
-              this.userId === details.user_id
+              details.initiator_role === 'Sell' &&
+              this.userId === details.initiator_id
             ) {
-              details['sellerPhone'] = details.user_phone;
-              details['BuyerPhone'] = details.owner_phone;
+              details['sellerPhone'] = details.initiator_phone;
+              details['BuyerPhone'] = details.destinator_phone;
             } else if (
-              details.user_role === 'Buy' &&
-              this.userId === details.user_id
+              details.initiator_role === 'Buy' &&
+              this.userId === details.initiator_id
             ) {
-              details['sellerPhone'] = details.owner_phone;
-              details['BuyerPhone'] = details.user_phone;
+              details['sellerPhone'] = details.destinator_phone;
+              details['BuyerPhone'] = details.initiator_phone;
             } else if (
-              details.owner_role === 'Buy' &&
-              this.userId === details.owner_id) {
-                details['sellerPhone'] = details.user_phone;
-                details['BuyerPhone'] = details.owner_phone;
+              details.destinator_role === 'Buy' &&
+              this.userId === details.destinator_id) {
+                details['sellerPhone'] = details.initiator_phone;
+                details['BuyerPhone'] = details.destinator_phone;
             } else if (
-              details.owner_role === 'Sell' &&
-              this.userId === details.owner_id) {
-                details['sellerPhone'] = details.owner_phone;
-                details['BuyerPhone'] = details.user_phone;
+              details.destinator_role === 'Sell' &&
+              this.userId === details.destinator_id) {
+                details['sellerPhone'] = details.destinator_phone;
+                details['BuyerPhone'] = details.initiator_phone;
             } else {
-              details['sellerPhone'] = details.owner_phone;
-              details['BuyerPhone'] = details.user_phone;
+              details['sellerPhone'] = details.destinator_phone;
+              details['BuyerPhone'] = details.initiator_phone;
             }
             this.amount = details.total_price;
           });

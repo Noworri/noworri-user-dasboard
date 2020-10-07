@@ -87,9 +87,9 @@ export class EscrowServiceBuyerstep2Component implements OnInit {
       this.decimalPart = '00';
     }
     this.transactionDetails = {
-      user_id: this.user_id,
-      user_role: this.user_role,
-      user_phone: this.mobile_phone,
+      initiator_id: this.user_id,
+      initiator_role: this.user_role,
+      initiator_phone: this.mobile_phone,
       owner_id: this.owner_id,
       owner_role: this.owner_role,
       owner_phone: this.sellerNumber,
@@ -107,9 +107,7 @@ export class EscrowServiceBuyerstep2Component implements OnInit {
     };
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   RoutingToTransation() {
     this.router.navigate(['/transactions']);
