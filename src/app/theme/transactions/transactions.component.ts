@@ -100,25 +100,22 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     ownerPhone,
     transactionType
   ) {
-    // transactionType = transactionType.toLowerCase();
-    // if (this.userPhone === userPhone) {
-    //   this.userRole = userRole;
-    // } else if (this.userPhone === ownerPhone) {
-    //   this.userRole = ownerRole;
-    // } 
+    transactionType = transactionType.toLowerCase();
+    if (this.userPhone === userPhone) {
+      this.userRole = userRole;
+    } else if (this.userPhone === ownerPhone) {
+      this.userRole = ownerRole;
+    } 
    
   console.log(this.tableData)
-    
-     
-      
-  //   if (this.userRole === 'Buy' && transactionType === 'merchandise') {
-  //     this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
-  //   } else if (this.userRole === 'Sell' && transactionType === 'merchandise') {
-  //     this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
-  //   } else if (this.userRole === 'Buy' && transactionType === 'services') {
-  //     this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
-  //   } else if (this.userRole === 'Sell' && transactionType === 'services') {
-  //     this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
-  //   }
+    if (this.userRole === 'Buy' && transactionType === 'merchandise') {
+      this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
+    } else if (this.userRole === 'Sell' && transactionType === 'merchandise') {
+      this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
+    } else if (this.userRole === 'Buy' && transactionType === 'services') {
+      this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
+    } else if (this.userRole === 'Sell' && transactionType === 'services') {
+      this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
+    }
     }
 }

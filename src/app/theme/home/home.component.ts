@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.homeInputService.DataInputHome)
   }
   // ---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
   OnSubmit(F: NgForm) {

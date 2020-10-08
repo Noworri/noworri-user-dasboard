@@ -49,9 +49,9 @@ const MENUITEMS = [
         type: "link",
       },
       {
-        state: "",
+        state: "Get Strusted",
         short_label: "D",
-        name: "",
+        name: "homegetstrusted",
         icon: "",
         type: "link",
       },
