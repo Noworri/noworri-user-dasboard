@@ -811,18 +811,19 @@ export class AdminComponent implements OnInit, OnDestroy {
     const searchInputNumberValue = document.getElementsByTagName('input')[0]
       .value;
     //      remove space and first 0 of seachInput value    //
-    const rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
+    let  rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
 
     //     validation   //
     this.validateInputType(rigthValue);
 
-    //  to choice a number corresponding  some contry  //
+   //  to choice a number corresponding  some contry  //
 
-    if (searchInputNumberValue.length === 12) {
-      this.prefixContryCode = '+233';
-    } else if (searchInputNumberValue.length === 11) {
-      this.prefixContryCode = '+234';
-    }
+   if (searchInputNumberValue.length === 12) {
+    this.prefixContryCode = '+233';
+  } else if (searchInputNumberValue.length === 13) {
+    rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
+    this.prefixContryCode = '+234';
+  }
     // ----- if input data is not correct ------//
     if (
       rigthValue === '' ||
@@ -923,5 +924,13 @@ export class AdminComponent implements OnInit, OnDestroy {
           }
         );
       }
+  }
+//--------------
+signOut() {
+    localStorage.clear();
+    sessionStorage.clear();
+    setTimeout(() => {
+      this.router.navigate(['/auth/login']);
+    }, 1000);
   }
 }

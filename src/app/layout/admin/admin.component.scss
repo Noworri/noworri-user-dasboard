@@ -24,19 +24,24 @@
           margin-left: -6px;
           margin-top: 13px;
         }
-        .Settings {
-          margin-left: -20px;
-          margin-top: 18px;
-          .icon {
-            font-size: medium;
-            margin-left: 6px;
-          }
-        }
+        
+      }
+    }
+    .Settings {
+      margin-left: 20px;
+      margin-top: 18px;
+      .icon {
+        font-size: medium;
+        margin-left: 6px;
+        cursor: pointer;
+      }
+      .settingMenu{
+        margin-top: 400px;
       }
     }
     .header-search {
       margin-top: 30px;
-      margin-left: 96px;
+      margin-left: 146px;
     }
   }
   .nav-right {
@@ -63,7 +68,7 @@
       border-radius: 9px;
       height: 35px;
       color: black;
-      margin-left:-650px;
+      margin-left:-350px;
       
     }
    

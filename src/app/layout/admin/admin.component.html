@@ -24,16 +24,7 @@
             <li class="ripple light" id="ProfilNameEtMail">
               <div class="row">
                 <a (click)="onViewProfile()" class="Nom">{{ currentUser }}</a>
-                <a class="Settings">
-                  <a [matMenuTriggerFor]="menu">
-                    <mat-icon class="icon" (click)='onRoutingTopayement()'>settings</mat-icon>
-                  </a>
-                  <!---- <mat-menu #menu="matMenu">
-                    <button mat-menu-item>PROFIL</button>
-                    <button mat-menu-item>ACCOUNT</button>
-                    <button mat-menu-item>SINGOUT</button>
-                  </mat-menu> -->
-                </a>
+               
               </div>
             </li>
             <li class="header-search" *ngIf='waitingDisplayInput'>
@@ -60,6 +51,16 @@
               strusted</button>
           </ul>
           --->
+          <a class="Settings">
+            <a [matMenuTriggerFor]="menu">
+              <mat-icon class="icon" >settings</mat-icon>
+            </a>
+             <mat-menu #menu="matMenu" class="settingMenu">
+              <button mat-menu-item>Profil</button>
+              <button mat-menu-item (click)='onRoutingTopayement()'>Account</button>
+              <button mat-menu-item (click)='signOut()'>Signout</button>
+            </mat-menu> 
+          </a>
         </div>
       </div>
     </nav>

@@ -23,6 +23,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   AfficheAddbank: boolean;
   AfficheAddvisa: boolean;
   AfficheAddmobile: boolean;
+  
   email: string;
   name: string;
   mobile_phone: string;
@@ -139,23 +140,23 @@ export class PaymentComponent implements OnInit, OnDestroy {
     });
   }
 
-  DisplayAddBank() {
-    this.AfficheAddbank = true;
-  }
-  DisplayAddVisa() {
-    this.AfficheAddvisa = true;
-  }
-  DisplayAddMobile() {
-    this.AfficheAddmobile = true;
-  }
+  // DisplayAddBank() {
+  //   this.AfficheAddbank = true;
+  // }
+  // DisplayAddVisa() {
+  //   this.AfficheAddvisa = true;
+  // }
+  // DisplayAddMobile() {
+  //   this.AfficheAddmobile = true;
+  // }
 
-  HideAddBank() {
-    this.AfficheAddbank = false;
-  }
-  HideAddVisa() {
-    this.AfficheAddvisa = false;
-  }
-  HideAddMobile() {
-    this.AfficheAddmobile = false;
-  }
+  // HideAddBank() {
+  //   this.AfficheAddbank = false;
+  // }
+  // HideAddVisa() {
+  //   this.AfficheAddvisa = false;
+  // }
+  // HideAddMobile() {
+  //   this.AfficheAddmobile = false;
+  // }
 }
