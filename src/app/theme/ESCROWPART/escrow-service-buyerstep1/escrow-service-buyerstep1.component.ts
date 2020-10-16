@@ -32,6 +32,7 @@ export class EscrowServiceBuyerstep1Component implements OnInit {
   trans: string;
 
   deadlineTypeRadio: FormGroup;
+  waitingDisplayInput:boolean;
 
   // ---------Messages a afficher--------//
 
@@ -370,13 +371,18 @@ export class EscrowServiceBuyerstep1Component implements OnInit {
   // ----for contry location---//
 
   getDataLocation() {
-    this.geoLocationService.getLocation().subscribe((data) => {
-      this.locationData = data['country'];
+    new Promise((resolve) => {
+      this.geoLocationService.getLocation().subscribe((data) => {
+        resolve(this.locationData = data['country'])
+      });
+    }).then(() => {
       this.countryData = {
         preferredCountries: [`${this.locationData}`],
-        localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d Ivoire' },
-        onlyCountries: ['GH', 'NG', 'BJ']
+        localizedCountries: { ng: 'Nigeria', gh: 'Ghana' },
+        onlyCountries: ['GH', 'NG']
       };
+    }).then(() => {
+      this.waitingDisplayInput = true;
     });
   }
 

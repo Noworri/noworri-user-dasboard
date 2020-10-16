@@ -24,13 +24,16 @@
                   <label for="exampleInputPassword1">{{ buyerOrSeller  }} phone number </label>
                 </div>
               </div>
-              <form #formTel="ngForm">
-                <intl-tel-input (click)="AfficheSide2()" [name]="'sellersPhone_number'" [options]="countryData"
+              <div >
+                <form #formTel="ngForm">
+                  <intl-tel-input *ngIf='waitingDisplayInput' (click)="AfficheSide2()" [name]="'sellerPhoneNumber'" [options]="countryData"
                   [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
                 </intl-tel-input>
-                <mat-error *ngIf="!Accept2 && !isValidNumber && !isValidSeller">invalid phone number</mat-error>
-                <mat-error *ngIf="!isValidSeller && isValidNumber">this Seller is not registered on Noworri</mat-error>
-              </form>
+                  <mat-error *ngIf="!Accept2 && !isValidNumber && !isValidSeller">invalid phone number</mat-error>
+                  <mat-error *ngIf="!isValidSeller && isValidNumber">this Seller is not registered on Noworri</mat-error>
+                </form>
+              </div>
+              
               <div id="Form2">
                 <div class="WHAT">
                   <label id="PrincipaleTitle" for="exampleInputPassword1">What is the service price</label>

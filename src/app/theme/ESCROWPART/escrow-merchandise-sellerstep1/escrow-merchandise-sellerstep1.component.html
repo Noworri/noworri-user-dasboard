@@ -40,11 +40,13 @@
 
                 <div id="PetitInput1">
                   <label class="Sellersphone">Buyer's phone number</label>
-                  <form #sellersForms="ngForm">
-                    <intl-tel-input (click)="AfficheSide3()" [name]="'sellerPhoneNumber'" [options]="countryData"
-                      [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
-                    </intl-tel-input>
-                  </form>
+                  <div >
+                    <form #sellersForms="ngForm">
+                      <intl-tel-input *ngIf='waitingDisplayInput' (click)="AfficheSide3()" [name]="'sellerPhoneNumber'" [options]="countryData"
+                        [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                      </intl-tel-input>
+                    </form>
+                  </div>
                 </div>
                 <div id="PetitInput2">
                   <label>Delivery phone number</label>
@@ -53,11 +55,14 @@
                     from you and delivered it to the buyer
                   </p>
                   <div class="inp">
-                    <form #deliveryForms="ngForm">
-                      <intl-tel-input (click)="AfficheSide4()" [name]="'deliveryPhoneNumber'" [options]="countryData"
-                        [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
-                      </intl-tel-input>
-                    </form>
+                    <div >
+                      <form #deliveryForms="ngForm">
+                        <intl-tel-input *ngIf='waitingDisplayInput' (click)="AfficheSide4()" [name]="'deliveryPhoneNumber'" [options]="countryData"
+                          [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                        </intl-tel-input>
+                      </form>
+                    </div>
+                   
                   </div>
                 </div>
 

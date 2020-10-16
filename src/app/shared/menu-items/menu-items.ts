@@ -49,7 +49,7 @@ const MENUITEMS = [
         type: "link",
       },
       {
-        state: "Get Strusted",
+        state: "Get trusted",
         short_label: "D",
         name: "homegetstrusted",
         icon: "",

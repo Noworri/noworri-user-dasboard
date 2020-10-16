@@ -51,8 +51,8 @@ export class FormgetstrustedComponent implements OnInit {
     }).then(() => {
       this.countryData = {
         preferredCountries: [`${this.locationData}`],
-        localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d Ivoire' },
-        onlyCountries: ['GH', 'NG', 'BJ']
+        localizedCountries: { ng: 'Nigeria', gh: 'Ghana' },
+        onlyCountries: ['GH', 'NG']
       };
     }).then(() => {
       this.waitingDisplayInput = true;
