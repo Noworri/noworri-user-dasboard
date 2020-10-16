@@ -1,5 +1,6 @@
 <div class="container">
-  <form (ngSubmit)="onCompleteStep1(F,sellersForms,deliveryForms)" #F="ngForm">
+
+  <form (ngSubmit)="onCompleteStep1(recaptemplate,F,sellersForms,deliveryForms)" #F="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -40,11 +41,14 @@
 
                 <div id="PetitInput1">
                   <label class="Sellersphone">Seller's phone number</label>
-                  <form #sellersForms="ngForm">
-                    <intl-tel-input (click)="AfficheSide3()" [name]="'sellerPhoneNumber'" [options]="countryData"
-                      [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
-                    </intl-tel-input>
-                  </form>
+                  <div  >
+                    <form #sellersForms="ngForm">
+                      <intl-tel-input *ngIf='waitingDisplayInput' (click)="AfficheSide3()" [name]="'sellerPhoneNumber'" [options]="countryData"
+                        [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                      </intl-tel-input>
+                    </form>
+                  </div>
+                 
                 </div>
                 <div id="PetitInput2">
                   <label>Delivery phone number</label>
@@ -54,7 +58,7 @@
                   </p>
                   <div class="inp">
                     <form #deliveryForms="ngForm">
-                      <intl-tel-input (click)="AfficheSide4()" [name]="'deliveryPhoneNumber'" [options]="countryData"
+                      <intl-tel-input  *ngIf='waitingDisplayInput' (click)="AfficheSide4()" [name]="'deliveryPhoneNumber'" [options]="countryData"
                         [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
                       </intl-tel-input>
                     </form>
@@ -76,7 +80,7 @@
                           processing...
                         </button>
                       </div>
-                      <button type="submit" *ngIf="!isValidating" mat-raised-button> Continue</button>
+                      <button type="submit" *ngIf="!isValidating"  mat-raised-button> Continue</button>
                     </div>
                   </div>
                 </div>
@@ -182,5 +186,32 @@
         </div>
       </div>
     </div>
+
   </form>
+  <!-----------------------Recap template------------------------------------>
+  <ng-template #recaptemplate >
+    <div class="container" id="recapTemplate">
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="img">
+            <img src="assets\merchandise escrow modal log.png" class="card-img-top" alt="...">
+          </div>
+        </div>
+        <div class="col-sm-7   rightSide" >
+          <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+          <div class="text">
+            <h6 class="title">Items or service</h6>
+            <h6 class="variable" >{{escrowStep1Data.item}}</h6>
+            <h6 class="title" >You're dealing with</h6>
+            <h6 class="variable" >{{escrowStep1Data.sellerPhoneNumber}}</h6>
+            <h6 class="title">Product will be delivered by</h6>
+            <h6 class="variable" >{{escrowStep1Data.deliveryPhoneNumber}}</h6>
+          </div>
+          <div class="button text-center" >
+            <button type="button" class="btn btn-primary btn-sm">Lock Up : {{totalAmount}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </div>

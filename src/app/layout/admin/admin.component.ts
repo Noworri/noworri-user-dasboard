@@ -769,8 +769,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     }).then(() => {
       this.countryData = {
         preferredCountries: [`${this.locationData}`],
-        localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d Ivoire' },
-        onlyCountries: ['GH', 'NG', 'BJ']
+        localizedCountries: { ng: 'Nigeria', gh: 'Ghana' },
+        onlyCountries: ['GH', 'NG']
       };
     }).then(() => {
       this.waitingDisplayInput = true;
@@ -810,19 +810,22 @@ export class AdminComponent implements OnInit, OnDestroy {
   onSearchCompany(resultModal: TemplateRef<any>, warningModale: TemplateRef<any>) {
     const searchInputNumberValue = document.getElementsByTagName('input')[0]
       .value;
+
+      const searchPlaceholderInputValue = document.getElementsByTagName('input')[0].getAttribute('placeholder');
     //      remove space and first 0 of seachInput value    //
-    const rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
+    let  rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
 
     //     validation   //
     this.validateInputType(rigthValue);
 
-    //  to choice a number corresponding  some contry  //
+   //  to choice a number corresponding  some contry  //
 
-    if (searchInputNumberValue.length === 12) {
-      this.prefixContryCode = '+233';
-    } else if (searchInputNumberValue.length === 11) {
-      this.prefixContryCode = '+234';
-    }
+   if (searchPlaceholderInputValue==='023 123 4567') {
+    this.prefixContryCode = '+233';
+  } else if (searchPlaceholderInputValue==='0802 123 4567') {
+    rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
+    this.prefixContryCode = '+234';
+  }
     // ----- if input data is not correct ------//
     if (
       rigthValue === '' ||
@@ -847,7 +850,6 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.LoadingStatus = true;
       this.SearchButtonStatus = false;
       this.phoneNumber = this.prefixContryCode + rigthValue;
-      console.log(this.phoneNumber)
       this.searchService.countSearch(this.phoneNumber).subscribe((response) => {
         return response;
       });
@@ -923,5 +925,13 @@ export class AdminComponent implements OnInit, OnDestroy {
           }
         );
       }
+  }
+//--------------
+signOut() {
+    localStorage.clear();
+    sessionStorage.clear();
+    setTimeout(() => {
+      this.router.navigate(['/auth/login']);
+    }, 1000);
   }
 }

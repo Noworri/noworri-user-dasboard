@@ -44,6 +44,8 @@ export class EscrowServiceSellerstep1Component implements OnInit {
 
   buyerOrSeller: string;
 
+  waitingDisplayInput:boolean;
+
   // boolean for display hour or days input -----//
 
   DayInput: boolean;
@@ -372,15 +374,21 @@ export class EscrowServiceSellerstep1Component implements OnInit {
   // ----for contry location---//
 
   getDataLocation() {
-    this.geoLocationService.getLocation().subscribe((data) => {
-      this.locationData = data['country'];
+    new Promise((resolve) => {
+      this.geoLocationService.getLocation().subscribe((data) => {
+        resolve(this.locationData = data['country'])
+      });
+    }).then(() => {
       this.countryData = {
         preferredCountries: [`${this.locationData}`],
-        localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d Ivoire' },
-        onlyCountries: ['GH', 'NG', 'BJ']
+        localizedCountries: { ng: 'Nigeria', gh: 'Ghana' },
+        onlyCountries: ['GH', 'NG']
       };
+    }).then(() => {
+      this.waitingDisplayInput = true;
     });
   }
+  
 
 
 }

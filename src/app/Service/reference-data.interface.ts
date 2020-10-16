@@ -88,7 +88,7 @@ export interface UserReference {
 
 export interface MerchandiseEscrowStep1Reference {
   item: string;
-  sellerPhoneNumber: string;
+  sellerPhoneNumber: any;
   deliveryPhoneNumber: any;
   price: any;
   description: any;

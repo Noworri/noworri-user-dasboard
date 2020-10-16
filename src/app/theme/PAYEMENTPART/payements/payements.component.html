@@ -17,11 +17,11 @@
         </h6>
         <div class="container" id="bank">
           <div class="row">
-            <div class="col-6">
-              <div class="card card1  sm-3" style="width: 20rem">
+            <div *ngFor="let detail of details"  class="col-6">
+              <div   class="card card1  sm-3" style="width: 20rem">
                 <div class="row">
                   <div class="col-8">
-                    <h6 class="FidelityBank ">Fidelity Bank Ghana</h6>
+                    <h6 class="FidelityBank ">{{ detail.bank_name }}</h6>
                   </div>
                   <div class="col-4">
                     <h6 class="Delete">Delete</h6>
@@ -30,7 +30,7 @@
                 <div class="row">
                   <div class="col-6">
                     <h6 class="AccountNumber">Account number</h6>
-                    <h6 class="CardNumber">02550789002566125</h6>
+                    <h6 class="CardNumber">{{ detail.account_no | slice:5:9 }}</h6>
                   </div>
                   <div class="col-6">
                     <mat-icon class="play_arrow">play_arrow</mat-icon>
@@ -39,7 +39,7 @@
                 <div class="row">
                   <div class="col-6">
                     <h6 class="AccountName">Account name</h6>
-                    <h6 class="Name">Robert Fernandeze</h6>
+                    <h6 class="Name">{{ detail.holder_name }}</h6>
                   </div>
                   <div class="col-6">
                     <h6 class="PrimaryAccount">Primary Acount</h6>
@@ -48,31 +48,7 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="card card1  sm-3" style="width: 20rem;">
-                <div class="row">
-                  <div class="col-8">
-                    <h6 class="FidelityBank ">Zenith Bank of Ghana</h6>
-                  </div>
-                  <div class="col-4">
-                    <h6 class="Delete">Delete</h6>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <h6 class="AccountNumber">Account number</h6>
-                    <h6 class="CardNumber">02550789002566125</h6>
-                  </div>
-                  <div class="col-6">
-                    <mat-icon class="play_arrow">play_arrow</mat-icon>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <h6 class="AccountName">Account name</h6>
-                    <h6 class="Name">Robert Fernandeze</h6>
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -91,28 +67,40 @@
               </div>
             </div>
             <hr>
-            <form>
+            <form (ngSubmit)="setupForm(form)" #form="ngForm">
               <div class="form-row ">
                 <div class="col-md-6 mb-3">
                   <label for="input">Select your Bank</label>
-                  <input type="text" class="form-control" id="input" required>
+                  <select class="form-control" id="bankName"  name="bankName"
+                  ngModel>
+                  <option *ngFor="let bank of bankList">{{ bank.name }}</option>
+                  </select>
                 </div>
 
               </div>
               <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Enter account number</label>
-                  <input type="text" class="form-control" id="input" required>
+                  <input type="text" class="form-control" id="accountNo" 
+                  name="accountNo"
+                  ngModel
+                  required>
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Enter account name</label>
-                  <input type="text" class="form-control" id="input" required>
+                  <input type="text" class="form-control" id="holderName" 
+                  name="holderName"
+                  ngModel
+                  required>
                 </div>
               </div>
               <div class="text-center">
-                <button class="btn btn-primary btn-sm" type="submit">Add Bank</button>
+                <button *ngIf="isAdding" type="button" class="btn btn-light">
+                  Adding...
+                </button>
+                <button class="btn btn-primary btn-sm"   *ngIf="!isAdding"   (click)="setupForm()"  type="submit">Add Bank</button>
               </div>
 
             </form>
