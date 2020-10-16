@@ -113,6 +113,7 @@ export class TransactionsService {
       })
     );
   }
+
   initiateReleasePaystack(data) {
     const url = `https://api.noworri.com/api/initiateRelease`;
     let params = new HttpParams();
@@ -126,9 +127,31 @@ export class TransactionsService {
       .pipe(
         map((response: any) => {
           const releaseFundsData = response.data;
-          if (releaseFundsData) {
-            this.finalizeReleasePaystack(releaseFundsData);
-          }
+          // if (releaseFundsData) {
+          //   this.finalizeReleasePaystack(releaseFundsData);
+          // }
+          return releaseFundsData;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log('Error', error.message);
+          return observableThrowError(error);
+        })
+      );
+  }
+
+  initiateRefundPaystack(data) {
+    const url = `https://api.noworri.com/api/initiaterefund`;
+    let params = new HttpParams();
+    params = params.append('transaction', data.transaction_ref);
+    params = params.append('customer_note', 'Transaction cancelled');
+    params = params.append('amount', data.amount);
+    params = params.append('currency', data.currency);
+
+    return this.http
+      .post(url, null, { responseType: 'json', params: params })
+      .pipe(
+        map((response: any) => {
+          const releaseFundsData = response.data;
           return releaseFundsData;
         }),
         catchError((error: HttpErrorResponse) => {

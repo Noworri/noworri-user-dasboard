@@ -76,6 +76,21 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     );
   }
 
+  initiateRefund(transaction_id) {
+    const data = {
+      amount: this.amount,
+      transaction_ref: transaction_id,
+      currency: 'GHS',
+    };
+    // this.isValidating = true;
+    this.transactionsService.initiateRefundPaystack(data).pipe(takeUntil(this.unsubscribe$)).subscribe(
+      response => {
+        console.log(response);
+        return response;
+      }
+    );
+  }
+
   getPaymentRecipient(sellerId) {
     this.transactionsService
       .getAccountDetails(sellerId)

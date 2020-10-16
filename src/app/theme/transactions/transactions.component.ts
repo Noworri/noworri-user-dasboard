@@ -57,7 +57,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
           this.tableData = transactions;
           transactions.forEach((details) => {
             this.transactionType = details.transaction_type.toLowerCase();
-            details.destinator_role = details.initiator_role === 'Buy' ? 'Sell' : 'Buy';
+            details.destinator_role =
+              details.initiator_role === 'Buy' ? 'Sell' : 'Buy';
             if (
               details.initiator_role === 'Sell' &&
               this.userId === details.initiator_id
@@ -105,17 +106,18 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       this.userRole = userRole;
     } else if (this.userPhone === ownerPhone) {
       this.userRole = ownerRole;
-    } 
-   
-  console.log(this.tableData)
-    if (this.userRole === 'Buy' && transactionType === 'merchandise') {
-      this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
-    } else if (this.userRole === 'Sell' && transactionType === 'merchandise') {
-      this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
-    } else if (this.userRole === 'Buy' && transactionType === 'services') {
-      this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
-    } else if (this.userRole === 'Sell' && transactionType === 'services') {
-      this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
     }
-    }
+
+    console.log(this.tableData);
+
+      if (this.userRole === 'Buy' && transactionType === 'merchandise') {
+        this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
+      } else if (this.userRole === 'Sell' && transactionType === 'merchandise') {
+        this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
+      } else if (this.userRole === 'Buy' && transactionType === 'services') {
+        this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
+      } else if (this.userRole === 'Sell' && transactionType === 'services') {
+        this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
+      }
+  }
 }
