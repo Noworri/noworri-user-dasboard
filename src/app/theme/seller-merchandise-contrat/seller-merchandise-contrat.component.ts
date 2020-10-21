@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
 import { isEmpty } from 'lodash';
 import { AuthserviceService } from 'src/app/Service/authservice.service';
+import { GeoLocationService } from 'src/app/Service/geo-location.service';
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
@@ -33,6 +34,12 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   isFundsReleased = false;
   isCancelled = false;
   isUpdatingDelivery = false;
+  prefixCountryCode: string;
+
+    // ---for contry location ----//
+    countryData: any;
+    locationData: string;
+    displayInput: boolean;
 
 
   buyerPhone: string;
@@ -46,6 +53,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     private transactionsService: TransactionsService,
     private router: Router,
     private route: ActivatedRoute,
+    private geoLocationService: GeoLocationService,
     private userService: AuthserviceService
   ) {
     this.transactionKey = this.route.snapshot.paramMap.get('transactionKey');
@@ -55,6 +63,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadUserTransaction(this.transactionKey);
+    this.getDataLocation();
   }
 
   ngOnDestroy() {
@@ -90,19 +99,29 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
 
   updateDeliveryPhone(form: NgForm) {
     this.isUpdating = true;
-    const newDelivery = `+233${form.value['newDelivery']}`;
+    const telInputPlaceholderInputValue = document
+      .getElementsByTagName('input')[0]
+      .getAttribute('placeholder');
+    if (telInputPlaceholderInputValue === '023 123 4567') {
+      this.prefixCountryCode = '+233';
+    } else if (telInputPlaceholderInputValue === '0802 123 4567') {
+      this.prefixCountryCode = '+234';
+    } else if (telInputPlaceholderInputValue === '01 23 45 67' ) {
+      this.prefixCountryCode = '+225';
+    }
+    const newDelivery = `${this.prefixCountryCode}${form.value['newDelivery']}`;
     this.transactionsService.updateDeliveryPhone(this.transactionId, newDelivery).pipe(takeUntil(this.unsubscribe$)).subscribe(
       response => {
         setTimeout(() => {
           this.isUpdating = false;
-          this.router.navigate(['transactions']);
+          this.loadUserTransaction(this.transactionKey);
         }, 5000);
         return response;
       },
       error => {
         this.isValidating = false;
         console.log(error);
-        // this.router.navigate(['transactions']);
+        this.loadUserTransaction(this.transactionKey);
       }
     );
   }
@@ -125,6 +144,20 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
       );
   }
 
+  getDataLocation() {
+    new Promise((resolve) => {
+      this.geoLocationService.getLocation().subscribe((data) => {
+        resolve(this.locationData = data['country']);
+      });
+    }).then(() => {
+      this.countryData = {
+        preferredCountries: [`${this.locationData}`],
+        localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Cote D\'Ivoire' },
+        onlyCountries: ['GH', 'NG', 'CI']
+      };
+    });
+  }
+
   loadUserTransaction(transaction_id: string) {
     this.transactionsService
       .getUserTransaction(transaction_id)
@@ -144,7 +177,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.description = details.requirement;
             this.transactionId = details.id;
             this.deliveryPhone = details.delivery_phone ? details.delivery_phone : 'N/A';
-            if (details.etat === '2') {
+            if (details.etat === '3') {
               this.isFundsReleased = true;
             }
             if (details.etat === '0') {

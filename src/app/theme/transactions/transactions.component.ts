@@ -103,20 +103,20 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   ) {
     transactionType = transactionType.toLowerCase();
     if (this.userPhone === userPhone) {
-      this.userRole = userRole;
+      this.userRole = userRole.toLowerCase();
     } else if (this.userPhone === ownerPhone) {
-      this.userRole = ownerRole;
+      this.userRole = ownerRole.toLowerCase();
     }
 
-    console.log(this.tableData);
+    console.log(this.userRole);
 
-      if (this.userRole === 'Buy' && transactionType === 'merchandise') {
+      if ((this.userRole === 'buy' || this.userRole === 'buyer') && transactionType === 'merchandise') {
         this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
-      } else if (this.userRole === 'Sell' && transactionType === 'merchandise') {
+      } else if ((this.userRole === 'sell' || this.userRole === 'Seller') && transactionType === 'merchandise') {
         this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
-      } else if (this.userRole === 'Buy' && transactionType === 'services') {
+      } else if ((this.userRole === 'buy' || this.userRole === 'buyer') && transactionType === 'services') {
         this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
-      } else if (this.userRole === 'Sell' && transactionType === 'services') {
+      } else if ((this.userRole === 'sell' || this.userRole === 'seller') && transactionType === 'services') {
         this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
       }
   }

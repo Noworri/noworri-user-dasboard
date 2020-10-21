@@ -26,15 +26,14 @@ export class TransactionsService {
           if (typeof values.total_price === undefined) {
             values.total_price = values.price;
           }
+          console.log(values.etat);
           if (values.etat === '0') {
             values.state = 'Cancelled';
-          } else if (values.etat === '2') {
-            values.state = 'Pending';
           } else if (values.etat === '1') {
-            values.state = 'Completed';
+            values.state = 'Pending';
           } else if (values.etat === '3') {
-            values.state = 'Approved';
-          } else if (values.etat === '4') {
+            values.state = 'Completed';
+          } else if (values.etat === '2') {
             values.state = 'Secured';
           }
           return values;
@@ -114,8 +113,8 @@ export class TransactionsService {
     );
   }
 
-  initiateReleasePaystack(data) {
-    const url = `https://api.noworri.com/api/initiateRelease`;
+  initiateReleasePaystack(data, transaction_id) {
+    const url = `https://api.noworri.com/api/initiateRelease/${transaction_id}`;
     let params = new HttpParams();
     params = params.append('source', 'balance');
     params = params.append('reason', 'Noworri Payment Release');
@@ -218,14 +217,38 @@ export class TransactionsService {
     );
   }
 
+  verifyReleaseCode(data) {
+    const url = `https://api.noworri.com/api/verifycode`;
+    let params = new HttpParams();
+    params = params.append('id', data.transaction_id);
+    params = params.append('release_code', data.release_code);
+    params = params.append('currency', data.currency);
+
+    return this.http
+      .post(url, null, { responseType: 'json', params: params })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log('Error', error.message);
+          return observableThrowError(error);
+        })
+      );
+  }
+
   updateDeliveryPhone(transaction_id, delivery_phone) {
     const url = `https://api.noworri.com/api/updateecobankescrdevivery`;
     let params = new HttpParams();
     params = params.append('deliver', delivery_phone);
     params = params.append('id', transaction_id);
+    const body = {
+      deliver: delivery_phone,
+      id: transaction_id
+    };
 
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, body)
       .pipe(
         map((response) => {
           return response;
@@ -257,13 +280,18 @@ export class TransactionsService {
       );
   }
 
-  checkTransactionStatus(ref) {
-    const url = `https://api.noworri.com/api/chektransactionstatus/${ref}`;
-    return this.http.get(url).pipe(
+  checkTransactionStatus(ref, transaction_key) {
+    const url = `https://api.noworri.com/api/chektransactionstatus`;
+    const transactionData = {
+      payment_id: ref,
+      treansaction_key: transaction_key
+    };
+    let params = new HttpParams();
+    params = params.append('payment_id', transactionData.payment_id);
+    params = params.append('transaction_key', transactionData.treansaction_key);
+    return this.http.get(url, { responseType: 'json', params: params }).pipe(
       map((response: any) => {
-        console.log('transaction status', response);
-        let statusData = response.data;
-        if (statusData) {
+        if (response.data) {
           this.status = response.data.status;
         }
         return response;
