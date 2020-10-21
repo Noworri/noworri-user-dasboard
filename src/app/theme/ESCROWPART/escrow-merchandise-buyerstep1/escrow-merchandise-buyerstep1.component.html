@@ -1,12 +1,12 @@
 <div class="container">
 
-  <form (ngSubmit)="onCompleteStep1(recaptemplate,F,sellersForms,deliveryForms)" #F="ngForm">
+  <form (ngSubmit)="onCompleteStep1(recaptemplate,form,sellersForms,deliveryForms)" #form="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
           <div class="ServiceStep1">
             <mat-icon class="cancel" routerLink="/home">cancel</mat-icon>
-            <h6 class="Merchandise">Merchandise: Step 1 of 2</h6>
+            <h6 class="Merchandise">Escrow Merchandise</h6>
             <hr />
             <div class="card-body">
               <div id="Please">
@@ -31,11 +31,11 @@
                   </div>
                   <div class="col">
                     <div class="input-group-text">
-                      <img src="assets/images/devise.png" />
-                      <h1 class="GHC">GHC</h1>
+                      <!-- <img src="assets/images/devise.png" /> -->
+                      <h1 class="GHC">{{ currency }}</h1>
                     </div>
                   </div>
-                  <p class="NoworriFee">Noworri Fees :</p>
+                  <p class="NoworriFee">Noworri Charges :</p>
                   <span class="fee">1.95% of the price</span>
                 </div>
 
@@ -208,7 +208,7 @@
             <h6 class="variable" >{{escrowStep1Data.deliveryPhoneNumber}}</h6>
           </div>
           <div class="button text-center" >
-            <button type="button" class="btn btn-primary btn-sm">Lock Up : {{totalAmount}}</button>
+            <button type="button" (click)="onSecureFunds()" class="btn btn-primary btn-sm">Lock Up : {{totalAmount}}</button>
           </div>
         </div>
       </div>

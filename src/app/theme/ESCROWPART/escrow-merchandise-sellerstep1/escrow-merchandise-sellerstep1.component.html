@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="onCompleteStep1(F,sellersForms,deliveryForms)" #form="ngForm">
+  <form (ngSubmit)="onCompleteStep1(recap, form,sellersForms,deliveryForms)" #form="ngForm">
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -31,11 +31,13 @@
                   <div class="col">
                     <div class="input-group-text">
                       <img src="assets/images/devise.png" />
-                      <h1 class="GHC">GHC</h1>
+                      <h1 class="GHC">{{ currency }}</h1>
                     </div>
                   </div>
-                  <!-----<p class="NoworriFee">Noworri Fees :</p>-->
+                  <!-----<p class="NoworriFee">Noworri Charges :</p>-->
                   <!---- <span class="fee">1.95% of the price</span>--->
+                  <p class="NoworriFee">Noworri Charges :</p>
+                  <span class="fee">1.98% of the price</span>  
                 </div>
 
                 <div id="PetitInput1">
@@ -180,4 +182,31 @@
       </div>
     </div>
   </form>
+    <!-----------------------Recap template------------------------------------>
+    <ng-template #recap >
+      <div class="container" id="recapTemplate">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="img">
+              <img src="assets\merchandise escrow modal log.png" class="card-img-top" alt="...">
+            </div>
+          </div>
+          <div class="col-sm-7   rightSide" >
+            <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+            <div class="text">
+              <h6 class="title">Items or service</h6>
+              <h6 class="variable" >{{escrowStep1Data.item}}</h6>
+              <h6 class="title" >You're dealing with</h6>
+              <h6 class="variable" >{{escrowStep1Data.sellerPhoneNumber}}</h6>
+              <h6 class="title">Product will be delivered by</h6>
+              <h6 class="variable" >{{escrowStep1Data.deliveryPhoneNumber}}</h6>
+            </div>
+            <div class="button text-center" >
+              <button type="button" (click)="onConfirmTransaction()" class="btn btn-primary btn-sm">confirm {{ totalAmount }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  
 </div>

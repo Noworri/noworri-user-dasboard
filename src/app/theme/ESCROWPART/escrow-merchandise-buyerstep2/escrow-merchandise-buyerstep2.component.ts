@@ -49,7 +49,6 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     private router: Router
   ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
-    console.log('session', sessionData);
     this.first_name = sessionData.first_name;
     this.email = sessionData.email;
     this.name = sessionData.name;
@@ -228,7 +227,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
 
   checkSuccessSecuredFunds(ref) {
     this.transactionsService
-      .checkTransactionStatus(ref)
+      .checkTransactionStatus(ref, null)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((statusData) => {
         if (statusData.data && statusData.data.status === 'success') {
