@@ -1,6 +1,6 @@
 import { AuthserviceService } from './../../../Service/authservice.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MerchandiseEscrowStep1Reference, CompanyReference } from 'src/app/Service/reference-data.interface';
 import { Router } from '@angular/router';
 import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
@@ -10,6 +10,7 @@ import { TransactionsService } from 'src/app/Service/transactions.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GeoLocationService } from '../../../Service/geo-location.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 
 
@@ -30,10 +31,11 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
   orderDetails: any;
   noworriFee: number;
   totalAmount: number;
-  owner_id: string;
+  destinator_id: string;
   price: number;
   escrowStep1Data: MerchandiseEscrowStep1Reference;
   transactionSummary: any;
+  currency: string;
 
   Form: FormGroup;
   amount: number;
@@ -45,9 +47,9 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
   first_name: string;
   name: string;
   mobile_phone: string;
-  user_id: string;
-  user_role: string;
-  owner_role: string;
+  initiator_id: string;
+  initiator_role: string;
+  destinator_role: string;
   transactionType: string;
   description: string;
   deliveryPhone: string;
@@ -66,23 +68,20 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
 
   // ---for contry location ----//
   countryData: any;
-
   locationData: string;
-
   displayInput: boolean;
 
   // ---------Messages a afficher--------//
 
   role: string;
-
   E164PhoneNumber = '+233544990518';
-
+  prefixCountryCode: string;
   buyersOrSeller: string;
-  Accept1: boolean;
-  Accept2 = true;
-  Accept3: boolean;
-  Accept4: boolean;
-  Accept5: boolean;
+  accept1: boolean;
+  accept2 = true;
+  accept3: boolean;
+  accept4: boolean;
+  accept5: boolean;
 
   // ------------Controle de la couleur de la couleur de l'input-------//
   itemControl = 'form-control';
@@ -102,13 +101,15 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
 
   unsubscribe = new Subject();
 
+  modalRef: BsModalRef;
 
 
 
   constructor(
     private router: Router,
-    private companyService: AuthserviceService,
+    private userService: AuthserviceService,
     private formbuilder: FormBuilder,
+    private modalService: BsModalService,
     private transactionsService: TransactionsService,
     private geoLocationService: GeoLocationService
 
@@ -119,13 +120,17 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
     this.name = sessionData.name;
     this.mobile_phone = sessionData.mobile_phone;
     this.deliveryPhone = sessionData.delivery;
-    this.user_id = sessionData.user_uid;
+    this.initiator_id = sessionData.user_uid;
+    if (this.mobile_phone.includes('233')) {
+      this.currency = 'GHS';
+    } else {
+      this.currency = 'NGN';
+    }
+
 
     const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_0));
-    // this.user_role = localData.role === 'Buyer' ? 'Buy' : 'Sell';
-    // this.owner_role = this.user_role === 'Buy' ? 'Sell' : 'Buy';
-    this.user_role = 'Sell';
-    this.owner_role = 'Buy';
+    this.initiator_role = localData.role === 'Buyer' ? 'buy' : 'sell';
+    this.destinator_role = this.initiator_role === 'buy' ? 'sell' : 'buy';
     this.transactionType = localData.transactionType;
 
     this.escrowStep1Data = {
@@ -138,7 +143,7 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
   }
 
   getNoworriFee(price) {
-    return (price / 100) * 1.95;
+    return (price / 100) * 1.98;
   }
 
 
@@ -146,90 +151,126 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
     this.getDataLocation();
   }
 
-  onCompleteStep1(form, sellersForms, deliveryForms) {
-    // this.escrowStep1Data.item = form.value['item'];
-    // this.escrowStep1Data.sellerPhoneNumber = `+233${sellersForms.value['sellerPhoneNumber']}`;
-    // this.escrowStep1Data.deliveryPhoneNumber = `+233${deliveryForms.value['deliveryPhoneNumber']}`;
-    // this.escrowStep1Data.price = form.value['price'];
-    // this.escrowStep1Data.description = form.value['description'];
-    // this.price = parseInt(this.escrowStep1Data.price, 10);
-    // this.noworriFee = this.getNoworriFee(this.price);
-    // this.totalAmount = parseInt(this.escrowStep1Data.price, 10) + this.noworriFee;
-    // this.rawSeller = sellersForms.value['sellerPhoneNumber'];
-    // this.isValidating = true;
-    // this.getBuyerDetails(this.escrowStep1Data.sellerPhoneNumber);
-    // setTimeout(() => {
-    //   if (this.escrowStep1Data.item === '') {
-    //     this.itemControl = 'form-control is-invalid';
-    //     this.Accept1 = false;
-    //     this.isValidating = false;
-    //   } else {
-    //     this.itemControl = 'form-control is-valid';
-    //     this.Accept1 = true;
-    //   }
-    //   this.inputValidation = /^-?(0|[1-9]\d*)?$/;
-    //   if (
-    //     !this.isValidBuyer ||
-    //     !this.rawSeller ||
-    //     (this.rawSeller && !this.rawSeller.match(this.inputValidation))
-    //   ) {
-    //     this.Accept2 = false;
-    //     this.isValidNumber = false;
-    //     this.isValidating = false;
-    //   } else {
-    //     this.Accept2 = true;
-    //     this.isValidNumber = true;
-    //   }
-    //   if (this.escrowStep1Data.price && !isNaN(this.escrowStep1Data.price)) {
-    //     this.priceControl = 'form-control is-valid';
-    //     this.Accept4 = true;
-    //   } else {
-    //     this.priceControl = 'form-control is-invalid';
-    //     this.Accept4 = false;
-    //     this.isValidating = false;
-    //   }
+  onConfirmTransaction() {
+    this.createTransaction(this.transactionSummary);
+  }
 
-    //   this.descriptionControl = 'form-control is-valid';
-    //   this.Accept5 = true;
-    //   if (
-    //     this.Accept1 === true &&
-    //     this.Accept2 === true &&
-    //     this.Accept4 === true &&
-    //     this.Accept5 === true
-    //   ) {
-    //     this.transactionDetails = {
-    //       user_id: this.user_id,
-    //       user_role: this.user_role,
-    //       user_phone: this.mobile_phone,
-    //       owner_id: this.owner_id,
-    //       owner_role: this.owner_role,
-    //       owner_phone: this.escrowStep1Data.sellerPhoneNumber,
-    //       transaction_type: this.transactionType,
-    //       deadline_type: this.escrowStep1Data.deliveryPhoneNumber,
-    //       service: this.escrowStep1Data.item,
-    //       price: this.price,
-    //       noworri_fees: this.noworriFee,
-    //       total_price: this.totalAmount,
-    //       requirement: this.escrowStep1Data.description,
-    //       etat: 1
-    //     };
-    //     this.createTransaction(this.transactionDetails);
-    //     this.isValidating = false;
+  onCompleteStep1(recap, form: NgForm, sellersForms, deliveryForms) {
+    const telInputPlaceholderInputValue = document
+      .getElementsByTagName('input')[0]
+      .getAttribute('placeholder');
+    const intelInputId = document
+      .getElementsByTagName('input')[0]
+      .getAttribute('data-intl-tel-input-id');
+    if (telInputPlaceholderInputValue === '023 123 4567') {
+      this.prefixCountryCode = '+233';
+    } else if (telInputPlaceholderInputValue === '0802 123 4567') {
+      this.prefixCountryCode = '+234';
+    } else if (intelInputId === '2' ) {
+      this.prefixCountryCode = '+225';
+    }
 
-    //     setTimeout(() => {
+    this.escrowStep1Data.item = form.value['item'];
+    this.escrowStep1Data.price = form.value['price'];
+    this.escrowStep1Data.sellerPhoneNumber = `${this.prefixCountryCode}${sellersForms.value['sellerPhoneNumber']}`;
+    this.escrowStep1Data.deliveryPhoneNumber =
+      deliveryForms.value['deliveryPhoneNumber'] !== undefined
+        ? `${this.prefixCountryCode}${deliveryForms.value['deliveryPhoneNumber']}`
+        : `${this.prefixCountryCode}${sellersForms.value['sellerPhoneNumber']}`;
 
-    //     }, 2000);
-    //   }
-    // }, 5000);
-    this.router.navigate(['/transactions']);
+    this.escrowStep1Data.description = form.value['description'];
+    this.price = parseInt(this.escrowStep1Data.price, 10);
+    this.noworriFee = this.getNoworriFee(this.price);
+    this.totalAmount =
+      parseInt(this.escrowStep1Data.price, 10) - this.noworriFee;
+    this.rawSeller = sellersForms.value['sellerPhoneNumber'];
+    this.isValidating = true;
+    this.getBuyerDetails(this.escrowStep1Data.sellerPhoneNumber, recap);
+  }
+
+  processFormData(recap) {
+    if (this.escrowStep1Data.item === '') {
+      this.itemControl = 'form-control is-invalid';
+      this.accept1 = false;
+      this.isValidating = false;
+    } else {
+      this.itemControl = 'form-control is-valid';
+      this.accept1 = true;
+    }
+    this.inputValidation = /^-?(0|[1-9]\d*)?$/;
+    if (
+      !this.isValidBuyer ||
+      !this.escrowStep1Data.sellerPhoneNumber ||
+      (this.escrowStep1Data.sellerPhoneNumber &&
+        !this.escrowStep1Data.sellerPhoneNumber.match(this.inputValidation))
+    ) {
+      this.accept3 = true;
+      this.accept4 = true;
+      this.isValidNumber = true;
+      this.isValidating = false;
+    } else {
+      this.accept3 = true;
+      this.accept4 = true;
+      this.isValidNumber = true;
+    }
+    if (this.escrowStep1Data.price && !isNaN(this.escrowStep1Data.price)) {
+      this.priceControl = 'form-control is-valid';
+      this.accept2 = true;
+    } else {
+      this.priceControl = 'form-control is-invalid';
+      this.accept2 = false;
+      this.isValidating = false;
+    }
+
+    if (this.escrowStep1Data.description === '') {
+      this.descriptionControl = 'form-control is-invalid';
+    } else {
+      this.descriptionControl = 'form-control is-valid';
+      this.accept5 = true;
+    }
+    if (
+      this.accept1 === true &&
+      this.accept2 === true &&
+      this.accept4 === true &&
+      this.accept5 === true
+    ) {
+      this.transactionSummary = {
+        initiator_role: this.initiator_role,
+        initiator_id: this.initiator_id,
+        name: this.escrowStep1Data.item,
+        destinator_id: this.destinator_id,
+        requirement: this.escrowStep1Data.description,
+        transaction_type: this.transactionType,
+        price: this.price.toFixed(2),
+        delivery_phone: this.escrowStep1Data.deliveryPhoneNumber,
+        transaction_ref: '',
+        etat: 1
+      };
+      this.openModal(recap);
+      this.isValidating = false;
+    }
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg' })
+    );
   }
 
   createTransaction(transactionDetails) {
     this.transactionsService
       .createTransaction(transactionDetails)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe((response) => {
-        return response;
+      .subscribe((transaction: any) => {
+        if (transaction.initiator_id && transaction.initiator_id === this.initiator_id && transaction.initiator_role === 'buy') {
+          this.router.navigate([`/buyermerchandisecontrat/${transaction.transaction_key}`]);
+        } else if (transaction.initiator_id && transaction.user_id === this.initiator_id && transaction.initiator_role === 'sell') {
+          this.router.navigate([`/sellermerchandisecontrat/${transaction.transaction_key}`]);
+        } else {
+          console.log('error', transaction);
+        }
+        return transaction;
       },
         error => {
           console.log(error.message);
@@ -237,15 +278,15 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
       );
   }
 
-  getBuyerDetails(sellerPhoneNumber) {
-    if (this.rawSeller) {
-      this.companyService.getUserDetails(sellerPhoneNumber).subscribe(
+  getBuyerDetails(sellerPhoneNumber, recap) {
+      this.userService.getUserDetails(sellerPhoneNumber).subscribe(
         user => {
           if (isEmpty(user)) {
             this.isValidBuyer = false;
           } else {
             this.isValidBuyer = true;
-            this.owner_id = user.user_uid;
+            this.destinator_id = user.user_uid;
+            this.processFormData(recap);
           }
         },
         (error) => {
@@ -253,7 +294,6 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
           console.log('Error %j', error.message);
         }
       );
-    }
   }
 
 

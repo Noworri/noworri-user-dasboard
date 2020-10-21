@@ -2,9 +2,8 @@
   <div class="row">
     <div class="col-sm">
       <div class="row" id="Card2">
-        <div
-        >
-        <!-- id="collapseBasic"
+        <div>
+          <!-- id="collapseBasic"
         [collapse]="isCollapsed1"
         [isAnimated]="true"
         [collapse]="isCollapsed"
@@ -12,7 +11,7 @@
         (expands)="expands()"
         (collapsed)="collapsed()"
         (expanded)="expanded()" -->
-          <div class="card" id="" style="width: 50rem;">
+          <div class="card" id="" style="width: 50rem">
             <hr class="hr" />
             <div class="card-body" id="card-body2">
               <div class="container">
@@ -57,7 +56,7 @@
                 </div>
                 <div class="row">
                   <div class="col-sm col1">
-                    <h6 class="Noworrifee">Noworri Fees</h6>
+                    <h6 class="Noworrifee">Noworri Charges</h6>
                   </div>
 
                   <div class="col-sm col2">
@@ -97,22 +96,27 @@
                     <h6 class="Number2">{{ deliveryPhone }}</h6>
                   </div>
                   <div class="col-sm col4">
-                    <h6 class="Changedeliveryman" (click)="onUpdateDeliveryPhone()">Change the phone</h6>
+                    <h6
+                      class="Changedeliveryman"
+                      (click)="onUpdateDeliveryPhone()"
+                    >
+                      Change the phone
+                    </h6>
                   </div>
                 </div>
                 <hr />
                 <div class="row">
-                  <div *ngIf="!isFundsReleased && !isCancelled"  class="col-sm">
+                  <div *ngIf="!isFundsReleased && !isCancelled" class="col-sm">
                     <h6 class="text1">
-                     Deliver the product to the buyer to get your payment
+                      Deliver the product to the buyer to get your payment
                     </h6>
                   </div>
-                  <div *ngIf="isCancelled"  class="col-sm">
+                  <div *ngIf="isCancelled" class="col-sm">
                     <h6 class="text1">
                       You cancelled this transaction, we notified the buyer
                     </h6>
                   </div>
-                  <div *ngIf="isFundsReleased"  class="col-sm">
+                  <div *ngIf="isFundsReleased" class="col-sm">
                     <h6 class="text1">
                       This transaction is completed and paid
                     </h6>
@@ -159,16 +163,21 @@
               </div>
               <div class="row">
                 <div *ngIf="isValidating" class="Loading">
-                  <a  class="Revisions btn btn-sm btn-light" >
+                  <a class="Revisions btn btn-sm btn-light">
                     <span
-                    class="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  Cancelling...
+                      class="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Cancelling...
                   </a>
                 </div>
-                <a class="nav-link" *ngIf="!isValidating" (click)="cancelOrder()">Click Here</a>
+                <a
+                  class="nav-link"
+                  *ngIf="!isValidating"
+                  (click)="cancelOrder()"
+                  >Click Here</a
+                >
               </div>
               <div class="row">
                 <mat-icon class="Icon">report</mat-icon>
@@ -181,28 +190,43 @@
           </div>
         </div>
         <div class="card" *ngIf="isUpdatingDelivery">
-          <form  (ngSubmit)="updateDeliveryPhone(form)" #form="ngForm">
+          <form (ngSubmit)="updateDeliveryPhone(form)" #form="ngForm">
             <div class="form-group">
-              <label for="exampleInputEmail1">New delivery's phone number</label>
-              <input
-              name="newDelivery"
+              <label for="exampleInputEmail1"
+                >New delivery's phone number</label
+              >
+              <!-- <input
+                name="newDelivery"
                 type="tel"
                 ngModel
                 class="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-              />
+              /> -->
+              <div>
+                <intl-tel-input
+                  *ngIf="countryData"
+                  name="'newDelivery'"
+                  [options]="countryData"
+                  [cssClass]="'form-control'"
+                  [onlyLocalized]="true"
+                  E164PhoneNumber
+                >
+                </intl-tel-input>
+              </div>
               <div *ngIf="isUpdating" class="Loading">
-                <button  class="Revisions btn btn-sm btn-light" >
+                <button class="Revisions btn btn-sm btn-light" disabled>
                   <span
-                  class="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
-                processing...
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  updating...
                 </button>
               </div>
-              <button *ngIf="!isUpdating" type="submit" class="btn btn-light">update</button>    
+              <button *ngIf="!isUpdating" type="submit" class="btn btn-light">
+                update
+              </button>
             </div>
           </form>
         </div>

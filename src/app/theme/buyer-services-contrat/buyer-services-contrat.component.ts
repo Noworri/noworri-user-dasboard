@@ -273,7 +273,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
       recipient: this.recipientCode,
     };
     this.transactionsService
-      .initiateReleasePaystack(data)
+      .initiateReleasePaystack(data, this.transactionId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response) => {
         if (response) {
@@ -639,7 +639,7 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
 
   checkSuccessSecuredFunds(ref) {
     this.transactionsService
-      .checkTransactionStatus(ref)
+      .checkTransactionStatus(ref, this.transactionKey)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((statusData) => {
         if (statusData.data && statusData.data.status === 'success') {

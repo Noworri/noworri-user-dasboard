@@ -80,7 +80,8 @@
                     <h6 class="Amount"></h6>
                   </div>
                   <div class="col-sm col3">
-                    <h6 class="Item">NET SECURED</h6>
+                    <h6 *ngIf="isFundsSecured" class="Item">NET SECURED</h6>
+                    <h6 *ngIf="!isFundsSecured" class="Item">NET TO SECURED</h6>
                   </div>
                   <div class="col-sm col4">
                     <h6 class="Revisions">{{ totalAmount }}</h6>
@@ -109,17 +110,22 @@
                 </div>
                 <hr *ngIf="!isCancelled && hasDeliveryPhone"/>
                 <div class="row">
-                  <div *ngIf="!isFundsReleased && !isCancelled && hasDeliveryPhone"  class="col-sm col1">
+                  <div *ngIf="!isFundsReleased && !isCancelled && hasDeliveryPhone && isFundsSecured"  class="col-sm col1">
                     <h6 class="text1">
                       Release the funds when you get your product delivered
                     </h6>
                   </div>
-                  <div *ngIf="isFundsReleased"  class="col-sm">
+                  <div *ngIf="isFundsReleased && isFundsSecured"  class="col-sm">
                     <h6 class="text1">
                       the funds have been Released for this transaction
                     </h6>
                   </div>
-                  <div *ngIf="!isFundsReleased && !isCancelled"  class="col-sm col4">
+                  <div *ngIf="!isFundsSecured"  class="col-sm">
+                    <h6 class="text1">
+                      Please secure the funds to process to order
+                    </h6>
+                  </div>
+                  <div *ngIf="!isFundsReleased && !isCancelled && isFundsSecured"  class="col-sm col4">
                       <div *ngIf="isValidating" class="Loading">
                         <button  class="Revisions btn btn-sm btn-light" >
                           <span
@@ -130,10 +136,25 @@
                         processing...
                         </button>
                       </div>
-                    <button type="button" *ngIf="!isValidating && !isCancelled && hasDeliveryPhone" (click)="onReleaseFunds()" class="Revisions btn btn-sm btn-light">
+                    <button type="button" *ngIf="!isValidating && !isCancelled && hasDeliveryPhone" (click)="onReleaseFunds(sendReleaseCode)" class="Revisions btn btn-sm btn-light">
                       Release Funds
                     </button>
                   </div>
+                  <div *ngIf="!isFundsReleased && !isCancelled && !isFundsSecured"  class="col-sm col4">
+                    <div *ngIf="isValidating" class="Loading">
+                      <button  class="Revisions btn btn-sm btn-light" >
+                        <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      processing...
+                      </button>
+                    </div>
+                  <button type="button" *ngIf="!isValidating && !isCancelled && hasDeliveryPhone && !isFundsSecured " (click)="onSecureFunds()" class="Revisions btn btn-sm btn-light">
+                    Secure Funds
+                  </button>
+                </div>
                 </div>
                 <hr />
                 <div class="row" id="Description" >
@@ -175,5 +196,25 @@
     </div>
 
     </div>
+            <!------------------Submit Release Code modal-------------------------------------------->
+            <ng-template #sendReleaseCode>
+
+              <div class="modal-body">
+                <form (ngSubmit)="onInitiateRelease(form)" #form="ngForm">
+                  <div class="form-row ">
+                    <div class="col-md-6 mb-3">
+                      <label for="input">Delivery OTP</label>
+                      <input type="test" pattern= "[0-9]" class="form-control" id="input" required style="width: 420px;" id="otp" name="otp" ngModel>
+                      <div *ngIf="!isValidCode" class="alert alert-danger" role="alert">
+                        Invalid OTP! Please enter valid OTP from the delivery.
+                      </div>      
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button class="btn btn-primary btn-sm" type="submit">confirm</button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
   </div>
   

@@ -1,8 +1,7 @@
-
 import { template } from '@angular/core/src/render3';
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm } from '@angular/forms';
 import {
   MerchandiseEscrowStep1Reference,
   CompanyReference,
@@ -14,7 +13,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { TransactionsService } from 'src/app/Service/transactions.service';
+import { AuthserviceService } from 'src/app/Service/authservice.service';
 
+const SESSION_STORAGE_KEY = 'noworri-user-session';
 const LOCAL_STORAGE_KEY = 'merchandise-escrow-1';
 
 @Component({
@@ -25,10 +27,8 @@ const LOCAL_STORAGE_KEY = 'merchandise-escrow-1';
 export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
 
-
-
   addBankAccountconfig = {
-    class: 'AddBankaccountCss'
+    class: 'AddBankaccountCss',
   };
 
   modalRef: BsModalRef;
@@ -36,12 +36,14 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
   rawSeller: string;
   isValidNumber = true;
   isValidating = false;
+  isSecuring = false;
   orderDetails: any;
   noworriFee: number;
   totalAmount: number;
   destinator_id: string;
   price: number;
   escrowStep1Data: MerchandiseEscrowStep1Reference;
+  prefixCountryCode: string;
 
   waitingDisplayInput: boolean;
 
@@ -50,8 +52,6 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
   item: any;
   sellerPhoneNumber: any;
   deliveryPhoneNumber: any;
-
-
 
   transactionSummary: object;
 
@@ -100,15 +100,38 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
   priceControl = 'form-control';
   descriptionControl = 'form-control';
 
+  first_name: string;
+  email: string;
+  name: string;
+  mobile_phone: string;
+  initiator_id: string;
+  transaction_ref: string;
+  currency: string;
 
-
+  unsubscribe = new Subject();
 
   constructor(
     private router: Router,
     private companyService: NoworriSearchService,
+    private userService: AuthserviceService,
     private geoLocationService: GeoLocationService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private formbuilder: FormBuilder,
+    private transactionsService: TransactionsService,
+
   ) {
+    const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
+    this.first_name = sessionData.first_name;
+    this.email = sessionData.email;
+    this.name = sessionData.name;
+    this.mobile_phone = sessionData.mobile_phone;
+    this.initiator_id = sessionData.user_uid;
+    if (this.mobile_phone.includes('233')) {
+      this.currency = 'GHS';
+    } else {
+      this.currency = 'NGN';
+    }
+
     const localData = JSON.parse(localStorage.getItem('noworri-escrow-0'));
     this.transactionType = localData.transactionType;
     this.role = localData.role;
@@ -135,41 +158,52 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
     return (price / 100) * 1.95;
   }
 
-
-
   // --------for recap template ---------//
 
   openModal(template: TemplateRef<any>) {
+<<<<<<< HEAD
     this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
+=======
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg' })
+    );
+>>>>>>> df5acbe1174ed3fd8c4b3a90cd1d71b61f1b4270
   }
-  onCompleteStep1(recaptemplate, F: NgForm, sellersForms, deliveryForms) {
-    this.escrowStep1Data.item = F.value['item'];
-    this.escrowStep1Data.price = F.value['price'];
-    this.escrowStep1Data.sellerPhoneNumber = `+233${sellersForms.value['sellerPhoneNumber']}`;
-    this.escrowStep1Data.deliveryPhoneNumber = deliveryForms.value['deliveryPhoneNumber'] !== undefined ?
-      `+233${deliveryForms.value['deliveryPhoneNumber']}` :
-      `+233${sellersForms.value['sellerPhoneNumber']}`;
+  onCompleteStep1(recaptemplate, form: NgForm, sellersForms, deliveryForms) {
+    const telInputPlaceholderInputValue = document
+      .getElementsByTagName('input')[0]
+      .getAttribute('placeholder');
+    const intelInputId = document
+      .getElementsByTagName('input')[0]
+      .getAttribute('data-intl-tel-input-id');
+    if (telInputPlaceholderInputValue === '023 123 4567') {
+      this.prefixCountryCode = '+233';
+    } else if (telInputPlaceholderInputValue === '0802 123 4567') {
+      this.prefixCountryCode = '+234';
+    } else if (intelInputId === '2' ) {
+      this.prefixCountryCode = '+225';
+    }
 
-    this.escrowStep1Data.description = F.value['description'];
+    this.escrowStep1Data.item = form.value['item'];
+    this.escrowStep1Data.price = form.value['price'];
+    this.escrowStep1Data.sellerPhoneNumber = `${this.prefixCountryCode}${sellersForms.value['sellerPhoneNumber']}`;
+    this.escrowStep1Data.deliveryPhoneNumber =
+      deliveryForms.value['deliveryPhoneNumber'] !== undefined
+        ? `${this.prefixCountryCode}${deliveryForms.value['deliveryPhoneNumber']}`
+        : `${this.prefixCountryCode}${sellersForms.value['sellerPhoneNumber']}`;
+
+    this.escrowStep1Data.description = form.value['description'];
     this.price = parseInt(this.escrowStep1Data.price, 10);
     this.noworriFee = this.getNoworriFee(this.price);
     this.totalAmount =
       parseInt(this.escrowStep1Data.price, 10) + this.noworriFee;
     this.rawSeller = sellersForms.value['sellerPhoneNumber'];
     this.isValidating = true;
-    this.getSellerDetails(this.escrowStep1Data.sellerPhoneNumber);
-    this.processFormData();
-    if (this.accept1 === true &&
-      this.accept2 === true &&
-      this.accept3 === true &&
-      this.accept4 === true &&
-      this.accept5 === true
-    ) {
-      this.openModal(recaptemplate);
-    }
+    this.getSellerDetails(this.escrowStep1Data.sellerPhoneNumber, recaptemplate);
   }
 
-  processFormData() {
+  processFormData(recaptemplate) {
     if (this.escrowStep1Data.item === '') {
       this.itemControl = 'form-control is-invalid';
       this.accept1 = false;
@@ -182,7 +216,8 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
     if (
       !this.isValidSeller ||
       !this.escrowStep1Data.sellerPhoneNumber ||
-      (this.escrowStep1Data.sellerPhoneNumber && !this.escrowStep1Data.sellerPhoneNumber.match(this.inputValidation))
+      (this.escrowStep1Data.sellerPhoneNumber &&
+        !this.escrowStep1Data.sellerPhoneNumber.match(this.inputValidation))
     ) {
       this.accept3 = true;
       this.accept4 = true;
@@ -215,39 +250,57 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
       this.accept5 === true
     ) {
       this.transactionSummary = {
+        initiator_role: this.role,
+        initiator_id: this.initiator_id,
+        name: this.escrowStep1Data.item,
         destinator_id: this.destinator_id,
-        item: this.escrowStep1Data.item,
-        seller: this.escrowStep1Data.sellerPhoneNumber,
-        amount: this.totalAmount.toFixed(2),
-        description: this.escrowStep1Data.description,
-        transactionType: this.transactionType,
-        role: this.role,
-        noworriFee: this.noworriFee.toFixed(2),
+        requirement: this.escrowStep1Data.description,
+        transaction_type: this.transactionType,
+        // noworriFee: this.noworriFee.toFixed(2),
         price: this.price.toFixed(2),
-        delivery: this.escrowStep1Data.deliveryPhoneNumber,
+        delivery_phone: this.escrowStep1Data.deliveryPhoneNumber,
+        transaction_ref: '',
+        etat: 2
       };
       this.orderDetails = JSON.stringify(this.transactionSummary);
       localStorage.setItem(LOCAL_STORAGE_KEY, this.orderDetails);
       this.isValidating = false;
-
+      this.openModal(recaptemplate);
     }
   }
 
+  getUserDetails(sellerPhoneNumber, recaptemplate) {
+      this.userService.getUserDetails(sellerPhoneNumber).subscribe(
+        user => {
+          if (isEmpty(user)) {
+            this.isValidSeller = false;
+          } else {
+            this.destinator_id = user.user_uid;
+            this.processFormData(recaptemplate);
+        }
+        },
+        (error) => {
+          this.isValidSeller = false;
+          console.log('Error %j', error.message);
+        }
+      );
+  }
 
-
-  getSellerDetails(sellerPhoneNumber) {
+  getSellerDetails(sellerPhoneNumber, recaptemplate) {
     if (this.rawSeller) {
-      this.companyService.getCompanyDetails(sellerPhoneNumber)
+      this.companyService
+        .getCompanyDetails(sellerPhoneNumber)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (company: CompanyReference) => {
             if (isEmpty(company)) {
               // this.isValidSeller = false;
-              // this.isValidating = false;
+              this.getUserDetails(sellerPhoneNumber, recaptemplate);
+              this.isValidating = false;
             } else {
               this.isValidSeller = true;
               this.destinator_id = company.user_id;
-              //  this.processFormData();
+              this.processFormData(recaptemplate);
             }
             return sellerPhoneNumber;
           },
@@ -322,23 +375,86 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
     this.router.navigate(['/escrowmerchandisestep2']);
   }
 
-
-
   getDataLocation() {
     new Promise((resolve) => {
       this.geoLocationService.getLocation().subscribe((data) => {
-        resolve(this.locationData = data['country'])
+        resolve((this.locationData = data['country']));
       });
-    }).then(() => {
-      this.countryData = {
-        preferredCountries: [`${this.locationData}`],
-        localizedCountries: { ng: 'Nigeria', gh: 'Ghana' },
-        onlyCountries: ['GH', 'NG']
-      };
-    }).then(() => {
-      this.waitingDisplayInput = true;
-    });
+    })
+      .then(() => {
+        this.countryData = {
+          preferredCountries: [`${this.locationData}`],
+          localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d\'Ivoire' },
+          onlyCountries: ['GH', 'NG', 'CI'],
+        };
+      })
+      .then(() => {
+        this.waitingDisplayInput = true;
+      });
   }
 
+  onSecureFunds() {
+    this.isSecuring = true;
+    const transactionData = {
+      email: this.email,
+      amount: this.totalAmount * 100
+    };
+    this.transactionsService
+      .payStackPayment(transactionData)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((response: any) => {
+        // window.location.href = `${response.data.authorization_url}`;
+        window.open(
+          `${response.data.authorization_url}`,
+          'popup',
+          'width=500,height=650',
+          false
+        );
+        this.transaction_ref = response.data.reference;
+        setTimeout(() => {
+          this.checkSuccessSecuredFunds(this.transaction_ref);
+        }, 30000);
+        return false;
+      });
+  }
+
+  createTransaction() {
+    this.transactionSummary['transaction_ref'] = this.transaction_ref;
+    this.transactionsService
+      .createTransaction(this.transactionSummary)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((transaction: any) => {
+        this.isSecuring = false;
+        if (transaction.initiator_id && transaction.initiator_id === this.initiator_id && transaction.initiator_role === 'buy') {
+          this.router.navigate([`/buyermerchandisecontrat/${transaction.transaction_key}`]);
+        } else if (transaction.initiator_id && transaction.user_id === this.initiator_id && transaction.initiator_role === 'sell') {
+          this.router.navigate([`/sellermerchandisecontrat/${transaction.transaction_key}`]);
+        } else {
+          console.log('error', transaction);
+        }
+        return transaction;
+      },
+        error => {
+          console.log(error.message);
+        }
+      );
+  }
+
+<<<<<<< HEAD
+=======
+  checkSuccessSecuredFunds(ref) {
+    const transaction_key = '';
+    this.transactionsService
+      .checkTransactionStatus(ref, transaction_key)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((statusData) => {
+        if (statusData.data && statusData.data.status === 'success') {
+          this.createTransaction();
+        } else {
+          this.ngOnInit();
+        }
+      });
+  }
+>>>>>>> df5acbe1174ed3fd8c4b3a90cd1d71b61f1b4270
 
 }
