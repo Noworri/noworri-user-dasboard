@@ -140,7 +140,7 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
   // --------for recap template ---------//
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template,  Object.assign({}, { class: 'modal-lg' }));
+    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
   }
   onCompleteStep1(recaptemplate, F: NgForm, sellersForms, deliveryForms) {
     this.escrowStep1Data.item = F.value['item'];
@@ -339,6 +339,6 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
       this.waitingDisplayInput = true;
     });
   }
-  
-  
+
+
 }
