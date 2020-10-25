@@ -1,8 +1,14 @@
-import { Component, ViewEncapsulation, OnInit, TemplateRef } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  OnInit,
+  TemplateRef,
+  Input,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
-import { SimpleChanges, OnChanges, OnDestroy, } from '@angular/core';
+import { SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { TransactionsService } from 'src/app/Service/transactions.service';
 import { takeUntil } from 'rxjs/operators';
@@ -10,17 +16,20 @@ import { isEmpty } from 'lodash';
 import { Subject, from } from 'rxjs';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 
-
-
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
 @Component({
   selector: 'app-payements',
   templateUrl: './payements.component.html',
   styleUrls: ['./payements.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class PayementsComponent implements OnInit {
+export class PayementsComponent implements OnInit, OnDestroy {
+  @Input()
+  paymentData;
+
+  @Input()
+  modal: BsModalRef;
 
   email: string;
   name: string;
@@ -31,20 +40,26 @@ export class PayementsComponent implements OnInit {
   form: FormGroup;
   isAdding = false;
   hasAccount: boolean;
-  details: any;
+  detailsAccount: any;
+  detailsWallet: any;
   recipientDetails: object;
   currency: string;
   bankList: any;
   country: string;
   modalRef: BsModalRef;
+  unsubscribe$ = new Subject();
+  hasWithdrawn = false;
+  hasPaymentData: boolean;
 
   addBankAccountconfig = {
-    class: 'AddBankaccountCss'
+    class: 'AddBankaccountCss',
   };
+  networkList: any;
+  errorMessage: any;
+  banks: any;
 
-
-
-  constructor(private modalService: BsModalService,
+  constructor(
+    private modalService: BsModalService,
     private router: Router,
     private transactionService: TransactionsService,
     private fb: FormBuilder
@@ -66,7 +81,8 @@ export class PayementsComponent implements OnInit {
   ngOnInit() {
     this.getAccountDetails();
     this.getBankList(this.country);
-   
+    this.hasPaymentData = this.paymentData ? true : false;
+
   }
 
   ngOnDestroy() {
@@ -79,51 +95,86 @@ export class PayementsComponent implements OnInit {
     this.modalRef = this.modalService.show(template, this.addBankAccountconfig);
   }
 
-
-
   getBankList(country) {
-    this.transactionService.getBanks(country)
+    this.transactionService
+      .getBanks(country)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(banks => {
-        return this.bankList = banks;
+      .subscribe((banks) => {
+        this.bankList = banks.filter(
+          (bank) => bank.type === 'ghipss' || bank.type === 'nuban'
+        );
+        this.networkList = banks.filter((bank) => bank.type === 'mobile_money');
+        this.banks = banks;
+      });
+  }
+
+  onWithDraw(recipientCode) {
+    const releaseData = {
+      source: 'balance',
+      amount: Math.round(this.paymentData.amount),
+      recipient: recipientCode,
+      currency: this.paymentData.currency,
+      transactionID: this.paymentData.transactionID,
+    };
+    this.initiateRelease(releaseData);
+    this.modal.hide();
+  }
+
+  initiateRelease(releaseData) {
+    this.transactionService
+      .initiateReleasePaystack(releaseData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
+        console.log('response release', response);
+        if (response && response['status'] === 'success') {
+          this.hasWithdrawn = true;
+          location.replace(`${location}`);
+        }
+
+        return response;
       });
   }
 
   setupForm(form: NgForm) {
-    
     if (form) {
-      this.bankList.filter(bank => bank.name === form.value['bankName']).forEach(value => {
-        this.accountDetails = {
-          bankName: form.value['bankName'],
-          bankCode: value.code,
-          holderName: form.value['holderName'],
-          accountNo: form.value['accountNo'],
-          userId: this.userId,
-          recipient_code: ''
-        };
-        
-      });
+      console.log('form', form.value['holderName']);
+      this.banks
+        .filter((bank) => bank.name === form.value['bankName'])
+        .forEach((value) => {
+          this.accountDetails = {
+            bankName: form.value['bankName'],
+            bankCode: value.code,
+            holderName: form.value['holderName'],
+            accountNo: form.value['accountNo'],
+            userId: this.userId,
+            type: value.type,
+            recipient_code: '',
+          };
+        });
       this.createRecipient(this.accountDetails);
     }
   }
 
-
   createRecipient(accountDetails) {
     this.isAdding = true;
     this.recipientDetails = {
-      type: 'nuban',
+      type: accountDetails.type,
       name: accountDetails.holderName,
       description: 'Noworri Transaction',
       account_number: accountDetails.accountNo,
       bank_code: accountDetails.bankCode,
-      currency: this.currency
+      currency: this.currency,
     };
-    this.transactionService.createRecipient(this.recipientDetails)
+    this.transactionService
+      .createRecipient(this.recipientDetails)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response: any) => {
-        if (response.recipient_code) {
-          accountDetails.recipient_code = response.recipient_code;
+        if (response.data && response.data.recipient_code) {
+          accountDetails.recipient_code = response.data.recipient_code;
           this.addAccountDetails(accountDetails);
+        } if (response.status === false) {
+          this.errorMessage = response.message;
+          this.isAdding = false;
         }
         return response;
       });
@@ -135,24 +186,34 @@ export class PayementsComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response) => {
         this.isAdding = false;
+        this.modalRef.hide();
         this.getAccountDetails();
         return response;
       });
   }
   getAccountDetails() {
-    this.transactionService.getAccountDetails(this.userId).pipe(takeUntil(this.unsubscribe)).subscribe((details: any) => {
-      if (isEmpty(details)) {
-        this.hasAccount = false;
-      } else {
-        this.details = details;
-        this.hasAccount = true;
-        return details;
-      }
-    });
+    this.transactionService
+      .getAccountDetails(this.userId)
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((details: any) => {
+        if (isEmpty(details)) {
+          this.hasAccount = false;
+        } else {
+          this.detailsAccount = details.filter(
+            (detail) =>
+              !detail.bank_name.includes('AirtelTigo') &&
+              !detail.bank_name.includes('Vodafone') &&
+              !detail.bank_name.includes('MTN')
+          );
+          this.detailsWallet = details.filter(
+            (detail) =>
+              detail.bank_name.includes('AirtelTigo') ||
+              detail.bank_name.includes('Vodafone') ||
+              detail.bank_name.includes('MTN')
+          );
+          this.hasAccount = true;
+          return details;
+        }
+      });
   }
-
-
-
-
-  
 }

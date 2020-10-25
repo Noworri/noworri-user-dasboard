@@ -20,51 +20,58 @@ export class HomeComponent implements OnInit {
   constructor(
     private homeInputService: HomeInputService,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   // ---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
   OnSubmit(F: NgForm) {
     this.homeInputService.DataInputHome.TypeOfTransation =
       F.value['TypeOfTransation'];
-    this.homeInputService.DataInputHome.YourRole =
-      F.value['role'];
+    this.homeInputService.DataInputHome.YourRole = F.value['role'];
     const escrow0Data = {
       transactionType: this.homeInputService.DataInputHome.TypeOfTransation,
       role: this.homeInputService.DataInputHome.YourRole,
     };
     const escrow0LocalData = JSON.stringify(escrow0Data);
     localStorage.setItem(LOCAL_STORAGE_KEY, escrow0LocalData);
-    if (this.homeInputService.DataInputHome.TypeOfTransation === '' &&
-      this.homeInputService.DataInputHome.YourRole === '') {
+    if (
+      this.homeInputService.DataInputHome.TypeOfTransation === '' &&
+      this.homeInputService.DataInputHome.YourRole === ''
+    ) {
       this.TypeOfTransationInputControl = 'custom-select is-invalid';
-      this.YourRoleInputControl = 'custom-select is-invalid'
-    } else if (this.homeInputService.DataInputHome.TypeOfTransation === '' &&
-      this.homeInputService.DataInputHome.YourRole) {
+      this.YourRoleInputControl = 'custom-select is-invalid';
+    } else if (
+      this.homeInputService.DataInputHome.TypeOfTransation === '' &&
+      this.homeInputService.DataInputHome.YourRole
+    ) {
       this.TypeOfTransationInputControl = 'custom-select is-invalid';
-      this.YourRoleInputControl = 'custom-select is-valid'
-    } else if (this.homeInputService.DataInputHome.TypeOfTransation &&
-      this.homeInputService.DataInputHome.YourRole === '') {
+      this.YourRoleInputControl = 'custom-select is-valid';
+    } else if (
+      this.homeInputService.DataInputHome.TypeOfTransation &&
+      this.homeInputService.DataInputHome.YourRole === ''
+    ) {
       this.TypeOfTransationInputControl = 'custom-select is-valid';
-      this.YourRoleInputControl = 'custom-select is-invalid'
+      this.YourRoleInputControl = 'custom-select is-invalid';
     } else if (
       this.homeInputService.DataInputHome.TypeOfTransation === 'Services' &&
-      this.homeInputService.DataInputHome.YourRole === 'Buyer'
+      this.homeInputService.DataInputHome.YourRole === 'buy'
     ) {
       this.router.navigate(['escrowservicebuyerstep1']);
     } else if (
       this.homeInputService.DataInputHome.TypeOfTransation === 'Services' &&
-      this.homeInputService.DataInputHome.YourRole === 'Seller'
+      this.homeInputService.DataInputHome.YourRole === 'sell'
     ) {
       this.router.navigate(['escrowservicesellerstep1']);
     } else if (
       this.homeInputService.DataInputHome.TypeOfTransation === 'Merchandise' &&
-      this.homeInputService.DataInputHome.YourRole === 'Buyer') {
-      this.router.navigate(['escrowmerchandisebuyerstep1'])
-    } else if (this.homeInputService.DataInputHome.TypeOfTransation === 'Merchandise' &&
-      this.homeInputService.DataInputHome.YourRole === 'Seller') {
-      this.router.navigate(['escrowmerchandisesellerstep1'])
+      this.homeInputService.DataInputHome.YourRole === 'buy'
+    ) {
+      this.router.navigate(['escrowmerchandisebuyerstep1']);
+    } else if (
+      this.homeInputService.DataInputHome.TypeOfTransation === 'Merchandise' &&
+      this.homeInputService.DataInputHome.YourRole === 'sell'
+    ) {
+      this.router.navigate(['escrowmerchandisesellerstep1']);
     }
   }
 }

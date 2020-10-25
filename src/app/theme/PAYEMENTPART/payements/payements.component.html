@@ -1,15 +1,19 @@
-<div id="card" class="card" style="width: 45rem;">
-  <hr>
+<div id="card" class="card" style="width: 45rem">
+  <hr />
   <div class="card-body">
-    <mat-tab-group class='tabs'>
+    <mat-tab-group class="tabs">
       <!-----------------Banque Account---------------->
       <mat-tab value="accent" label="Bank Account">
         <ul class="nav">
           <li class="nav-item">
-            <img src="assets\payement\banque.png" class="WalletImag">
+            <img src="assets\payement\banque.png" class="WalletImag" />
           </li>
           <li class="nav-item" class="Addabankaccount">
-            <a class="nav-link" (click)=" openAddBankAccountModal(AddBankAccounttemplate)">Add a bank account</a>
+            <a
+              class="nav-link"
+              (click)="openAddBankAccountModal(AddBankAccounttemplate)"
+              >Add a bank account</a
+            >
           </li>
         </ul>
         <h6 class="thatYoud">
@@ -17,11 +21,11 @@
         </h6>
         <div class="container" id="bank">
           <div class="row">
-            <div *ngFor="let detail of details"  class="col-6">
-              <div   class="card card1  sm-3" style="width: 20rem">
+            <div *ngFor="let detail of detailsAccount" class="col-6">
+              <div class="card card1 sm-3" style="width: 20rem">
                 <div class="row">
                   <div class="col-8">
-                    <h6 class="FidelityBank ">{{ detail.bank_name }}</h6>
+                    <h6 class="FidelityBank">{{ detail.bank_name }}</h6>
                   </div>
                   <div class="col-4">
                     <h6 class="Delete">Delete</h6>
@@ -30,10 +34,18 @@
                 <div class="row">
                   <div class="col-6">
                     <h6 class="AccountNumber">Account number</h6>
-                    <h6 class="CardNumber">xxxxxx{{ detail.account_no | slice:5:9 }}</h6>
+                    <h6 class="CardNumber">
+                      xxxxxx{{ detail.account_no | slice: 5:9 }}
+                    </h6>
                   </div>
                   <div class="col-6">
-                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                    <mat-icon
+                      *ngIf="hasPaymentData"
+                      style="cursor: pointer"
+                      (click)="onWithDraw(detail.recipient_code)"
+                      class="play_arrow"
+                      >play_arrow</mat-icon
+                    >
                   </div>
                 </div>
                 <div class="row">
@@ -47,14 +59,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-6">
-              
-            </div>
+            <div class="col-6"></div>
           </div>
         </div>
         <!------------------ Add bank account Modale-------------------------------------------->
         <ng-template #AddBankAccounttemplate>
-
           <div class="modal-body">
             <div class="container">
               <div class="row">
@@ -62,62 +71,88 @@
                   <h6 class="BankAccountDetails">Bank account details</h6>
                 </div>
                 <div class="col-sm">
-                  <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+                  <mat-icon class="cancel" (click)="modalRef.hide()"
+                    >cancel</mat-icon
+                  >
                 </div>
               </div>
             </div>
-            <hr>
+            <hr />
             <form (ngSubmit)="setupForm(form)" #form="ngForm">
-              <div class="form-row ">
+              <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Select your Bank</label>
-                  <select class="form-control" id="bankName"  name="bankName"
-                  ngModel>
-                  <option *ngFor="let bank of bankList">{{ bank.name }}</option>
+                  <select
+                    class="form-control"
+                    id="bankName"
+                    name="bankName"
+                    ngModel
+                  >
+                    <option *ngFor="let bank of bankList">
+                      {{ bank.name }}
+                    </option>
                   </select>
                 </div>
-
               </div>
               <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Enter account number</label>
-                  <input type="text" class="form-control" id="accountNo" 
-                  name="accountNo"
-                  ngModel
-                  required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="accountNo"
+                    name="accountNo"
+                    ngModel
+                    required
+                  />
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Enter account name</label>
-                  <input type="text" class="form-control" id="holderName" 
-                  name="holderName"
-                  ngModel
-                  required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="holderName"
+                    name="holderName"
+                    ngModel
+                    required
+                  />
                 </div>
               </div>
               <div class="text-center">
                 <button *ngIf="isAdding" type="button" class="btn btn-light">
                   Adding...
                 </button>
-                <button class="btn btn-primary btn-sm"   *ngIf="!isAdding"   (click)="setupForm()"  type="submit">Add Bank</button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  *ngIf="!isAdding"
+                  (click)="setupForm()"
+                  type="submit"
+                >
+                  Add Bank
+                </button>
               </div>
-
+              <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                {{ errorMessage }}
+              </div>
             </form>
           </div>
         </ng-template>
-
       </mat-tab>
 
       <!---------------MobileWallet part---------------------->
       <mat-tab label="Wallet Account">
         <ul class="nav">
           <li class="nav-item">
-            <img src="assets\payement\banque.png" class="WalletImag">
+            <img src="assets\payement\banque.png" class="WalletImag" />
           </li>
           <li class="nav-item" class="Addamobilewallet">
-            <a class="nav-link" (click)="openAddBankAccountModal(AddMobileWallerAccounttemplate)">Add a mobile wallet
-              account</a>
+            <a
+              class="nav-link"
+              (click)="openAddBankAccountModal(AddMobileWallerAccounttemplate)"
+              >Add a mobile wallet account</a
+            >
           </li>
         </ul>
         <h6 class="thatYoud">
@@ -125,11 +160,11 @@
         </h6>
         <div class="container" id="bank">
           <div class="row">
-            <div class="col-6">
-              <div class="card card1  sm-3" style="width: 20rem">
+            <div *ngFor="let detail of detailsWallet" class="col-6">
+              <div class="card card1 sm-3" style="width: 20rem">
                 <div class="row">
                   <div class="col-8">
-                    <h6 class="MTN">MTN</h6>
+                    <h6 class="MTN">{{ detail.bank_name }}</h6>
                   </div>
                   <div class="col-4">
                     <h6 class="Delete">Delete</h6>
@@ -138,46 +173,25 @@
                 <div class="row">
                   <div class="col-6">
                     <h6 class="Mobilemoneynumbe">Mobile money number</h6>
-                    <h6 class="CardNumber">0544990518</h6>
+                    <h6 class="CardNumber">{{ detail.account_no }}</h6>
                   </div>
                   <div class="col-6">
-                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                    <mat-icon
+                      *ngIf="hasPaymentData"
+                      style="cursor: pointer"
+                      (click)="onWithDraw(detail.recipient_code)"
+                      class="play_arrow"
+                      >play_arrow</mat-icon
+                    >
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-6">
                     <h6 class="AccountName">Account name</h6>
-                    <h6 class="Name">Robert Fernandeze</h6>
+                    <h6 class="Name">{{ detail.holder_name }}</h6>
                   </div>
                   <div class="col-6">
                     <h6 class="PrimaryAccount">Primary Acount</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="card card1  sm-3" style="width: 20rem;">
-                <div class="row">
-                  <div class="col-8">
-                    <h6 class="FidelityBank ">AirtelTigo</h6>
-                  </div>
-                  <div class="col-4">
-                    <h6 class="Delete">Delete</h6>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <h6 class="AccountNumber">Mobile money number</h6>
-                    <h6 class="CardNumber">0544990518</h6>
-                  </div>
-                  <div class="col-6">
-                    <mat-icon class="play_arrow">play_arrow</mat-icon>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <h6 class="AccountName">Account name</h6>
-                    <h6 class="Name">Robert Fernandeze</h6>
                   </div>
                 </div>
               </div>
@@ -186,7 +200,6 @@
         </div>
         <!------------------ Add mobile wallet  account Modale-------------------------------------------->
         <ng-template #AddMobileWallerAccounttemplate>
-
           <div class="modal-body">
             <div class="container">
               <div class="row">
@@ -194,26 +207,70 @@
                   <h6 class="WalletAccount">Wallet account details</h6>
                 </div>
                 <div class="col-2">
-                  <mat-icon class="cancel" (click)="modalRef.hide()" >cancel</mat-icon>
+                  <mat-icon class="cancel" (click)="modalRef.hide()"
+                    >cancel</mat-icon
+                  >
                 </div>
               </div>
             </div>
-            <hr>
-            <form>
-              <div class="form-row ">
+            <hr />
+            <form (ngSubmit)="setupForm(walletForm)" #walletForm="ngForm">
+              <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Select your network</label>
-                  <input type="text" class="form-control" id="input" required>
+                  <select
+                    class="form-control"
+                    id="bankName"
+                    name="bankName"
+                    ngModel
+                  >
+                    <option *ngFor="let network of networkList">
+                      {{ network.name }}
+                    </option>
+                  </select>
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Wallet phone number</label>
-                  <input type="text" class="form-control" id="input" required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="accountNo"
+                    name="accountNo"
+                    ngModel
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="input">Enter account name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="holderName"
+                    name="holderName"
+                    ngModel
+                    required
+                  />
                 </div>
               </div>
               <div class="text-center">
-                <button class="btn btn-primary btn-sm" type="submit">Add wallet</button>
+                <button *ngIf="isAdding" type="button" class="btn btn-light">
+                  Adding...
+                </button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  *ngIf="!isAdding"
+                  (click)="setupForm(walletForm)"
+                  type="submit"
+                >
+                  Add wallet
+                </button>
+              </div>
+              <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                {{ errorMessage }}
               </div>
             </form>
           </div>
@@ -223,10 +280,14 @@
       <mat-tab label="Cards">
         <ul class="nav">
           <li class="nav-item">
-            <img src="assets\payement\banque.png" class="WalletImag">
+            <img src="assets\payement\banque.png" class="WalletImag" />
           </li>
           <li class="nav-item" class="AddACreditCard">
-            <a class="nav-link" (click)="openAddBankAccountModal(AddCardAccounttemplate)">Add a credit card</a>
+            <a
+              class="nav-link"
+              (click)="openAddBankAccountModal(AddCardAccounttemplate)"
+              >Add a credit card</a
+            >
           </li>
         </ul>
         <h6 class="thatYoud">
@@ -235,7 +296,7 @@
         <div class="container" id="bank">
           <div class="row">
             <div class="col-6">
-              <div class="card card1  sm-3" style="width: 20rem">
+              <div class="card card1 sm-3" style="width: 20rem">
                 <div class="row">
                   <div class="col-8">
                     <h6 class="Visa">Visa</h6>
@@ -250,7 +311,13 @@
                     <h6 class="ExpireDate">Expire date</h6>
                   </div>
                   <div class="col-6">
-                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                    <mat-icon
+                      *ngIf="hasPaymentData"
+                      style="cursor: pointer"
+                      (click)="onWithDraw()"
+                      class="play_arrow"
+                      >play_arrow</mat-icon
+                    >
                   </div>
                 </div>
                 <div class="row">
@@ -264,10 +331,10 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="card card1  sm-3" style="width: 20rem;height: 150px;">
+              <div class="card card1 sm-3" style="width: 20rem; height: 150px">
                 <div class="row">
                   <div class="col-8">
-                    <h6 class="FidelityBank ">Visa</h6>
+                    <h6 class="FidelityBank">Visa</h6>
                   </div>
                   <div class="col-4">
                     <h6 class="Delete">Delete</h6>
@@ -279,7 +346,13 @@
                     <h6 class="CardNumber">Expire date</h6>
                   </div>
                   <div class="col-6">
-                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                    <mat-icon
+                    *ngIf="hasPaymentData"
+                      style="cursor: pointer"
+                      (click)="onWithDraw()"
+                      class="play_arrow"
+                      >play_arrow</mat-icon
+                    >
                   </div>
                 </div>
                 <div class="row">
@@ -293,7 +366,6 @@
         </div>
         <!------------------ Add bank account Modale-------------------------------------------->
         <ng-template #AddCardAccounttemplate>
-
           <div class="modal-body">
             <div class="container">
               <div class="row">
@@ -301,37 +373,40 @@
                   <h6 class="CreditCardDetail">Credit Card detail</h6>
                 </div>
                 <div class="col-sm">
-                  <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+                  <mat-icon class="cancel" (click)="modalRef.hide()"
+                    >cancel</mat-icon
+                  >
                 </div>
               </div>
             </div>
-            <hr>
+            <hr />
             <form>
-              <div class="form-row ">
+              <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Card Number</label>
-                  <input type="text" class="form-control" id="input" required>
+                  <input type="text" class="form-control" id="input" required />
                 </div>
-
               </div>
               <div class="form-row">
                 <div class="col-md-6 mb-3">
                   <label for="input">Enter account number</label>
-                  <input type="text" class="form-control" id="input" required>
+                  <input type="text" class="form-control" id="input" required />
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-4">
                   <label for="input">Expire Date</label>
-                  <input type="date" class="form-control" id="input" required>
+                  <input type="date" class="form-control" id="input" required />
                 </div>
                 <div class="col-4">
                   <label for="input">Secret Code</label>
-                  <input type="text" class="form-control" id="input" required>
+                  <input type="text" class="form-control" id="input" required />
                 </div>
               </div>
               <div class="text-center">
-                <button class="btn btn-primary btn-sm" type="submit">Save</button>
+                <button class="btn btn-primary btn-sm" type="submit">
+                  Save
+                </button>
               </div>
             </form>
           </div>

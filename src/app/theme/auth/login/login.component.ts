@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
               };
               const sessionData = {
                 token: response.currentUser.token,
-              }
+              };
               const sessionStorageData = JSON.stringify(sessionData);
               sessionStorage.setItem('user_session_data',sessionStorageData);
               const userData = JSON.stringify(this.sessionResponse);

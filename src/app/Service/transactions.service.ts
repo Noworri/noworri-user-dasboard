@@ -31,7 +31,7 @@ export class TransactionsService {
             values.state = 'Cancelled';
           } else if (values.etat === '1') {
             values.state = 'Pending';
-          } else if (values.etat === '3') {
+          } else if (values.etat === '3' || values.etat === '5') {
             values.state = 'Completed';
           } else if (values.etat === '2') {
             values.state = 'Secured';
@@ -113,13 +113,14 @@ export class TransactionsService {
     );
   }
 
-  initiateReleasePaystack(data, transaction_id) {
-    const url = `https://api.noworri.com/api/initiateRelease/${transaction_id}`;
+  initiateReleasePaystack(data) {
+    const url = `https://api.noworri.com/api/initiateRelease/${data.transactionID}`;
     let params = new HttpParams();
     params = params.append('source', 'balance');
     params = params.append('reason', 'Noworri Payment Release');
     params = params.append('amount', data.amount);
     params = params.append('recipient', data.recipient);
+    params = params.append('currency', data.currency);
 
     return this.http
       .post(url, null, { responseType: 'json', params: params })
@@ -178,8 +179,8 @@ export class TransactionsService {
       );
   }
 
-  cancelOrder(transaction_id) {
-    const url = `https://api.noworri.com/api/cancelTransaction/${transaction_id}`;
+  cancelOrder(transaction_key) {
+    const url = `https://api.noworri.com/api/cancelTransaction/${transaction_key}`;
     return this.http.post(url, null).pipe(
       map((response) => {
         return response;
@@ -222,7 +223,6 @@ export class TransactionsService {
     let params = new HttpParams();
     params = params.append('id', data.transaction_id);
     params = params.append('release_code', data.release_code);
-    params = params.append('currency', data.currency);
 
     return this.http
       .post(url, null, { responseType: 'json', params: params })
@@ -428,7 +428,7 @@ export class TransactionsService {
       .post(url, null, { responseType: 'json', params: params })
       .pipe(
         map((response: any) => {
-          return response.data;
+          return response;
         }),
         catchError((error: HttpErrorResponse) => {
           console.log('Error', error.message);

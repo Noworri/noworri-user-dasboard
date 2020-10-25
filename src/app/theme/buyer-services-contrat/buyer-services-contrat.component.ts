@@ -271,9 +271,10 @@ export class BuyerServicesContratComponent implements OnInit, OnDestroy {
     const data = {
       amount: sellerPayment,
       recipient: this.recipientCode,
+      transactionID: this.transactionId
     };
     this.transactionsService
-      .initiateReleasePaystack(data, this.transactionId)
+      .initiateReleasePaystack(data)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response) => {
         if (response) {

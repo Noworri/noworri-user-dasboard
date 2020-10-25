@@ -40,6 +40,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   country: string;
 
   CloseAddbank: boolean;
+  errorMessage: any;
 
   constructor(
     private router: Router,
@@ -107,9 +108,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.transactionService.createRecipient(this.recipientDetails)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response: any) => {
-        if (response.recipient_code) {
-          accountDetails.recipient_code = response.recipient_code;
+        if (response.data && response.data.recipient_code) {
+          accountDetails.recipient_code = response.data.recipient_code;
           this.addAccountDetails(accountDetails);
+        } if (response.status === false) {
+          this.errorMessage = response.message;
         }
         return response;
       });

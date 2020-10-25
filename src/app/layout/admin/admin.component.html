@@ -38,11 +38,13 @@
                   />
                 </a>
               </div>
+
             </li>
 
             <li class="ripple light" id="ProfilNameEtMail">
               <div class="row">
-                <a (click)="onViewProfile()" class="Nom">{{ currentUser }}</a>
+                <a (click)="onViewProfile()" class="Nom">{{ currentUser }} {{ lastName }}</a>
+               
               </div>
             </li>
             <li class="header-search" *ngIf="waitingDisplayInput">
