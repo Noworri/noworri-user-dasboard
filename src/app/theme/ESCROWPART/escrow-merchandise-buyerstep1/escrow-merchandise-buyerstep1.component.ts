@@ -161,8 +161,11 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
 
   //---for only two way data binding -- alive fee result--//
   Fees(feePrice) {
-    return (feePrice / 100) * 1.98;
+    let Price= (feePrice / 100) * 1.98;
+     return Price.toFixed(2)
   }
+
+ 
 
   // // --------for recap template ---------//
 
@@ -173,6 +176,7 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
   //   );
   // }
   onCompleteStep1(recaptemplate, form: NgForm, sellersForms, deliveryForms) {
+     
     const telInputPlaceholderInputValue = document
       .getElementsByTagName("input")[0]
       .getAttribute("placeholder");

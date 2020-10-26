@@ -1,46 +1,81 @@
-<div id="pcoded" class="pcoded" [ngClass]="animateSidebar" [attr.nav-type]="navType" [attr.theme-layout]="themeLayout"
-  [attr.vertical-placement]="verticalPlacement" [attr.vertical-layout]="verticalLayout"
-  [attr.pcoded-device-type]="pcodedDeviceType" [attr.vertical-nav-type]="verticalNavType"
-  [attr.vertical-effect]="verticalEffect" [attr.vnavigation-view]="vnavigationView" [attr.fream-type]="freamType"
-  [attr.sidebar-img]="sidebarImg" [attr.sidebar-img-type]="sidebarImgType" [attr.layout-type]="layoutType"
-  (window:resize)="onResize($event)">
+<div
+  id="pcoded"
+  class="pcoded"
+  [ngClass]="animateSidebar"
+  [attr.nav-type]="navType"
+  [attr.theme-layout]="themeLayout"
+  [attr.vertical-placement]="verticalPlacement"
+  [attr.vertical-layout]="verticalLayout"
+  [attr.pcoded-device-type]="pcodedDeviceType"
+  [attr.vertical-nav-type]="verticalNavType"
+  [attr.vertical-effect]="verticalEffect"
+  [attr.vnavigation-view]="vnavigationView"
+  [attr.fream-type]="freamType"
+  [attr.sidebar-img]="sidebarImg"
+  [attr.sidebar-img-type]="sidebarImgType"
+  [attr.layout-type]="layoutType"
+  (window:resize)="onResize($event)"
+>
   <div class="pcoded-overlay-box"></div>
   <div class="pcoded-container navbar-wrapper">
     <!---- La NavBar---->
-    <nav id="NavBar" class="navbar header-navbar pcoded-header" [attr.header-theme]="headerTheme"
-      [attr.pcoded-header-position]="pcodedHeaderPosition">
+    <nav
+      id="NavBar"
+      class="navbar header-navbar pcoded-header"
+      [attr.header-theme]="headerTheme"
+      [attr.pcoded-header-position]="pcodedHeaderPosition"
+    >
       <div class="navbar-wrapper">
         <div class="navbar-container container-fluid">
           <ul class="nav-left">
             <li class="ripple light">
               <div class="main-menu-header">
                 <a (click)="onViewProfile()">
-                  <img src="{{ pp }}" class="img-menu-user img-radius" alt="User-Profile-Image" />
+                  <img
+                    src="{{ pp }}"
+                    class="img-menu-user img-radius"
+                    alt="User-Profile-Image"
+                  />
                 </a>
               </div>
-
             </li>
 
             <li class="ripple light" id="ProfilNameEtMail">
               <div class="row">
                 <a (click)="onViewProfile()" class="Nom">{{ currentUser }}</a>
-               
               </div>
             </li>
-            <li class="header-search" *ngIf='waitingDisplayInput'>
+            <li class="header-search" *ngIf="waitingDisplayInput">
               <form #form="ngForm">
-                <intl-tel-input [name]="'my-name'" [cssClass]="'form-control'"
-                  [labelCssClass]="'col-sm-2 col-form-label'" [required]="true" [options]="countryData"
-                  [(E164PhoneNumber)]="E164PhoneNumber"></intl-tel-input>
+                <intl-tel-input
+                  [name]="'my-name'"
+                  [cssClass]="'form-control'"
+                  [labelCssClass]="'col-sm-2 col-form-label'"
+                  [required]="true"
+                  [options]="countryData"
+                  [(E164PhoneNumber)]="E164PhoneNumber"
+                ></intl-tel-input>
               </form>
             </li>
           </ul>
-          <ul class="input-group-append prospan" *ngIf='waitingDisplayInput'>
-            <button (click)="onSearchCompany(resultModal,warningModale)" class="btn btn-primary" type="button">
-              <div class="spinner-border text-primary" *ngIf='LoadingStatus' role="status">
-                <span class="sr-only loading">Loading...</span>
+          <ul class="input-group-append prospan" *ngIf="waitingDisplayInput">
+            <button
+              (click)="onSearchCompany(resultModal, warningModale)"
+              class="btn btn-primary"
+              type="button"
+            >
+              <div 
+                style="font-size: 10px"
+                class="spinner-border text-primary"
+                *ngIf="LoadingStatus"
+                role="status"
+              >             
               </div>
-              <mat-icon *ngIf='!LoadingStatus'>search</mat-icon>
+              <span>
+                <mat-icon style="font-size: 20px;" *ngIf="!LoadingStatus"
+                  >search</mat-icon
+                >
+              </span>
             </button>
           </ul>
           <!---- <ul class="OnlineVendor">
@@ -53,13 +88,15 @@
           --->
           <a class="Settings">
             <a [matMenuTriggerFor]="menu">
-              <mat-icon class="icon" >settings</mat-icon>
+              <mat-icon class="icon">settings</mat-icon>
             </a>
-             <mat-menu #menu="matMenu" class="settingMenu">
-              <button mat-menu-item>Profil</button>
-              <button mat-menu-item (click)='onRoutingTopayement()'>Account</button>
-              <button mat-menu-item (click)='signOut()'>Signout</button>
-            </mat-menu> 
+            <mat-menu #menu="matMenu" class="settingMenu">
+              <button style="font-family: roboto;color: gray;" mat-menu-item>Profil</button>
+              <button style="font-family: roboto;color: gray;" mat-menu-item (click)="onRoutingTopayement()">
+                Account
+              </button>
+              <button style="font-family: roboto;color: gray;" mat-menu-item (click)="signOut()">Signout</button>
+            </mat-menu>
           </a>
         </div>
       </div>
@@ -73,25 +110,44 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <label class="What" for="exampleInputEmail1">What's your recipient name</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                value="Roselina" />
+              <label class="What" for="exampleInputEmail1"
+                >What's your recipient name</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                value="Roselina"
+              />
             </div>
           </form>
           <form>
             <div class="form-group">
-              <label class="HowDo" for="exampleInputEmail1">How do you want <b class="Roselina">Roselina</b> to receive
-                the
-                money</label>
+              <label class="HowDo" for="exampleInputEmail1"
+                >How do you want <b class="Roselina">Roselina</b> to receive the
+                money</label
+              >
               <mat-radio-group>
                 <div class="row">
                   <div class="col">
-                    <mat-radio-button class="example-margin" id="example-margin" value="after" color="primary">
-                      Mobile Wallet</mat-radio-button>
+                    <mat-radio-button
+                      class="example-margin"
+                      id="example-margin"
+                      value="after"
+                      color="primary"
+                    >
+                      Mobile Wallet</mat-radio-button
+                    >
                   </div>
                   <div class="col">
-                    <mat-radio-button color="primary" class="example-margin" id="example-margin1">
-                      Bank Account</mat-radio-button>
+                    <mat-radio-button
+                      color="primary"
+                      class="example-margin"
+                      id="example-margin1"
+                    >
+                      Bank Account</mat-radio-button
+                    >
                   </div>
                 </div>
               </mat-radio-group>
@@ -99,18 +155,35 @@
           </form>
           <form>
             <div class="form-group">
-              <label class="Select" for="exampleInputEmail1">Select <b class="Roselina">Roselina's</b> mobile wallet
+              <label class="Select" for="exampleInputEmail1"
+                >Select <b class="Roselina">Roselina's</b> mobile wallet
               </label>
               <mat-radio-group>
                 <div class="row">
-                  <mat-radio-button color="primary" class="example-margin" value="MTN" id="MTN">MTN</mat-radio-button>
+                  <mat-radio-button
+                    color="primary"
+                    class="example-margin"
+                    value="MTN"
+                    id="MTN"
+                    >MTN</mat-radio-button
+                  >
                 </div>
                 <div class="row">
-                  <mat-radio-button color="primary" class="example-margin" value="VODAFONE" id="VODAFONE">VODAFONE
+                  <mat-radio-button
+                    color="primary"
+                    class="example-margin"
+                    value="VODAFONE"
+                    id="VODAFONE"
+                    >VODAFONE
                   </mat-radio-button>
                 </div>
                 <div class="row">
-                  <mat-radio-button color="primary" class="example-margin" value="AIRTELTIGO" id="AIRTELTIGO">AIRTELTIGO
+                  <mat-radio-button
+                    color="primary"
+                    class="example-margin"
+                    value="AIRTELTIGO"
+                    id="AIRTELTIGO"
+                    >AIRTELTIGO
                   </mat-radio-button>
                 </div>
               </mat-radio-group>
@@ -118,16 +191,29 @@
           </form>
           <form>
             <div class="form-group">
-              <label class="EnterRo" for="exampleInputEmail1">Enter <b class="Roselina">Roselina's</b> mobile
-                wallet</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+              <label class="EnterRo" for="exampleInputEmail1"
+                >Enter <b class="Roselina">Roselina's</b> mobile wallet</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
             </div>
           </form>
           <form>
             <div class="form-group">
-              <label class="Howmuch" for="exampleInputEmail1">How much are you sending?</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                value="50.00" />
+              <label class="Howmuch" for="exampleInputEmail1"
+                >How much are you sending?</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                value="50.00"
+              />
             </div>
           </form>
           <div class="row" id="TransationFee">
@@ -140,10 +226,19 @@
           </div>
           <div class="row" id="Button">
             <div class="col">
-              <button (click)="closeFirstModal()" class="Cancel" mat-raised-button>
+              <button
+                (click)="closeFirstModal()"
+                class="Cancel"
+                mat-raised-button
+              >
                 Cancel
               </button>
-              <button (click)="openModal2(templateNested)" mat-raised-button color="primary" class="Continue">
+              <button
+                (click)="openModal2(templateNested)"
+                mat-raised-button
+                color="primary"
+                class="Continue"
+              >
                 Continue
               </button>
             </div>
@@ -241,22 +336,49 @@
 
       <!--  -->
       <div class="pcoded-wrapper">
-        <nav id="main_navbar" class="pcoded-navbar" (clickOutside)="onClickedOutsideSidebar($event)"
-          [exclude]="'#mobile-collapse'" [attr.navbar-theme]="navBarTheme" [attr.active-item-theme]="activeItemTheme"
-          sub-item-theme="theme2" active-item-style="style0" [attr.pcoded-header-position]="pcodedHeaderPosition"
-          [attr.pcoded-navbar-position]="pcodedSidebarPosition" [style.top]="headerFixedTop"
-          [style.height]="sidebarFixedNavHeight" (mouseleave)="hoverOutsideSidebar()">
-          <perfect-scrollbar [style.max-width]="'235px'" [style.max-height]="sidebarFixedHeight" [config]="config"
-            [ngClass]="perfectDisable">
+        <nav
+          id="main_navbar"
+          class="pcoded-navbar"
+          (clickOutside)="onClickedOutsideSidebar($event)"
+          [exclude]="'#mobile-collapse'"
+          [attr.navbar-theme]="navBarTheme"
+          [attr.active-item-theme]="activeItemTheme"
+          sub-item-theme="theme2"
+          active-item-style="style0"
+          [attr.pcoded-header-position]="pcodedHeaderPosition"
+          [attr.pcoded-navbar-position]="pcodedSidebarPosition"
+          [style.top]="headerFixedTop"
+          [style.height]="sidebarFixedNavHeight"
+          (mouseleave)="hoverOutsideSidebar()"
+        >
+          <perfect-scrollbar
+            [style.max-width]="'235px'"
+            [style.max-height]="sidebarFixedHeight"
+            [config]="config"
+            [ngClass]="perfectDisable"
+          >
             <div class="pcoded-inner-navbar main-menu" appAccordion>
               <div class=""></div>
-              <div *ngFor="let asideItems of menuItems.getAll()" class="d-color">
-                <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme"></div>
+              <div
+                *ngFor="let asideItems of menuItems.getAll()"
+                class="d-color"
+              >
+                <div
+                  class="pcoded-navigation-label"
+                  [attr.menu-title-theme]="menuTitleTheme"
+                ></div>
                 <div class="SideBar">
-                  <ul class="navbar-nav mr-auto" *ngFor="let asideItem of asideItems.main">
+                  <ul
+                    class="navbar-nav mr-auto"
+                    *ngFor="let asideItem of asideItems.main"
+                  >
                     <li class="nav-item">
-                      <a class="nav-link active" [routerLink]="['/', asideItem.name]"
-                        routerLinkActive="RouterLinkActive" href="#">{{ asideItem.state }}
+                      <a
+                        class="nav-link active"
+                        [routerLink]="['/', asideItem.name]"
+                        routerLinkActive="RouterLinkActive"
+                        href="#"
+                        >{{ asideItem.state }}
                       </a>
                     </li>
                   </ul>
@@ -293,10 +415,20 @@
     <div class="card col-12 col-md-12 col-lg-12">
       <div class="row row1">
         <div class="col-12 col-sm-12 col1">
-          <img *ngIf="RealPictureProfil" src="https://noworri.com/api/public/uploads/company/trusted/{{
+          <img
+            *ngIf="RealPictureProfil"
+            src="https://noworri.com/api/public/uploads/company/trusted/{{
               profilpicture
-            }}" class="card-img-top" alt="..." />
-          <img *ngIf="FalsePictureProfil" src="assets\resultpage\defaultProfi.jpeg" class="card-img-top" alt="..." />
+            }}"
+            class="card-img-top"
+            alt="..."
+          />
+          <img
+            *ngIf="FalsePictureProfil"
+            src="assets\resultpage\defaultProfi.jpeg"
+            class="card-img-top"
+            alt="..."
+          />
         </div>
         <div class="col col-12 col-lg-6 col-xl-6 col2">
           <div class="row">
@@ -312,7 +444,10 @@
           </div>
         </div>
         <div class="col-12 col3 col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6">
-          <h6 class="OpenA col-sm-12 col-md-12 col-lg-12 col-xl-6" (click)="onOpenDispute(disputModal)">
+          <h6
+            class="OpenA col-sm-12 col-md-12 col-lg-12 col-xl-6"
+            (click)="onOpenDispute(disputModal)"
+          >
             Open a dispute
           </h6>
         </div>
@@ -322,17 +457,29 @@
         <div class="col col1"></div>
         <div class="col col3">
           <a href="{{ facebook }}" target="_blank">
-            <img src="assets\resultpage\Facebook.png" class="card-img-top" alt="..." />
+            <img
+              src="assets\resultpage\Facebook.png"
+              class="card-img-top"
+              alt="..."
+            />
           </a>
         </div>
         <div class="col col4">
           <a href="{{ instagram }}" target="_blank">
-            <img src="assets\resultpage\Instagram.png" class="card-img-top" alt="..." />
+            <img
+              src="assets\resultpage\Instagram.png"
+              class="card-img-top"
+              alt="..."
+            />
           </a>
         </div>
         <div class="col col5">
           <a href="https://wa.me/{{ whatsapp }}" target="_blank">
-            <img src="assets\resultpage\whatsapp.png" class="card-img-top" alt="..." />
+            <img
+              src="assets\resultpage\whatsapp.png"
+              class="card-img-top"
+              alt="..."
+            />
           </a>
         </div>
       </div>
@@ -341,9 +488,9 @@
         <div class="col col"></div>
         <div class="container">
           <h6 class="text-center">
-            Noworri has trusted this vendor, in case you don't receive
-            the product you paid for, open a dispute so we can help you
-            get your money back
+            Noworri has trusted this vendor, in case you don't receive the
+            product you paid for, open a dispute so we can help you get your
+            money back
           </h6>
         </div>
       </div>
@@ -356,16 +503,18 @@
           <h6 class="Product">Product or services</h6>
         </div>
         <div class="row col-12 col-xl-12 rowSpeci">
-          <div class="col col{{ i + 1 }}" *ngFor="let service of services; let i = index" [attr.data-index]="i">
+          <div
+            class="col col{{ i + 1 }}"
+            *ngFor="let service of services; let i = index"
+            [attr.data-index]="i"
+          >
             <h6>
-              <span class="badge badge-pill badge-primary">{{
-                service
-              }}</span>
+              <span class="badge badge-pill badge-primary">{{ service }}</span>
             </h6>
           </div>
         </div>
       </div>
-      <hr style="margin-top: 20px;" />
+      <hr style="margin-top: 20px" />
       <div class="row row5">
         <div class="row">
           <h6 class="BusinessSector">Business sector</h6>
@@ -374,7 +523,7 @@
           <h6 class="BeautyAnd">{{ sector }}</h6>
         </div>
       </div>
-      <hr style="margin-top: 20px;" />
+      <hr style="margin-top: 20px" />
       <div class="row row5">
         <div class="row">
           <h6 class="BusinessSector">Country</h6>
@@ -383,7 +532,7 @@
           <h6 class="country">{{ country }}</h6>
         </div>
       </div>
-      <hr style="margin-top: 20px;" />
+      <hr style="margin-top: 20px" />
       <div class="row row5">
         <div class="row">
           <h6 class="BusinessSector">City</h6>
@@ -398,7 +547,11 @@
           <h6>Phone numbers</h6>
         </div>
         <div class="row rowSpeci">
-          <div class="col col{{ i + 1 }}" *ngFor="let number of additionnalphone; let i = index" [attr.data-index]="i">
+          <div
+            class="col col{{ i + 1 }}"
+            *ngFor="let number of additionnalphone; let i = index"
+            [attr.data-index]="i"
+          >
             {{ number }}
           </div>
         </div>
@@ -455,7 +608,7 @@
 <ng-template #warningModale>
   <section id="CancelSectionDispute">
     <div class="col">
-      <mat-icon class="cancel"  (click)="modalRefResult.hide()">cancel</mat-icon>
+      <mat-icon class="cancel" (click)="modalRefResult.hide()">cancel</mat-icon>
     </div>
   </section>
   <div class="modal-body">
@@ -467,16 +620,14 @@
         This online vendor's phone number {{ phoneNumber }} is not verified
       </p>
       <p class="p2">Security tips</p>
-      <p class="p3">
-        * Don't pay in advance any money even for delivery
-      </p>
+      <p class="p3">* Don't pay in advance any money even for delivery</p>
       <p class="p4">
         * Meet the seller in a public environment and triple<br />
         check the product before purchasing it
       </p>
       <p class="p5">
-        * Suggest the seller to get verified with Noworri so you can open
-        a dispute if anything goes wrong
+        * Suggest the seller to get verified with Noworri so you can open a
+        dispute if anything goes wrong
       </p>
       <div class="container">
         <div class="row">
@@ -489,24 +640,28 @@
 
 <!--------------DipsuteModale----------------->
 <ng-template #disputModal>
-
   <div class="container">
     <div class="row row1">
       <section id="CancelSection">
-        <div class="col" style="  margin-left:-150px;">
-          <mat-icon class="cancel" (click)="modalRefDispute.hide()">cancel</mat-icon>
+        <div class="col" style="margin-left: -150px">
+          <mat-icon class="cancel" (click)="modalRefDispute.hide()"
+            >cancel</mat-icon
+          >
         </div>
       </section>
       <div class="col-sm"></div>
       <div class="col-sm">
-
-        <img src="assets\Dispute\iconisa190306133@2x.png" class="card-img-top" alt="..." />
+        <img
+          src="assets\Dispute\iconisa190306133@2x.png"
+          class="card-img-top"
+          alt="..."
+        />
       </div>
       <div class="col-sm"></div>
     </div>
     <div class="row2">
       <div class="col col-sm-12"></div>
-      <div class="col-12  col-sm-12 col-md-12 col-lg-12">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12">
         <h6 class="YouAreOpening">
           You are opening a disput with
           <span class="beauty">{{ businessname }}</span>
@@ -522,32 +677,68 @@
         <div class="row">
           <div class="col col-sm col-md-3"></div>
           <div class="col-12 col-sm-8 col-md-8">
-            <form (ngSubmit)="onCreateDispute(dispute,phoneNumber)" #dispute="ngForm">
+            <form
+              (ngSubmit)="onCreateDispute(dispute, phoneNumber)"
+              #dispute="ngForm"
+            >
               <div class="form-group">
                 <label for="exampleInputEmail1">Your email address *</label>
-                <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" required
-                  ngModel />
+                <input
+                  name="email"
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  required
+                  ngModel
+                />
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Your phone number *</label>
                 <div class="input-group" id="Prospand">
-                  <form #phoneNumber="ngForm" *ngIf='waitingDisplayInput'>
-                    <intl-tel-input [labelCssClass]="'col-form-label'"
-                      [cssClass]="'col-8 col-4 col-md-12 col-lg-12 col-xl-12  form-control'" [required]="true"
-                      [options]="countryData" [name]="'phoneNumber'" [onlyLocalized]="true" ngModel>
+                  <form #phoneNumber="ngForm" *ngIf="waitingDisplayInput">
+                    <intl-tel-input
+                      [labelCssClass]="'col-form-label'"
+                      [cssClass]="
+                        'col-8 col-4 col-md-12 col-lg-12 col-xl-12  form-control'
+                      "
+                      [required]="true"
+                      [options]="countryData"
+                      [name]="'phoneNumber'"
+                      [onlyLocalized]="true"
+                      ngModel
+                    >
                     </intl-tel-input>
                   </form>
                 </div>
               </div>
-              <div class="form-group" style="margin-top: -10px;">
+              <div class="form-group" style="margin-top: -10px">
                 <label for="exampleInputPassword1">Dispute title *</label>
-                <input name="disputTilte" type="text" class="form-control" id="disputTilte" required ngModel />
+                <input
+                  name="disputTilte"
+                  type="text"
+                  class="form-control"
+                  id="disputTilte"
+                  required
+                  ngModel
+                />
               </div>
               <div class="form-group">
-                <label for="exampleFormControlTextarea1">Describe in detail the problem *</label>
-                <textarea name="details" class="form-control" id="details" rows="3" required ngModel></textarea>
+                <label for="exampleFormControlTextarea1"
+                  >Describe in detail the problem *</label
+                >
+                <textarea
+                  name="details"
+                  class="form-control"
+                  id="details"
+                  rows="3"
+                  required
+                  ngModel
+                ></textarea>
               </div>
-              <label class="UploadLabel" for="exampleFormControlTextarea1">Add a transation proof *</label>
+              <label class="UploadLabel" for="exampleFormControlTextarea1"
+                >Add a transation proof *</label
+              >
               <div class="Upload">
                 <input type="file" />
               </div>
@@ -567,7 +758,4 @@
       </div>
     </section>
   </div>
-
-
-
 </ng-template>
