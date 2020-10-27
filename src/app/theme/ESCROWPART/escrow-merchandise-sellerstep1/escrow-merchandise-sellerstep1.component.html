@@ -1,5 +1,8 @@
 <div class="container">
-  <form (ngSubmit)="onCompleteStep1(recap, form,sellersForms,deliveryForms)" #form="ngForm">
+  <form
+    (ngSubmit)="onCompleteStep1(recap, form, sellersForms, deliveryForms)"
+    #form="ngForm"
+  >
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -15,18 +18,42 @@
               </div>
               <div id="Form1">
                 <div class="form-group">
-                  <label id="PrincipaleTitle" for="exampleInputEmail1">What are you selling ?</label>
-                  <input type="text" class="form-control" id="item" name="item" ngModel aria-describedby="emailHelp"
-                    (click)="AfficheSide1()" [ngClass]="itemControl" />
+                  <label id="PrincipaleTitle" for="exampleInputEmail1"
+                    >What are you selling ?</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="item"
+                    name="item"
+                    ngModel
+                    aria-describedby="emailHelp"
+                    (click)="AfficheSide1()"
+                    [ngClass]="itemControl"
+                  />
                 </div>
               </div>
               <div id="Form2">
-                <label id="PrincipaleTitle" for="price">What's the price ?</label>
-                <label style="margin-left: 303px; font-weight: 600;" for="exampleInputEmail1">CURRENCY</label>
+                <label id="PrincipaleTitle" for="price"
+                  >What's the price ?</label
+                >
+                <label
+                  style="margin-left: 303px; font-weight: 600"
+                  for="exampleInputEmail1"
+                  >CURRENCY</label
+                >
                 <div class="row">
                   <div class="col">
-                    <input type="text" style="width: 420px;" class="form-control" id="price" name="price" ngModel
-                      (click)="AfficheSide2()" [ngClass]="priceControl" />
+                    <input
+                      type="text"
+                      style="width: 420px"
+                      class="form-control"
+                      id="price"
+                      name="price"
+                      ngModel
+                      (click)="AfficheSide2()"
+                      [ngClass]="priceControl"
+                    />
                   </div>
                   <div class="col">
                     <div class="input-group-text">
@@ -36,42 +63,63 @@
                   </div>
                   <!-----<p class="NoworriFee">Noworri Charges :</p>-->
                   <!---- <span class="fee">1.95% of the price</span>--->
-                  <p class="NoworriFee">Noworri Charges :</p>
-                  <span class="fee">1.98% of the price</span>  
+
+                  <!--------------
+                    <p class="NoworriFee">Noworri Fees  :</p>
+                  <span class="fee">1.98% of the price</span>
+                  -->
+                
                 </div>
 
                 <div id="PetitInput1">
                   <label class="Sellersphone">Buyer's phone number</label>
-                  <div >
+                  <div>
                     <form #sellersForms="ngForm">
-                      <intl-tel-input *ngIf='waitingDisplayInput' (click)="AfficheSide3()" [name]="'sellerPhoneNumber'" [options]="countryData"
-                        [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                      <intl-tel-input
+                        *ngIf="waitingDisplayInput"
+                        (click)="AfficheSide3()"
+                        [name]="'sellerPhoneNumber'"
+                        [options]="countryData"
+                        [cssClass]="'form-control'"
+                        [onlyLocalized]="true"
+                        [(E164PhoneNumber)]="E164PhoneNumber"
+                      >
                       </intl-tel-input>
                     </form>
                   </div>
                 </div>
                 <div id="PetitInput2">
                   <label>Delivery phone number</label>
-                  <p>
-                    Enter the deliveryman who is supposed to pick the product
-                    from you and delivered it to the buyer
-                  </p>
+                  
                   <div class="inp">
-                    <div >
+                    <div>
                       <form #deliveryForms="ngForm">
-                        <intl-tel-input *ngIf='waitingDisplayInput' (click)="AfficheSide4()" [name]="'deliveryPhoneNumber'" [options]="countryData"
-                          [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                        <intl-tel-input
+                          *ngIf="waitingDisplayInput"
+                          (click)="AfficheSide4()"
+                          [name]="'deliveryPhoneNumber'"
+                          [options]="countryData"
+                          [cssClass]="'form-control'"
+                          [onlyLocalized]="true"
+                          [(E164PhoneNumber)]="E164PhoneNumber"
+                        >
                         </intl-tel-input>
                       </form>
                     </div>
-                   
                   </div>
                 </div>
 
                 <div id="PetitInput3">
                   <label for="exampleInputEmail1">Descriptions</label>
-                  <textarea class="form-control" id="description" name="description" rows="3" (click)="AfficheSide5()"
-                    ngModel [ngClass]="descriptionControl"></textarea>
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    rows="3"
+                    (click)="AfficheSide5()"
+                    ngModel
+                    [ngClass]="descriptionControl"
+                  ></textarea>
                 </div>
                 <div class="container">
                   <div class="row">
@@ -79,11 +127,21 @@
                     <div class="col-sm">
                       <div *ngIf="isValidating" class="Loading">
                         <button *ngIf="isValidating" mat-raised-button>
-                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          <span
+                            class="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
                           processing...
                         </button>
                       </div>
-                      <button type="submit" *ngIf="!isValidating" mat-raised-button> Continue</button>
+                      <button
+                        type="submit"
+                        *ngIf="!isValidating"
+                        mat-raised-button
+                      >
+                        Continue
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -94,6 +152,26 @@
       </div>
       <div class="col-sm">
         <div class="container" id="CARDS">
+          <div class="col" id="CardFix">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2 local_offer">
+                    <mat-icon class="local"> local_offer</mat-icon>
+                  </div>
+                  <div class="col">
+                    <p>
+                      After you create the transaction Noworri will send a 5
+                      digits code by SMS to the deliveryman and yourself which
+                      must be given to the buyer to confirm the reception of the
+                      goods and money will be released automatically to your
+                      account.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col" id="card1" *ngIf="BoolAffichage1">
             <div class="card w-100">
               <div class="card-body">
@@ -121,7 +199,8 @@
                   </div>
                   <div class="col">
                     <p>
-                      Put the price of the items or products, make sure both you and buyer agree to the price
+                      Put the price of the items or products, make sure both you
+                      and buyer agree to the price
                     </p>
                   </div>
                 </div>
@@ -137,8 +216,9 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the Phone number of the buyer. Make sure he has a Noworri's Account otherwise invite him <a style="color:blue;"
-                        href="">HERE</a>
+                      Enter the Phone number of the buyer. Make sure he has a
+                      Noworri's Account otherwise invite him
+                      <a style="color: blue" href="">HERE</a>
                     </p>
                   </div>
                 </div>
@@ -154,8 +234,9 @@
                   </div>
                   <div class="col">
                     <p>
-                      Put the phone number of the deliveryman who is supposing to ship the product to the buyer. You can
-                      put your own phone number if you bring to the buyer the product    
+                      Put the phone number of the deliveryman who is supposing
+                      to ship the product to the buyer. You can put your own
+                      phone number if you bring to the buyer the product    
                     </p>
                   </div>
                 </div>
@@ -170,9 +251,7 @@
                     <mat-icon class="local"> local_offer</mat-icon>
                   </div>
                   <div class="col">
-                    <p>
-                      Do you have anything to say? Write it down  
-                    </p>
+                    <p>Do you have anything to say? Write it down  </p>
                   </div>
                 </div>
               </div>
@@ -182,31 +261,40 @@
       </div>
     </div>
   </form>
-    <!-----------------------Recap template------------------------------------>
-    <ng-template #recap >
-      <div class="container" id="recapTemplate">
-        <div class="row">
-          <div class="col-sm-5">
-            <div class="img">
-              <img src="assets\merchandise escrow modal log.png" class="card-img-top" alt="...">
-            </div>
+  <!-----------------------Recap template------------------------------------>
+  <ng-template #recap>
+    <div class="container" id="recapTemplate">
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="img">
+            <img
+              src="assets\merchandise escrow modal log.png"
+              class="card-img-top"
+              alt="..."
+            />
           </div>
-          <div class="col-sm-7   rightSide" >
-            <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
-            <div class="text">
-              <h6 class="title">Items or service</h6>
-              <h6 class="variable" >{{escrowStep1Data.item}}</h6>
-              <h6 class="title" >You're dealing with</h6>
-              <h6 class="variable" >{{escrowStep1Data.sellerPhoneNumber}}</h6>
-              <h6 class="title">Product will be delivered by</h6>
-              <h6 class="variable" >{{escrowStep1Data.deliveryPhoneNumber}}</h6>
-            </div>
-            <div class="button text-center" >
-              <button type="button" (click)="onConfirmTransaction()" class="btn btn-primary btn-sm">confirm {{ totalAmount }}</button>
-            </div>
+        </div>
+        <div class="col-sm-7 rightSide">
+          <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+          <div class="text">
+            <h6 class="title">Items or service</h6>
+            <h6 class="variable">{{ escrowStep1Data.item }}</h6>
+            <h6 class="title">You're dealing with</h6>
+            <h6 class="variable">{{ escrowStep1Data.sellerPhoneNumber }}</h6>
+            <h6 class="title">Product will be delivered by</h6>
+            <h6 class="variable">{{ escrowStep1Data.deliveryPhoneNumber }}</h6>
+          </div>
+          <div class="button text-center">
+            <button
+              type="button"
+              (click)="onConfirmTransaction()"
+              class="btn btn-primary btn-sm"
+            >
+              confirm {{ totalAmount }}
+            </button>
           </div>
         </div>
       </div>
-    </ng-template>
-  
+    </div>
+  </ng-template>
 </div>

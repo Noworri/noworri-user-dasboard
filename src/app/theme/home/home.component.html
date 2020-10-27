@@ -24,14 +24,21 @@
 
         <div class="row">
           <div class="col-sm-6">
-            <p><a class="Active">Activate your Noworri account</a></p>
+            <p>
+              <a class="Active">
+                kindly add your bank or mobile account to your Noworri
+                account<br />
+                to be able to receive payment from your customers
+              </a>
+            </p>
           </div>
           <div class="col-sm-6">
             <button
+            style="padding-left: 20px;padding-right: 20px;"
               type="submit"
               class="btn btn-sm btn-success m-b-0 ripple light float-right"
             >
-              Watch
+            Add
             </button>
           </div>
         </div>
@@ -43,8 +50,8 @@
           are buying or selling.
         </p>
         <p class="Review">
-          * Noworri.com secure your funds, ship your product and only release
-          funds when everyone hold up of their part of the deal.
+          * With Noworri you can buy and sell anything safely without the risk
+          of being defrauded. Truly secure payments.
         </p>
         <br />
         <br />
@@ -59,11 +66,15 @@
                     id="TypeOfTransation"
                     name="TypeOfTransation"
                     ngModel
-                    [ngClass]=' TypeOfTransationInputControl'
+                    [ngClass]="TypeOfTransationInputControl"
                   >
-                  <option value="" selected disabled hidden>Choose a type</option>
-                  <!-- <option selected="selected" value="Services">Services</option> -->
-                  <option selected="selected" value="Merchandise">Merchandise</option>
+                    <option value="" selected disabled hidden>
+                      Choose a type
+                    </option>
+                    <!-- <option selected="selected" value="Services">Services</option> -->
+                    <option selected="selected" value="Merchandise">
+                      Merchandise
+                    </option>
                   </select>
                 </div>
               </div>
@@ -72,37 +83,40 @@
                 <div class="form-group">
                   <p><b class="TexteSelect">Your role</b></p>
                   <select
-                    class="custom-select "
+                    class="custom-select"
                     id="role"
                     name="role"
                     ngModel
-                    [ngClass]='YourRoleInputControl'
+                    [ngClass]="YourRoleInputControl"
                   >
-                    <option value="" selected disabled hidden>Choose a role</option>
+                    <option value="" selected disabled hidden>
+                      Choose a role
+                    </option>
                     <option value="Buyer">Buyer</option>
                     <option value="Seller">Seller</option>
                   </select>
                 </div>
               </div>
               <div class="row" id="StartNoworri">
-                <button mat-raised-button >Start Noworri</button>
+                <button mat-raised-button>Start Noworri</button>
               </div>
             </form>
           </div>
-          <div class="col-sm-5" >
+          <div class="col-sm-5">
             <div
               class="alert alert-default background-default"
               id="GeneraleMerchandise"
             >
-              General Merchandise is used for most tangible goods
+              General Merchandise: Use this type of transaction for most
+              tangible goods such as goods, apparel and accessories, furniture
+              and home furnishings, small wares, hardware, and foods etc
             </div>
             <div class="alert alert-default background-default" id="Service">
-              Service is most used to deal with remote work, it's ensure
-              everyone hold up of their part of the deal
+              Services : use services as a type of transaction for intangible
+              things such as : logo, freelance , document translation, etc
             </div>
           </div>
         </div>
-        
       </app-card>
     </div>
   </div>

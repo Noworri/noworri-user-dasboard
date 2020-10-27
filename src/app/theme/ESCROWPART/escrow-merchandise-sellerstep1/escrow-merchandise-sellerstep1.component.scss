@@ -129,8 +129,9 @@
           color: black;
           opacity: 1;
         }
-  
-        .NoworriFee {
+
+        /*------
+         .NoworriFee {
           text-align: left;
           font: Regular 17px/26px Poppins;
           letter-spacing: 0px;
@@ -149,6 +150,9 @@
           margin-top: 20px;
           font-weight: 600;
         }
+        --------*/
+  
+       
         #PetitInput1 {
           margin-top: -6px;
           label {
@@ -173,17 +177,7 @@
           .inp {
             margin-top: -13px;
           }
-          p {
-            text-align: left;
-            font: Regular 15px/23px Poppins;
-            letter-spacing: 0px;
-            color: #ff0045;
-            opacity: 1;
-            font-weight: 600px;
-            margin-top: -5px;
-            margin-bottom: 30px;
-            font-size: 13px;
-          }
+         
         }
   
         #PetitInput3 {
@@ -241,9 +235,45 @@
     }
     #CARDS {
       margin-left: -40px;
+      
+   #CardFix{
+    top: 0;
+    z-index: 3;
+    margin-top: 80px;
+    position: fixed;
+    width: 400px;
+    .card {
+     background: #ffff 0% 0% no-repeat padding-box;
+     opacity: 1;
+     height: 140px;
+     .card-body {
+       .local_offer {
+         margin-top: 8px;
+         transform: rotate(90deg);
+         margin-right: -30px;
+         .local {
+           color: #4bff69;
+           opacity: 1;
+         }
+       }
+       p {
+         margin-top: -10px;
+         text-align: left;
+         font: Regular 20px/27px Segoe UI;
+         letter-spacing: 0;
+         color: #484848;
+         opacity: 1;
+         font-size: small;
+       }
+     }
+     .local_offer {
+       height: 0px;
+     }
+   }
+  }
       #card1 {
         width: 350px;
-        margin-top: 220px;
+        margin-top: 205px;
         .card {
           background: #2bb996 0% 0% no-repeat padding-box;
           opacity: 1;
@@ -275,7 +305,7 @@
       }
       #card2 {
         width: 350px;
-        margin-top: 320px;
+        margin-top: 310px;
         .card {
           background: #2bb996 0% 0% no-repeat padding-box;
           opacity: 1;
@@ -307,7 +337,7 @@
       }
       #card3 {
         width: 350px;
-        margin-top: 384px;
+        margin-top: 380px;
         .card {
           margin-top: 100px;
           background: #2bb996 0% 0% no-repeat padding-box;
@@ -339,9 +369,9 @@
       }
       #card4 {
         width: 350px;
-        margin-top: 510px;
+        margin-top: 450px;
         .card {
-          margin-top: 220px;
+          margin-top: 250px;
           background: #2bb996 0% 0% no-repeat padding-box;
           opacity: 1;
           height: 120px;
@@ -371,7 +401,7 @@
       }
       #card5 {
         width: 350px;
-        margin-top: 660px;
+        margin-top: 600px;
         .card {
           margin-top: 320px;
           background: #2bb996 0% 0% no-repeat padding-box;
