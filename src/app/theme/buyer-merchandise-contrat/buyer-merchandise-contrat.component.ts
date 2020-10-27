@@ -99,7 +99,6 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     const releaseData = {
       transaction_id: this.transactionId,
       release_code: code,
-      currency: this.currency
     };
     this.verifyReleaseCode(releaseData);
   }
@@ -107,10 +106,9 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   verifyReleaseCode(releaseData) {
     this.transactionsService.verifyReleaseCode(releaseData).pipe(takeUntil(this.unsubscribe$))
     .subscribe((response: any) => {
-      if (response.data && response.data.status === 'success') {
+      if (response && response.status === 'success') {
         this.modalRef.hide();
         this.loadUserTransaction(this.transactionKey);
-        // this.initiateRelease(this.transactionKey);
       } else {
         this.isValidCode = false;
       }
@@ -125,19 +123,19 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     );
   }
 
-  releaseFunds(transaction_id) {
-    this.isValidating = true;
-    this.transactionsService.releaseFunds(transaction_id).pipe(takeUntil(this.unsubscribe$)).subscribe(
-      response => {
-        setTimeout(() => {
-          this.isValidating = false;
-          this.isFundsReleased = true;
-          this.router.navigate(['transactions']);
-        }, 5000);
-        return response;
-      }
-    );
-  }
+  // releaseFunds(transaction_id) {
+  //   this.isValidating = true;
+  //   this.transactionsService.releaseFunds(transaction_id).pipe(takeUntil(this.unsubscribe$)).subscribe(
+  //     response => {
+  //       setTimeout(() => {
+  //         this.isValidating = false;
+  //         this.isFundsReleased = true;
+  //         this.router.navigate(['transactions']);
+  //       }, 5000);
+  //       return response;
+  //     }
+  //   );
+  // }
 
   initiateRefund(transaction_id) {
     const data = {
@@ -148,7 +146,6 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     // this.isValidating = true;
     this.transactionsService.initiateRefundPaystack(data).pipe(takeUntil(this.unsubscribe$)).subscribe(
       response => {
-        console.log(response);
         return response;
       }
     );
@@ -170,24 +167,24 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     return (price / 100) * 1.98;
   }
 
-  initiateRelease(transactionId) {
-    const fee = this.getSellerNoworriFee(this.amount);
-    const sellerPayment = parseInt(this.amount, 10) - fee;
-    const data = {
-      amount: sellerPayment,
-      recipient: this.recipientCode,
-    };
-    this.transactionsService
-      .initiateReleasePaystack(data, this.transactionId)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        if (response) {
-          this.releaseFunds(transactionId);
-          this.loadUserTransaction(transactionId);
-        }
-        return response;
-      });
-  }
+  // initiateRelease(transactionId) {
+  //   const fee = this.getSellerNoworriFee(this.amount);
+  //   const sellerPayment = parseInt(this.amount, 10) - fee;
+  //   const data = {
+  //     amount: sellerPayment,
+  //     recipient: this.recipientCode,
+  //   };
+  //   this.transactionsService
+  //     .initiateReleasePaystack(data)
+  //     .pipe(takeUntil(this.unsubscribe$))
+  //     .subscribe((response) => {
+  //       if (response) {
+  //         this.releaseFunds(transactionId);
+  //         this.loadUserTransaction(transactionId);
+  //       }
+  //       return response;
+  //     });
+  // }
 
   onSecureFunds() {
     this.isSecuring = true;
@@ -271,6 +268,24 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
           console.log('Error %j', error.message);
         }
       );
+  }
+
+  cancelOrder() {
+    this.isValidating = true;
+    this.transactionsService.cancelOrder(this.transactionKey).pipe(takeUntil(this.unsubscribe$)).subscribe(
+      response => {
+        setTimeout(() => {
+          this.isValidating = false;
+          this.loadUserTransaction(this.transactionKey);
+        }, 5000);
+        return response;
+      },
+      error => {
+        this.isValidating = false;
+        console.log(error);
+        // this.router.navigate(['transactions']);
+      }
+    );
   }
 
   loadUserTransaction(transaction_id: string) {

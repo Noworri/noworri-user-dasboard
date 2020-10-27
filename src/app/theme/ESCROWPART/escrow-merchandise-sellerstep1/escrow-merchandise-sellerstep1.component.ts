@@ -129,7 +129,7 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
 
 
     const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_0));
-    this.initiator_role = localData.role === 'Buyer' ? 'buy' : 'sell';
+    this.initiator_role = localData.role;
     this.destinator_role = this.initiator_role === 'buy' ? 'sell' : 'buy';
     this.transactionType = localData.transactionType;
 

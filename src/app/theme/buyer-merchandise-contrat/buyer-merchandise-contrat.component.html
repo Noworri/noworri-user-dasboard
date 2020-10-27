@@ -104,7 +104,7 @@
                 <div class="row">
                   <div *ngIf="isCancelled"  class="col-sm">
                     <h6 class="text1">
-                      The seller cancelled this transaction. Please start another one
+                      This transaction has been cancelled. Please start another one
                     </h6>
                   </div>
                 </div>
@@ -175,6 +175,29 @@
           <hr class="h" />
           <div class="card-body">
             <div class="container">
+              <div *ngIf="!isCancelled && !isFundsReleased" class="row">
+                <mat-icon class="Icon">report</mat-icon>
+                <h6 class="WantTo">Want to cancel this order ?</h6>
+              </div>
+              <div *ngIf="!isFundsReleased && !isCancelled" class="row">
+                <div *ngIf="isValidating" class="Loading">
+                  <a class="Revisions btn btn-sm btn-light">
+                    <span
+                      class="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Cancelling...
+                  </a>
+                </div>
+                <a
+                  style="cursor: pointer;"
+                  class="nav-link"
+                  *ngIf="!isValidating"
+                  (click)="cancelOrder()"
+                  >Click Here</a
+                >
+              </div>
               <!-- <div class="row">
                 <mat-icon class="Icon">report</mat-icon>
                 <h6 class="WantTo">Want to cancel this order ?</h6>

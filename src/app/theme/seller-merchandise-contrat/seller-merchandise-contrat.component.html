@@ -96,7 +96,7 @@
                     <h6 class="Number2">{{ deliveryPhone }}</h6>
                   </div>
                   <div class="col-sm col4">
-                    <h6
+                    <h6 *ngIf="!isFundsReleased"
                       class="Changedeliveryman"
                       (click)="onUpdateDeliveryPhone()"
                     >
@@ -106,7 +106,7 @@
                 </div>
                 <hr />
                 <div class="row">
-                  <div *ngIf="!isFundsReleased && !isCancelled" class="col-sm">
+                  <div *ngIf="!isFundsReleased && !isCancelled && !hasWithdrawn" class="col-sm">
                     <h6 class="text1">
                       Deliver the product to the buyer to get your payment
                     </h6>
@@ -116,9 +116,22 @@
                       You cancelled this transaction, we notified the buyer
                     </h6>
                   </div>
-                  <div *ngIf="isFundsReleased" class="col-sm">
+                  <div *ngIf="isFundsReleased && !hasWithdrawn" class="col-sm">
                     <h6 class="text1">
-                      This transaction is completed and paid
+                      The funds have been released and are available
+                    </h6>
+                  </div>
+                  <div *ngIf="isFundsReleased && hasWithdrawn" class="col-sm">
+                    <h6 class="text1">
+                      This transaction is completed !
+                    </h6>
+                  </div>
+                  <div class="col-sm col4">
+                    <h6 *ngIf="isFundsReleased && !hasWithdrawn"
+                      class="Changedeliveryman"
+                      (click)="onWithdraw(addBankAccounttemplate)"
+                    >
+                      withdraw amount
                     </h6>
                   </div>
 
@@ -157,11 +170,11 @@
           <hr class="h" />
           <div class="card-body">
             <div class="container">
-              <div *ngIf="!isCancelled" class="row">
+              <div *ngIf="!isCancelled && !isFundsReleased" class="row">
                 <mat-icon class="Icon">report</mat-icon>
                 <h6 class="WantTo">Want to cancel this order ?</h6>
               </div>
-              <div class="row">
+              <div *ngIf="!isFundsReleased && !isCancelled" class="row">
                 <div *ngIf="isValidating" class="Loading">
                   <a class="Revisions btn btn-sm btn-light">
                     <span
@@ -173,6 +186,7 @@
                   </a>
                 </div>
                 <a
+                  style="cursor: pointer;"
                   class="nav-link"
                   *ngIf="!isValidating"
                   (click)="cancelOrder()"
@@ -233,4 +247,133 @@
       </div>
     </div>
   </div>
+   <!------------------ Add bank account Modale-------------------------------------------->
+   <ng-template #addBankAccounttemplate>
+      <app-payements [paymentData]="paymentData" [modal]="modalRef" ></app-payements>
+      <!-- <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <h6 class="BankAccountDetails">Bank account details</h6>
+          </div>
+          <div class="col-sm">
+            <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <form (ngSubmit)="setupForm(form)" #form="ngForm">
+        <div *ngIf="hasAccount">
+          <div class="row">
+            <div *ngFor="let detail of details"  class="col-6">
+              <div   class="card card1  sm-3" style="width: 20rem">
+                <div class="row">
+                  <div class="col-8">
+                    <h6 class="FidelityBank ">{{ detail.bank_name }}</h6>
+                  </div>
+                  <div class="col-4">
+                    <h6 class="Delete">Delete</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountNumber">Account number</h6>
+                    <h6 class="CardNumber">xxxxxx{{ detail.account_no | slice:5:9 }}</h6>
+                  </div>
+                  <div class="col-6">
+                    <mat-icon class="play_arrow">play_arrow</mat-icon>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="AccountName">Account name</h6>
+                    <h6 class="Name">{{ detail.holder_name }}</h6>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="PrimaryAccount">Primary Acount</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+
+            </div>
+            <div class="col-6">
+              <button (click)="withdrawAmount()"> Proceed</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!hasAccount">
+          <div class="form-row ">
+            <div class="col-md-6 mb-3">
+              <label for="input">Select your Bank</label>
+              <select class="form-control" id="bankName"  name="bankName"
+              ngModel>
+              <option *ngFor="let bank of bankList">{{ bank.name }}</option>
+              </select>
+            </div>
+  
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="input">Enter account number</label>
+              <input type="text" class="form-control" id="accountNo" 
+              name="accountNo"
+              ngModel
+              required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="input">Enter account name</label>
+              <input type="text" class="form-control" id="holderName" 
+              name="holderName"
+              ngModel
+              required>
+            </div>
+          </div>
+          <div class="text-center">
+            <button *ngIf="isAdding" type="button" class="btn btn-light">
+              Adding...
+            </button>
+            <button class="btn btn-primary btn-sm"   *ngIf="!isAdding"   (click)="setupForm()"  type="submit">Add Bank</button>
+          </div>
+        </div>
+        <div *ngIf="hasAccount">
+          <div class="form-row ">
+            <div class="col-md-6 mb-3">
+              <label for="input">Select Your Network</label>
+              <select class="form-control" id="bankName"  name="bankName"
+              ngModel>
+              <option *ngFor="let network of networkList">{{ network.name }}</option>
+              </select>
+            </div>
+  
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="input">Phone Number</label>
+              <input type="text" class="form-control" id="accountNo" 
+              name="accountNo"
+              ngModel
+              required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="input">Enter Account Name</label>
+              <input type="text" class="form-control" id="holderName" 
+              name="holderName"
+              ngModel
+              required>
+            </div>
+          </div>
+          <div class="text-center">
+            <button *ngIf="isAdding" type="button" class="btn btn-light">
+              Adding...
+            </button>
+            <button class="btn btn-primary btn-sm"   *ngIf="!isAdding"   (click)="setupForm()"  type="submit">Add Bank</button>
+          </div>
+        </div>
+      </form> -->
+  </ng-template>
 </div>

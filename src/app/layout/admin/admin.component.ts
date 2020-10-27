@@ -2,21 +2,20 @@ import { FormGroup } from '@angular/forms';
 import { DisputeDataService } from 'src/app/Service/dispute-data.service';
 import { NoworriSearchService } from './../../Service/noworri-search.service';
 import { Router } from '@angular/router';
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core'
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import {
   animate,
   AUTO_STYLE,
   state,
   style,
   transition,
-  trigger
-} from '@angular/animations'
-import { MenuItems } from '../../shared/menu-items/menu-items'
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'
-import { GeoLocationService } from '../../Service/geo-location.service'
+  trigger,
+} from '@angular/animations';
+import { MenuItems } from '../../shared/menu-items/menu-items';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { GeoLocationService } from '../../Service/geo-location.service';
 import { CompanyReference } from 'src/app/Service/reference-data.interface';
 import { isEmpty } from 'lodash';
-
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
@@ -30,82 +29,81 @@ const SESSION_STORAGE_KEY = 'noworri-user-session';
         'an-off, void',
         style({
           overflow: 'hidden',
-          height: '0px'
+          height: '0px',
         })
       ),
       state(
         'an-animate',
         style({
           overflow: 'visible',
-          height: AUTO_STYLE
+          height: AUTO_STYLE,
         })
       ),
-      transition('an-off <=> an-animate', [animate('400ms ease-in-out')])
+      transition('an-off <=> an-animate', [animate('400ms ease-in-out')]),
     ]),
     trigger('slideInOut', [
       state(
         'in',
         style({
-          width: '280px'
+          width: '280px',
           // transform: 'translate3d(0, 0, 0)'
         })
       ),
       state(
         'out',
         style({
-          width: '0'
+          width: '0',
           // transform: 'translate3d(100%, 0, 0)'
         })
       ),
       transition('in => out', animate('400ms ease-in-out')),
-      transition('out => in', animate('400ms ease-in-out'))
+      transition('out => in', animate('400ms ease-in-out')),
     ]),
     trigger('mobileHeaderNavRight', [
       state(
         'nav-off, void',
         style({
           overflow: 'hidden',
-          height: '0px'
+          height: '0px',
         })
       ),
       state(
         'nav-on',
         style({
-          height: AUTO_STYLE
+          height: AUTO_STYLE,
         })
       ),
-      transition('nav-off <=> nav-on', [animate('400ms ease-in-out')])
+      transition('nav-off <=> nav-on', [animate('400ms ease-in-out')]),
     ]),
     trigger('fadeInOutTranslate', [
       transition(':enter', [
         style({ opacity: 0 }),
-        animate('400ms ease-in-out', style({ opacity: 1 }))
+        animate('400ms ease-in-out', style({ opacity: 1 })),
       ]),
       transition(':leave', [
         style({ transform: 'translate(0)' }),
-        animate('400ms ease-in-out', style({ opacity: 0 }))
-      ])
+        animate('400ms ease-in-out', style({ opacity: 0 })),
+      ]),
     ]),
     trigger('mobileMenuTop', [
       state(
         'no-block, void',
         style({
           overflow: 'hidden',
-          height: '0px'
+          height: '0px',
         })
       ),
       state(
         'yes-block',
         style({
-          height: AUTO_STYLE
+          height: AUTO_STYLE,
         })
       ),
-      transition('no-block <=> yes-block', [animate('400ms ease-in-out')])
-    ])
-  ]
+      transition('no-block <=> yes-block', [animate('400ms ease-in-out')]),
+    ]),
+  ],
 })
 export class AdminComponent implements OnInit, OnDestroy {
-
   // -------Company data variable-- (all declaration of search imput  )-----//
   businessname: string;
   profilpicture: string;
@@ -140,24 +138,21 @@ export class AdminComponent implements OnInit, OnDestroy {
   RealPictureProfil: boolean;
   FalsePictureProfil: boolean;
 
-
   resultWarning = {
     ignoreBackdropClick: true,
-    class: 'modal-lg'
+    class: 'modal-lg',
   };
   disputetWarning = {
     ignoreBackdropClick: true,
   };
 
-
-
-  modalRef2: BsModalRef
+  modalRef2: BsModalRef;
   config1 = {
     animated: true,
     keyboard: true,
     backdrop: true,
     ignoreBackdropClick: true,
-    class: 'cool'
+    class: 'cool',
   };
 
   countryData: any;
@@ -167,107 +162,98 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   // for disput modal//
 
-  isFormSubmitted
-  form: FormGroup
-
-
-
+  isFormSubmitted;
+  form: FormGroup;
 
   currentUser: string;
   userEmail: string;
   pp: string;
 
-  public animateSidebar: string
-  public navType: string
-  public themeLayout: string
-  public verticalPlacement: string
-  public verticalLayout: string
-  public pcodedDeviceType: string
-  public verticalNavType: string
-  public verticalEffect: string
-  public vnavigationView: string
-  public freamType: string
-  public sidebarImg: string
-  public sidebarImgType: string
-  public layoutType: string
+  public animateSidebar: string;
+  public navType: string;
+  public themeLayout: string;
+  public verticalPlacement: string;
+  public verticalLayout: string;
+  public pcodedDeviceType: string;
+  public verticalNavType: string;
+  public verticalEffect: string;
+  public vnavigationView: string;
+  public freamType: string;
+  public sidebarImg: string;
+  public sidebarImgType: string;
+  public layoutType: string;
 
-  public headerTheme: string
-  public pcodedHeaderPosition: string
+  public headerTheme: string;
+  public pcodedHeaderPosition: string;
 
-  public liveNotification: string
-  public liveNotificationClass: string
+  public liveNotification: string;
+  public liveNotificationClass: string;
 
-  public profileNotification: string
-  public profileNotificationClass: string
+  public profileNotification: string;
+  public profileNotificationClass: string;
 
-  public chatSlideInOut: string
-  public innerChatSlideInOut: string
+  public chatSlideInOut: string;
+  public innerChatSlideInOut: string;
 
-  public searchWidth: number
-  public searchWidthString: string = '300px'
+  public searchWidth: number;
+  public searchWidthString: string = '300px';
 
-  public navRight: string
-  public windowWidth: number
-  public chatTopPosition: string
+  public navRight: string;
+  public windowWidth: number;
+  public chatTopPosition: string;
 
-  public toggleOn: boolean
-  public toggleIcon: string
-  public navBarTheme: string
-  public activeItemTheme: string
-  public pcodedSidebarPosition: string
+  public toggleOn: boolean;
+  public toggleIcon: string;
+  public navBarTheme: string;
+  public activeItemTheme: string;
+  public pcodedSidebarPosition: string;
 
-  public headerFixedTop: string
+  public headerFixedTop: string;
 
-  public menuTitleTheme: string
-  public dropDownIcon: string
-  public subItemIcon: string
+  public menuTitleTheme: string;
+  public dropDownIcon: string;
+  public subItemIcon: string;
 
-  public configOpenRightBar: string
-  public displayBoxLayout: string
-  public isVerticalLayoutChecked: boolean
-  public isSidebarChecked: boolean
-  public isHeaderChecked: boolean
-  public headerFixedMargin: string
-  public sidebarFixedHeight: string
-  public sidebarFixedNavHeight: string
-  public itemBorderStyle: string
-  public subItemBorder: boolean
-  public itemBorder: boolean
+  public configOpenRightBar: string;
+  public displayBoxLayout: string;
+  public isVerticalLayoutChecked: boolean;
+  public isSidebarChecked: boolean;
+  public isHeaderChecked: boolean;
+  public headerFixedMargin: string;
+  public sidebarFixedHeight: string;
+  public sidebarFixedNavHeight: string;
+  public itemBorderStyle: string;
+  public subItemBorder: boolean;
+  public itemBorder: boolean;
 
-  public isCollapsedSideBar: string
-  public psDisabled: string
-  public perfectDisable: string
+  public isCollapsedSideBar: string;
+  public psDisabled: string;
+  public perfectDisable: string;
 
-  public config: any
-  public searchInterval: any
+  public config: any;
+  public searchInterval: any;
+  public lastName: string;
 
   // ----For search input ---------//
 
-
-
-
-
-
-
-
   scroll = (): void => {
-    const scrollPosition = window.pageYOffset
+    const scrollPosition = window.pageYOffset;
     if (scrollPosition > 50) {
       if (this.isSidebarChecked === true) {
-        this.pcodedSidebarPosition = 'fixed'
+        this.pcodedSidebarPosition = 'fixed';
       }
       if (this.pcodedDeviceType === 'desktop') {
-        this.headerFixedTop = '0'
+        this.headerFixedTop = '0';
       }
-      this.sidebarFixedNavHeight = '100%'
+      this.sidebarFixedNavHeight = '100%';
     } else {
       if (this.pcodedDeviceType === 'desktop') {
-        this.headerFixedTop = 'auto'
+        this.headerFixedTop = 'auto';
       }
-      this.pcodedSidebarPosition = 'absolute'
-      this.sidebarFixedNavHeight = ''
+      this.pcodedSidebarPosition = 'absolute';
+      this.sidebarFixedNavHeight = '';
     }
-  }
+  };
 
   constructor(
     private Router: Router,
@@ -279,9 +265,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     private dataService: DisputeDataService
   ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
+    this.lastName = sessionData.name;
     this.currentUser = sessionData.first_name;
     this.userEmail = sessionData.email;
-    this.pp = sessionData.photo === null ? './../../../assets/profilPhotoAnimation.gif' : `https://noworri.com/api/public/uploads/images/pp/${sessionData.photo}`;
+    this.pp =
+      sessionData.photo === null
+        ? './../../../assets/profilPhotoAnimation.gif'
+        : `https://noworri.com/api/public/uploads/images/pp/${sessionData.photo}`;
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -294,50 +284,50 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.freamType = 'theme1';
     this.sidebarImg = 'false';
     this.sidebarImgType = 'img1';
-    this.layoutType = 'light' // light(default) dark(dark)
+    this.layoutType = 'light'; // light(default) dark(dark)
 
-    this.headerTheme = 'theme1' // theme1(default)
-    this.pcodedHeaderPosition = 'fixed'
+    this.headerTheme = 'theme1'; // theme1(default)
+    this.pcodedHeaderPosition = 'fixed';
 
-    this.headerFixedTop = 'auto'
+    this.headerFixedTop = 'auto';
 
-    this.liveNotification = 'an-off'
-    this.profileNotification = 'an-off'
+    this.liveNotification = 'an-off';
+    this.profileNotification = 'an-off';
 
-    this.chatSlideInOut = 'out'
-    this.innerChatSlideInOut = 'out'
+    this.chatSlideInOut = 'out';
+    this.innerChatSlideInOut = 'out';
 
-    this.searchWidth = 0
+    this.searchWidth = 0;
 
-    this.navRight = 'nav-on'
+    this.navRight = 'nav-on';
 
-    this.toggleOn = true
-    this.toggleIcon = 'icon-toggle-right'
-    this.navBarTheme = 'themelight1' // themelight1(default) theme1(dark)
-    this.activeItemTheme = 'theme1'
-    this.pcodedSidebarPosition = 'fixed'
-    this.menuTitleTheme = 'theme1' // theme1(default) theme10(dark)
-    this.dropDownIcon = 'style1'
-    this.subItemIcon = 'style1'
+    this.toggleOn = true;
+    this.toggleIcon = 'icon-toggle-right';
+    this.navBarTheme = 'themelight1'; // themelight1(default) theme1(dark)
+    this.activeItemTheme = 'theme1';
+    this.pcodedSidebarPosition = 'fixed';
+    this.menuTitleTheme = 'theme1'; // theme1(default) theme10(dark)
+    this.dropDownIcon = 'style1';
+    this.subItemIcon = 'style1';
 
-    this.displayBoxLayout = 'd-none'
-    this.isVerticalLayoutChecked = false
-    this.isSidebarChecked = true
-    this.isHeaderChecked = true
-    this.headerFixedMargin = '50px' // 50px
-    this.sidebarFixedHeight = 'calc(100vh - 55px)' // calc(100vh - 190px)
-    this.itemBorderStyle = 'none'
-    this.subItemBorder = true
-    this.itemBorder = true
+    this.displayBoxLayout = 'd-none';
+    this.isVerticalLayoutChecked = false;
+    this.isSidebarChecked = true;
+    this.isHeaderChecked = true;
+    this.headerFixedMargin = '50px'; // 50px
+    this.sidebarFixedHeight = 'calc(100vh - 55px)'; // calc(100vh - 190px)
+    this.itemBorderStyle = 'none';
+    this.subItemBorder = true;
+    this.itemBorder = true;
 
-    this.isCollapsedSideBar = 'no-block'
+    this.isCollapsedSideBar = 'no-block';
 
-    this.perfectDisable = ''
+    this.perfectDisable = '';
 
-    this.windowWidth = window.innerWidth
+    this.windowWidth = window.innerWidth;
 
-    this.setMenuAttributes(this.windowWidth)
-    this.setHeaderAttributes(this.windowWidth)
+    this.setMenuAttributes(this.windowWidth);
+    this.setHeaderAttributes(this.windowWidth);
 
     // dark theme
     /*this.setLayoutType('dark');*/
@@ -361,58 +351,63 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   searchInputStyle() {
-    document.getElementsByTagName('input')[0].setAttribute('style', 'border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:blue')
+    document
+      .getElementsByTagName('input')[0]
+      .setAttribute(
+        'style',
+        'border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:blue'
+      );
   }
 
   onResize(event) {
     this.windowWidth = event.target.innerWidth;
     this.setHeaderAttributes(this.windowWidth);
 
-    let reSizeFlag = true
+    let reSizeFlag = true;
     if (
       this.pcodedDeviceType === 'tablet' &&
       this.windowWidth >= 768 &&
       this.windowWidth <= 992
     ) {
-      reSizeFlag = false
+      reSizeFlag = false;
     } else if (this.pcodedDeviceType === 'phone' && this.windowWidth < 768) {
-      reSizeFlag = false
+      reSizeFlag = false;
     }
     /* for check device */
     if (reSizeFlag) {
-      this.setMenuAttributes(this.windowWidth)
+      this.setMenuAttributes(this.windowWidth);
     }
   }
 
   setHeaderAttributes(windowWidth) {
     if (windowWidth <= 992) {
-      this.navRight = 'nav-off'
+      this.navRight = 'nav-off';
     } else {
-      this.navRight = 'nav-on'
+      this.navRight = 'nav-on';
     }
   }
 
   setMenuAttributes(windowWidth) {
     if (windowWidth >= 768 && windowWidth <= 992) {
-      this.pcodedDeviceType = 'tablet'
-      this.verticalNavType = 'offcanvas'
-      this.verticalEffect = 'overlay'
-      this.toggleIcon = 'icon-toggle-left'
-      this.headerFixedTop = '50px'
-      this.headerFixedMargin = '0'
+      this.pcodedDeviceType = 'tablet';
+      this.verticalNavType = 'offcanvas';
+      this.verticalEffect = 'overlay';
+      this.toggleIcon = 'icon-toggle-left';
+      this.headerFixedTop = '50px';
+      this.headerFixedMargin = '0';
     } else if (windowWidth < 768) {
-      this.pcodedDeviceType = 'phone'
-      this.verticalNavType = 'offcanvas'
-      this.verticalEffect = 'overlay'
-      this.toggleIcon = 'icon-toggle-left'
-      this.headerFixedTop = '50px'
-      this.headerFixedMargin = '0'
+      this.pcodedDeviceType = 'phone';
+      this.verticalNavType = 'offcanvas';
+      this.verticalEffect = 'overlay';
+      this.toggleIcon = 'icon-toggle-left';
+      this.headerFixedTop = '50px';
+      this.headerFixedMargin = '0';
     } else {
-      this.pcodedDeviceType = 'desktop'
-      this.verticalNavType = 'expanded'
-      this.verticalEffect = 'shrink'
-      this.toggleIcon = 'icon-toggle-right'
-      this.headerFixedMargin = '50px'
+      this.pcodedDeviceType = 'desktop';
+      this.verticalNavType = 'expanded';
+      this.verticalEffect = 'shrink';
+      this.toggleIcon = 'icon-toggle-right';
+      this.headerFixedMargin = '50px';
     }
 
     /*else if (windowWidth >= 1024 && windowWidth < 1366) {
@@ -426,150 +421,151 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   toggleHeaderNavRight() {
-    this.navRight = this.navRight === 'nav-on' ? 'nav-off' : 'nav-on'
-    this.chatTopPosition = this.chatTopPosition === 'nav-on' ? '112px' : ''
+    this.navRight = this.navRight === 'nav-on' ? 'nav-off' : 'nav-on';
+    this.chatTopPosition = this.chatTopPosition === 'nav-on' ? '112px' : '';
     if (this.navRight === 'nav-off' && this.innerChatSlideInOut === 'in') {
-      this.toggleInnerChat()
+      this.toggleInnerChat();
     }
     if (this.navRight === 'nav-off' && this.chatSlideInOut === 'in') {
-      this.toggleChat()
+      this.toggleChat();
     }
   }
 
   toggleLiveNotification() {
     if (this.profileNotification === 'an-animate') {
-      this.toggleProfileNotification()
+      this.toggleProfileNotification();
     }
 
     this.liveNotification =
-      this.liveNotification === 'an-off' ? 'an-animate' : 'an-off'
+      this.liveNotification === 'an-off' ? 'an-animate' : 'an-off';
     this.liveNotificationClass =
-      this.liveNotification === 'an-animate' ? 'show' : ''
+      this.liveNotification === 'an-animate' ? 'show' : '';
 
     if (
       this.liveNotification === 'an-animate' &&
       this.innerChatSlideInOut === 'in'
     ) {
-      this.toggleInnerChat()
+      this.toggleInnerChat();
     }
     if (
       this.liveNotification === 'an-animate' &&
       this.chatSlideInOut === 'in'
     ) {
-      this.toggleChat()
+      this.toggleChat();
     }
   }
 
   toggleProfileNotification() {
     if (this.liveNotification === 'an-animate') {
-      this.toggleLiveNotification()
+      this.toggleLiveNotification();
     }
 
     this.profileNotification =
-      this.profileNotification === 'an-off' ? 'an-animate' : 'an-off'
+      this.profileNotification === 'an-off' ? 'an-animate' : 'an-off';
     this.profileNotificationClass =
-      this.profileNotification === 'an-animate' ? 'show' : ''
+      this.profileNotification === 'an-animate' ? 'show' : '';
 
     if (
       this.profileNotification === 'an-animate' &&
       this.innerChatSlideInOut === 'in'
     ) {
-      this.toggleInnerChat()
+      this.toggleInnerChat();
     }
     if (
       this.profileNotification === 'an-animate' &&
       this.chatSlideInOut === 'in'
     ) {
-      this.toggleChat()
+      this.toggleChat();
     }
   }
 
   notificationOutsideClick(ele: string) {
     if (ele === 'live' && this.liveNotification === 'an-animate') {
-      this.toggleLiveNotification()
+      this.toggleLiveNotification();
     } else if (ele === 'profile' && this.profileNotification === 'an-animate') {
-      this.toggleProfileNotification()
+      this.toggleProfileNotification();
     }
   }
 
   toggleChat() {
     if (this.innerChatSlideInOut === 'in') {
-      this.innerChatSlideInOut = 'out'
+      this.innerChatSlideInOut = 'out';
     } else {
-      this.chatSlideInOut = this.chatSlideInOut === 'out' ? 'in' : 'out'
+      this.chatSlideInOut = this.chatSlideInOut === 'out' ? 'in' : 'out';
     }
   }
 
   toggleInnerChat() {
-    this.innerChatSlideInOut = this.innerChatSlideInOut === 'out' ? 'in' : 'out'
+    this.innerChatSlideInOut =
+      this.innerChatSlideInOut === 'out' ? 'in' : 'out';
   }
 
   searchOn() {
-    document.querySelector('#main-search').classList.add('open')
+    document.querySelector('#main-search').classList.add('open');
     this.searchInterval = setInterval(() => {
       if (this.searchWidth >= 200) {
-        clearInterval(this.searchInterval)
-        return false
+        clearInterval(this.searchInterval);
+        return false;
       }
-      this.searchWidth = this.searchWidth + 15
-      this.searchWidthString = this.searchWidth + 'px'
-    }, 35)
+      this.searchWidth = this.searchWidth + 15;
+      this.searchWidthString = this.searchWidth + 'px';
+    }, 35);
   }
 
   searchOff() {
     this.searchInterval = setInterval(() => {
       if (this.searchWidth <= 0) {
-        document.querySelector('#main-search').classList.remove('open')
-        clearInterval(this.searchInterval)
-        return false
+        document.querySelector('#main-search').classList.remove('open');
+        clearInterval(this.searchInterval);
+        return false;
       }
-      this.searchWidth = this.searchWidth - 15
-      this.searchWidthString = this.searchWidth + 'px'
-    }, 35)
+      this.searchWidth = this.searchWidth - 15;
+      this.searchWidthString = this.searchWidth + 'px';
+    }, 35);
   }
 
   ngOnDestroy() {
     if (this.searchInterval) {
-      clearInterval(this.searchInterval)
+      clearInterval(this.searchInterval);
     }
   }
 
   toggleOpened(e) {
     if (this.windowWidth <= 992) {
       this.toggleOn =
-        this.verticalNavType === 'offcanvas' ? true : this.toggleOn
+        this.verticalNavType === 'offcanvas' ? true : this.toggleOn;
       if (this.navRight === 'nav-on') {
-        this.toggleHeaderNavRight()
+        this.toggleHeaderNavRight();
       }
       this.verticalNavType =
-        this.verticalNavType === 'expanded' ? 'offcanvas' : 'expanded'
+        this.verticalNavType === 'expanded' ? 'offcanvas' : 'expanded';
     } else {
       this.verticalNavType =
-        this.verticalNavType === 'expanded' ? 'collapsed' : 'expanded'
+        this.verticalNavType === 'expanded' ? 'collapsed' : 'expanded';
     }
     this.toggleIcon =
       this.verticalNavType === 'expanded'
         ? 'icon-toggle-right'
-        : 'icon-toggle-left'
-    this.animateSidebar = 'pcoded-toggle-animate'
+        : 'icon-toggle-left';
+    this.animateSidebar = 'pcoded-toggle-animate';
 
     if (this.verticalNavType === 'collapsed') {
-      this.perfectDisable = 'disabled'
-      this.sidebarFixedHeight = '100%'
+      this.perfectDisable = 'disabled';
+      this.sidebarFixedHeight = '100%';
     } else {
-      this.perfectDisable = ''
+      this.perfectDisable = '';
     }
 
     if (
       this.verticalNavType === 'collapsed' &&
       this.isHeaderChecked === false
     ) {
-      this.setSidebarPosition()
+      this.setSidebarPosition();
     }
 
     setTimeout(() => {
-      this.animateSidebar = ''
-    }, 500)
+      this.animateSidebar = '';
+    }, 500);
   }
 
   onClickedOutsideSidebar(e: Event) {
@@ -579,162 +575,162 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.verticalNavType !== 'offcanvas') ||
       this.verticalEffect === 'overlay'
     ) {
-      this.toggleOn = true
-      this.verticalNavType = 'offcanvas'
-      this.toggleIcon = 'icon-toggle-left'
+      this.toggleOn = true;
+      this.verticalNavType = 'offcanvas';
+      this.toggleIcon = 'icon-toggle-left';
     }
   }
 
   toggleRightbar() {
-    this.configOpenRightBar = this.configOpenRightBar === 'open' ? '' : 'open'
+    this.configOpenRightBar = this.configOpenRightBar === 'open' ? '' : 'open';
   }
 
   setNavBarTheme(theme: string) {
     if (theme === 'themelight1') {
-      this.navBarTheme = 'themelight1'
-      this.menuTitleTheme = 'theme1'
-      this.sidebarImg = 'false'
+      this.navBarTheme = 'themelight1';
+      this.menuTitleTheme = 'theme1';
+      this.sidebarImg = 'false';
     } else {
-      this.menuTitleTheme = 'theme9'
-      this.navBarTheme = 'theme1'
-      this.sidebarImg = 'false'
+      this.menuTitleTheme = 'theme9';
+      this.navBarTheme = 'theme1';
+      this.sidebarImg = 'false';
     }
   }
 
   setLayoutType(type: string) {
     if (type === 'dark') {
-      this.headerTheme = 'theme1'
-      this.navBarTheme = 'theme1'
-      this.activeItemTheme = 'theme1'
-      this.freamType = 'theme1'
-      document.querySelector('body').classList.add('dark')
-      this.setBackgroundPattern('theme1')
-      this.menuTitleTheme = 'theme9'
-      this.layoutType = type
-      this.sidebarImg = 'false'
+      this.headerTheme = 'theme1';
+      this.navBarTheme = 'theme1';
+      this.activeItemTheme = 'theme1';
+      this.freamType = 'theme1';
+      document.querySelector('body').classList.add('dark');
+      this.setBackgroundPattern('theme1');
+      this.menuTitleTheme = 'theme9';
+      this.layoutType = type;
+      this.sidebarImg = 'false';
     } else if (type === 'light') {
-      this.headerTheme = 'theme1'
-      this.navBarTheme = 'themelight1'
-      this.menuTitleTheme = 'theme1'
-      this.activeItemTheme = 'theme1'
-      this.freamType = 'theme1'
-      document.querySelector('body').classList.remove('dark')
-      this.setBackgroundPattern('theme1')
-      this.layoutType = type
-      this.sidebarImg = 'false'
+      this.headerTheme = 'theme1';
+      this.navBarTheme = 'themelight1';
+      this.menuTitleTheme = 'theme1';
+      this.activeItemTheme = 'theme1';
+      this.freamType = 'theme1';
+      document.querySelector('body').classList.remove('dark');
+      this.setBackgroundPattern('theme1');
+      this.layoutType = type;
+      this.sidebarImg = 'false';
     } else if (type === 'img') {
-      this.sidebarImg = 'true'
-      this.navBarTheme = 'themelight1'
-      this.menuTitleTheme = 'theme1'
-      this.freamType = 'theme1'
-      document.querySelector('body').classList.remove('dark')
-      this.setBackgroundPattern('theme1')
-      this.activeItemTheme = 'theme1'
+      this.sidebarImg = 'true';
+      this.navBarTheme = 'themelight1';
+      this.menuTitleTheme = 'theme1';
+      this.freamType = 'theme1';
+      document.querySelector('body').classList.remove('dark');
+      this.setBackgroundPattern('theme1');
+      this.activeItemTheme = 'theme1';
     }
   }
 
   setVerticalLayout() {
-    this.isVerticalLayoutChecked = !this.isVerticalLayoutChecked
+    this.isVerticalLayoutChecked = !this.isVerticalLayoutChecked;
     if (this.isVerticalLayoutChecked) {
-      this.verticalLayout = 'box'
-      this.displayBoxLayout = ''
-      this.pcodedHeaderPosition = 'relative'
-      this.pcodedSidebarPosition = 'absolute'
-      this.headerFixedMargin = ''
+      this.verticalLayout = 'box';
+      this.displayBoxLayout = '';
+      this.pcodedHeaderPosition = 'relative';
+      this.pcodedSidebarPosition = 'absolute';
+      this.headerFixedMargin = '';
     } else {
-      this.verticalLayout = 'wide'
-      this.displayBoxLayout = 'd-none'
-      this.pcodedHeaderPosition = 'fixed'
-      this.pcodedSidebarPosition = 'fixed'
-      this.headerFixedMargin = '50px'
+      this.verticalLayout = 'wide';
+      this.displayBoxLayout = 'd-none';
+      this.pcodedHeaderPosition = 'fixed';
+      this.pcodedSidebarPosition = 'fixed';
+      this.headerFixedMargin = '50px';
     }
   }
 
   setBackgroundPattern(pattern: string) {
-    document.querySelector('body').setAttribute('themebg-pattern', pattern)
+    document.querySelector('body').setAttribute('themebg-pattern', pattern);
     // this.menuTitleTheme = this.freamType = this.activeItemTheme = this.headerTheme = pattern;
   }
 
   setSidebarPosition() {
     if (this.verticalNavType !== 'collapsed') {
-      this.isSidebarChecked = !this.isSidebarChecked
+      this.isSidebarChecked = !this.isSidebarChecked;
       this.pcodedSidebarPosition =
-        this.isSidebarChecked === true ? 'fixed' : 'absolute'
+        this.isSidebarChecked === true ? 'fixed' : 'absolute';
       this.sidebarFixedHeight =
-        this.isSidebarChecked === true ? 'calc(100vh - 50px)' : '100%'
+        this.isSidebarChecked === true ? 'calc(100vh - 50px)' : '100%';
       if (this.isHeaderChecked === false) {
-        window.addEventListener('scroll', this.scroll, true)
-        window.scrollTo(0, 0)
+        window.addEventListener('scroll', this.scroll, true);
+        window.scrollTo(0, 0);
       }
     }
   }
 
   setHeaderPosition() {
-    this.isHeaderChecked = !this.isHeaderChecked
+    this.isHeaderChecked = !this.isHeaderChecked;
     this.pcodedHeaderPosition =
-      this.isHeaderChecked === true ? 'fixed' : 'relative'
-    this.headerFixedMargin = this.isHeaderChecked === true ? '50px' : ''
+      this.isHeaderChecked === true ? 'fixed' : 'relative';
+    this.headerFixedMargin = this.isHeaderChecked === true ? '50px' : '';
     if (this.isHeaderChecked === false) {
-      window.addEventListener('scroll', this.scroll, true)
-      window.scrollTo(0, 0)
+      window.addEventListener('scroll', this.scroll, true);
+      window.scrollTo(0, 0);
     } else {
-      window.removeEventListener('scroll', this.scroll, true)
+      window.removeEventListener('scroll', this.scroll, true);
       if (this.pcodedDeviceType === 'desktop') {
-        this.headerFixedTop = 'auto'
+        this.headerFixedTop = 'auto';
       }
-      this.pcodedSidebarPosition = 'fixed'
+      this.pcodedSidebarPosition = 'fixed';
       if (this.verticalNavType !== 'collapsed') {
         this.sidebarFixedHeight =
           this.isSidebarChecked === true
             ? 'calc(100vh - 50px)'
-            : 'calc(100vh + 50px)'
+            : 'calc(100vh + 50px)';
       }
     }
   }
 
   toggleOpenedSidebar() {
     this.isCollapsedSideBar =
-      this.isCollapsedSideBar === 'yes-block' ? 'no-block' : 'yes-block'
+      this.isCollapsedSideBar === 'yes-block' ? 'no-block' : 'yes-block';
     if (this.verticalNavType !== 'collapsed') {
       this.sidebarFixedHeight =
         this.isCollapsedSideBar === 'yes-block'
           ? 'calc(100vh - 50px)'
-          : 'calc(100vh - 50px)'
+          : 'calc(100vh - 50px)';
     }
   }
 
   hoverOutsideSidebar() {
     if (this.verticalNavType === 'collapsed') {
-      const mainEle = document.querySelectorAll('.pcoded-trigger')
+      const mainEle = document.querySelectorAll('.pcoded-trigger');
       for (let i = 0; i < mainEle.length; i++) {
-        mainEle[i].classList.remove('pcoded-trigger')
+        mainEle[i].classList.remove('pcoded-trigger');
       }
     }
   }
 
   fireClick(e) {
     if (this.verticalNavType === 'collapsed') {
-      const parentEle = e.target.parentNode.parentNode
+      const parentEle = e.target.parentNode.parentNode;
       if (parentEle.classList.contains('pcoded-trigger')) {
-        const subEle = parentEle.querySelectorAll('.pcoded-hasmenu')
+        const subEle = parentEle.querySelectorAll('.pcoded-hasmenu');
         for (let i = 0; i < subEle.length; i++) {
           if (subEle[i].classList.contains('pcoded-trigger')) {
-            subEle[i].classList.remove('pcoded-trigger')
+            subEle[i].classList.remove('pcoded-trigger');
           }
         }
       } else {
-        e.target.click()
+        e.target.click();
       }
     }
   }
 
   fireClickLeave(e) {
     if (this.verticalNavType === 'collapsed') {
-      const parentEle = <HTMLElement>e.target.parentNode.parentNode
-      const subEle = parentEle.querySelectorAll('.pcoded-hasmenu')
+      const parentEle = <HTMLElement>e.target.parentNode.parentNode;
+      const subEle = parentEle.querySelectorAll('.pcoded-hasmenu');
       for (let i = 0; i < subEle.length; i++) {
         if (subEle[i].classList.contains('pcoded-trigger')) {
-          subEle[i].classList.remove('pcoded-trigger')
+          subEle[i].classList.remove('pcoded-trigger');
         }
       }
     }
@@ -758,32 +754,31 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.Router.navigate(['homegetstrusted']);
   }
 
-
-
   // --For contry location-- then set input style ----//
   getDataLocation() {
     new Promise((resolve) => {
       this.geoLocationService.getLocation().subscribe((data) => {
-        resolve(this.locationData = data['country'])
+        resolve((this.locationData = data['country']));
       });
-    }).then(() => {
-      this.countryData = {
-        preferredCountries: [`${this.locationData}`],
-        localizedCountries: { ng: 'Nigeria', gh: 'Ghana' },
-        onlyCountries: ['GH', 'NG']
-      };
-    }).then(() => {
-      this.waitingDisplayInput = true;
-      setTimeout(() => {
-        this.searchInputStyle();
+    })
+      .then(() => {
+        this.countryData = {
+          preferredCountries: [`${this.locationData}`],
+          localizedCountries: { ng: 'Nigeria', gh: 'Ghana' },
+          onlyCountries: ['GH', 'NG'],
+        };
+      })
+      .then(() => {
+        this.waitingDisplayInput = true;
+        setTimeout(() => {
+          this.searchInputStyle();
+        });
       });
-    });
   }
 
   // for payement//
   onRoutingTopayement() {
-    this.router.navigate(['/payement'])
-
+    this.router.navigate(['/payement']);
   }
 
   defaultPictureOrNot() {
@@ -807,25 +802,30 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSearchCompany(resultModal: TemplateRef<any>, warningModale: TemplateRef<any>) {
+  onSearchCompany(
+    resultModal: TemplateRef<any>,
+    warningModale: TemplateRef<any>
+  ) {
     const searchInputNumberValue = document.getElementsByTagName('input')[0]
       .value;
 
-      const searchPlaceholderInputValue = document.getElementsByTagName('input')[0].getAttribute('placeholder');
+    const searchPlaceholderInputValue = document
+      .getElementsByTagName('input')[0]
+      .getAttribute('placeholder');
     //      remove space and first 0 of seachInput value    //
-    let  rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
+    let rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
 
     //     validation   //
     this.validateInputType(rigthValue);
 
-   //  to choice a number corresponding  some contry  //
+    //  to choice a number corresponding  some contry  //
 
-   if (searchPlaceholderInputValue==='023 123 4567') {
-    this.prefixContryCode = '+233';
-  } else if (searchPlaceholderInputValue==='0802 123 4567') {
-    rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
-    this.prefixContryCode = '+234';
-  }
+    if (searchPlaceholderInputValue === '023 123 4567') {
+      this.prefixContryCode = '+233';
+    } else if (searchPlaceholderInputValue === '0802 123 4567') {
+      rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
+      this.prefixContryCode = '+234';
+    }
     // ----- if input data is not correct ------//
     if (
       rigthValue === '' ||
@@ -861,7 +861,10 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.LoadingStatus = false;
             this.SearchButtonStatus = true;
           } else {
-            this.modalRefResult = this.modalService.show(resultModal, this.resultWarning);
+            this.modalRefResult = this.modalService.show(
+              resultModal,
+              this.resultWarning
+            );
             this.LoadingStatus = false;
             this.SearchButtonStatus = true;
             // Company data variable--------------------//
@@ -889,45 +892,53 @@ export class AdminComponent implements OnInit, OnDestroy {
         (error) => {
           console.log('Error %j', error.message);
         }
-
       );
     }
   }
   onOpenDispute(disputeModale: TemplateRef<any>) {
     new Promise((resolve) => {
       this.geoLocationService.getLocation().subscribe((data) => {
-        resolve(this.locationData = data['country'])
+        resolve((this.locationData = data['country']));
       });
-    }).then(() => {
-      this.countryData = {
-        preferredCountries: [`${this.locationData}`],
-        localizedCountries: { ng: 'Nigeria', gh: 'Ghana', ci: 'Côte d Ivoire' },
-        onlyCountries: ['GH', 'NG', 'BJ']
-      };
-    }).then(() => {
-      this.waitingDisplayInput = true;
-      setTimeout(() => {
-        this.searchInputStyle();
+    })
+      .then(() => {
+        this.countryData = {
+          preferredCountries: [`${this.locationData}`],
+          localizedCountries: {
+            ng: 'Nigeria',
+            gh: 'Ghana',
+            ci: 'Côte d Ivoire',
+          },
+          onlyCountries: ['GH', 'NG', 'BJ'],
+        };
+      })
+      .then(() => {
+        this.waitingDisplayInput = true;
+        setTimeout(() => {
+          this.searchInputStyle();
+        });
       });
-    });
-    this.modalRefDispute = this.modalService.show(disputeModale, this.disputetWarning);
+    this.modalRefDispute = this.modalService.show(
+      disputeModale,
+      this.disputetWarning
+    );
   }
   onCreateDispute(r, v) {
-      this.isFormSubmitted = true;
-      if (this.form.valid) {
-        const data = this.form.value;
-        this.dataService.openDistpute(data).subscribe(
-          (response) => {
-            this.isFormSubmitted = true;
-          },
-          (error) => {
-            console.log('Error %j', error);
-          }
-        );
-      }
+    this.isFormSubmitted = true;
+    if (this.form.valid) {
+      const data = this.form.value;
+      this.dataService.openDistpute(data).subscribe(
+        (response) => {
+          this.isFormSubmitted = true;
+        },
+        (error) => {
+          console.log('Error %j', error);
+        }
+      );
+    }
   }
-//--------------
-signOut() {
+  //--------------
+  signOut() {
     localStorage.clear();
     sessionStorage.clear();
     setTimeout(() => {

@@ -54,38 +54,38 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (transactions) => {
-          this.tableData = transactions;
-          transactions.forEach((details) => {
+          this.tableData = transactions.map((details) => {
             this.transactionType = details.transaction_type.toLowerCase();
             details.destinator_role =
-              details.initiator_role === 'Buy' ? 'Sell' : 'Buy';
+              details.initiator_role === 'buy' ? 'sell' : 'buy';
             if (
-              details.initiator_role === 'Sell' &&
+              details.initiator_role === 'sell' &&
               this.userId === details.initiator_id
             ) {
               details['sellerPhone'] = details.initiator_phone;
-              details['BuyerPhone'] = details.destinator_phone;
+              details['buyerPhone'] = details.destinator_phone;
             } else if (
-              details.initiator_role === 'Buy' &&
+              details.initiator_role === 'buy' &&
               this.userId === details.initiator_id
             ) {
               details['sellerPhone'] = details.destinator_phone;
-              details['BuyerPhone'] = details.initiator_phone;
+              details['buyerPhone'] = details.initiator_phone;
             } else if (
-              details.destinator_role === 'Buy' &&
+              details.destinator_role === 'buy' &&
               this.userId === details.destinator_id) {
                 details['sellerPhone'] = details.initiator_phone;
-                details['BuyerPhone'] = details.destinator_phone;
+                details['buyerPhone'] = details.destinator_phone;
             } else if (
-              details.destinator_role === 'Sell' &&
+              details.destinator_role === 'sell' &&
               this.userId === details.destinator_id) {
                 details['sellerPhone'] = details.destinator_phone;
-                details['BuyerPhone'] = details.initiator_phone;
+                details['buyerPhone'] = details.initiator_phone;
             } else {
               details['sellerPhone'] = details.destinator_phone;
-              details['BuyerPhone'] = details.initiator_phone;
+              details['buyerPhone'] = details.initiator_phone;
             }
             this.amount = details.total_price;
+            return details;
           });
           this.hasNoTransactions = transactions.length === 0 ? true : false;
         },
@@ -103,20 +103,20 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   ) {
     transactionType = transactionType.toLowerCase();
     if (this.userPhone === userPhone) {
-      this.userRole = userRole.toLowerCase();
+      this.userRole = userRole;
     } else if (this.userPhone === ownerPhone) {
-      this.userRole = ownerRole.toLowerCase();
+      this.userRole = ownerRole;
     }
 
     console.log(this.userRole);
 
-      if ((this.userRole === 'buy' || this.userRole === 'buyer') && transactionType === 'merchandise') {
+      if (this.userRole === 'buy' && transactionType === 'merchandise') {
         this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
-      } else if ((this.userRole === 'sell' || this.userRole === 'Seller') && transactionType === 'merchandise') {
+      } else if (this.userRole === 'sell' && transactionType === 'merchandise') {
         this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
-      } else if ((this.userRole === 'buy' || this.userRole === 'buyer') && transactionType === 'services') {
+      } else if (this.userRole === 'buy' && transactionType === 'services') {
         this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
-      } else if ((this.userRole === 'sell' || this.userRole === 'seller') && transactionType === 'services') {
+      } else if (this.userRole === 'sell' && transactionType === 'services') {
         this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
       }
   }

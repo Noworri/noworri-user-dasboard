@@ -93,60 +93,98 @@
                 [pageSize]="20"
                 [pageSizeOptions]="[25, 50, 100, 250]">
             </mat-paginator> -->
-          <!-- <ng-data-table>
-              [id]="'transactions'"
-              [title]="'Transactions'"
-              [showLoadingSpinner]="false"
-              [items]="tableData"
-              [pageable]="true"
-              [page]="1"
-              [limit]="20"
-              [minContentHeight]="200"
-              <ng-data-table-column>
-                [field]="'transaction_key'"
-                [title]="'Transaction ID'"
-                [sortable]="true"
-                [filterable]="true"
-                [width]="30"
-              </ng-data-table-column>
-              <ng-data-table-column>
-                [field]="'transaction_key'"
-                [title]="'Transaction ID'"
-                [sortable]="true"
-                [filterable]="true"
-                [width]="30"
-              </ng-data-table-column>
-              <ng-data-table-column>
-                [field]="'transaction_type'"
-                [title]="'Transaction Type'"
-                [sortable]="true"
-                [filterable]="true"
-                [width]="30"
-              </ng-data-table-column>
-              <ng-data-table-column>
-                [field]="'price'"
-                [title]="'Amount'"
-                [sortable]="true"
-                [filterable]="true"
-                [width]="30"
-              </ng-data-table-column>
-              <ng-data-table-column>
-                [field]="'noworri_fees'"
-                [title]="'Noworri Fee'"
-                [sortable]="true"
-                [filterable]="true"
-                [width]="30"
-              </ng-data-table-column>
-              <ng-data-table-column>
-                [field]="'state'"
-                [title]="'Status'"
-                [sortable]="true"
-                [filterable]="true"
-                [width]="30"
-              </ng-data-table-column>
-            </ng-data-table> -->
+          
           <div class="table-data">
-            <table class="table table-bordered table-striped table-sm">
+            <ng-data-table
+            *ngIf="tableData"
+            [id]="'transactions'"
+            [title]="'Transactions'"
+            [showLoadingSpinner]="false"
+            [items]="tableData"
+            [pageable]="true"
+            [page]="1"
+            [limit]="10"
+            [minContentHeight]="200"
+            class = "table table-bordered table-striped table-sm"
+          >
+            <ng-data-table-column
+              [field]="'created_at'"
+              [title]="'Date'"
+              [sortable]="true"
+              [filterable]="true"
+              [width]="30"
+            >
+            <ng-template #ngDataTableCell let-row="row">
+                <td>
+                  <button
+                  (click)="
+                    onViewTransactionDetails(
+                      row.item.transaction_key,
+                      row.item.initiator_role,
+                      row.item.destinator_role,
+                      row.item.initiator_phone,
+                      row.item.destinator_phone,
+                      row.item.transaction_type
+                    )
+                  "
+                >
+                  <i class="fa fa-eye"></i>
+                </button>
+                  &nbsp;
+                  {{ row.item.created_at }}
+                </td>
+            </ng-template>
+            </ng-data-table-column>
+            <ng-data-table-column
+              [field]="'transaction_key'"
+              [title]="'Transaction ID'"
+              [sortable]="true"
+              [filterable]="true"
+              [width]="30"
+            >
+            </ng-data-table-column>
+            <ng-data-table-column
+              [field]="'transaction_type'"
+              [title]="'Transaction Type'"
+              [sortable]="true"
+              [filterable]="true"
+              [width]="30"
+            >
+            </ng-data-table-column>
+            <ng-data-table-column
+              [field]="'buyerPhone'"
+              [title]="'Buyer'"
+              [sortable]="true"
+              [filterable]="true"
+              [width]="30"
+            >
+            </ng-data-table-column>
+            <ng-data-table-column
+              [field]="'sellerPhone'"
+              [title]="'Seller'"
+              [sortable]="true"
+              [filterable]="true"
+              [width]="30"
+            >
+            </ng-data-table-column>
+            <ng-data-table-column
+              [field]="'price'"
+              [title]="'Amount'"
+              [sortable]="true"
+              [filterable]="true"
+              [width]="30"
+            >
+            </ng-data-table-column>
+            <ng-data-table-column
+              [field]="'state'"
+              [title]="'Status'"
+              [sortable]="true"
+              [filterable]="true"
+              [width]="30"
+            >
+            </ng-data-table-column>
+          </ng-data-table>
+            <!-- <table class="table table-bordered table-striped table-sm">
               <thead>
                 <tr>
                   <th></th>
@@ -162,24 +200,33 @@
               <tbody>
                 <tr *ngFor="let item of tableData">
                   <td>
-                    <button (click)="onViewTransactionDetails(item.transaction_key, item.initiator_role, item.destinator_role, item.initiator_phone,item.destinator_phone, item.transaction_type)">
+                    <button
+                      (click)="
+                        onViewTransactionDetails(
+                          item.transaction_key,
+                          item.initiator_role,
+                          item.destinator_role,
+                          item.initiator_phone,
+                          item.destinator_phone,
+                          item.transaction_type
+                        )
+                      "
+                    >
                       <i class="fa fa-eye"></i>
                     </button>
                   </td>
                   <td>{{ item.created_at }}</td>
                   <td>{{ item.transaction_key }}</td>
                   <td>{{ item.transaction_type }}</td>
-                  <td>{{ item.BuyerPhone }}</td>
+                  <td>{{ item.buyerPhone }}</td>
                   <td>{{ item.sellerPhone }}</td>
                   <td>{{ item.price }}</td>
                   <td>{{ item.state }}</td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
             <div #noDataMessage *ngIf="hasNoTransactions">
-              <h4 text-align="center">
-                NO TRANSACTIONS CREATED YET
-              </h4>
+              <h4 text-align="center">NO TRANSACTIONS CREATED YET</h4>
             </div>
           </div>
           <div class="Prolongement"></div>
