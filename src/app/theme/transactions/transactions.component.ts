@@ -54,8 +54,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (transactions) => {
-          this.tableData = transactions;
-          transactions.forEach((details) => {
+          this.tableData = transactions.map((details) => {
             this.transactionType = details.transaction_type.toLowerCase();
             details.destinator_role =
               details.initiator_role === 'buy' ? 'sell' : 'buy';
@@ -64,28 +63,29 @@ export class TransactionsComponent implements OnInit, OnDestroy {
               this.userId === details.initiator_id
             ) {
               details['sellerPhone'] = details.initiator_phone;
-              details['BuyerPhone'] = details.destinator_phone;
+              details['buyerPhone'] = details.destinator_phone;
             } else if (
               details.initiator_role === 'buy' &&
               this.userId === details.initiator_id
             ) {
               details['sellerPhone'] = details.destinator_phone;
-              details['BuyerPhone'] = details.initiator_phone;
+              details['buyerPhone'] = details.initiator_phone;
             } else if (
               details.destinator_role === 'buy' &&
               this.userId === details.destinator_id) {
                 details['sellerPhone'] = details.initiator_phone;
-                details['BuyerPhone'] = details.destinator_phone;
+                details['buyerPhone'] = details.destinator_phone;
             } else if (
               details.destinator_role === 'sell' &&
               this.userId === details.destinator_id) {
                 details['sellerPhone'] = details.destinator_phone;
-                details['BuyerPhone'] = details.initiator_phone;
+                details['buyerPhone'] = details.initiator_phone;
             } else {
               details['sellerPhone'] = details.destinator_phone;
-              details['BuyerPhone'] = details.initiator_phone;
+              details['buyerPhone'] = details.initiator_phone;
             }
             this.amount = details.total_price;
+            return details;
           });
           this.hasNoTransactions = transactions.length === 0 ? true : false;
         },

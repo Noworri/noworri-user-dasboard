@@ -82,6 +82,7 @@ import { PayementsComponent } from './theme/PAYEMENTPART/payements/payements.com
 import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatOptionModule, MatSelectModule } from '@angular/material';
+import { DataTableModule } from 'ornamentum';
  
 
 
@@ -158,6 +159,7 @@ import { MatOptionModule, MatSelectModule } from '@angular/material';
     NgPaymentCardModule,
     MatMenuModule,
     TabsModule.forRoot(),
+    DataTableModule.forRoot(),
     MatTabsModule,
     MatDialogModule,
     MatOptionModule,
