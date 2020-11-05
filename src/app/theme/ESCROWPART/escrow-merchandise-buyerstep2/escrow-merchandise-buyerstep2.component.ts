@@ -55,16 +55,17 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.mobile_phone = sessionData.mobile_phone;
     this.initiator_id = sessionData.user_uid;
     const escrowStep2Data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    this.item = escrowStep2Data.item;
+    this.item = escrowStep2Data.name;
     this.amount = escrowStep2Data.amount;
     this.sellerNumber = escrowStep2Data.seller;
-    this.deliveryPhone = escrowStep2Data.delivery;
+    this.deliveryPhone = escrowStep2Data.delivery_phone;
     this.initiator_role = escrowStep2Data.role === 'Buyer' ? 'Buy' : 'Sell';
     this.destinator_role = this.initiator_role === 'Buy' ? 'Sell' : 'Buy';
     this.transactionType = escrowStep2Data.transactionType;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
-    this.description = escrowStep2Data.description || '';
+    console.log(escrowStep2Data);
+    this.description = escrowStep2Data.requirement  || '';
     this.destinator_id = escrowStep2Data.destinator_id;
     this.wholeAmountPart = Math.trunc(this.amount);
     this.decimalPart = parseFloat(
