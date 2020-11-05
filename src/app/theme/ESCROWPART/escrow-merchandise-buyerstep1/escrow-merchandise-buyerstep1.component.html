@@ -1,6 +1,10 @@
 <div class="container">
-
-  <form (ngSubmit)="onCompleteStep1(recaptemplate,form,sellersForms,deliveryForms)" #form="ngForm">
+  <form
+    (ngSubmit)="
+      onCompleteStep1(form, sellersForms, deliveryForms)
+    "
+    #form="ngForm"
+  >
     <div class="row">
       <div class="col-sm" id="col-sm">
         <div class="card">
@@ -16,9 +20,19 @@
               </div>
               <div id="Form1">
                 <div class="form-group">
-                  <label id="PrincipaleTitle" for="exampleInputEmail1">What are you purchasing?</label>
-                  <input type="text" class="form-control" id="item" name="item" ngModel aria-describedby="emailHelp"
-                    (click)="AfficheSide1()" [ngClass]="itemControl" />
+                  <label id="PrincipaleTitle" for="exampleInputEmail1"
+                    >What are you purchasing?</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="item"
+                    name="item"
+                    ngModel
+                    aria-describedby="emailHelp"
+                    (click)="AfficheSide1()"
+                    [ngClass]="itemControl"
+                  />
                 </div>
               </div>
               <div id="Form2">
@@ -44,37 +58,48 @@
                       [ngClass]="priceControl"
                     />
                   </div>
+                 
                   <div class="col">
                     <div class="input-group-text">
                       <!-- <img src="assets/images/devise.png" /> -->
                       <h1 class="GHC">{{ currency }}</h1>
                     </div>
                   </div>
-                  <p class="NoworriFee">Noworri Charges :</p>
-                  <span class="fee">1.95% of the price</span>
+                  <p class="NoworriFee">Noworri Fees :</p>
+                  <span class="fee">{{Fees(feePrice)}}</span>
                 </div>
 
                 <div id="PetitInput1">
                   <label class="Sellersphone">Seller's phone number</label>
                   <div>
                     <form #sellersForms="ngForm">
-                      <intl-tel-input *ngIf='waitingDisplayInput' (click)="AfficheSide3()" [name]="'sellerPhoneNumber'" [options]="countryData"
-                        [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                      <intl-tel-input
+                        *ngIf="waitingDisplayInput"
+                        (click)="AfficheSide3()"
+                        [name]="'sellerPhoneNumber'"
+                        [options]="countryData"
+                        [cssClass]="'form-control'"
+                        [onlyLocalized]="true"
+                        [(E164PhoneNumber)]="E164PhoneNumber"
+                      >
                       </intl-tel-input>
                     </form>
                   </div>
-                 
                 </div>
                 <div id="PetitInput2">
                   <label>Delivery phone number</label>
-                  <p>
-                    If you don't have the delivery number, ask the seller or
-                    leave it empty the seller will fill it.
-                  </p>
+
                   <div class="inp">
                     <form #deliveryForms="ngForm">
-                      <intl-tel-input  *ngIf='waitingDisplayInput' (click)="AfficheSide4()" [name]="'deliveryPhoneNumber'" [options]="countryData"
-                        [cssClass]="'form-control'" [onlyLocalized]="true" [(E164PhoneNumber)]="E164PhoneNumber">
+                      <intl-tel-input
+                        *ngIf="waitingDisplayInput"
+                        (click)="AfficheSide4()"
+                        [name]="'deliveryPhoneNumber'"
+                        [options]="countryData"
+                        [cssClass]="'form-control'"
+                        [onlyLocalized]="true"
+                        [(E164PhoneNumber)]="E164PhoneNumber"
+                      >
                       </intl-tel-input>
                     </form>
                   </div>
@@ -82,8 +107,15 @@
 
                 <div id="PetitInput3">
                   <label for="exampleInputEmail1">Descriptions</label>
-                  <textarea class="form-control" id="description" name="description" rows="3" (click)="AfficheSide5()"
-                    ngModel [ngClass]="descriptionControl"></textarea>
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    rows="3"
+                    (click)="AfficheSide5()"
+                    ngModel
+                    [ngClass]="descriptionControl"
+                  ></textarea>
                 </div>
                 <div class="container">
                   <div class="row">
@@ -91,11 +123,21 @@
                     <div class="col-sm">
                       <div class="Loading">
                         <button *ngIf="isValidating" mat-raised-button>
-                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          <span
+                            class="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
                           processing...
                         </button>
                       </div>
-                      <button type="submit" *ngIf="!isValidating"  mat-raised-button> Continue</button>
+                      <button
+                        type="submit"
+                        *ngIf="!isValidating"
+                        mat-raised-button
+                      >
+                        Continue
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -222,8 +264,8 @@
       </div>
     </div>
   </form>
-  <!-----------------------Recap template------------------------------------>
-  <ng-template #recaptemplate >
+  <!-----------------------Recap template-----------
+     <ng-template #recaptemplate >
     <div class="container" id="recapTemplate">
       <div class="row">
         <div class="col-sm-5">
@@ -248,11 +290,9 @@
       </div>
     </div>
   </ng-template>
-    <!-----------------------checkout template------------------------------------>
-    <ng-template #checkoutTemplate >
-        <div class="row">
-          <iframe [src]='getCheckoutUrl()' width="500" height="670" title="Iframe Example" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-        </div>
-    </ng-template>
-
+    
+    
+    
+    
+    ------------------------->
 </div>
