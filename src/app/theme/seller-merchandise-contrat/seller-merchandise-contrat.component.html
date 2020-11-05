@@ -1,379 +1,114 @@
-<div class="container" id="Container">
+<div class="container">
   <div class="row">
-    <div class="col-sm">
-      <div class="row" id="Card2">
-        <div>
-          <!-- id="collapseBasic"
-        [collapse]="isCollapsed1"
-        [isAnimated]="true"
-        [collapse]="isCollapsed"
-        (collapses)="collapses()"
-        (expands)="expands()"
-        (collapsed)="collapsed()"
-        (expanded)="expanded()" -->
-          <div class="card" id="" style="width: 50rem">
-            <hr class="hr" />
-            <div class="card-body" id="card-body2">
-              <div class="container">
-                <div class="row" id="CardOne">
-                  <div class="col-sm col1">
-                    <h6 class="Yourdealing">
-                      You're dealing with :
-                      <span class="Number">{{ buyerPhone }}</span>
-                    </h6>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Item">Items</h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col3">
-                    <h6 class="Deadline"></h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="Amoun">Amount</h6>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Handbag">{{ item }}</h6>
-                  </div>
-
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col3">
-                    <h6 class="Deadline"></h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="Revisions">{{ amount }}</h6>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Noworrifee">Noworri Charges</h6>
-                  </div>
-
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col3">
-                    <h6 class="Deadline"></h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="fee">{{ noworriFee }}</h6>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Noworrifee"></h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col3">
-                    <h6 class="col-sm Netpayable">NET RECEIVABLE</h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="total">{{ totalAmount }}</h6>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Deliveryman">Deliveryman's phone</h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Number2">{{ deliveryPhone }}</h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 *ngIf="!isFundsReleased"
-                      class="Changedeliveryman"
-                      (click)="onUpdateDeliveryPhone()"
-                    >
-                      Change the phone
-                    </h6>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div *ngIf="!isFundsReleased && !isCancelled && !hasWithdrawn" class="col-sm">
-                    <h6 class="text1">
-                      Deliver the product to the buyer to get your payment
-                    </h6>
-                  </div>
-                  <div *ngIf="isCancelled" class="col-sm">
-                    <h6 class="text1">
-                      You cancelled this transaction, we notified the buyer
-                    </h6>
-                  </div>
-                  <div *ngIf="isFundsReleased && !hasWithdrawn" class="col-sm">
-                    <h6 class="text1">
-                      The funds have been released and are available
-                    </h6>
-                  </div>
-                  <div *ngIf="isFundsReleased && hasWithdrawn" class="col-sm">
-                    <h6 class="text1">
-                      This transaction is completed !
-                    </h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 *ngIf="isFundsReleased && !hasWithdrawn"
-                      class="Changedeliveryman"
-                      (click)="onWithdraw(addBankAccounttemplate)"
-                    >
-                      withdraw amount
-                    </h6>
-                  </div>
-
-                  <!-- <div *ngIf="!isFundsReleased"  class="col-sm col4">
-                      <div *ngIf="isValidating" class="Loading">
-                        <button  class="Revisions btn btn-sm btn-light" >
-                          <span
-                          class="spinner-border spinner-border-sm"
-                          role="status"
-                          aria-hidden="true"
-                        ></span>
-                        processing...
-                        </button>
-                      </div>
-                    <button type="button" *ngIf="!isValidating && !isCancelled" (click)="onApproveTransaction()" class="Revisions btn btn-sm btn-light">
-                      Approve
-                    </button>
-                  </div> -->
-                </div>
-                <hr />
-                <div class="row">
-                  <h5 class="descriptions">Description</h5>
-                  <p class="text">
-                    {{ description }}
-                  </p>
-                </div>
-              </div>
+    <div class="col-sm" id="col-sm">
+      <div class="card">
+        <div class="ServiceStep2">
+          <mat-icon class="cancel" routerLink="">cancel</mat-icon>
+          <div class="row" style="margin-bottom: -50px">
+            <div class="col">
+              <h6>Transaction ID:{{transactionId}}</h6>
+            </div>
+            <div class="col">
+              <h6 style="cursor: pointer;text-decoration: underline;">Cancel</h6>
+            </div>
+            <div class="col link">
+              <a class="nav-link" href="#">Changer the deliveryman</a>
+            </div>
+          </div>
+          <div class="card" style="width: 35rem">
+            <div class="card-body">
+              <p>
+                We have sent 5 digit code by SMS to the carrier() and yourself ({{ deliveryPhone}}) which must be given to the buyer to confirm 
+                the reception of the goods and  money will be release automatically to your account.
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-sm" id="Card18">
-      <div class="container">
-        <div class="card">
-          <hr class="h" />
-          <div class="card-body">
-            <div class="container">
-              <div *ngIf="!isCancelled && !isFundsReleased" class="row">
-                <mat-icon class="Icon">report</mat-icon>
-                <h6 class="WantTo">Want to cancel this order ?</h6>
+        <div class="card-body">
+          <div id="TransactionResume"></div>
+          <div class="Billing">
+            <h5 class="BILLINGINFORMATION">Billing information </h5>
+            <div class="row" id="Calcule1">
+              <div class="col-sm">
+                <h6 class="Shoesandsock">{{ item }}</h6>
               </div>
-              <div *ngIf="!isFundsReleased && !isCancelled" class="row">
-                <div *ngIf="isValidating" class="Loading">
-                  <a class="Revisions btn btn-sm btn-light">
-                    <span
-                      class="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
-                    Cancelling...
-                  </a>
-                </div>
-                <a
-                  style="cursor: pointer;"
-                  class="nav-link"
-                  *ngIf="!isValidating"
-                  (click)="cancelOrder()"
-                  >Click Here</a
-                >
+              <div class="col-sm">
+                <h6 class="Tolale1">{{ amount }}</h6>
               </div>
-              <div class="row">
-                <mat-icon class="Icon">report</mat-icon>
-                <h6 class="Somethingunclair">Something unclair ?</h6>
+            </div>
+            <div class="row" id="Calcule2">
+              <div class="col-sm">
+                <h6>
+                  <div class="row">
+                    <div class="col-sm">
+                      <h6 class="NoworriFees">Noworri Charges</h6>
+                    </div>
+                    <div class="col-sm">
+                      <h6 class="Tolale2">{{ noworriFee }}</h6>
+                    </div>
+                  </div>
+                </h6>
               </div>
-              <div class="row">
-                <a class="nav-link" href="#">Check out our FAQs</a>
+            </div>
+            <hr
+              style="
+                width: 600px;
+                border-color: 1px solid black;
+                border-width: 1.9px;
+                opacity: 1;
+              "
+            />
+          </div>
+          <div class="MoreInformation">
+            <h5 class="MOREINFORMATIONS">More informations</h5>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Buyersusername">Buyer</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcule3">{{ amount }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername">Seller</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcul3">{{ noworriFee }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername">Deliveryman</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcul3">{{ noworriFee }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername" style="color: black">
+                  Description
+                </h6>
               </div>
             </div>
           </div>
-        </div>
-        <div class="card" *ngIf="isUpdatingDelivery">
-          <form (ngSubmit)="updateDeliveryPhone(form)" #form="ngForm">
-            <div class="form-group">
-              <label for="exampleInputEmail1"
-                >New delivery's phone number</label
-              >
-              <!-- <input
-                name="newDelivery"
-                type="tel"
-                ngModel
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              /> -->
-              <div>
-                <intl-tel-input
-                  *ngIf="countryData"
-                  name="'newDelivery'"
-                  [options]="countryData"
-                  [cssClass]="'form-control'"
-                  [onlyLocalized]="true"
-                  E164PhoneNumber
-                >
-                </intl-tel-input>
-              </div>
-              <div *ngIf="isUpdating" class="Loading">
-                <button class="Revisions btn btn-sm btn-light" disabled>
-                  <span
-                    class="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  updating...
-                </button>
-              </div>
-              <button *ngIf="!isUpdating" type="submit" class="btn btn-light">
-                update
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-   <!------------------ Add bank account Modale-------------------------------------------->
-   <ng-template #addBankAccounttemplate>
-      <app-payements [paymentData]="paymentData" [modal]="modalRef" ></app-payements>
-      <!-- <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <h6 class="BankAccountDetails">Bank account details</h6>
+          <div id="Requirement">
+            <div id="Paragraphe"></div>
           </div>
-          <div class="col-sm">
-            <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary">Withdraw</button>
           </div>
-        </div>
-      </div>
-      <hr>
-      <form (ngSubmit)="setupForm(form)" #form="ngForm">
-        <div *ngIf="hasAccount">
+        
           <div class="row">
-            <div *ngFor="let detail of details"  class="col-6">
-              <div   class="card card1  sm-3" style="width: 20rem">
-                <div class="row">
-                  <div class="col-8">
-                    <h6 class="FidelityBank ">{{ detail.bank_name }}</h6>
-                  </div>
-                  <div class="col-4">
-                    <h6 class="Delete">Delete</h6>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <h6 class="AccountNumber">Account number</h6>
-                    <h6 class="CardNumber">xxxxxx{{ detail.account_no | slice:5:9 }}</h6>
-                  </div>
-                  <div class="col-6">
-                    <mat-icon class="play_arrow">play_arrow</mat-icon>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <h6 class="AccountName">Account name</h6>
-                    <h6 class="Name">{{ detail.holder_name }}</h6>
-                  </div>
-                  <div class="col-6">
-                    <h6 class="PrimaryAccount">Primary Acount</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-
-            </div>
-            <div class="col-6">
-              <button (click)="withdrawAmount()"> Proceed</button>
-            </div>
+            <div class="col-sm"></div>
+            
           </div>
         </div>
-        <div *ngIf="!hasAccount">
-          <div class="form-row ">
-            <div class="col-md-6 mb-3">
-              <label for="input">Select your Bank</label>
-              <select class="form-control" id="bankName"  name="bankName"
-              ngModel>
-              <option *ngFor="let bank of bankList">{{ bank.name }}</option>
-              </select>
-            </div>
-  
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="input">Enter account number</label>
-              <input type="text" class="form-control" id="accountNo" 
-              name="accountNo"
-              ngModel
-              required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="input">Enter account name</label>
-              <input type="text" class="form-control" id="holderName" 
-              name="holderName"
-              ngModel
-              required>
-            </div>
-          </div>
-          <div class="text-center">
-            <button *ngIf="isAdding" type="button" class="btn btn-light">
-              Adding...
-            </button>
-            <button class="btn btn-primary btn-sm"   *ngIf="!isAdding"   (click)="setupForm()"  type="submit">Add Bank</button>
-          </div>
-        </div>
-        <div *ngIf="hasAccount">
-          <div class="form-row ">
-            <div class="col-md-6 mb-3">
-              <label for="input">Select Your Network</label>
-              <select class="form-control" id="bankName"  name="bankName"
-              ngModel>
-              <option *ngFor="let network of networkList">{{ network.name }}</option>
-              </select>
-            </div>
-  
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="input">Phone Number</label>
-              <input type="text" class="form-control" id="accountNo" 
-              name="accountNo"
-              ngModel
-              required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col-md-6 mb-3">
-              <label for="input">Enter Account Name</label>
-              <input type="text" class="form-control" id="holderName" 
-              name="holderName"
-              ngModel
-              required>
-            </div>
-          </div>
-          <div class="text-center">
-            <button *ngIf="isAdding" type="button" class="btn btn-light">
-              Adding...
-            </button>
-            <button class="btn btn-primary btn-sm"   *ngIf="!isAdding"   (click)="setupForm()"  type="submit">Add Bank</button>
-          </div>
-        </div>
-      </form> -->
-  </ng-template>
+      </div>
+    </div>
+    <div class="col-sm"></div>
+  </div>
 </div>
