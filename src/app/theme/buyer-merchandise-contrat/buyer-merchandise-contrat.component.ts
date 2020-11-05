@@ -9,6 +9,7 @@ import { CompanyReference } from 'src/app/Service/reference-data.interface';
 import { AuthserviceService } from 'src/app/Service/authservice.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder } from "@angular/forms";
 
 const SESSION_STORAGE_KEY = 'noworri-user-session';
 
@@ -49,7 +50,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   mobile_phone: string;
   initiator_id: string;
   template: TemplateRef<any>;
-
+  digitFom: FormGroup;
 
   sellerPhone: string;
   description: string;
@@ -65,6 +66,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     private companyService: NoworriSearchService,
     private userService: AuthserviceService,
     private modalService: BsModalService,
+    private formBuilder: FormBuilder
   ) {
     this.transactionKey = this.route.snapshot.paramMap.get('transactionKey');
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
@@ -83,7 +85,19 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadUserTransaction(this.transactionKey);
+     this.initDigitForm();
   }
+
+  initDigitForm() {
+    this.digitFom = this.formBuilder.group({
+      number1: "",
+      number2: "",
+      number3: "",
+      number4: "",
+      number5: "",
+    });
+  }
+
 
   ngOnDestroy() {
     this.unsubscribe$.next();
@@ -95,7 +109,12 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   }
 
   onInitiateRelease(form: NgForm) {
-    const code = form.value['otp'];
+    let number1 = this.digitFom.get("number1").value;
+    let number2 = this.digitFom.get("number2").value;
+    let number3 = this.digitFom.get("number3").value;
+    let number4 = this.digitFom.get("number4").value;
+    let number5 = this.digitFom.get("number5").value;
+    const code = number1 + number2 + number3 + number4 + number5;
     const releaseData = {
       transaction_id: this.transactionId,
       release_code: code,
@@ -119,7 +138,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     this.template = template;
     this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'modal-lg' })
+      Object.assign({}, { class: 'modal-md' })
     );
   }
 

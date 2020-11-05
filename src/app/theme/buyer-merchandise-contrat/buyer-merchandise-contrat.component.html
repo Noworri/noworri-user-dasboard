@@ -1,243 +1,169 @@
-
-<div class="container" id="Container" >
+<div class="container">
   <div class="row">
-    <div class="col-sm">
-      <div class="row" id="Card2">
-      
-        <div
-          id="collapseBasic"
-        >
-                  <!-- [collapse]="isCollapsed1"
-          [isAnimated]="true"
-          [collapse]="isCollapsed"
-          (collapses)="collapses()"
-          (expands)="expands()"
-          (collapsed)="collapsed()"
-          (expanded)="expanded()" -->
-          <div class="card" id="" style="width: 50rem;">
-            <hr class="hr">
-            <div class="card-body" id="card-body2">
-              <div class="container">
-                <div class="row" id="CardOne">
-                  <div class="col-sm col1">
-                    <h6 class="Yourdealing">
-                      You're dealing with :
-                      <span class="Number">{{ sellerPhone }}</span>
-                    </h6>
+    <div class="col-sm" id="col-sm">
+      <div class="card">
+        <div class="ServiceStep2">
+          <mat-icon class="cancel" routerLink="">cancel</mat-icon>
+          <div class="row" style="margin-bottom: -50px">
+            <div class="col">
+              <h6>Transaction ID:{{transactionId}}</h6>
+            </div>
+            <div class="col link">
+              <a class="nav-link" href="#">Changer the deliveryman</a>
+            </div>
+          </div>
+          <div class="card" style="width: 35rem">
+            <div class="card-body">
+              <p>
+                click on release button when the delivery man give you goods and
+                enter the 5 digit code Noworri has sent to the deliveryman ({{ deliveryPhone}}) in
+                order to confirm the reception of your goods this will
+                automatically release the money the seller account
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="TransactionResume"></div>
+          <div class="Billing">
+            <h5 class="BILLINGINFORMATION">BILLING INFORMATION</h5>
+            <div class="row" id="Calcule1">
+              <div class="col-sm">
+                <h6 class="Shoesandsock">{{ item }}</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Tolale1">{{ amount }}</h6>
+              </div>
+            </div>
+            <div class="row" id="Calcule2">
+              <div class="col-sm">
+                <h6>
+                  <div class="row">
+                    <div class="col-sm">
+                      <h6 class="NoworriFees">Noworri Charges</h6>
+                    </div>
+                    <div class="col-sm">
+                      <h6 class="Tolale2">{{ noworriFee }}</h6>
+                    </div>
                   </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Item">Items</h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col3">
-                    <h6 class="Deadline"></h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="Amoun">Amount</h6>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Handbag">{{ item }}</h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col3">
-                    <h6 class="Deadline"></h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="Revisions">{{ amount }}</h6>
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Handbag">Noworri Fee</h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col3">
-                    <h6 class="Deadline"></h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="Revisions"> {{ noworriFee }}</h6>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Item"></h6>
-                  </div>
-                  <div class="col-sm col2">
-                    <h6 class="Amount"></h6>
-                  </div>
-                  <div class="col-sm col3">
-                    <h6 *ngIf="isFundsSecured" class="Item">NET SECURED</h6>
-                    <h6 *ngIf="!isFundsSecured" class="Item">NET TO SECURED</h6>
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="Revisions">{{ totalAmount }}</h6>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm col1">
-                    <h6 class="Deliveryman">Deliveryman's phone</h6>
-                  </div>
-                  <div class="col-sm col2">
-                  </div>
-                  <div class="col-sm col3">
-                  </div>
-                  <div class="col-sm col4">
-                    <h6 class="Number2">{{ deliveryPhone }}</h6>
-                  </div>
-                </div>
-                <hr *ngIf="isCancelled" />
-                <div class="row">
-                  <div *ngIf="isCancelled"  class="col-sm">
-                    <h6 class="text1">
-                      This transaction has been cancelled. Please start another one
-                    </h6>
-                  </div>
-                </div>
-                <hr *ngIf="!isCancelled && hasDeliveryPhone"/>
-                <div class="row">
-                  <div *ngIf="!isFundsReleased && !isCancelled && hasDeliveryPhone && isFundsSecured"  class="col-sm col1">
-                    <h6 class="text1">
-                      Release the funds when you get your product delivered
-                    </h6>
-                  </div>
-                  <div *ngIf="isFundsReleased && isFundsSecured"  class="col-sm">
-                    <h6 class="text1">
-                      the funds have been Released for this transaction
-                    </h6>
-                  </div>
-                  <div *ngIf="!isFundsSecured"  class="col-sm">
-                    <h6 class="text1">
-                      Please secure the funds to process to order
-                    </h6>
-                  </div>
-                  <div *ngIf="!isFundsReleased && !isCancelled && isFundsSecured"  class="col-sm col4">
-                      <div *ngIf="isValidating" class="Loading">
-                        <button  class="Revisions btn btn-sm btn-light" >
-                          <span
+                </h6>
+              </div>
+            </div>
+            <hr
+              style="
+                width: 600px;
+                border-color: 1px solid black;
+                border-width: 1.9px;
+                opacity: 1;
+              "
+            />
+          </div>
+          <div class="MoreInformation">
+            <h5 class="MOREINFORMATIONS">MORE INFORMATIONS</h5>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Buyersusername">Buyer</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcule3">{{ amount }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername">Seller</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcul3">{{ noworriFee }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername">Deliveryman</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcul3">{{ noworriFee }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername" style="color: black">
+                  Description
+                </h6>
+              </div>
+            </div>
+          </div>
+          <div id="Requirement">
+            <div id="Paragraphe"></div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm" id="STARTNOWORRI">     
+              <div class="text-center">
+                <button
+                  type="submit"
+                  (click)="onReleaseFunds(AddBankAccounttemplate)"
+                  mat-raised-button
+                >
+                  Release :{{amount  }} GHC
+                </button>
+              </div>
+              <ng-template #AddBankAccounttemplate>
+                <div class="modal-body modaleTemplate">
+                  <h4>Delivery Verification</h4>
+                  <h6>
+                    We have sent 5 digits code to the deliveryman() by sms to
+                    release the funds and confirm you received the goods enter the 5 digits code
+                  </h6>
+                  <form>
+                    <div class="form-group text-center" [formGroup]="digitFom" >
+                      <div class="row">
+                        <input type="text" maxlength='1' class="form-control col-sm-2" id="numberInput" formControlName='number1'>
+                        <input type="text"  maxlength='1' class="form-control col-sm-2" id="numberInput" formControlName='number2'>
+                        <input type="text"  maxlength='1' class="form-control col-sm-2" id="numberInput" formControlName='number3'>
+                        <input type="text"  maxlength='1' class="form-control col-sm-2" id="numberInput" formControlName='number4'>
+                        <input type="text"  maxlength='1' class="form-control col-sm-2" id="numberInput" formControlName='number5'>
+                      </div>
+                    </div> <div class="row">
+                      <div class="col-10">
+                        <h5>Deliveryman didn't received code ?   </h5>
+                      </div>
+                      <div class="col-2 resend">
+                        <a class="nav-link " href="#">Resend </a>
+                      </div>
+                    </div>
+                    <div class="Loading">
+                      <button *ngIf="isValidating" mat-raised-button>
+                        <span
                           class="spinner-border spinner-border-sm"
                           role="status"
                           aria-hidden="true"
                         ></span>
-                        processing...
-                        </button>
-                      </div>
-                    <button type="button" *ngIf="!isValidating && !isCancelled && hasDeliveryPhone" (click)="onReleaseFunds(sendReleaseCode)" class="Revisions btn btn-sm btn-light">
-                      Release Funds
-                    </button>
-                  </div>
-                  <div *ngIf="!isFundsReleased && !isCancelled && !isFundsSecured"  class="col-sm col4">
-                    <div *ngIf="isValidating" class="Loading">
-                      <button  class="Revisions btn btn-sm btn-light" >
-                        <span
-                        class="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                      processing...
+                        STARTING...
                       </button>
                     </div>
-                  <button type="button" *ngIf="!isValidating && !isCancelled && hasDeliveryPhone && !isFundsSecured " (click)="onSecureFunds()" class="Revisions btn btn-sm btn-light">
-                    Secure Funds
-                  </button>
-                </div>
-                </div>
-                <hr />
-                <div class="row" id="Description" >
-                  <h5 class="descriptions">Description</h5>
-                  <p class="text" style="margin-left: -89.2px;">
-                    {{ description }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm" id="Card18">
-      <div class="container">
-        <div class="card">
-          <hr class="h" />
-          <div class="card-body">
-            <div class="container">
-              <div *ngIf="!isCancelled && !isFundsReleased" class="row">
-                <mat-icon class="Icon">report</mat-icon>
-                <h6 class="WantTo">Want to cancel this order ?</h6>
-              </div>
-              <div *ngIf="!isFundsReleased && !isCancelled" class="row">
-                <div *ngIf="isValidating" class="Loading">
-                  <a class="Revisions btn btn-sm btn-light">
-                    <span
-                      class="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
-                    Cancelling...
-                  </a>
-                </div>
-                <a
-                  style="cursor: pointer;"
-                  class="nav-link"
-                  *ngIf="!isValidating"
-                  (click)="cancelOrder()"
-                  >Click Here</a
-                >
-              </div>
-              <!-- <div class="row">
-                <mat-icon class="Icon">report</mat-icon>
-                <h6 class="WantTo">Want to cancel this order ?</h6>
-              </div>
-              <div class="row">
-                <a class="nav-link" href="#">Click Here</a>
-              </div> -->
-              <div class="row">
-                <mat-icon class="Icon2">report</mat-icon>
-                <h6 class="Somethingunclair">Something unclair ?</h6>
-              </div>
-              <div class="row">
-                <h6 class=" navLink2" href="#">Check out our FAQs</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    </div>
-            <!------------------Submit Release Code modal-------------------------------------------->
-            <ng-template #sendReleaseCode>
-
-              <div class="modal-body">
-                <form (ngSubmit)="onInitiateRelease(form)" #form="ngForm">
-                  <div class="form-row ">
-                    <div class="col-md-6 mb-3">
-                      <label for="input">Delivery OTP</label>
-                      <input type="test" pattern= "[0-9]" class="form-control" id="input" required style="width: 420px;" id="otp" name="otp" ngModel>
-                      <div *ngIf="!isValidCode" class="alert alert-danger" role="alert">
-                        Invalid OTP! Please enter valid OTP from the delivery.
-                      </div>      
+                    <div class="text-center">
+                      <button
+                      type="submit"
+                      *ngIf="!isValidating"
+                      (click)="onInitiateRelease()"
+                      mat-raised-button
+                    >
+                      Release :{{ amount }} GHC
+                    </button>
                     </div>
-                  </div>
-                  <div class="text-center">
-                    <button class="btn btn-primary btn-sm" type="submit">confirm</button>
-                  </div>
-                </form>
-              </div>
-            </ng-template>
+                  
+                  </form>
+                 
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm"></div>
   </div>
-  
+</div>
