@@ -55,7 +55,7 @@
                 <h6 class="NETPAYABLE">NET PAYABLE</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Tolale3">{{totalAmount}}</h6>
+                <h6 class="Tolale3">{{amount}}</h6>
               </div>
             </div>
           </div>
@@ -139,7 +139,7 @@
                   STARTING...
                 </button>
               </div>
-              <button type="submit" *ngIf="!isValidating" (click)='onSecureFunds()' mat-raised-button>Lock up:{{price}} GHC</button>
+              <button type="submit" *ngIf="!isValidating" (click)='onSecureFunds()' mat-raised-button>Lock up:{{amount}} GHC</button>
              
             </div>
           </div>
