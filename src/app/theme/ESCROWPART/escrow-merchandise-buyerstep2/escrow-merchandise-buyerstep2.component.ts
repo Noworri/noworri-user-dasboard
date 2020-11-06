@@ -11,7 +11,7 @@ const SESSION_STORAGE_KEY = 'noworri-user-session';
 @Component({
   selector: 'app-escrow-merchandise-buyerstep2',
   templateUrl: './escrow-merchandise-buyerstep2.component.html',
-  styleUrls: ['./escrow-merchandise-buyerstep2.component.scss']
+  styleUrls: ['./escrow-merchandise-buyerstep2.component.scss'],
 })
 export class EscrowMerchandiseBuyerstep2Component implements OnInit {
   CreditCard: boolean;
@@ -56,7 +56,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.initiator_id = sessionData.user_uid;
     const escrowStep2Data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     this.item = escrowStep2Data.name;
-    this.amount = escrowStep2Data.amount;
+    this.amount = +escrowStep2Data.price + +escrowStep2Data.noworriFee;
     this.sellerNumber = escrowStep2Data.seller;
     this.deliveryPhone = escrowStep2Data.delivery_phone;
     this.initiator_role = escrowStep2Data.role === 'Buyer' ? 'Buy' : 'Sell';
@@ -65,7 +65,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
     console.log(escrowStep2Data);
-    this.description = escrowStep2Data.requirement  || '';
+    this.description = escrowStep2Data.requirement || '';
     this.destinator_id = escrowStep2Data.destinator_id;
     this.wholeAmountPart = Math.trunc(this.amount);
     this.decimalPart = parseFloat(
@@ -77,10 +77,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.transactionDetails = {
       initiator_id: this.initiator_id,
       initiator_role: this.initiator_role,
-      // initiator_phone: this.mobile_phone,
       destinator_id: this.destinator_id,
-      // destinator_role: this.destinator_role,
-      // destinator_phone: this.sellerNumber,
       transaction_type: this.transactionType,
       delivery_phone: this.deliveryPhone,
       service: this.item,
@@ -89,7 +86,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       total_price: this.amount,
       requirement: this.description,
       transaction_ref: '',
-      etat: 4
+      etat: 4,
     };
   }
 
@@ -185,21 +182,20 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.isValidating = true;
     const transactionData = {
       email: this.email,
-      amount: this.amount * 100
+      amount: this.amount * 100,
     };
     this.transactionsService
       .payStackPayment(transactionData)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response: any) => {
+        // vieux code Emeric regarde onSecureFunds() step 1
         window.open(
           `${response.data.authorization_url}`,
           'popup',
           'width=500,height=650'
         );
         this.transaction_ref = response.data.reference;
-        setTimeout(() => {
-          this.checkSuccessSecuredFunds(this.transaction_ref);
-        }, 40000);
+        this.createTransaction();
         return false;
       });
   }
@@ -209,32 +205,46 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.transactionsService
       .createTransaction(this.transactionDetails)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe((transaction: any) => {
-        this.isValidating = false;
-        if (transaction.initiator_id && transaction.initiator_id === this.initiator_id && transaction.initiator_role === 'Buy') {
-          this.router.navigate([`/buyermerchandisecontrat/${transaction.transaction_key}`]);
-        } else if (transaction.initiator_id && transaction.user_id === this.initiator_id && transaction.initiator_role === 'Sell') {
-          this.router.navigate([`/sellermerchandisecontrat/${transaction.transaction_key}`]);
-        } else {
-          console.log('error', transaction);
-        }
-        return transaction;
-      },
-        error => {
+      .subscribe(
+        (transaction: any) => {
+          setTimeout(() => {
+            this.checkSuccessSecuredFunds(this.transaction_ref, transaction);
+          }, 40000);
+          return transaction;
+        },
+        (error) => {
           console.log(error.message);
         }
       );
   }
 
-  checkSuccessSecuredFunds(ref) {
+  checkSuccessSecuredFunds(ref, transaction) {
     this.transactionsService
-      .checkTransactionStatus(ref, null)
+      .checkTransactionStatus(ref, transaction.transaction_key)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((statusData) => {
         if (statusData.data && statusData.data.status === 'success') {
-          this.createTransaction();
+          this.isValidating = false;
+          if (
+            transaction.initiator_id &&
+            transaction.initiator_id === this.initiator_id &&
+            transaction.initiator_role === 'Buy'
+          ) {
+            this.router.navigate([
+              `/buyermerchandisecontrat/${transaction.transaction_key}`,
+            ]);
+          } else if (
+            transaction.initiator_id &&
+            transaction.user_id === this.initiator_id &&
+            transaction.initiator_role === 'Sell'
+          ) {
+            this.router.navigate([
+              `/sellermerchandisecontrat/${transaction.transaction_key}`,
+            ]);
+          } else {
+            console.log('error', transaction);
+          }
         }
       });
   }
-
 }
