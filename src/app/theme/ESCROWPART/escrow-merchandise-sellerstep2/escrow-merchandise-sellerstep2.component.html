@@ -1,3 +1,175 @@
-<p>
-  escrow-merchandise-sellerstep2 works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm" id="col-sm">
+      <div class="card">
+        <div class="ServiceStep2">
+          <mat-icon class="cancel" routerLink="">cancel</mat-icon>
+          <h6>Escrow Merchandise</h6>
+          <hr
+            style="
+              width: 600px;
+              border-color: 1px solid #707070;
+              border-width: 1.9px;
+              opacity: 1;
+            "
+          />
+        </div>
+        <div class="card-body">
+          <div id="TransactionResume">
+            <h5 class="TransactionResume">
+              Kindly review one more time your inputs
+            </h5>
+          </div>
+          <div class="Billing">
+            <h5 class="BILLINGINFORMATION">Billing information</h5>
+            <div class="row" id="Calcule1">
+              <div class="col-sm">
+                <h6 class="Shoesandsock">{{ item }}</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Tolale1">{{ price }}</h6>
+              </div>
+            </div>
+            <div class="row" id="Calcule2">
+              <div class="col-sm">
+                <h6>
+                  <div class="row">
+                    <div class="col-sm">
+                      <h6 class="NoworriFees">Noworri Charges</h6>
+                    </div>
+                    <div class="col-sm">
+                      <h6 class="Tolale2">{{ noworriFee }}</h6>
+                    </div>
+                  </div>
+                </h6>
+              </div>
+            </div>
+            <hr
+              style="
+                width: 600px;
+                border-color: 1px solid rgb(102, 97, 97);
+                background-color: rgb(112, 106, 106);
+                border-width: 2px;
+                opacity: 1;
+              "
+            />
+          </div>
+          <div class="MoreInformation">
+            <h5 class="MOREINFORMATIONS">More informations</h5>
+            <div class="row">
+              <!-- <div class="col-sm">
+                <h6 class="NumberofRevisions">Number of Revisions</h6>
+              </div> -->
+              <!-- <div class="col-sm">
+                <h6 class="Calcule1"> revisions </h6>
+              </div> -->
+            </div>
+            <div class="row">
+              <!-- <div class="col-sm">
+                <h6 class="Transactiondeadtime">Service deadline</h6>
+              </div> -->
+              <!-- <div class="col-sm">
+                <h6 class="Calcule2"> deadlineCheckout  </h6>
+              </div> -->
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Buyersusername">Buyer</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcule3">{{ sellerNumber }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername">Seller</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcul3">{{ mobile_phone }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername">Deliveryman</h6>
+              </div>
+              <div class="col-sm">
+                <h6 class="Calcul3">{{ deliveryPhone }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername" style="color: black">
+                  Description
+                </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="Sellersusername">{{ description }}</h6>
+              </div>
+            </div>
+          </div>
+          <div id="Requirement">
+            <!-- <h6 class="Requirement">REQUIREMENTS</h6> -->
+            <div id="Paragraphe">
+              <!-- <p class="paragraphe">
+                 description 
+              </p> -->
+              <!-- <div class="Link">
+                <a class="nav-link" href="#">Attached file</a>
+              </div>
+              <div class="Fichiers">
+                <h6 class="Amelplan"> uploadedFiles </h6>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm" id="STARTNOWORRI">
+              <div class="Loading">
+                <button *ngIf="isValidating" mat-raised-button>
+                  <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Processing 
+                </button>
+              </div>
+              <button
+                type="submit"
+                *ngIf="!isValidating"
+                (click)="onConfirmTransaction()"
+                mat-raised-button
+              >
+                Confirm:{{ amount }} GHC
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="container" id="CARDS">
+        <div class="col" id="card1">
+          <div class="card w-100">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-2 local_offer">
+                  <mat-icon class="local"> local_offer</mat-icon>
+                </div>
+                <div class="col">
+                  <p>
+                    Review your transaction details and make sure everything is
+                    accurate.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,31 +3,63 @@
     <div class="col-sm" id="col-sm">
       <div class="card">
         <div class="ServiceStep2">
-          <mat-icon class="cancel" routerLink="">cancel</mat-icon>
-          <div class="row" style="margin-bottom: -50px">
-            <div class="col">
-              <h6>Transaction ID:{{transactionId}}</h6>
-            </div>
-            <div class="col">
-              <h6 style="cursor: pointer;text-decoration: underline;">Cancel</h6>
-            </div>
-            <div class="col link">
-              <a class="nav-link" href="#">Changer the deliveryman</a>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="transation">Transation ID:{{ transactionKey }}</h6>
+              </div>
+              <div class="col-sm-2">
+                <a class="nav-link cancel" href="#">Cancel</a>
+              </div>
+              <div class="col-sm">
+                <a class="nav-link changer" href="#">Changer the Deliveryman</a>
+              </div>
             </div>
           </div>
-          <div class="card" style="width: 35rem">
-            <div class="card-body">
-              <p>
-                We have sent 5 digit code by SMS to the carrier() and yourself ({{ deliveryPhone}}) which must be given to the buyer to confirm 
-                the reception of the goods and  money will be release automatically to your account.
-              </p>
+
+         
+
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <table *ngIf="isFundsReleased" class="table">
+                  <h4
+                    style="
+                      color: #497dd5;
+                      margin: 8px;
+                      font-size: medium;
+                      
+                      margin-top: 15px;
+                      margin-right: 20px;
+                    "
+                  >
+                    Buyer's Funds locked?
+                  </h4>
+                  <p style="margin-left: 10px">
+                    We have sent 5 digits code by SMS to the carrier
+                    {{ deliveryPhone }} and yourself {{ sellerPhone }} which
+                    must be given to the buyer to confirm the reception of the
+                    goods and money will be released automatically to your
+                    account.
+                  </p>
+                </table>
+                <table *ngIf="!isFundsReleased" class="table">
+                  <h5 style="color: #497dd5; margin: 8px">
+                    Awaiting for the funds to be secured
+                  </h5>
+                  <p style="margin-left: 10px">
+                    we let you know once the buyer secured the funds with
+                    Noworri
+                  </p>
+                </table>
+              </div>
             </div>
           </div>
         </div>
         <div class="card-body">
           <div id="TransactionResume"></div>
           <div class="Billing">
-            <h5 class="BILLINGINFORMATION">Billing information </h5>
+            <h5 class="BILLINGINFORMATION">Billing information</h5>
             <div class="row" id="Calcule1">
               <div class="col-sm">
                 <h6 class="Shoesandsock">{{ item }}</h6>
@@ -68,7 +100,7 @@
                 <h6 class="Buyersusername">Buyer</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcule3">{{ amount }}</h6>
+                <h6 class="Calcule3">{{ sellerPhone }}</h6>
               </div>
             </div>
             <div class="row">
@@ -76,7 +108,7 @@
                 <h6 class="Sellersusername">Seller</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcul3">{{ noworriFee }}</h6>
+                <h6 class="Calcul3">{{ sellerPhone }}</h6>
               </div>
             </div>
             <div class="row">
@@ -84,7 +116,7 @@
                 <h6 class="Sellersusername">Deliveryman</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcul3">{{ noworriFee }}</h6>
+                <h6 class="Calcul3">{{ deliveryPhone }}</h6>
               </div>
             </div>
             <div class="row">
@@ -96,15 +128,22 @@
             </div>
           </div>
           <div id="Requirement">
-            <div id="Paragraphe"></div>
+            <div id="Paragraphe">
+              {{ description }}
+            </div>
           </div>
-          <div class="text-center">
-            <button type="button" class="btn btn-primary">Withdraw</button>
+          <div *ngIf="isFundsReleased" class="text-center">
+            <button
+              type="submit"
+              *ngIf="!isValidating"
+              (click)="onWithdraw()"
+              mat-raised-button
+            >
+              Withdraw:{{ amount }} GHC
+            </button>
           </div>
-        
           <div class="row">
             <div class="col-sm"></div>
-            
           </div>
         </div>
       </div>

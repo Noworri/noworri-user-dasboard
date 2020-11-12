@@ -16,8 +16,8 @@
                 <div class="form-group form-primary">
                   <mat-form-field class="col-md-12">
                     <mat-label>Phone number</mat-label>
-                    <span matPrefix>+233 &nbsp;</span>
-                    <input type="tel" matInput  formControlName='phone_number'/>
+                    <span matPrefix>{{prefixContryCode}} &nbsp;</span>
+                    <input type="tel" *ngIf='phoneNumberInput' matInput  formControlName='phone_number'/>
                   </mat-form-field> 
                 </div>
                 <div class="form-group form-primary">
@@ -55,7 +55,7 @@
                     <button
                       type="submit"
                       class="btn btn-primary btn-md btn-block text-center m-b-20 ripple light"
-                      (click)='OnLogin()'
+                      (click)='onLogin()'
                     >
                     <div *ngIf="isValidating" class="Loading">
                       <span
