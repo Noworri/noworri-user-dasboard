@@ -55,7 +55,6 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.mobile_phone = sessionData.mobile_phone;
     this.initiator_id = sessionData.user_uid;
     const escrowStep2Data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    console.log(escrowStep2Data)
     this.item = escrowStep2Data.name;
     this.amount = +escrowStep2Data.price + +escrowStep2Data.noworriFee;
     this.sellerNumber = escrowStep2Data.seller;
