@@ -254,10 +254,10 @@
         font-weight: 400;
         font-size: 15px;
         margin-left: 20px;
-        margin-top: -6px;
+        margin-top: 20px;
       }
       .link {
-        margin-top: -15px;
+        margin-top: 10px;
         margin-right: -200px;
         a {
           text-decoration: underline;
@@ -270,6 +270,20 @@
         margin-left: 30px;
         p {
         }
+      }
+      table {
+        margin-top: 80px;
+        margin-left: -40px;
+        border: 2px solid;
+        border-color: rgb(238, 234, 234);
+        margin-bottom: -20px;
+      }
+      .howTo {
+        font-size: medium;
+        margin-left: -50px;
+        color: #497DD5;
+        margin-top: 15px;
+        margin-right: 20px;
       }
     }
   }
@@ -298,9 +312,9 @@
       font-size: small;
       font-weight: bold;
       color: blue;
-    &:hover{
-    text-decoration: underline;
-    }
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -313,12 +327,21 @@
       margin: 7px;
       width: 100px;
       border-radius: 5px;
-      background-color: red;
+      background-color: white;
+      border-color: #497DD5;
     }
   }
-  button{
+  button {
     background-color: #7a4bff;
     color: white;
     font-size: small;
   }
 }
+.alerteCard{
+  margin-top: 88px;
+  width: 677px;
+  margin-left:35px;
+  margin-bottom: -10px;
+  height: 30px;
+}
+

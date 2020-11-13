@@ -3,13 +3,15 @@
     <div class="col-sm" id="col-sm">
       <div class="card">
         <div class="ServiceStep2">
-          <mat-icon class="cancel" routerLink=''>cancel</mat-icon>
+          <mat-icon class="cancel" routerLink="">cancel</mat-icon>
           <h6>Escrow Merchandise</h6>
           <hr
-            style="  width: 600px;
-            border-color: 1px solid #707070;
-            border-width: 1.9px;
-            opacity: 1;"
+            style="
+              width: 600px;
+              border-color: 1px solid #707070;
+              border-width: 1.9px;
+              opacity: 1;
+            "
           />
         </div>
         <div class="card-body">
@@ -19,15 +21,13 @@
             </h5>
           </div>
           <div class="Billing">
-            <h5 class="BILLINGINFORMATION">
-              Billing information
-            </h5>
+            <h5 class="BILLINGINFORMATION">Billing information</h5>
             <div class="row" id="Calcule1">
               <div class="col-sm">
-                <h6 class="Shoesandsock">  {{item}}</h6>
+                <h6 class="Shoesandsock">{{ item }}</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Tolale1"> {{price}} </h6>
+                <h6 class="Tolale1">{{ price }}</h6>
               </div>
             </div>
             <div class="row" id="Calcule2">
@@ -38,29 +38,31 @@
                       <h6 class="NoworriFees">Noworri Charges</h6>
                     </div>
                     <div class="col-sm">
-                      <h6 class="Tolale2"> {{noworriFee}} </h6>
+                      <h6 class="Tolale2">{{ noworriFee }}</h6>
                     </div>
                   </div>
                 </h6>
               </div>
             </div>
             <hr
-              style="  width: 600px;
-            border-color: 1px solid black;
-            border-width: 1.9px;
-            opacity: 1;"
+              style="
+                width: 600px;
+                border-color: 1px solid black;
+                border-width: 1.9px;
+                opacity: 1;
+              "
             />
             <div class="row" id="Tolale3">
               <div class="col-sm">
                 <h6 class="NETPAYABLE">NET PAYABLE</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Tolale3">{{amount}}</h6>
+                <h6 class="Tolale3">{{ amount }}</h6>
               </div>
             </div>
           </div>
           <div class="MoreInformation">
-            <h5 class="MOREINFORMATIONS">More informations </h5>
+            <h5 class="MOREINFORMATIONS">More informations</h5>
             <div class="row">
               <!-- <div class="col-sm">
                 <h6 class="NumberofRevisions">Number of Revisions</h6>
@@ -82,7 +84,7 @@
                 <h6 class="Buyersusername">Buyer</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcule3"> {{ mobile_phone}} </h6>
+                <h6 class="Calcule3">{{ mobile_phone }}</h6>
               </div>
             </div>
             <div class="row">
@@ -90,7 +92,7 @@
                 <h6 class="Sellersusername">Seller</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcul3">  {{sellerNumber}} </h6>
+                <h6 class="Calcul3">{{ sellerNumber }}</h6>
               </div>
             </div>
             <div class="row">
@@ -98,19 +100,20 @@
                 <h6 class="Sellersusername">Deliveryman</h6>
               </div>
               <div class="col-sm">
-                <h6 class="Calcul3"> {{deliveryPhone}} </h6>
+                <h6 class="Calcul3">{{ deliveryPhone }}</h6>
               </div>
             </div>
             <div class="row">
               <div class="col-sm">
-                <h6 class="Sellersusername" style="color: black;">Description</h6>
+                <h6 class="Sellersusername" style="color: black">
+                  Description
+                </h6>
               </div>
             </div>
             <div class="row">
               <div class="col-sm">
-                <h6 class="Sellersusername">{{description}}</h6>
+                <h6 class="Sellersusername">{{ description }}</h6>
               </div>
-           
             </div>
           </div>
           <div id="Requirement">
@@ -125,22 +128,32 @@
               <div class="Fichiers">
                 <h6 class="Amelplan"> uploadedFiles </h6>
               </div> -->
-              
             </div>
           </div>
-          
+
           <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm" id="STARTNOWORRI">
-
               <div class="Loading">
                 <button *ngIf="isValidating" mat-raised-button>
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  STARTING...
+                  <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Processing 
                 </button>
               </div>
-              <button type="submit" *ngIf="!isValidating" (click)='onSecureFunds()' mat-raised-button>Lock up:{{amount}} GHC</button>
-             
+              <div class="text-center">
+                <button
+                type="submit"
+                *ngIf="!isValidating"
+                (click)="onSecureFunds()"
+                mat-raised-button
+              >
+                Secured:{{ amount }} GHC
+              </button>
+              </div>
             </div>
           </div>
         </div>

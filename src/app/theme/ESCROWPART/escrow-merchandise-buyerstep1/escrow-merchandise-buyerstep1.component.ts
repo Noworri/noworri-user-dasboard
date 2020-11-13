@@ -45,7 +45,7 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
   price: number;
   escrowStep1Data: MerchandiseEscrowStep1Reference;
   prefixCountryCode: string;
-
+  rawDeliveryPhoneNumber:string;
   waitingDisplayInput: boolean;
 
   // ------- fror recap Modale----- //
@@ -193,15 +193,15 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
     this.escrowStep1Data.item = form.value['item'];
     this.escrowStep1Data.price = form.value['price'];
     this.escrowStep1Data.sellerPhoneNumber = `${this.prefixCountryCode}${sellersForms.value['sellerPhoneNumber']}`;
-    console.log('this.escrowStep1Data.sellerPhoneNumber', this.escrowStep1Data.sellerPhoneNumber);
+    this.rawDeliveryPhoneNumber = deliveryForms.value["deliveryPhoneNumber"];
+    this.deliveryPhoneNumber = this.rawDeliveryPhoneNumber.split(" ").join("").substring(0);
     this.escrowStep1Data.deliveryPhoneNumber =
       deliveryForms.value['deliveryPhoneNumber'] !== undefined
-        ? `${this.prefixCountryCode}${deliveryForms.value['deliveryPhoneNumber']}`
+        ? `${this.prefixCountryCode}${this.deliveryPhoneNumber}`
         : `${this.prefixCountryCode}${sellersForms.value['sellerPhoneNumber']}`;
-
     this.escrowStep1Data.description = form.value['description'];
     this.price = parseInt(this.escrowStep1Data.price, 10);
-    console.log(this.price);
+   
     this.noworriFee = this.getNoworriFee(this.price);
     this.totalAmount =
       parseInt(this.escrowStep1Data.price, 10) + this.noworriFee;
@@ -269,6 +269,7 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
         price: this.price.toFixed(2),
         delivery_phone: this.escrowStep1Data.deliveryPhoneNumber,
         transaction_ref: '',
+        currency:this.currency,
         etat: 2,
       };
       this.orderDetails = JSON.stringify(this.transactionSummary);
@@ -403,67 +404,66 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
       });
   }
 
-  onSecureFunds() {
-    this.isSecuring = true;
-    const transactionData = {
-      email: this.email,
-      amount: this.totalAmount * 100
-    };
-    this.transactionsService
-      .payStackPayment(transactionData)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((response: any) => {
-        this.modalRef.hide();
-        this.checkoutLink = `${response.data.authorization_url}`;
-        this.openModal(this.checkoutTemplate);
-        this.transaction_ref = response.data.reference;
-        setTimeout(() => {
-          this.checkSuccessSecuredFunds(this.transaction_ref);
-        }, 30000);
-        return false;
-      });
-  }
+  // onSecureFunds() {
+  //   this.isSecuring = true;
+  //   const transactionData = {
+  //     email: this.email,
+  //     amount: this.totalAmount * 100
+  //   };
+  //   this.transactionsService
+  //     .payStackPayment(transactionData)
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe((response: any) => {
+  //       this.modalRef.hide();
+  //       this.checkoutLink = `${response.data.authorization_url}`;
+  //       this.openModal(this.checkoutTemplate);
+  //       this.transaction_ref = response.data.reference;
+  //       setTimeout(() => {
+  //         this.checkSuccessSecuredFunds(this.transaction_ref);
+  //       }, 30000);
+  //       return false;
+  //     });
+  // }
 
-  getCheckoutUrl() {
-    console.log(this.checkoutLink);
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.checkoutLink);
-  }
+  // getCheckoutUrl() {
+  //   return this.sanitizer.bypassSecurityTrustResourceUrl(this.checkoutLink);
+  // }
 
-  createTransaction() {
-    this.transactionSummary['transaction_ref'] = this.transaction_ref;
-    this.transactionsService
-      .createTransaction(this.transactionSummary)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((transaction: any) => {
-        this.isSecuring = false;
-        if (transaction.initiator_id && transaction.initiator_id === this.initiator_id && transaction.initiator_role === 'buy') {
-          this.router.navigate([`/buyermerchandisecontrat/${transaction.transaction_key}`]);
-        } else if (transaction.initiator_id && transaction.user_id === this.initiator_id && transaction.initiator_role === 'sell') {
-          this.router.navigate([`/sellermerchandisecontrat/${transaction.transaction_key}`]);
-        } else {
-          console.log('error', transaction);
-        }
-        return transaction;
-      },
-        error => {
-          console.log(error.message);
-        }
-      );
-  }
+  // // createTransaction() {
+  //   this.transactionSummary['transaction_ref'] = this.transaction_ref;
+  //   this.transactionsService
+  //     .createTransaction(this.transactionSummary)
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe((transaction: any) => {
+  //       this.isSecuring = false;
+  //       if (transaction.initiator_id && transaction.initiator_id === this.initiator_id && transaction.initiator_role === 'buy') {
+  //         this.router.navigate([`/buyermerchandisecontrat/${transaction.transaction_key}`]);
+  //       } else if (transaction.initiator_id && transaction.user_id === this.initiator_id && transaction.initiator_role === 'sell') {
+  //         this.router.navigate([`/sellermerchandisecontrat/${transaction.transaction_key}`]);
+  //       } else {
+  //         console.log('error', transaction);
+  //       }
+  //       return transaction;
+  //     },
+  //       error => {
+  //         console.log(error.message);
+  //       }
+  //     );
+  // }
 
-  checkSuccessSecuredFunds(ref) {
-    const transaction_key = '';
-    this.transactionsService
-      .checkTransactionStatus(ref, transaction_key)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((statusData) => {
-        if (statusData.data && statusData.data.status === 'success') {
-          this.modalRef.hide();
-          this.createTransaction();
-        } else {
-          this.ngOnInit();
-        }
-      });
-  }
+  // checkSuccessSecuredFunds(ref) {
+  //   const transaction_key = '';
+  //   this.transactionsService
+  //     .checkTransactionStatus(ref, transaction_key)
+  //     .pipe(takeUntil(this.unsubscribe))
+  //     .subscribe((statusData) => {
+  //       if (statusData.data && statusData.data.status === 'success') {
+  //         this.modalRef.hide();
+  //         this.createTransaction();
+  //       } else {
+  //         this.ngOnInit();
+  //       }
+  //     });
+  // }
 
 }

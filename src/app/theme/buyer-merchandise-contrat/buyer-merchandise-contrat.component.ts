@@ -1,22 +1,22 @@
-import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
-import { TransactionsService } from 'src/app/Service/transactions.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import {isEmpty} from 'lodash'; 
-import { NoworriSearchService } from 'src/app/Service/noworri-search.service';
-import { CompanyReference } from 'src/app/Service/reference-data.interface';
-import { AuthserviceService } from 'src/app/Service/authservice.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit, OnDestroy, TemplateRef } from "@angular/core";
+import { TransactionsService } from "src/app/Service/transactions.service";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { isEmpty } from "lodash";
+import { NoworriSearchService } from "src/app/Service/noworri-search.service";
+import { CompanyReference } from "src/app/Service/reference-data.interface";
+import { AuthserviceService } from "src/app/Service/authservice.service";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { NgForm } from "@angular/forms";
 import { FormGroup, FormBuilder } from "@angular/forms";
 
-const SESSION_STORAGE_KEY = 'noworri-user-session';
+const SESSION_STORAGE_KEY = "noworri-user-session";
 
 @Component({
-  selector: 'app-buyer-merchandise-contrat',
-  templateUrl: './buyer-merchandise-contrat.component.html',
-  styleUrls: ['./buyer-merchandise-contrat.component.scss'],
+  selector: "app-buyer-merchandise-contrat",
+  templateUrl: "./buyer-merchandise-contrat.component.html",
+  styleUrls: ["./buyer-merchandise-contrat.component.scss"],
 })
 export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
@@ -51,6 +51,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   initiator_id: string;
   template: TemplateRef<any>;
   digitFom: FormGroup;
+  displayReleaseButton=true;
 
   sellerPhone: string;
   description: string;
@@ -58,7 +59,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   deliveryPhone: string;
   transactionKey: string;
   modalRef: BsModalRef;
-
+  sucessMessage: boolean;
   constructor(
     private transactionsService: TransactionsService,
     private router: Router,
@@ -68,24 +69,23 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private formBuilder: FormBuilder
   ) {
-    this.transactionKey = this.route.snapshot.paramMap.get('transactionKey');
+    this.transactionKey = this.route.snapshot.paramMap.get("transactionKey");
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.first_name = sessionData.first_name;
     this.email = sessionData.email;
     this.name = sessionData.name;
     this.mobile_phone = sessionData.mobile_phone;
     this.initiator_id = sessionData.user_uid;
-    if (this.mobile_phone.includes('233')) {
-      this.currency = 'GHS';
+    if (this.mobile_phone.includes("233")) {
+      this.currency = "GHS";
     } else {
-      this.currency = 'NGN';
+      this.currency = "NGN";
     }
-
   }
 
   ngOnInit() {
     this.loadUserTransaction(this.transactionKey);
-     this.initDigitForm();
+    this.initDigitForm();
   }
 
   initDigitForm() {
@@ -98,7 +98,6 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     });
   }
 
-
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
@@ -108,7 +107,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     this.openModal(template);
   }
 
-  onInitiateRelease(form: NgForm) {
+  onInitiateRelease() {
     let number1 = this.digitFom.get("number1").value;
     let number2 = this.digitFom.get("number2").value;
     let number3 = this.digitFom.get("number3").value;
@@ -123,22 +122,30 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   }
 
   verifyReleaseCode(releaseData) {
-    this.transactionsService.verifyReleaseCode(releaseData).pipe(takeUntil(this.unsubscribe$))
-    .subscribe((response: any) => {
-      if (response && response.status === 'success') {
-        this.modalRef.hide();
-        this.loadUserTransaction(this.transactionKey);
-      } else {
-        this.isValidCode = false;
-      }
-    });
+    this.transactionsService
+      .verifyReleaseCode(releaseData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response: any) => {
+        if (response && response.status === "success") {
+          this.modalRef.hide();
+          this.sucessMessage = true;
+          this.loadUserTransaction(this.transactionKey);
+          if ((this.isFundsReleased = true)) {
+            this.displayReleaseButton = false;
+          } else {
+            this.displayReleaseButton = true;
+          }
+        } else {
+          this.isValidCode = false;
+        }
+      });
   }
 
   openModal(template: TemplateRef<any>) {
     this.template = template;
     this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'modal-md' })
+      Object.assign({}, { class: "modal-md" })
     );
   }
 
@@ -160,14 +167,15 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     const data = {
       amount: this.amount,
       transaction_ref: transaction_id,
-      currency: 'GHS',
+      currency: "GHS",
     };
     // this.isValidating = true;
-    this.transactionsService.initiateRefundPaystack(data).pipe(takeUntil(this.unsubscribe$)).subscribe(
-      response => {
+    this.transactionsService
+      .initiateRefundPaystack(data)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
         return response;
-      }
-    );
+      });
   }
 
   getPaymentRecipient(sellerId) {
@@ -209,7 +217,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     this.isSecuring = true;
     const transactionData = {
       email: this.email,
-      amount: this.totalAmount * 100
+      amount: this.totalAmount * 100,
     };
     this.transactionsService
       .payStackPayment(transactionData)
@@ -218,8 +226,8 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
         // window.location.href = `${response.data.authorization_url}`;
         window.open(
           `${response.data.authorization_url}`,
-          'popup',
-          'width=500,height=650',
+          "popup",
+          "width=500,height=650",
           false
         );
         this.transaction_ref = response.data.reference;
@@ -236,7 +244,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
       .checkTransactionStatus(ref, transaction_key)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((statusData) => {
-        if (statusData.data && statusData.data.status === 'success') {
+        if (statusData.data && statusData.data.status === "success") {
           this.modalService.hide(1);
           this.loadUserTransaction(this.transactionKey);
         } else {
@@ -250,61 +258,65 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   }
 
   getTotalAmount(price) {
-    const amount  = parseInt(price, 10) + this.getNoworriFee(price);
+    const amount = parseInt(price, 10) + this.getNoworriFee(price);
     return amount;
   }
 
   getSellerDetails(buyerUid) {
-    this.userService.getUserDetailsById(buyerUid)
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe(
-      (user) => {
-        if (isEmpty(user)) {
-          this.sellerPhone  = 'N/A';
-        } else {
-          this.sellerPhone = user.mobile_phone;
-          this.getPaymentRecipient(user.user_uid);
-        }
-        return this.sellerPhone;
-      },
-      (error) => {
-        console.log('Error %j', error.message);
-      }
-    );
-}
-
-  getDestinatorDetails(destinator_id) {
-      this.companyService.getCompanyDetailsByUid(destinator_id).subscribe(
-        (company: CompanyReference) => {
-          if (isEmpty(company)) {
-            this.getSellerDetails(destinator_id);
+    this.userService
+      .getUserDetailsById(buyerUid)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (user) => {
+          if (isEmpty(user)) {
+            this.sellerPhone = "N/A";
           } else {
-            this.sellerPhone = company.businessphone;
-            this.getPaymentRecipient(company.user_id);
+            this.sellerPhone = user.mobile_phone;
+            this.getPaymentRecipient(user.user_uid);
           }
+          return this.sellerPhone;
         },
         (error) => {
-          console.log('Error %j', error.message);
+          console.log("Error %j", error.message);
         }
       );
   }
 
-  cancelOrder() {
-    this.isValidating = true;
-    this.transactionsService.cancelOrder(this.transactionKey).pipe(takeUntil(this.unsubscribe$)).subscribe(
-      response => {
-        setTimeout(() => {
-          this.isValidating = false;
-          this.loadUserTransaction(this.transactionKey);
-        }, 5000);
-        return response;
+  getDestinatorDetails(destinator_id) {
+    this.companyService.getCompanyDetailsByUid(destinator_id).subscribe(
+      (company: CompanyReference) => {
+        if (isEmpty(company)) {
+          this.getSellerDetails(destinator_id);
+        } else {
+          this.sellerPhone = company.businessphone;
+          this.getPaymentRecipient(company.user_id);
+        }
       },
-      error => {
-        this.isValidating = false;
-        console.log(error);
-        // this.router.navigate(['transactions']);
+      (error) => {
+        console.log("Error %j", error.message);
       }
     );
+  }
+
+  cancelOrder() {
+    this.isValidating = true;
+    this.transactionsService
+      .cancelOrder(this.transactionKey)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (response) => {
+          setTimeout(() => {
+            this.isValidating = false;
+            this.loadUserTransaction(this.transactionKey);
+          }, 5000);
+          return response;
+        },
+        (error) => {
+          this.isValidating = false;
+          console.log(error);
+          // this.router.navigate(['transactions']);
+        }
+      );
   }
 
   loadUserTransaction(transaction_id: string) {
@@ -323,18 +335,20 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.totalAmount = this.getTotalAmount(details.price).toFixed(2);
             this.noworriFee = this.getNoworriFee(details.price).toFixed(2);
             this.hasDeliveryPhone = details.delivery_phone ? true : false;
-            this.deliveryPhone = details.delivery_phone ? details.delivery_phone : 'N/A';
+            this.deliveryPhone = details.delivery_phone
+              ? details.delivery_phone
+              : "N/A";
             this.getDestinatorDetails(details.destinator_id);
-            if (details.etat === '3') {
+            if (details.etat === "3") {
               this.isFundsReleased = true;
             }
-            if (details.etat === '2') {
+            if (details.etat === "2") {
               this.isFundsSecured = true;
             }
-            if (details.etat === '0') {
+            if (details.etat === "0") {
               this.isCancelled = true;
             }
-            if (details.etat === '1') {
+            if (details.etat === "1") {
               this.isPending = true;
             }
 

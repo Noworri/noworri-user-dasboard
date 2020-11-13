@@ -55,6 +55,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.mobile_phone = sessionData.mobile_phone;
     this.initiator_id = sessionData.user_uid;
     const escrowStep2Data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    console.log(escrowStep2Data)
     this.item = escrowStep2Data.name;
     this.amount = +escrowStep2Data.price + +escrowStep2Data.noworriFee;
     this.sellerNumber = escrowStep2Data.seller;
@@ -64,16 +65,15 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.transactionType = escrowStep2Data.transactionType;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
-    console.log(escrowStep2Data);
     this.description = escrowStep2Data.requirement || '';
     this.destinator_id = escrowStep2Data.destinator_id;
     this.wholeAmountPart = Math.trunc(this.amount);
-    this.decimalPart = parseFloat(
-      Math.abs(this.amount).toString().split('.')[1]
-    );
-    if (!this.decimalPart) {
-      this.decimalPart = '00';
-    }
+    // this.decimalPart = parseFloat(
+    //   Math.abs(this.amount).toString().split('.')[1]
+    // );
+    // if (!this.decimalPart) {
+    //   this.decimalPart = '00';
+    // }
     this.transactionDetails = {
       initiator_id: this.initiator_id,
       initiator_role: this.initiator_role,
@@ -209,8 +209,9 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
         (transaction: any) => {
           setTimeout(() => {
             this.checkSuccessSecuredFunds(this.transaction_ref, transaction);
-          }, 40000);
+          }, 2000);
           return transaction;
+        
         },
         (error) => {
           console.log(error.message);
@@ -221,10 +222,15 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
   checkSuccessSecuredFunds(ref, transaction) {
     this.transactionsService
       .checkTransactionStatus(ref, transaction.transaction_key)
+
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((statusData) => {
         if (statusData.data && statusData.data.status === 'success') {
-          this.isValidating = false;
+          // this.isValidating = false;
+          //------J'ai fait ca juste pour contunier  j'y viendrai --//
+          this.router.navigate([
+            `/buyermerchandisecontrat/${transaction.transaction_key}`,
+          ]);
           if (
             transaction.initiator_id &&
             transaction.initiator_id === this.initiator_id &&

@@ -234,43 +234,49 @@
       box-shadow: 0px 3px 6px #00000029;
       border-radius: 14px;
       opacity: 1;
-      .cancel {
-        margin-left: 610px;
-        font-size: 25px;
-        margin-bottom: 9px;
-        margin-top: 6px;
-        opacity: 1;
-        color: red;
-        cursor: pointer;
-      }
+     
     }
     .ServiceStep2 {
-      h6 {
-        text-align: left;
-        font: Regular 40px/60px Poppins;
-        letter-spacing: 0;
-        color: black;
-        opacity: 1;
-        font-weight: 400;
-        font-size: 15px;
-        margin-left: 20px;
-        margin-top: -6px;
-      }
-      .link {
-        margin-top: -15px;
-        margin-right: -6px;
-        a {
-          text-decoration: underline;
-          font-weight: bold;
-          font-size: 13px;
-        }
-      }
-      .card {
-        margin-bottom: -30px;
-        margin-left: 30px;
-        p {
-        }
-      }
+     .transation{
+       margin-left:-40px;
+       margin-top: 30px;
+     
+     }
+     .cancel{
+       margin-left: -43px;
+       margin-top: 18px;
+       font-size: 16px;
+       text-decoration: underline;
+     }
+     .changer{
+      margin-left: -37px;
+      margin-top: 19px;
+      font-size: 14px;
+      text-decoration: underline;
+     }
+      
+    }
+    table{
+      margin-top: 30px;
+      margin-left: -40px;
+      border: 2px solid;
+      border-color: rgb(238, 234, 234);
+      margin-bottom: -20px;
+      
+    }
+    button {
+      background: #497DD5 0% 0% no-repeat padding-box;
+      border-radius: 7px;
+      opacity: 1;
+      margin-left: 30px;
+      text-align: left;
+      font-size: small;
+      font: Regular 4px/35px Poppins;
+      letter-spacing: 0;
+      color: #ffffff;
+      opacity: 1;
+      top: 40px;
+      margin-bottom: 30px;
     }
   }
 }
