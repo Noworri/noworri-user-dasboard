@@ -73,20 +73,17 @@ export class EscrowMerchandiseSellerstep2Component implements OnInit {
     this.destinator_id = escrowStep2Data.destinator_id;
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   onConfirmTransaction() {
     this.transactionSummary = JSON.parse(
       localStorage.getItem(TRANSATION_SUMMURYKEY)
     );
     this.createTransaction(this.transactionSummary);
-   
   }
-  
+
   createTransaction(transactionDetails) {
-      //------J'ai fait ca juste pour contunier  j'y viendrai --//
+    //------J'ai fait ca juste pour contunier  j'y viendrai --//
     this.isValidating = true;
     this.transactionsService
       .createTransaction(transactionDetails)
@@ -94,14 +91,16 @@ export class EscrowMerchandiseSellerstep2Component implements OnInit {
       .subscribe(
         (transaction: any) => {
           if (
-            transaction.initiator_id === this.initiator_id &&
+            transaction.initiator_id &&
+            transaction.user_id === this.initiator_id &&
             transaction.initiator_role === "buy"
           ) {
             this.router.navigate([
               `/buyermerchandisecontrat/${transaction.transaction_key}`,
             ]);
           } else if (
-            transaction.initiator_id === this.initiator_id &&
+            transaction.initiator_id &&
+            transaction.user_id === this.initiator_id &&
             transaction.initiator_role === "sell"
           ) {
             this.router.navigate([
@@ -115,19 +114,6 @@ export class EscrowMerchandiseSellerstep2Component implements OnInit {
         (error) => {
           console.log(error.message);
         }
-
-        //   if (transaction.initiator_id && transaction.user_id === this.initiator_id && transaction.initiator_role === 'buy') {
-        //     this.router.navigate([`/buyermerchandisecontrat/${transaction.transaction_key}`]);
-        //   } else if (transaction.initiator_id && transaction.user_id === this.initiator_id && transaction.initiator_role === 'sell') {
-        //     this.router.navigate([`/sellermerchandisecontrat/${transaction.transaction_key}`]);
-        //   } else {
-        //     console.log('error', transaction);
-        //   }
-        //   return transaction;
-        // },
-        //   error => {
-        //     console.log(error.message);
-        //   }
       );
   }
 }
