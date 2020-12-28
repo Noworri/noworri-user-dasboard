@@ -11,7 +11,6 @@ import { NgForm } from '@angular/forms';
 import { setTNodeAndViewData } from '@angular/core/src/render3/state';
 import { takeUntil } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -39,6 +38,7 @@ export class RegisterComponent implements OnInit {
   userData: object;
   file: File;
   codeError: string;
+  hasError = false;
 
   country: string;
   uid: string;
@@ -89,6 +89,7 @@ export class RegisterComponent implements OnInit {
       })
       .catch((error) => {
         console.log('Error', error.message);
+        this.hasError = true;
         this.codeError = error.message;
       });
   }
@@ -99,7 +100,7 @@ export class RegisterComponent implements OnInit {
     this.email = form.value['email'];
     this.username = form.value['username'];
     this.photo = '';
-    this.code = '';
+    this.code = form.value['countryCode'];
     this.country = form.value['country'];
     this.isBuyer = null;
     this.isSeller = null;
@@ -135,47 +136,39 @@ export class RegisterComponent implements OnInit {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(() => {
           firebase.auth().onAuthStateChanged((user) => {
-            firebase
-              .firestore()
-              .collection('users')
-              .doc(user.uid)
-              .set({
-                mobilPhone,
-                lastname,
-                firstname,
-                Email,
-                username,
-                password,
-              })
-              .then((response: any) => {
-                console.log('createUserWithEmailAndPassword', response);
-                this.userData = {
-                  photo: this.photo,
-                  mobile: mobilPhone,
-                  lastName: lastname,
-                  firstName: firstname,
-                  email: Email,
-                  userName: username,
-                  password: password,
-                  country: this.country,
-                  uid: response.localId,
-                  isBuyer: this.isBuyer,
-                  isSeller: this.isSeller,
-                  type: this.type,
-                  account: this.account,
-                  code: this.code,
-                };
-                console.log('userData', this.userData);
-                this.registerUser(this.userData);
-                this.router.navigate(['home']);
-              })
-              .catch((error) => {
-                setTimeout(() => {
-                  this.codeError = error.message;
-                  this.router.navigate(['/auth/login']);
-                }, 4000);
-              });
+            this.userData = {
+              photo: this.photo,
+              mobile: mobilPhone,
+              lastName: lastname,
+              firstName: firstname,
+              email: Email,
+              userName: username,
+              password: password,
+              country: this.country,
+              uid: user.uid,
+              isBuyer: this.isBuyer,
+              isSeller: this.isSeller,
+              type: this.type,
+              account: this.account,
+              code: this.code,
+            };
+            firebase.firestore().collection('users').doc(user.uid).set({
+              mobilPhone,
+              lastname,
+              firstname,
+              Email,
+              username,
+              password,
+            });
+            this.registerUser(this.userData);
+            this.router.navigate(['home']);
           });
+        })
+        .catch((error) => {
+          setTimeout(() => {
+            this.codeError = error.message;
+            this.router.navigate(['/auth/login']);
+          }, 4000);
         });
     }
   }

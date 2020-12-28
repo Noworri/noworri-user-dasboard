@@ -67,7 +67,7 @@
                           <button type="submit" class="btn btn-success btn-sm" [disabled]="f2.invalid" awNextStep>
                             Verify
                           </button>
-                          <div *ngIf="codeError" class="alert alert-danger" role="alert">
+                          <div *ngIf="hasError" class="alert alert-danger" role="alert">
                             {{ codeError }}
                           </div>
                         </div>

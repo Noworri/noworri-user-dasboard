@@ -76,6 +76,8 @@ export interface UserReference {
     name: string;
     photo: string;
     seller: string;
+    otp: string;
+    status: number;
     token: string;
     token_type: string;
     type: string;
