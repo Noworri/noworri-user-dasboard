@@ -1,5 +1,4 @@
-import { MatTableModule } from '@angular/material/table';
-
+import { MatTableModule } from "@angular/material/table";
 
 import { TermConditionsComponent } from "./theme/privacy/term-conditions/term-conditions.component";
 import { PolicyComponent } from "./theme/privacy/policy/policy.component";
@@ -29,14 +28,13 @@ import { MenuItems } from "./shared/menu-items/menu-items";
 import { BreadcrumbsComponent } from "./layout/admin/breadcrumbs/breadcrumbs.component";
 import { ModalModule, BsModalRef } from "ngx-bootstrap/modal";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import {MatTabsModule} from '@angular/material/tabs';
-
+import { MatTabsModule } from "@angular/material/tabs";
 
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import {NgbTabset} from '@ng-bootstrap/ng-bootstrap'
+import { NgbTabset } from "@ng-bootstrap/ng-bootstrap";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
@@ -47,49 +45,42 @@ import { DisputPageComponent } from "./theme/disput-page/disput-page.component";
 import { PaymentComponent } from "./theme/payment/payment.component";
 import { HomeComponent } from "./theme/home/home.component";
 import { TransactionsComponent } from "./theme/transactions/transactions.component";
-import { SettingsComponent } from "./theme/settings/settings.component"
+import { SettingsComponent } from "./theme/settings/settings.component";
 import { ApiIntegrationComponent } from "./theme/api-integration/api-integration.component";
 import { IntlTelInputNgModule } from "intl-tel-input-ng";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { EditorModule } from "@tinymce/tinymce-angular";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
- import {TabsModule} from 'ngx-bootstrap/tabs';
+import { TabsModule } from "ngx-bootstrap/tabs";
 import { AmazingTimePickerModule } from "amazing-time-picker";
 import { NgPaymentCardModule } from "ng-payment-card";
 import { RegisterComponent } from "./theme/auth/register/register.component";
-import { LoginComponent } from './theme/auth/login/login.component';
-import { BuyerServicesContratComponent } from './theme/buyer-services-contrat/buyer-services-contrat.component';
-import { SellerServicesContratComponent } from './theme/seller-services-contrat/seller-services-contrat.component';
-import { SellerMerchandiseContratComponent } from './theme/seller-merchandise-contrat/seller-merchandise-contrat.component';
-import { BuyerServicesContratModule } from './theme/buyer-services-contrat/buyer-services-contrat.module';
-import { BuyerMerchandiseContratComponent } from './theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component';
-import { HomegetstrustedComponent } from './theme/homegetstrusted/homegetstrusted.component';
-import { FormgetstrustedComponent } from './theme/formgetstrusted/formgetstrusted.component';
-import { IdentityVerificationComponent } from './theme/identity-verification/identity-verification.component';
-import { GetstrutedRecapComponent } from './theme/getstruted-recap/getstruted-recap.component';
-import { SelfiVericationComponent } from './theme/selfi-verication/selfi-verication.component';
-import { MatMenuModule } from '@angular/material/menu';
-import { GeoLocationService } from './Service/geo-location.service';
-import { EscrowServiceBuyerstep1Component } from './theme/ESCROWPART/escrow-service-buyerstep1/escrow-service-buyerstep1.component';
-import { EscrowServiceSellerstep1Component } from './theme/ESCROWPART/escrow-service-sellerstep1/escrow-service-sellerstep1.component';
-import { EscrowServiceSellerstep2Component } from './theme/ESCROWPART/escrow-service-sellerstep2/escrow-service-sellerstep2.component';
-import { EscrowServiceBuyerstep2Component } from './theme/ESCROWPART/escrow-service-buyerstep2/escrow-service-buyerstep2.component';
-import { EscrowMerchandiseBuyerstep1Component } from './theme/ESCROWPART/escrow-merchandise-buyerstep1/escrow-merchandise-buyerstep1.component';
-import { EscrowMerchandiseSellerstep1Component } from './theme/ESCROWPART/escrow-merchandise-sellerstep1/escrow-merchandise-sellerstep1.component';
-import { EscrowMerchandiseSellerstep2Component } from './theme/ESCROWPART/escrow-merchandise-sellerstep2/escrow-merchandise-sellerstep2.component';
-import { EscrowMerchandiseBuyerstep2Component } from './theme/ESCROWPART/escrow-merchandise-buyerstep2/escrow-merchandise-buyerstep2.component';
-import { PayementsComponent } from './theme/PAYEMENTPART/payements/payements.component';
-import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
-import {MatDialogModule} from '@angular/material/dialog';
-import { MatOptionModule, MatSelectModule } from '@angular/material';
-import { DataTableModule } from 'ornamentum';
- 
-
-
-
-
-
-
+import { LoginComponent } from "./theme/auth/login/login.component";
+import { BuyerServicesContratComponent } from "./theme/buyer-services-contrat/buyer-services-contrat.component";
+import { SellerServicesContratComponent } from "./theme/seller-services-contrat/seller-services-contrat.component";
+import { SellerMerchandiseContratComponent } from "./theme/seller-merchandise-contrat/seller-merchandise-contrat.component";
+import { BuyerServicesContratModule } from "./theme/buyer-services-contrat/buyer-services-contrat.module";
+import { BuyerMerchandiseContratComponent } from "./theme/buyer-merchandise-contrat/buyer-merchandise-contrat.component";
+import { HomegetstrustedComponent } from "./theme/homegetstrusted/homegetstrusted.component";
+import { FormgetstrustedComponent } from "./theme/formgetstrusted/formgetstrusted.component";
+import { IdentityVerificationComponent } from "./theme/identity-verification/identity-verification.component";
+import { GetstrutedRecapComponent } from "./theme/getstruted-recap/getstruted-recap.component";
+import { SelfiVericationComponent } from "./theme/selfi-verication/selfi-verication.component";
+import { MatMenuModule } from "@angular/material/menu";
+import { GeoLocationService } from "./Service/geo-location.service";
+import { EscrowServiceBuyerstep1Component } from "./theme/ESCROWPART/escrow-service-buyerstep1/escrow-service-buyerstep1.component";
+import { EscrowServiceSellerstep1Component } from "./theme/ESCROWPART/escrow-service-sellerstep1/escrow-service-sellerstep1.component";
+import { EscrowServiceSellerstep2Component } from "./theme/ESCROWPART/escrow-service-sellerstep2/escrow-service-sellerstep2.component";
+import { EscrowServiceBuyerstep2Component } from "./theme/ESCROWPART/escrow-service-buyerstep2/escrow-service-buyerstep2.component";
+import { EscrowMerchandiseBuyerstep1Component } from "./theme/ESCROWPART/escrow-merchandise-buyerstep1/escrow-merchandise-buyerstep1.component";
+import { EscrowMerchandiseSellerstep1Component } from "./theme/ESCROWPART/escrow-merchandise-sellerstep1/escrow-merchandise-sellerstep1.component";
+import { EscrowMerchandiseSellerstep2Component } from "./theme/ESCROWPART/escrow-merchandise-sellerstep2/escrow-merchandise-sellerstep2.component";
+import { EscrowMerchandiseBuyerstep2Component } from "./theme/ESCROWPART/escrow-merchandise-buyerstep2/escrow-merchandise-buyerstep2.component";
+import { PayementsComponent } from "./theme/PAYEMENTPART/payements/payements.component";
+import { NgbTabsetModule } from "@ng-bootstrap/ng-bootstrap";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatOptionModule, MatSelectModule } from "@angular/material";
+import { DataTableModule } from "ornamentum";
 
 @NgModule({
   declarations: [
@@ -130,7 +121,6 @@ import { DataTableModule } from 'ornamentum';
     EscrowMerchandiseSellerstep2Component,
     EscrowMerchandiseBuyerstep2Component,
     PayementsComponent,
-  
   ],
   imports: [
     BrowserModule,
@@ -163,10 +153,16 @@ import { DataTableModule } from 'ornamentum';
     MatTabsModule,
     MatDialogModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   schemas: [],
-  providers: [MenuItems, HomeInputService, RegisterService, BsModalRef, GeoLocationService],
+  providers: [
+    MenuItems,
+    HomeInputService,
+    RegisterService,
+    BsModalRef,
+    GeoLocationService,
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
