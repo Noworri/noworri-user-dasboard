@@ -1,5 +1,12 @@
-.full{
-  background: url('src/assets/homebg.jpg');
-  
-  padding: 35px;
+#phoneNumberForms {
+  margin-left: 15px;
+  .labelPhoneNumber {
+    margin-left: -3px;
+    font-size: small;
+    font-weight: 500;
+    color: gray;
+  }
+  #input {
+    margin-left: -4px;
+  }
 }

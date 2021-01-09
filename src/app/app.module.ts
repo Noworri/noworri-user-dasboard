@@ -1,3 +1,8 @@
+import { Forgot2Component } from "./theme/auth/forgot2/forgot2.component";
+import { ForgotComponent } from "./theme/auth/forgot/forgot.component";
+import { RegisterStep3Component } from "./theme/auth/register/register-step3/register-step3.component";
+import { RegisterStep2Component } from "./theme/auth/register/register-step2/register-step2.component";
+import { RegisterStep1Component } from "./theme/auth/register/register-step1/register-step1.component";
 import { MatTableModule } from "@angular/material/table";
 
 import { TermConditionsComponent } from "./theme/privacy/term-conditions/term-conditions.component";
@@ -82,6 +87,11 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatOptionModule, MatSelectModule } from "@angular/material";
 import { DataTableModule } from "ornamentum";
 
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireStorageModule } from "@angular/fire/storage";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,6 +131,11 @@ import { DataTableModule } from "ornamentum";
     EscrowMerchandiseSellerstep2Component,
     EscrowMerchandiseBuyerstep2Component,
     PayementsComponent,
+    RegisterStep1Component,
+    RegisterStep2Component,
+    RegisterStep3Component,
+    ForgotComponent,
+    Forgot2Component,
   ],
   imports: [
     BrowserModule,
@@ -154,7 +169,11 @@ import { DataTableModule } from "ornamentum";
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
   ],
+
   schemas: [],
   providers: [
     MenuItems,

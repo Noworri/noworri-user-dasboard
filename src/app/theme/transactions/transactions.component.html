@@ -93,138 +93,134 @@
                 [pageSize]="20"
                 [pageSizeOptions]="[25, 50, 100, 250]">
             </mat-paginator> -->
-          
+
           <div class="table-data">
-            <ng-data-table
-            *ngIf="tableData"
-            [id]="'transactions'"
-            [title]="'Transactions'"
-            [showLoadingSpinner]="false" transationData
-            [items]="tableData"
-            [pageable]="true"
-            [page]="1"
-            [limit]="10"
-            [minContentHeight]="200"
-            class = "table table-bordered table-striped table-sm"
-          >
-            <ng-data-table-column
-              [field]="'created_at'"
-              [title]="'Date'"
-              [sortable]="true"
-              [filterable]="true"
-              [width]="30"
+            <!-- <ng-data-table
+              *ngIf="tableData"
+              [id]="'transactions'"
+              [title]="'Transactions'"
+              [showLoadingSpinner]="false"
+              transationData
+              [items]="tableData"
+              [pageable]="true"
+              [page]="1"
+              [limit]="10"
+              [minContentHeight]="200"
+              class="table table-bordered table-striped table-sm"
             >
-            <ng-template #ngDataTableCell let-row="row">
-                <td>
-                  <button
-                  (click)="
-                    onViewTransactionDetails(
-                      row.item.transaction_key,
-                      row.item.initiator_role,
-                      row.item.destinator_role,
-                      row.item.initiator_phone,
-                      row.item.destinator_phone,
-                      row.item.transaction_type
-                    )
-                  "
-                >
-                  <i class="fa fa-eye"></i>
-                </button>
-                  &nbsp;
-                  {{ row.item.created_at }}
-                </td>
-            </ng-template>
-            </ng-data-table-column>
-            <ng-data-table-column
-              [field]="'transaction_key'"
-              [title]="'Transaction ID'"
-              [sortable]="true"
-              [filterable]="true"
-              [width]="30"
-            >
-            </ng-data-table-column>
-            <ng-data-table-column
-              [field]="'transaction_type'"
-              [title]="'Transaction Type'"
-              [sortable]="true"
-              [filterable]="true"
-              [width]="30"
-            >
-            </ng-data-table-column>
-            <ng-data-table-column
-              [field]="'buyerPhone'"
-              [title]="'Buyer'"
-              [sortable]="true"
-              [filterable]="true"
-              [width]="30"
-            >
-            </ng-data-table-column>
-            <ng-data-table-column
-              [field]="'sellerPhone'"
-              [title]="'Seller'"
-              [sortable]="true"
-              [filterable]="true"
-              [width]="30"
-            >
-            </ng-data-table-column>
-            <ng-data-table-column
-              [field]="'price'"
-              [title]="'Amount'"
-              [sortable]="true"
-              [filterable]="true"
-              [width]="30"
-            >
-            </ng-data-table-column>
-            <ng-data-table-column
-              [field]="'state'"
-              [title]="'Status'"
-              [sortable]="true"
-              [filterable]="true"
-              [width]="30"
-            >
-            </ng-data-table-column>
-          </ng-data-table>
-            <!-- <table class="table table-bordered table-striped table-sm">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Date</th>
-                  <th>Transaction ID</th>
-                  <th>Transaction Type</th>
-                  <th>Buyer</th>
-                  <th>Seller</th>
-                  <th>Amount Secured</th>
-                  <th>status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of tableData">
+              <ng-data-table-column
+                [field]="'created_at'"
+                [title]="'Date'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              >
+                <ng-template #ngDataTableCell let-row="row">
                   <td>
                     <button
                       (click)="
                         onViewTransactionDetails(
-                          item.transaction_key,
-                          item.initiator_role,
-                          item.destinator_role,
-                          item.initiator_phone,
-                          item.destinator_phone,
-                          item.transaction_type
+                          row.item.transaction_key,
+                          row.item.initiator_role,
+                          row.item.destinator_role,
+                          row.item.initiator_phone,
+                          row.item.destinator_phone,
+                          row.item.transaction_type
                         )
                       "
                     >
                       <i class="fa fa-eye"></i>
                     </button>
+                    &nbsp;
+                    {{ row.item.created_at }}
                   </td>
-                  <td>{{ item.created_at }}</td>
-                  <td>{{ item.transaction_key }}</td>
+                </ng-template>
+              </ng-data-table-column>
+              <ng-data-table-column
+                [field]="'transaction_key'"
+                [title]="'Transaction ID'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              >
+              </ng-data-table-column>
+              <ng-data-table-column
+                [field]="'transaction_type'"
+                [title]="'Transaction Type'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              >
+              </ng-data-table-column>
+              <ng-data-table-column
+                [field]="'buyerPhone'"
+                [title]="'Buyer'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              >
+              </ng-data-table-column>
+              <ng-data-table-column
+                [field]="'sellerPhone'"
+                [title]="'Seller'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              >
+              </ng-data-table-column>
+              <ng-data-table-column
+                [field]="'price'"
+                [title]="'Amount'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              >
+              </ng-data-table-column>
+              <ng-data-table-column
+                [field]="'state'"
+                [title]="'Status'"
+                [sortable]="true"
+                [filterable]="true"
+                [width]="30"
+              >
+              </ng-data-table-column>
+            </ng-data-table> -->
+            <table class="table table-bordered table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Transaction Type</th>
+                  <th>You're dealing with :</th>
+                  <th>Amount Secured</th>
+                  <th>status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  style="cursor: pointer"
+                  (click)="
+                    onViewTransactionDetails(
+                      item.transaction_key,
+                      item.initiator_role,
+                      item.destinator_role,
+                      item.initiator_phone,
+                      item.destinator_phone,
+                      item.transaction_type
+                    )
+                  "
+                  *ngFor="let item of tableData"
+                >
+                  <td>
+                    {{ item.created_at | date: "shortDate" }}
+                    {{ item.created_at | date: "shortTime" }}
+                  </td>
                   <td>{{ item.transaction_type }}</td>
                   <td>{{ item.buyerPhone }}</td>
-                  <td>{{ item.sellerPhone }}</td>
                   <td>{{ item.price }}</td>
                   <td>{{ item.state }}</td>
                 </tr>
               </tbody>
-            </table> -->
+            </table>
             <div #noDataMessage *ngIf="hasNoTransactions">
               <h4 text-align="center">NO TRANSACTIONS CREATED YET</h4>
             </div>
