@@ -1,7 +1,4 @@
-
-
-
-  <div class="full">
+<div class="full">
   <section class="login-block">
     <div class="container-fluid">
       <div class="row">
@@ -25,23 +22,28 @@
                           <p>Please enter your phone number</p>
                         </div>
                         <div class="form-group form-primary">
-                          <mat-form-field class="col-ms-2">
-                            <span>
-                              <mat-select matInput id="countryCode" name="countryCode" ngModel>
-                                <mat-option value="+223" selected>+223</mat-option>
-                                <mat-option value="+234">+234</mat-option>
-                                <mat-option value="+225">+225</mat-option>
-                              </mat-select>
-                            </span>
-                          </mat-form-field>
-                          <mat-form-field class="col-md-12">
-                            <mat-label>Phone number</mat-label>
-                            <input type="tel" matInput id="mobile_phone" name="mobile_phone" ngModel required />
-                          </mat-form-field>
+                          <mat-label class="labelPhoneNumber"
+                            >Phone number</mat-label
+                          >
+                          <form *ngIf="waitingDisplayInput">
+                            <intl-tel-input
+                              [name]="'phoneNumber'"
+                              [options]="countryData"
+                              [cssClass]="'form-control'"
+                              [onlyLocalized]="true"
+                              [(E164PhoneNumber)]="E164PhoneNumber"
+                            >
+                            </intl-tel-input>
+                          </form>
                           <div class="col" id="recapcha-container"></div>
                         </div>
                         <div class="btn-group mt-10">
-                          <button type="submit" awNextStep class="btn btn-success btn-sm" [disabled]="f1.invalid">
+                          <button
+                            type="submit"
+                            awNextStep
+                            class="btn btn-success btn-sm"
+                            [disabled]="f1.invalid"
+                          >
                             Verify
                           </button>
                         </div>
@@ -57,17 +59,37 @@
                         <div class="form-group form-primary">
                           <mat-form-field class="col-md-12">
                             <mat-label>Verification code</mat-label>
-                            <input type="tel" matInput id="VerificationCode" name="VerificationCode" ngModel required />
+                            <input
+                              type="tel"
+                              matInput
+                              id="VerificationCode"
+                              name="VerificationCode"
+                              ngModel
+                              required
+                            />
                           </mat-form-field>
                         </div>
                         <div class="btn-group mt-10">
-                          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            awPreviousStep
+                          >
                             Back
                           </button>
-                          <button type="submit" class="btn btn-success btn-sm" [disabled]="f2.invalid" awNextStep>
+                          <button
+                            type="submit"
+                            class="btn btn-success btn-sm"
+                            [disabled]="f2.invalid"
+                            awNextStep
+                          >
                             Verify
                           </button>
-                          <div *ngIf="codeError" class="alert alert-danger" role="alert">
+                          <div
+                            *ngIf="hasError"
+                            class="alert alert-danger"
+                            role="alert"
+                          >
                             {{ codeError }}
                           </div>
                         </div>
@@ -75,7 +97,11 @@
                     </form>
                   </aw-wizard-step>
                   <aw-wizard-step id="" stepTitle="Profile">
-                    <form (ngSubmit)="GetProfileInformation(f3)" class="md-float-material form-material" #f3="ngForm">
+                    <form
+                      (ngSubmit)="GetProfileInformation(f3)"
+                      class="md-float-material form-material"
+                      #f3="ngForm"
+                    >
                       <div class="centered-content">
                         <div>
                           <p>Enter your profile information</p>
@@ -83,14 +109,28 @@
                         <div class="form-group form-primary">
                           <mat-form-field class="col-md-12">
                             <mat-label>Your Last Name</mat-label>
-                            <input type="text" matInput id="lastname" name="lastname" ngModel required />
+                            <input
+                              type="text"
+                              matInput
+                              id="lastname"
+                              name="lastname"
+                              ngModel
+                              required
+                            />
                           </mat-form-field>
                           <span class="form-bar"></span>
                         </div>
                         <div class="form-group form-primary">
                           <mat-form-field class="col-md-12">
                             <mat-label>Your firstname</mat-label>
-                            <input type="text" matInput id="firstname" name="firstname" ngModel required />
+                            <input
+                              type="text"
+                              matInput
+                              id="firstname"
+                              name="firstname"
+                              ngModel
+                              required
+                            />
                           </mat-form-field>
                           <span class="form-bar"></span>
                           <label class="float-label"></label>
@@ -98,14 +138,28 @@
                         <div class="form-group form-primary">
                           <mat-form-field class="col-md-12">
                             <mat-label>Email</mat-label>
-                            <input type="text" matInput id="Email" name="email" ngModel required />
+                            <input
+                              type="text"
+                              matInput
+                              id="Email"
+                              name="email"
+                              ngModel
+                              required
+                            />
                           </mat-form-field>
                           <span class="form-bar"></span>
                         </div>
                         <div class="form-group form-primary">
                           <mat-form-field class="col-md-12">
                             <mat-label>Country</mat-label>
-                            <input type="text" matInput id="Country" name="country" ngModel required />
+                            <input
+                              type="text"
+                              matInput
+                              id="Country"
+                              name="country"
+                              ngModel
+                              required
+                            />
                           </mat-form-field>
                           <span class="form-bar"></span>
                           <label class="float-label"></label>
@@ -113,16 +167,32 @@
                         <div class="form-group form-primary">
                           <mat-form-field class="col-md-12">
                             <mat-label>User Name</mat-label>
-                            <input type="text" matInput id="Username" name="username" required ngModel />
+                            <input
+                              type="text"
+                              matInput
+                              id="Username"
+                              name="username"
+                              required
+                              ngModel
+                            />
                           </mat-form-field>
                           <span class="form-bar"></span>
                           <label class="float-label"></label>
                         </div>
                         <div class="btn-group mt-10">
-                          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            awPreviousStep
+                          >
                             Back
                           </button>
-                          <button type="submit" class="btn btn-primary btn-sm" awNextStep [disabled]="f3.invalid">
+                          <button
+                            type="submit"
+                            class="btn btn-primary btn-sm"
+                            awNextStep
+                            [disabled]="f3.invalid"
+                          >
                             Continue
                           </button>
                         </div>
@@ -139,23 +209,41 @@
                         <div class="row">
                           <div class="col-sm-6">
                             <div class="form-group form-primary">
-                              <input type="password" name="password" class="form-control" id="password"
-                                pattern="[A-Z]{1,2}[0-9][0-9A-Z]?\\s?[0-9][A-Z]{2}" ngModel />
+                              <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                id="password"
+                                pattern="[A-Z]{1,2}[0-9][0-9A-Z]?\\s?[0-9][A-Z]{2}"
+                                ngModel
+                              />
                               <span class="form-bar"></span>
                               <label class="float-label">Password</label>
                             </div>
                           </div>
                           <div class="col-sm-6">
                             <div class="form-group form-primary">
-                              <input type="password" name="confirm-password" class="form-control" id="confirm-password"
-                                pattern="[A-Z]{1,2}[0-9][0-9A-Z]?\\s?[0-9][A-Z]{2}" ngModel />
+                              <input
+                                type="password"
+                                name="confirm-password"
+                                class="form-control"
+                                id="confirm-password"
+                                pattern="[A-Z]{1,2}[0-9][0-9A-Z]?\\s?[0-9][A-Z]{2}"
+                                ngModel
+                              />
                               <span class="form-bar"></span>
-                              <label class="float-label">Confirm Password</label>
+                              <label class="float-label"
+                                >Confirm Password</label
+                              >
                             </div>
                           </div>
                         </div>
                         <div class="btn-group mt-10">
-                          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            awPreviousStep
+                          >
                             Back
                           </button>
                           <button type="submit" class="btn btn-primary btn-sm">
@@ -180,10 +268,7 @@
             </div>
           </form>
         </div>
-
       </div>
-
     </div>
-
   </section>
 </div>

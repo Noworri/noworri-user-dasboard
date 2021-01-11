@@ -1,0 +1,118 @@
+<div class="full">
+  <section class="login-block">
+    <!-- Container-fluid starts -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <!-- Authentication card start -->
+          <form
+            (ngSubmit)="onSubmitNewPassword(f2)"
+            #f2="ngForm"
+            class="md-float-material form-material"
+          >
+            <div class="auth-box card">
+              <div class="card-block">
+                <div class="row m-b-20">
+                  <div class="col-md-12">
+                    <h3 class="text-center">New password</h3>
+                  </div>
+                </div>
+
+                <div class="form-group form-primary text-center">
+                  <mat-form-field class="col-md-8">
+                    <mat-label>Password</mat-label>
+                    <input
+                      name="passWord"
+                      id="passWord"
+                      ngModel
+                      matInput
+                      [type]="hide ? 'password' : 'text'"
+                    />
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      (click)="hide = !hide"
+                      [attr.aria-lavel]="'hide password'"
+                      [attr.aria-pressed]="hide"
+                    >
+                      <mat-icon>{{
+                        hide ? "visibility_off" : "visibility"
+                      }}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                  <mat-form-field class="col-md-8">
+                    <mat-label>Retype password</mat-label>
+                    <input
+                      name="confirmPassword"
+                      id="confirmPassword"
+                      ngModel
+                      matInput
+                      [type]="hide ? 'password' : 'text'"
+                    />
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      (click)="hide = !hide"
+                      [attr.aria-lavel]="'hide password'"
+                      [attr.aria-pressed]="hide"
+                    >
+                      <mat-icon>{{
+                        hide ? "visibility_off" : "visibility"
+                      }}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+
+                <div class="row m-t-30">
+                  <div class="col-md-12">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-md btn-block text-center m-b-20 ripple light"
+                    >
+                      <div *ngIf="isValidating" class="Loading">
+                        <span
+                          class="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        Validating...
+                      </div>
+                      <div *ngIf="!isValidating">Change</div>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  *ngIf="isErrorMessage"
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  Your password does not correspond to one of the following
+                  conditions: <br />
+                  -They must be identical <br />
+                  - should contain at least one lower case <br />
+                  - should contain at least one upper case <br />
+                  - should contain at least 8 characters
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-md-10">
+                    <p class="text-inverse text-right">
+                      Don't you have an account yet ?
+                      <a [routerLink]="['/auth/register-step1']"
+                        ><b>Create it here</b></a
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- end of form -->
+        </div>
+        <!-- end of col-sm-12 -->
+      </div>
+      <!-- end of row -->
+    </div>
+    <!-- end of container-fluid -->
+  </section>
+</div>

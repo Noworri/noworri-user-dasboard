@@ -4,7 +4,7 @@ import { from, Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, NgForm, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { countryISO } from "../../../shared/utils/country";
 import { takeUntil } from "rxjs/operators";
@@ -29,16 +29,19 @@ export class LoginComponent implements OnInit {
   isValidating = false;
   hide = true;
   sessionResponse: any;
-  locationData: string;
+  locationData: any;
   unsubscribe = new Subject();
   prefixContryCode: string;
   phone_number: any;
   password: any;
-  rawNumber:string;
-  phone:string;
-  phoneNumberInput=true;
-
-
+  // rawNumber: string;
+  phone: string;
+  isValidCountry = true;
+  countryData: any;
+  waitingDisplayInput: boolean;
+  realPhoneNumber: string;
+  phoneNumberReg = /^\d+$/;
+  isCorrectPhoneEntry: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,35 +55,18 @@ export class LoginComponent implements OnInit {
     if (userData && sessionData) {
       router.navigate(["home"]);
     }
-  }
-
-  ngOnInit() {
-    this.initForm();
     this.getLocationData();
   }
 
-  initForm() {
-    this.loginForm = this.formBuilder.group({
-      phone_number: ["", [Validators.required]],
-      password: ["", [Validators.required]],
-    });
-  }
+  ngOnInit() {}
 
-  onLogin() {
-    
-    this.rawNumber= this.loginForm.get("phone_number").value;
-    if(this.rawNumber.charAt(0)==='0'){
-      this.phone=this.rawNumber.substr(1)
-    }else{
-      this.phone=this.rawNumber
-    }
-    this.phone_number = `${this.prefixContryCode}${this.phone}`;
-    console.log(this.phone_number)
-    this.password = this.loginForm.get("password").value;
-    if (this.phone_number != `+233` && this.password) {
+  onLogin(password) {
+    this.phoneNumberProcessing();
+    this.password = password.value["passWord"];
+    if (this.isCorrectPhoneEntry == true && this.password) {
       this.isValidating = true;
       this.authService
-        .login(this.phone_number, this.password)
+        .login(this.realPhoneNumber, this.password)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe(
           (response: UserReference) => {
@@ -93,6 +79,7 @@ export class LoginComponent implements OnInit {
                 user_uid: response.currentUser.user_uid,
                 photo: response.currentUser.photo,
                 name: response.currentUser.name,
+                status: response.currentUser.status,
               };
               const sessionData = {
                 token: response.currentUser.token,
@@ -114,21 +101,59 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  phoneNumberProcessing() {
+    let rawPhoneNumber = (<HTMLInputElement>(
+      document.getElementById("phoneNumber")
+    )).value;
+    console.log("raw phone number", rawPhoneNumber);
+
+    let phoneNumberWithoutSpace = rawPhoneNumber.split(/\s/).join("");
+    console.log("without ", phoneNumberWithoutSpace);
+    if (phoneNumberWithoutSpace.match(this.phoneNumberReg)) {
+      if (phoneNumberWithoutSpace.charAt(0) === "0") {
+        this.isCorrectPhoneEntry = true;
+        this.realPhoneNumber =
+          this.prefixContryCode + phoneNumberWithoutSpace.substr(1);
+        console.log(this.realPhoneNumber);
+      } else {
+        this.isCorrectPhoneEntry = true;
+        this.realPhoneNumber = this.prefixContryCode + phoneNumberWithoutSpace;
+        console.log(this.realPhoneNumber);
+      }
+    } else {
+      this.isValidUser = false;
+    }
+  }
+
   getLocationData() {
     new Promise((resolve) => {
       this.geoLocationService.getLocation().subscribe((data) => {
-        resolve((this.locationData = data["country"]));
+        resolve((this.locationData = data));
       });
-    }).then(() => {
-      if ((this.locationData === "GH")) {
-        this.prefixContryCode = "+233";
-        console.log(this.locationData)
-      } else if ((this.locationData == "NG")) {
-        this.prefixContryCode = "+234";
-      } else {
-        this.prefixContryCode='We are unfortunately not yet available in your country'
-        this.phoneNumberInput=false
-      }
-    });
+    })
+      .then(() => {
+        if (!this.locationData) {
+          this.waitingDisplayInput = false;
+        } else {
+          this.waitingDisplayInput = true;
+          this.countryData = {
+            preferredCountries: [`${this.locationData}`],
+            localizedCountries: { ng: "Nigeria", gh: "Ghana" },
+            onlyCountries: ["GH", "NG"],
+          };
+        }
+      })
+      .then(() => {
+        if (
+          this.locationData.country_code === "GH" ||
+          this.locationData.country_code === "NG"
+        ) {
+          this.prefixContryCode = this.locationData.country_calling_code;
+          this.isValidCountry = false;
+        } else {
+          this.isValidCountry = true;
+          this.prefixContryCode = "+233";
+        }
+      });
   }
 }

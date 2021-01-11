@@ -1,24 +1,28 @@
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {ToggleFullScreenDirective} from './fullscreen/toggle-fullscreen.directive';
-import {AccordionAnchorDirective} from './accordion/accordionanchor.directive';
-import {AccordionLinkDirective} from './accordion/accordionlink.directive';
-import {AccordionDirective} from './accordion/accordion.directive';
-import {HttpClientModule} from '@angular/common/http';
-import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
-import {TitleComponent} from '../layout/admin/title/title.component';
-import {CardComponent} from './card/card.component';
-import {CardToggleDirective} from './card/card-toggle.directive';
-import {ModalBasicComponent} from './modal-basic/modal-basic.component';
-import {ModalAnimationComponent} from './modal-animation/modal-animation.component';
-import {SpinnerComponent} from './spinner/spinner.component';
-import {ClickOutsideModule} from 'ng-click-outside';
-import {DataFilterPipe} from './elements/data-filter.pipe';
-import { ArchwizardModule } from 'angular-archwizard';
-import { CountdownTimerModule } from 'ngx-countdown-timer';
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ToggleFullScreenDirective } from "./fullscreen/toggle-fullscreen.directive";
+import { AccordionAnchorDirective } from "./accordion/accordionanchor.directive";
+import { AccordionLinkDirective } from "./accordion/accordionlink.directive";
+import { AccordionDirective } from "./accordion/accordion.directive";
+import { HttpClientModule } from "@angular/common/http";
+import {
+  PERFECT_SCROLLBAR_CONFIG,
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarModule,
+} from "ngx-perfect-scrollbar";
+import { TitleComponent } from "../layout/admin/title/title.component";
+import { CardComponent } from "./card/card.component";
+import { CardToggleDirective } from "./card/card-toggle.directive";
+import { ModalBasicComponent } from "./modal-basic/modal-basic.component";
+import { ModalAnimationComponent } from "./modal-animation/modal-animation.component";
+import { SpinnerComponent } from "./spinner/spinner.component";
+import { ClickOutsideModule } from "ng-click-outside";
+import { DataFilterPipe } from "./elements/data-filter.pipe";
+import { ArchwizardModule } from "angular-archwizard";
+import { CountdownTimerModule } from "ngx-countdown-timer";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
+  suppressScrollX: true,
 };
 
 @NgModule({
@@ -28,7 +32,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     ClickOutsideModule,
     ArchwizardModule,
-    CountdownTimerModule.forRoot()
+    CountdownTimerModule.forRoot(),
   ],
   exports: [
     ToggleFullScreenDirective,
@@ -46,7 +50,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ClickOutsideModule,
     DataFilterPipe,
     ArchwizardModule,
-    CountdownTimerModule
+    CountdownTimerModule,
   ],
   declarations: [
     ToggleFullScreenDirective,
@@ -59,14 +63,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModalBasicComponent,
     ModalAnimationComponent,
     SpinnerComponent,
-    DataFilterPipe
+    DataFilterPipe,
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    },
   ],
-  schemas: [ NO_ERRORS_SCHEMA ]
+  schemas: [NO_ERRORS_SCHEMA],
 })
-export class SharedModule { }
+export class SharedModule {}

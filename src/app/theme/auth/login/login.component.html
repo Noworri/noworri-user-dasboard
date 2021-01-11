@@ -5,7 +5,11 @@
       <div class="row">
         <div class="col-sm-12">
           <!-- Authentication card start -->
-          <form class="md-float-material form-material" [formGroup]='loginForm' >
+          <form
+            (ngSubmit)="onLogin(password)"
+            class="md-float-material form-material"
+            #password="ngForm"
+          >
             <div class="auth-box card">
               <div class="card-block">
                 <div class="row m-b-20">
@@ -13,19 +17,45 @@
                     <h3 class="text-center">Sign In</h3>
                   </div>
                 </div>
-                <div class="form-group form-primary">
-                  <mat-form-field class="col-md-12">
+                <div class="form-group form-primary" id="phoneNumberForms">
+                  <mat-label class="labelPhoneNumber">Phone number</mat-label>
+                  <form>
+                    <intl-tel-input
+                      *ngIf="waitingDisplayInput"
+                      [name]="'phoneNumber'"
+                      [options]="countryData"
+                      [cssClass]="'form-control'"
+                      [onlyLocalized]="true"
+                      [(E164PhoneNumber)]="E164PhoneNumber"
+                    >
+                    </intl-tel-input>
+                  </form>
+                  <!-- <mat-form-field class="col-md-12">
                     <mat-label>Phone number</mat-label>
-                    <span matPrefix>{{prefixContryCode}} &nbsp;</span>
-                    <input type="tel" *ngIf='phoneNumberInput' matInput  formControlName='phone_number'/>
-                  </mat-form-field> 
+                    <span matPrefix>{{ prefixContryCode }} &nbsp;</span>
+                    <input type="tel" matInput formControlName="phone_number" />
+                  </mat-form-field> -->
                 </div>
                 <div class="form-group form-primary">
-                  <mat-form-field class="col-md-12" >
+                  <mat-form-field class="col-md-8">
                     <mat-label>Password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" formControlName='password'/>
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-lavel]="'hide password'" [attr.aria-pressed]="hide" >
-                      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    <input
+                      name="passWord"
+                      id="passWord"
+                      ngModel
+                      matInput
+                      [type]="hide ? 'password' : 'text'"
+                    />
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      (click)="hide = !hide"
+                      [attr.aria-lavel]="'hide password'"
+                      [attr.aria-pressed]="hide"
+                    >
+                      <mat-icon>{{
+                        hide ? "visibility_off" : "visibility"
+                      }}</mat-icon>
                     </button>
                   </mat-form-field>
                 </div>
@@ -42,36 +72,45 @@
                     </div>
                     <div class="forgot-phone text-right float-right">
                       <a
-                        
                         class="text-right f-w-600"
+                        [routerLink]="['/auth/forgot']"
                       >
                         Forgot Password?</a
                       >
                     </div>
                   </div>
                 </div>
+                <div
+                  style="margin-top: 30px"
+                  *ngIf="isValidCountry"
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  Sorry we don't operate in your country yet
+                </div>
                 <div class="row m-t-30">
                   <div class="col-md-12">
                     <button
                       type="submit"
                       class="btn btn-primary btn-md btn-block text-center m-b-20 ripple light"
-                      (click)='onLogin()'
                     >
-                    <div *ngIf="isValidating" class="Loading">
-                      <span
-                        class="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                      Validating...
-                    </div>
-                    <div *ngIf="!isValidating">
-                      Sign in
-                    </div>
+                      <div *ngIf="isValidating" class="Loading">
+                        <span
+                          class="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        Validating...
+                      </div>
+                      <div *ngIf="!isValidating">Sign in</div>
                     </button>
                   </div>
                 </div>
-                <div *ngIf="!isValidUser" class="alert alert-danger" role="alert">
+                <div
+                  *ngIf="!isValidUser"
+                  class="alert alert-danger"
+                  role="alert"
+                >
                   Invalid phone Number/password! Please enter valid credentials.
                 </div>
                 <hr />
@@ -79,7 +118,7 @@
                   <div class="col-md-10">
                     <p class="text-inverse text-right">
                       Don't you have an account yet ?
-                      <a [routerLink]="['/auth/register']"
+                      <a [routerLink]="['/auth/register-step1']"
                         ><b>Create it here</b></a
                       >
                     </p>
@@ -96,6 +135,4 @@
     </div>
     <!-- end of container-fluid -->
   </section>
-  
 </div>
-

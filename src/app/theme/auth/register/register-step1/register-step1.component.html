@@ -1,0 +1,139 @@
+<div class="full">
+  <section class="login-block">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="md-float-material form-material">
+            <div class="text-center">
+              <img src="" alt="" />
+            </div>
+            <div class="auth-box card">
+              <div class="card-block">
+                <div class="row m-b-20">
+                  <div class="col-md-12">
+                    <h3 class="text-center txt-primary">Sign up</h3>
+                  </div>
+                </div>
+                <aw-wizard #wizard class="arc-wizard">
+                  <aw-wizard-step stepTitle="Number">
+                    <form (ngSubmit)="onMobileNumberSubmit(f1)" #f1="ngForm">
+                      <div class="centered-content">
+                        <div>
+                          <p>Please enter your phone number</p>
+                        </div>
+                        <div class="form-group form-primary">
+                          <mat-label class="labelPhoneNumber"
+                            >Phone number</mat-label
+                          >
+                          <form *ngIf="waitingDisplayInput">
+                            <intl-tel-input
+                              [name]="'phoneNumber'"
+                              [options]="countryData"
+                              [cssClass]="'form-control'"
+                              [onlyLocalized]="true"
+                              [(E164PhoneNumber)]="E164PhoneNumber"
+                            >
+                            </intl-tel-input>
+                          </form>
+                          <div class="col" id="recapcha-container"></div>
+                        </div>
+                        <div class="btn-group mt-10">
+                          <button type="submit" class="btn btn-success btn-sm">
+                            <span
+                              *ngIf="isLoadingButton"
+                              class="visually-hidden"
+                              >Loading...</span
+                            >
+                            <span *ngIf="isButtonActive">Send</span>
+                          </button>
+                        </div>
+
+                        <form
+                          (ngSubmit)="onSubmitVerificationCode(f2)"
+                          #f2="ngForm"
+                          style="margin-top: 30px"
+                          *ngIf="isSentVerificationCode"
+                        >
+                          <div class="centered-content">
+                            <div>
+                              <p>Please enter your verification code</p>
+                            </div>
+                            <div class="form-group form-primary">
+                              <mat-form-field class="col-md-4">
+                                <mat-label>Verification code</mat-label>
+                                <input
+                                  type="tel"
+                                  matInput
+                                  id="VerificationCode"
+                                  name="VerificationCode"
+                                  ngModel
+                                  required
+                                />
+                              </mat-form-field>
+                            </div>
+                            <div class="btn-group mt-10">
+                              <button
+                                type="submit"
+                                class="btn btn-success btn-sm"
+                              >
+                                <span
+                                  *ngIf="isLoadingButton"
+                                  class="visually-hidden"
+                                  >Loading...</span
+                                >
+                                <span *ngIf="isButtonActive">Send</span>
+                              </button>
+                              <div class="col" id="recapcha-container"></div>
+                              <div
+                                *ngIf="hasError"
+                                class="alert alert-danger"
+                                role="alert"
+                              >
+                                {{ codeError }}
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </form>
+                    <div
+                      *ngIf="isValidCountry"
+                      class="alert alert-danger alerte"
+                      role="alert"
+                    >
+                      Sorry we don't operate in your country yet
+                    </div>
+                    <div
+                      *ngIf="isRegistredNumber"
+                      class="alert alert-danger"
+                      role="alert"
+                    >
+                      Sorry, we cannot create your account, you have already
+                      used this phone number
+                    </div>
+                    <div
+                      *ngIf="isCorrectEntryNotification"
+                      class="alert alert-danger"
+                      role="alert"
+                    >
+                      please correct your entry then press verify
+                    </div>
+                  </aw-wizard-step>
+                </aw-wizard>
+                <hr />
+                <div class="row">
+                  <div class="col-md-10">
+                    <p class="text-inverse text-right">
+                      Already have an account ?
+                      <a [routerLink]="['/auth/login']"><b>Login here</b></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
