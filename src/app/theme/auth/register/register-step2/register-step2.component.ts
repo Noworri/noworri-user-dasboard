@@ -42,35 +42,6 @@ export class RegisterStep2Component implements OnInit {
   }
 
   onSubmitProfilInformation(form: NgForm) {
-    // {
-    //   "user_uid": [
-    //     "The user uid field is required."
-    //   ],
-    //   "email": [
-    //     "The email field is required."
-    //   ],
-    //   "name": [
-    //     "The name field is required."
-    //   ],
-    //   "first_name": [
-    //     "The first name field is required."
-    //   ],
-    //   "mobile_phone": [
-    //     "The mobile phone field is required."
-    //   ],
-    //   "user_name": [
-    //     "The user name field is required."
-    //   ],
-    //   "country_code": [
-    //   ],
-    //   "dailing_code": [
-    //     "The dailing code field is required."
-    //   ],
-    //   "password": [
-    //     "The password field is required."
-    //   ]
-    // }
-
     let userProfilInformation = {
       name: form.value["lastname"],
       first_name: form.value["firstname"],
@@ -83,7 +54,7 @@ export class RegisterStep2Component implements OnInit {
       isSeller: null,
       account: null,
       type: "",
-      country_code: "nb",
+      country_code: "",
     };
     this.processProfilInformation(userProfilInformation);
     this.saveProfilInformation(userProfilInformation);

@@ -34,16 +34,16 @@ export class AuthserviceService {
   register(userData): Observable<any> {
     const url = "https://api.noworri.com/api/register";
     let params = new HttpParams();
-    params = params.append("user_uid", userData.uid);
+    params = params.append("user_uid", userData.user_uid);
     params = params.append("email", userData.email);
-    params = params.append("name", userData.lastName);
-    params = params.append("first_name", userData.firstName);
-    params = params.append("mobile_phone", userData.mobile);
-    params = params.append("user_name", userData.userName);
+    params = params.append("name", userData.name);
+    params = params.append("first_name", userData.first_name);
+    params = params.append("mobile_phone", userData.mobile_phone);
+    params = params.append("user_name", userData.user_name);
     params = params.append("country", userData.country);
     params = params.append("photo", userData.photo);
-    params = params.append("buyer", userData.isBuyer);
-    params = params.append("seller", userData.isSeller);
+    params = params.append("isBuyer", userData.isBuyer);
+    params = params.append("isSeller", userData.isSeller);
     params = params.append("type", userData.type);
     params = params.append("account", userData.account);
     params = params.append("password", userData.password);

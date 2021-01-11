@@ -105,16 +105,20 @@ export class LoginComponent implements OnInit {
     let rawPhoneNumber = (<HTMLInputElement>(
       document.getElementById("phoneNumber")
     )).value;
+    console.log("raw phone number", rawPhoneNumber);
 
     let phoneNumberWithoutSpace = rawPhoneNumber.split(/\s/).join("");
+    console.log("without ", phoneNumberWithoutSpace);
     if (phoneNumberWithoutSpace.match(this.phoneNumberReg)) {
       if (phoneNumberWithoutSpace.charAt(0) === "0") {
         this.isCorrectPhoneEntry = true;
         this.realPhoneNumber =
           this.prefixContryCode + phoneNumberWithoutSpace.substr(1);
+        console.log(this.realPhoneNumber);
       } else {
         this.isCorrectPhoneEntry = true;
         this.realPhoneNumber = this.prefixContryCode + phoneNumberWithoutSpace;
+        console.log(this.realPhoneNumber);
       }
     } else {
       this.isValidUser = false;
@@ -145,7 +149,6 @@ export class LoginComponent implements OnInit {
           this.locationData.country_code === "NG"
         ) {
           this.prefixContryCode = this.locationData.country_calling_code;
-          console.log(this.prefixContryCode);
           this.isValidCountry = false;
         } else {
           this.isValidCountry = true;

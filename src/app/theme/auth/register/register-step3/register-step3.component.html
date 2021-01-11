@@ -55,12 +55,17 @@
                           <button
                             type="button"
                             class="btn btn-secondary btn-sm"
-                            href="auth/register-step3"
+                            [routerLink]="['/auth/register-step2']"
                           >
                             Back
                           </button>
                           <button type="submit" class="btn btn-primary btn-sm">
-                            finish
+                            <span
+                              *ngIf="isLoadingButton"
+                              class="visually-hidden"
+                              >Loading...</span
+                            >
+                            <span *ngIf="isButtonActive"> finish</span>
                           </button>
                         </div>
                         <div
@@ -75,6 +80,16 @@
                           - should contain at least one lower case <br />
                           - should contain at least one upper case <br />
                           - should contain at least 8 characters
+                        </div>
+                        <div
+                          *ngIf="isSuccesMessage"
+                          style="margin-top: 30px"
+                          class="alert alert-primary"
+                          role="alert"
+                        >
+                          congratulations ! your account has been created
+                          successfully please log in with your authentication
+                          information
                         </div>
                       </div>
                     </form>

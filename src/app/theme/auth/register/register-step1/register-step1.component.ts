@@ -160,8 +160,7 @@ export class RegisterStep1Component implements OnInit {
 
     setTimeout(() => {
       if (this.isRegistredNumber == false) {
-        let num = "+22996932147";
-        this.sendVerificationCode(num);
+        this.sendVerificationCode(this.realPhoneNumber);
       }
     }, 3000);
   }
@@ -207,68 +206,4 @@ export class RegisterStep1Component implements OnInit {
     this.account = null;
     this.type = "";
   }
-  // registerUser(userData) {
-  //   this.authService
-  //     .register(userData)
-  //     .pipe(takeUntil(this.unsubscribe$))
-  //     .subscribe((response) => {
-  //       console.log("register response", response);
-  //       return response;
-  //     });
-  // }
-
-  // onRegisterSubmit(form: NgForm) {
-  //   this.password = form.value["password"];
-  //   this.password_confirm = form.value["confirm-password"];
-  //   const mobilPhone = this.mobile_phone;
-  //   const lastname = this.lastName;
-  //   const firstname = this.firstName;
-  //   const Email = this.email;
-  //   const username = this.username;
-  //   const password = this.password;
-
-  //   if (this.password !== this.password_confirm) {
-  //     return null;
-  //   } else {
-  //     firebase
-  //       .auth()
-  //       .createUserWithEmailAndPassword(this.email, this.password)
-  //       .then(() => {
-  //         firebase.auth().onAuthStateChanged((user) => {
-  //           this.userData = {
-  //             photo: this.photo,
-  //             mobile: mobilPhone,
-  //             lastName: lastname,
-  //             firstName: firstname,
-  //             email: Email,
-  //             userName: username,
-  //             password: password,
-  //             country: this.country,
-  //             uid: user.uid,
-  //             isBuyer: this.isBuyer,
-  //             isSeller: this.isSeller,
-  //             type: this.type,
-  //             account: this.account,
-  //             code: this.code,
-  //           };
-  //           firebase.firestore().collection("users").doc(user.uid).set({
-  //             mobilPhone,
-  //             lastname,
-  //             firstname,
-  //             Email,
-  //             username,
-  //             password,
-  //           });
-  //           this.registerUser(this.userData);
-  //           this.router.navigate(["home"]);
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         setTimeout(() => {
-  //           this.codeError = error.message;
-  //           this.router.navigate(["/auth/login"]);
-  //         }, 4000);
-  //       });
-  //   }
-  // }
 }

@@ -21,6 +21,10 @@ export class RegisterStep3Component implements OnInit {
   unsubscribe$ = new Subject();
   userUid: string;
   userToken: string;
+  isLoadingButton: boolean;
+  isButtonActive = true;
+  isSuccesMessage: boolean;
+  registredResponse: Object;
 
   constructor(
     private router: Router,
@@ -31,6 +35,8 @@ export class RegisterStep3Component implements OnInit {
   ngOnInit() {}
 
   onSignUpUser(form: NgForm) {
+    this.isLoadingButton = true;
+    this.isButtonActive = false;
     this.getUserData();
     let passWord = form.value["password"];
     let confirm_password = form.value["confirm-password"];
@@ -40,7 +46,14 @@ export class RegisterStep3Component implements OnInit {
     this.signUpWithFirebase(email, passWord, this.userData)
       .then(() => {
         this.signUpUser(passWord).then(() => {
-          console.log("cool");
+          if (this.userToken) {
+            this.isSuccesMessage = true;
+            this.isLoadingButton = false;
+            this.isButtonActive = true;
+            setTimeout(() => {
+              this.router.navigate(["/auth/login"]);
+            }, 3000);
+          }
         });
       })
       .catch((err) => {
@@ -57,6 +70,8 @@ export class RegisterStep3Component implements OnInit {
       this.isCorrectPasswordData = true;
       this.isErrorMessage = false;
     } else {
+      this.isLoadingButton = false;
+      this.isButtonActive = true;
       this.isCorrectPasswordData = false;
       this.isErrorMessage = true;
     }
@@ -80,7 +95,6 @@ export class RegisterStep3Component implements OnInit {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         this.getUserToken().then(() => {
-          console.log(this.userToken);
           this.saveUserDataToFireStore(userProfilData);
         });
       });
@@ -108,12 +122,11 @@ export class RegisterStep3Component implements OnInit {
       fcm_token: "N/A",
       web_token: this.userToken,
     };
-    console.log(userData);
-    this.authService
+    await this.authService
       .register(userData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        console.log("register response", response);
+        this.userToken = response;
       });
   }
 

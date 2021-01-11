@@ -78,7 +78,7 @@
                         </div>
                         <div class="form-group form-primary">
                           <mat-form-field class="col-md-12">
-                            <mat-label>Country:{{userContryName}}</mat-label>
+                            <mat-label>Country:{{ userContryName }}</mat-label>
                             <input
                               type="text"
                               matInput
@@ -111,6 +111,7 @@
                           <button
                             type="button"
                             class="btn btn-secondary btn-sm"
+                            [routerLink]="['/auth/register-step1']"
                           >
                             Back
                           </button>

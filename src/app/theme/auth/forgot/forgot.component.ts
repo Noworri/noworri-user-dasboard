@@ -139,15 +139,16 @@ export class ForgotComponent implements OnInit {
   }
 
   checkTheNumber(realPhoneNumber) {
+    this.isLoadingButton = true;
     this.authService.getUserDetails(realPhoneNumber).subscribe((user) => {
       if (isEmpty(user)) {
-        this.isRegistredNumber = false;
+        this.isLoadingButton = false;
+        this.isRegistredNumber = true;
+      } else {
         sessionStorage.setItem(
           USER_PHONE_NUMBER,
           JSON.stringify(realPhoneNumber)
         );
-      } else {
-        this.isRegistredNumber = true;
         this.isLoadingButton = false;
         this.isButtonActive = true;
       }
