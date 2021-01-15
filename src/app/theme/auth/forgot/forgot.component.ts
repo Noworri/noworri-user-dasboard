@@ -1,6 +1,7 @@
+import { OtpVerificationService } from "./../../../Service/otp-verification.service";
+import { ServiceEscrowStep1Reference } from "./../../../Service/reference-data.interface";
 import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
-import { OtpVerificationService } from "./../../../Service/otp-verification.service";
 import { AuthserviceService } from "src/app/Service/authservice.service";
 import { AuthService } from "./../../../core/auth/auth.service";
 import { GeoLocationService } from "./../../../Service/geo-location.service";
@@ -54,8 +55,7 @@ export class ForgotComponent implements OnInit {
     }
     setTimeout(() => {
       if (this.isRegistredNumber == false) {
-        let num = "+22964037324";
-        this.sendVerificationCode(num);
+        this.sendVerificationCode(this.realPhoneNumber);
       }
     }, 3000);
   }
@@ -113,7 +113,6 @@ export class ForgotComponent implements OnInit {
           this.isValidCountry = false;
         } else {
           this.isValidCountry = true;
-          this.prefixContryCode = "+233";
         }
       });
   }

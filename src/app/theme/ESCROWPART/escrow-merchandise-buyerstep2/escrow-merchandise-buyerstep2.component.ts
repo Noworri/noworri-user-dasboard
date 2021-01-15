@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { TransactionsService } from 'src/app/Service/transactions.service';
-import { takeUntil, isEmpty } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { Router, NavigationStart } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { TransactionsService } from "src/app/Service/transactions.service";
+import { takeUntil, isEmpty } from "rxjs/operators";
+import { Subject } from "rxjs";
+import { Router, NavigationStart } from "@angular/router";
 
-const LOCAL_STORAGE_KEY = 'merchandise-escrow-1';
-const SESSION_STORAGE_KEY = 'noworri-user-session';
+const LOCAL_STORAGE_KEY = "merchandise-escrow-1";
+const SESSION_STORAGE_KEY = "noworri-user-session";
 
 @Component({
-  selector: 'app-escrow-merchandise-buyerstep2',
-  templateUrl: './escrow-merchandise-buyerstep2.component.html',
-  styleUrls: ['./escrow-merchandise-buyerstep2.component.scss'],
+  selector: "app-escrow-merchandise-buyerstep2",
+  templateUrl: "./escrow-merchandise-buyerstep2.component.html",
+  styleUrls: ["./escrow-merchandise-buyerstep2.component.scss"],
 })
 export class EscrowMerchandiseBuyerstep2Component implements OnInit {
   CreditCard: boolean;
@@ -59,14 +59,15 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.amount = +escrowStep2Data.price + +escrowStep2Data.noworriFee;
     this.sellerNumber = escrowStep2Data.seller;
     this.deliveryPhone = escrowStep2Data.delivery_phone;
-    this.initiator_role = escrowStep2Data.role === 'Buyer' ? 'Buy' : 'Sell';
-    this.destinator_role = this.initiator_role === 'Buy' ? 'Sell' : 'Buy';
+    this.initiator_role = escrowStep2Data.role === "Buyer" ? "Buy" : "Sell";
+    this.destinator_role = this.initiator_role === "Buy" ? "Sell" : "Buy";
     this.transactionType = escrowStep2Data.transactionType;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
-    this.description = escrowStep2Data.requirement || '';
+    this.description = escrowStep2Data.requirement || "";
     this.destinator_id = escrowStep2Data.destinator_id;
     this.wholeAmountPart = Math.trunc(this.amount);
+
     // this.decimalPart = parseFloat(
     //   Math.abs(this.amount).toString().split('.')[1]
     // );
@@ -84,7 +85,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       noworri_fees: this.noworriFee,
       total_price: this.amount,
       requirement: this.description,
-      transaction_ref: '',
+      transaction_ref: "",
       etat: 4,
     };
   }
@@ -94,8 +95,8 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (
-          !event.url.startsWith('/escrowmerchandisestep1') &&
-          !event.url.startsWith('/transactions')
+          !event.url.startsWith("/escrowmerchandisestep1") &&
+          !event.url.startsWith("/transactions")
         ) {
           this.clearLocalStorage();
         }
@@ -113,20 +114,20 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
 
   initCreditOrWallet() {
     this.Form = this.formbuilder.group({
-      creditCardValue: '',
+      creditCardValue: "",
     });
-    const RadioValue = this.Form.get('creditCardValue').value;
-    if (RadioValue === '') {
+    const RadioValue = this.Form.get("creditCardValue").value;
+    if (RadioValue === "") {
       this.Mobilewalet = true;
     }
   }
 
   DisplayCardOrWallet() {
-    const RadioValue = this.Form.get('creditCardValue').value;
-    if (RadioValue === 'creditCard') {
+    const RadioValue = this.Form.get("creditCardValue").value;
+    if (RadioValue === "creditCard") {
       this.CreditCard = true;
       this.Mobilewalet = false;
-    } else if (RadioValue === 'mobileWallet') {
+    } else if (RadioValue === "mobileWallet") {
       this.Mobilewalet = true;
       this.CreditCard = false;
     }
@@ -181,17 +182,17 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.isValidating = true;
     const transactionData = {
       email: this.email,
-      amount: this.amount * 100,
+      amount: Math.round(this.amount * 100),
+      currency: "GHS",
     };
     this.transactionsService
       .payStackPayment(transactionData)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response: any) => {
-        // vieux code Emeric regarde onSecureFunds() step 1
         window.open(
           `${response.data.authorization_url}`,
-          'popup',
-          'width=500,height=650'
+          "popup",
+          "width=500,height=650"
         );
         this.transaction_ref = response.data.reference;
         this.createTransaction();
@@ -200,7 +201,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
   }
 
   createTransaction() {
-    this.transactionDetails['transaction_ref'] = this.transaction_ref;
+    this.transactionDetails["transaction_ref"] = this.transaction_ref;
     this.transactionsService
       .createTransaction(this.transactionDetails)
       .pipe(takeUntil(this.unsubscribe))
@@ -210,7 +211,6 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
             this.checkSuccessSecuredFunds(this.transaction_ref, transaction);
           }, 2000);
           return transaction;
-        
         },
         (error) => {
           console.log(error.message);
@@ -224,7 +224,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
 
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((statusData) => {
-        if (statusData.data && statusData.data.status === 'success') {
+        if (statusData.data && statusData.data.status === "success") {
           // this.isValidating = false;
           //------J'ai fait ca juste pour contunier  j'y viendrai --//
           this.router.navigate([
@@ -233,7 +233,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
           if (
             transaction.initiator_id &&
             transaction.initiator_id === this.initiator_id &&
-            transaction.initiator_role === 'Buy'
+            transaction.initiator_role === "Buy"
           ) {
             this.router.navigate([
               `/buyermerchandisecontrat/${transaction.transaction_key}`,
@@ -241,13 +241,13 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
           } else if (
             transaction.initiator_id &&
             transaction.user_id === this.initiator_id &&
-            transaction.initiator_role === 'Sell'
+            transaction.initiator_role === "Sell"
           ) {
             this.router.navigate([
               `/sellermerchandisecontrat/${transaction.transaction_key}`,
             ]);
           } else {
-            console.log('error', transaction);
+            console.log("error", transaction);
           }
         }
       });

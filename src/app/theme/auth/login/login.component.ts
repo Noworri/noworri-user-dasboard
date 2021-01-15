@@ -108,17 +108,15 @@ export class LoginComponent implements OnInit {
     console.log("raw phone number", rawPhoneNumber);
 
     let phoneNumberWithoutSpace = rawPhoneNumber.split(/\s/).join("");
-    console.log("without ", phoneNumberWithoutSpace);
+
     if (phoneNumberWithoutSpace.match(this.phoneNumberReg)) {
       if (phoneNumberWithoutSpace.charAt(0) === "0") {
         this.isCorrectPhoneEntry = true;
         this.realPhoneNumber =
           this.prefixContryCode + phoneNumberWithoutSpace.substr(1);
-        console.log(this.realPhoneNumber);
       } else {
         this.isCorrectPhoneEntry = true;
         this.realPhoneNumber = this.prefixContryCode + phoneNumberWithoutSpace;
-        console.log(this.realPhoneNumber);
       }
     } else {
       this.isValidUser = false;

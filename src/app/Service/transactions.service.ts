@@ -265,6 +265,7 @@ export class TransactionsService {
     let params = new HttpParams();
     params = params.append('email', paymentData.email);
     params = params.append('amount', paymentData.amount);
+    params = params.append('currency', paymentData.currency);
     params = params.append('callback_url', 'https://web.noworri.com/home');
 
     return this.http
