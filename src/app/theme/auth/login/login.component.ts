@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
     let rawPhoneNumber = (<HTMLInputElement>(
       document.getElementById("phoneNumber")
     )).value;
-    console.log("raw phone number", rawPhoneNumber);
+ 
 
     let phoneNumberWithoutSpace = rawPhoneNumber.split(/\s/).join("");
 

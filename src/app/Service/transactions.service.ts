@@ -26,7 +26,7 @@ export class TransactionsService {
           if (typeof values.total_price === undefined) {
             values.total_price = values.price;
           }
-          console.log(values.etat);
+        
           if (values.etat === '0') {
             values.state = 'Cancelled';
           } else if (values.etat === '1') {

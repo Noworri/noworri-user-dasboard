@@ -89,8 +89,8 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     );
     
     this.sellerPhone=sessionData.mobile_phone
-    this.deliveryPhone = transationData.deliveryPhoneNumber;
-    this.buyerPhone=transationData.sellerPhoneNumber
+    // this.deliveryPhone = transationData.deliveryPhoneNumber;
+    // this.buyerPhone=transationData.sellerPhoneNumber
     this.userId = sessionData.user_uid;
     this.email = sessionData.email;
     this.name = sessionData.name;
