@@ -1,3 +1,4 @@
+import { NewBusinessComponent } from './theme/new-business/new-business.component';
 import { Forgot2Component } from "./theme/auth/forgot2/forgot2.component";
 import { ForgotComponent } from "./theme/auth/forgot/forgot.component";
 import { RegisterStep3Component } from "./theme/auth/register/register-step3/register-step3.component";
@@ -182,6 +183,10 @@ const routes: Routes = [
       {
         path: "Settings",
         component: SettingsComponent,
+      },
+      {
+        path: "new-business",
+        component: NewBusinessComponent,
       },
     ],
   },

@@ -38,13 +38,23 @@
                   />
                 </a>
               </div>
-
             </li>
 
             <li class="ripple light" id="ProfilNameEtMail">
               <div class="row">
-                <a (click)="onViewProfile()" class="Nom">{{ currentUser }} {{ lastName }}</a>
-               
+                <a (click)="onViewProfile()" class="Nom"
+                  >{{ currentUser }} {{ lastName }}</a
+                >
+              </div>
+              <div
+                class="row"
+                style="margin-left: -20px; margin-top: -6px"
+                routerLink="/new-business"
+              >
+                <mat-icon style="font-size: 20px">store</mat-icon>
+                <a style="margin-top: -10px; margin-left: -10px"
+                  >Add business</a
+                >
               </div>
             </li>
             <li class="header-search" *ngIf="waitingDisplayInput">
@@ -66,15 +76,14 @@
               class="btn btn-primary"
               type="button"
             >
-              <div 
+              <div
                 style="font-size: 10px"
                 class="spinner-border text-primary"
                 *ngIf="LoadingStatus"
                 role="status"
-              >             
-              </div>
+              ></div>
               <span>
-                <mat-icon style="font-size: 20px;" *ngIf="!LoadingStatus"
+                <mat-icon style="font-size: 20px" *ngIf="!LoadingStatus"
                   >search</mat-icon
                 >
               </span>
@@ -93,11 +102,27 @@
               <mat-icon class="icon">settings</mat-icon>
             </a>
             <mat-menu #menu="matMenu" class="settingMenu">
-              <button style="font-family: roboto;color: gray;" mat-menu-item>Profil</button>
-              <button style="font-family: roboto;color: gray;" mat-menu-item (click)="onRoutingTopayement()">
+              <button
+                routerLink="/Settings"
+                style="font-family: roboto; color: gray"
+                mat-menu-item
+              >
+                Profil
+              </button>
+              <button
+                style="font-family: roboto; color: gray"
+                mat-menu-item
+                (click)="onRoutingTopayement()"
+              >
                 Account
               </button>
-              <button style="font-family: roboto;color: gray;" mat-menu-item (click)="signOut()">Signout</button>
+              <button
+                style="font-family: roboto; color: gray"
+                mat-menu-item
+                (click)="signOut()"
+              >
+                Signout
+              </button>
             </mat-menu>
           </a>
         </div>
@@ -708,7 +733,6 @@
                       [options]="countryData"
                       [name]="'phoneNumber'"
                       [onlyLocalized]="true"
-                     
                       ngModel
                     >
                     </intl-tel-input>

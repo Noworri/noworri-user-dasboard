@@ -1,0 +1,84 @@
+.card {
+  padding-bottom: 150px;
+  margin-left: 45px;
+  .cancel {
+    margin-left: 608px;
+    font-size: 25px;
+    margin-bottom: 9px;
+    margin-top: 6px;
+    opacity: 1;
+    color: red;
+    cursor: pointer;
+  }
+  table {
+    border: 2px solid;
+    border-color: rgb(238, 234, 234);
+    p {
+      font-size: 10px;
+    }
+  }
+  .newBusiness {
+    font: Regular 16px/30px Poppins;
+    letter-spacing: 0px;
+    color: black;
+    opacity: 1;
+    font-weight: 700;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  #colapseTitle {
+    margin-top: 40px;
+    .businessName {
+      margin-left: -105px;
+      color: #3aadd9;
+    }
+    .businessAdresse {
+      margin-left: -134px;
+      color: #3aadd9;
+    }
+    .businessOwner {
+      margin-left: -141px;
+      color: #3aadd9;
+    }
+    .hideIformation {
+      margin-right: -138px;
+      color: #2bb996;
+      cursor: pointer;
+    }
+  }
+  .form-label {
+    font-size: 14px;
+    letter-spacing: 0px;
+    color: #484848;
+    opacity: 1;
+    margin-top: 20px;
+  }
+  input {
+    border: 1px solid #497dd5;
+    border-radius: 6px;
+    opacity: 1;
+  }
+  select {
+    border: 1px solid #497dd5;
+    border-radius: 6px;
+    opacity: 1;
+  }
+  textarea {
+    border: 1px solid #497dd5;
+    border-radius: 6px;
+    opacity: 1;
+  }
+
+  .bouton {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    background: #497dd5 0% 0% no-repeat padding-box;
+    border-radius: 14px;
+    opacity: 1;
+    font: normal normal 300 13px/26px Segoe UI;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+  }
+}

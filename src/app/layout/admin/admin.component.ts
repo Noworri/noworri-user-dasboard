@@ -780,6 +780,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   onRoutingTopayement() {
     this.router.navigate(['/payement']);
   }
+  
 
   defaultPictureOrNot() {
     setTimeout(() => {

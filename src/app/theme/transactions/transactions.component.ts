@@ -41,6 +41,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadTransactions(this.userId);
+    
   }
 
   ngOnDestroy() {

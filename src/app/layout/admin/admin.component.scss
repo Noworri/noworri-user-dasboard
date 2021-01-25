@@ -12,7 +12,7 @@
         }
       }
       #ProfilNameEtMail {
-        margin-top: 12px;
+        margin-top: 1px;
         margin-left: -25px;
         .Nom {
           text-align: left;
@@ -24,7 +24,9 @@
           margin-left: -6px;
           margin-top: 13px;
         }
-        
+        .addBusiness {
+          margin-top: -20px;
+        }
       }
     }
     .Settings {
@@ -35,13 +37,13 @@
         margin-left: 6px;
         cursor: pointer;
       }
-      .settingMenu{
+      .settingMenu {
         margin-top: 400px;
       }
     }
     .header-search {
       margin-top: 30px;
-      margin-left: 146px;
+      margin-left: 106px;
     }
   }
   .nav-right {
@@ -68,10 +70,8 @@
       border-radius: 9px;
       height: 35px;
       color: black;
-      margin-left:-350px;
-      
+      margin-left: -350px;
     }
-   
   }
   .OnlineVendor {
     margin-left: -390px;
@@ -983,9 +983,7 @@
 /*------dispute Modale ------*/
 #CancelSectionDispute {
   margin-top: 20px;
-  
-  
-  
+
   .cancel {
     background: #ffffff 0% 0% no-repeat padding-box;
     opacity: 1;

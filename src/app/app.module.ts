@@ -91,6 +91,8 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import { NewBusinessComponent } from './theme/new-business/new-business.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -136,6 +138,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
     RegisterStep3Component,
     ForgotComponent,
     Forgot2Component,
+    NewBusinessComponent,
   ],
   imports: [
     BrowserModule,
@@ -172,6 +175,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    NgxDropzoneModule
   ],
 
   schemas: [],
