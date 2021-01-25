@@ -23,6 +23,10 @@ export class SettingsComponent implements OnInit {
   userID: string;
   sessionData: any;
   hasFile: boolean;
+  isDisplayHoldEmail=true;
+  isDisplayNewnewEmail:boolean;
+  isDisplayHolPassword=true;
+  isDisplayNewPassword:boolean;
 
   constructor (private modalService: BsModalService, private router: Router, private authService: AuthserviceService) {
     this.sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
@@ -43,6 +47,7 @@ export class SettingsComponent implements OnInit {
       this.sessionData.photo === null
         ? './../../../assets/profilPhotoAnimation.gif'
         : `https://noworri.com/api/public/uploads/images/pp/${this.sessionData.photo}`;
+
   }
 
   onChangePP() {
@@ -51,14 +56,16 @@ export class SettingsComponent implements OnInit {
     } else {
       this.hasFile = false;
     }
+  //  this.uploadFile(this.file) 
   }
 
   uploadFile(file) {
       this.authService.uploadFile(file, this.userID).subscribe(
         (response: any) => {
           if (response && response.success) {
+            console.log(response)
             this.ppSrc = `https://noworri.com/api/public/uploads/images/pp/${response.file}`;
-            window.location.href = 'Settings';
+            // window.location.href = 'Settings';
           }
         },
         (error) => {
@@ -70,36 +77,21 @@ export class SettingsComponent implements OnInit {
   upload(fileData: FileList) {
       this.file = fileData.item(0);
       this.hasFile = true;
+      this.onChangePP()
     }
-
-  openModal1(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
-  }
-
-  openModal2(template: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(template, { class: 'modal-sm' });
-  }
-  closeFirstModal() {
-    if (!this.modalRef) {
-      return;
-    }
-
-    this.modalRef.hide();
-    this.modalRef = null;
-  }
-
-  openModal3(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
-  }
-  openModal4(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
-  }
-
   logout() {
     localStorage.clear();
     sessionStorage.clear();
     setTimeout(() => {
       this.router.navigate(['/auth/login']);
     }, 2000);
+  }
+  onChangeNewEmail(){
+    this.isDisplayHoldEmail=false;
+    this.isDisplayNewnewEmail=true
+  }
+  onChangeNewPassWord(){
+    this.isDisplayHolPassword=false;
+    this.isDisplayNewPassword=true
   }
 }

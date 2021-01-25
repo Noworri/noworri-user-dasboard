@@ -105,10 +105,7 @@ export class LoginComponent implements OnInit {
     let rawPhoneNumber = (<HTMLInputElement>(
       document.getElementById("phoneNumber")
     )).value;
- 
-
     let phoneNumberWithoutSpace = rawPhoneNumber.split(/\s/).join("");
-
     if (phoneNumberWithoutSpace.match(this.phoneNumberReg)) {
       if (phoneNumberWithoutSpace.charAt(0) === "0") {
         this.isCorrectPhoneEntry = true;

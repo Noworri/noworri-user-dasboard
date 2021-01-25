@@ -1,247 +1,137 @@
 <div class="card">
   <hr />
   <div class="card-body">
-    <div class="row" id="button">
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="col boutton">
-        <button type="button" class="btn btn-light btn-sm" (click)="logout()">
-          Sign out
-        </button>
-      </div>
-    </div>
     <form #form="ngForm">
-      <div class="h6">
-        <h6>Personal informations</h6>
-      </div>
       <div class="container">
-        <div class="row titre">
-          <h6>First Name</h6>
+        <div class="row yourProfil">
+          <h6>Your profil</h6>
         </div>
-        <div class="row" id="backgr">
-          <h6>{{ first_name }}</h6>
+        <div class="row profilPhoto">
+          <img
+            src="{{ ppSrc }}"
+            class="img-menu-user img-radius"
+            alt="User-Profile-Image"
+          />
         </div>
-        <div class="row titre">
-          <h6>Last Name</h6>
-        </div>
-        <div class="row" id="backgr">
-          <h6>{{ name }}</h6>
-        </div>
-        <div class="row titre">
-          <h6>Country</h6>
-        </div>
-        <div class="row" id="backgr">
-          <h6>Ghana</h6>
-        </div>
-        <div class="row titre">
-          <h6>Phone Number</h6>
-        </div>
-        <div class="row" id="backgr">
-          <h6>{{ mobile_phone }}</h6>
-        </div>
-        <div class="row titre">
-          <h6>Email Address</h6>
-        </div>
-        <div class="row" id="backgr">
-          <div class="col" id="speci1">
-            <h6>{{ email }}</h6>
-          </div>
-          <div class="col" id="speci4">
-            <mat-icon (click)="openModal4(template4)">create</mat-icon>
-          </div>
-        </div>
-        <div class="row titre">
-          <h6>Address</h6>
-        </div>
-        <!-- <div class="row" id="backgr">
-          <div class="col" id="speci2">
-            <h6>Achimota 52 street, Kumasi road behind mall</h6>
-          </div>
-          <div class="col" id="speci4">
-            <mat-icon (click)="openModal3(template3)">create</mat-icon>
-          </div>
-        </div> -->
-        <div class="row titre">
-          <h6>Passwords</h6>
-        </div>
-        <div class="row" id="backgr">
-          <div class="col" id="speci3">
-            <h6>Change password</h6>
-          </div>
-          <div class="col" id="speci4">
-            <mat-icon (click)="openModal1(template1)">create</mat-icon>
-          </div>
-        </div>
-        <div class="row titre">
-          <h6>Profile Picture</h6>
-        </div>
-        <div class="row" id="backgr">
-          <div class="col" id="speci3">
-            <img
-              src="{{ ppSrc }}"
-              class="img-menu-user img-radius"
-              alt="User-Profile-Image"
+      </div>
+      <div class="row text-center">
+        <div class="container text-center upload">
+          <div class="choose_file">
+            <button
+              type="button"
+              class="btn btn-default"
+              style="width: 150px; height: 50px"
+            >
+              <h6 class="uploadPicture">Upload picture</h6>
+            </button>
+            <input
+              id="fileUpload"
+              name="fileUpload"
+              type="file"
+              accept="image/*"
+              style="cursor: pointer"
+              (change)="upload($event.target.files)"
+              ngModel
+              #fileUpload
             />
-            <div class="col titre">
-              <h6>Change</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="container" style="margin-left: 44px">
+        <div class="row">
+          <div class="col-6">
+            <div class="row titre">
+              <h6>First Name</h6>
             </div>
-            <div class="row col" id="speci4">
-              <input
-                (change)="upload($event.target.files)"
-                name="fileUpload"
-                multiple
-                ngModel
-                #fileUpload
-                id="fileUpload"
-                type="file"
-                class="choose btn btn-light btn-sm"
-              />
-              <button *ngIf="hasFile" type="button" (click)="onChangePP()" class="btn btn-light btn-sm">
-                upload
+            <div class="row" id="backgr">
+              <h6>{{ first_name }}</h6>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row titre">
+              <h6>Last Name</h6>
+            </div>
+            <div class="row" id="backgr">
+              <h6>{{ name }}</h6>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="row titre">
+              <h6>Country</h6>
+            </div>
+            <div class="row" id="backgr">
+              <h6>Ghana</h6>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row titre">
+              <h6>Phone Number</h6>
+            </div>
+            <div class="row" id="backgr">
+              <h6>{{ mobile_phone }}</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <div class="row titre">
+              <h6>Email Address</h6>
+            </div>
+            <div class="row" id="backgr">
+              <div class="col" id="speci1">
+                <h6 *ngIf="isDisplayHoldEmail">{{ email }}</h6>
+                <input
+                  style="background-color: #f3f3f3; border: none"
+                  *ngIf="isDisplayNewnewEmail"
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder=" write your new email"
+                />
+              </div>
+              <div class="col" id="speci4">
+                <mat-icon (click)="onChangeNewEmail()">create</mat-icon>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row titre">
+              <h6>Passwords</h6>
+            </div>
+            <div class="row" id="backgr">
+              <div class="col" id="speci3">
+                <h6 *ngIf="isDisplayHolPassword">Change password</h6>
+                <input
+                  style="background-color: #f3f3f3; border: none"
+                  *ngIf="isDisplayNewPassword"
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder=" write your new password"
+                />
+              </div>
+              <div class="col" id="speci4">
+                <mat-icon (click)="onChangeNewPassWord()">create</mat-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="backgr"></div>
+        <div class="row">
+          <div class="col-8"></div>
+          <div class="col-4" id="saveButton">
+            <div class="container">
+              <button type="button" class="btn btn-sm btn-primary">
+                Save changes
               </button>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div id="doc" class="container">
-        <h6 class="Document">Document</h6>
-        <h6 class="Upload">Upload your ID or driver license or vote ID</h6>
-        <div class="row">
-          <div class="col">
-            <input
-              (change)="upload($event.target.file)"
-              name="fileUpload"
-              multiple
-              ngModel
-              #fileUpload
-              id="fileUpload"
-              type="file"
-              class="choose btn btn-light btn-sm"
-            />
-          </div>
-          <div class="col"></div>
-          <div class="col"></div>
-        </div>
-      </div> -->
     </form>
   </div>
 </div>
-
-<ng-template #template1>
-  <div class="Template3">
-    <div>
-      <h5>Email Verification</h5>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1"
-              >Enter the verification code sent</label
-            >
-            <input
-              type="email"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="row">
-            <div class="col">
-              <h5 class="Resend">Resend code :</h5>
-            </div>
-            <div class="col" id="col">
-              <span style="color: royalblue; font-size: small">1 : 52</span>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary"
-            (click)="openModal2(templateNested)"
-          >
-            Verify
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #templateNested>
-  <div class="Template6">
-    <h5>Change your password</h5>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label class="EnterYour" for="exampleInputEmail1">Old Password</label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-        </div>
-        <div class="form-group">
-          <label class="EnterYour" for="exampleInputPassword1"
-            >New Password</label
-          >
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-        <div class="form-group">
-          <label class="EnterYour" for="exampleInputPassword1"
-            >Repeat New Password</label
-          >
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-        <button type="button" class="btn btn-primary">Change password</button>
-      </form>
-    </div>
-  </div>
-</ng-template>
-<ng-template #template3>
-  <div class="Template2">
-    <h4>Address</h4>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label class="EnterYour" for="exampleInputEmail1"
-            >Enter your address</label
-          >
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Confirm</button>
-      </form>
-    </div>
-  </div>
-</ng-template>
-<ng-template #template4>
-  <div class="Template1">
-    <h4>Change your Email</h4>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label class="EnterYour">Enter your new email address</label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Continue</button>
-      </form>
-    </div>
-  </div>
-</ng-template>

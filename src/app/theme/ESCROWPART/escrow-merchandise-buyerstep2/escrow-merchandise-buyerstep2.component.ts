@@ -189,11 +189,14 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       .payStackPayment(transactionData)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response: any) => {
-        window.open(
-          `${response.data.authorization_url}`,
-          "popup",
-          "width=500,height=650"
-        );
+        // window.open(
+        //   `${response.data.authorization_url}`,
+        //   "popup",
+        //   "width=500,height=650"
+        // );
+        
+       
+        
         this.transaction_ref = response.data.reference;
         this.createTransaction();
         return false;

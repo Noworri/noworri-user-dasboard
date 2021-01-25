@@ -1,0 +1,292 @@
+<div class="card" style="width: 40rem; margin-top: 100px">
+  <div>
+    <mat-icon class="cancel" routerLink="/home">cancel</mat-icon>
+  </div>
+  <div class="container">
+    <h4 class="newBusiness">New Business</h4>
+    <div class="container">
+      <table class="table">
+        <div class="container">
+          <p class="text-center">
+            By adding a business you will have access to our Escrow API which
+            can be easily integrated into any web site. Our team will get in
+            touch with you to help you with the integration.
+          </p>
+        </div>
+      </table>
+    </div>
+    <form>
+      <div class="row text-center" id="colapseTitle">
+        <div class="col-6">
+          <h6 class="businessName">Business informations</h6>
+        </div>
+        <div class="col-6">
+          <ul>
+            <h6
+              (click)="onChangeCollaps1()"
+              [attr.aria-expanded]="!isCollapsed1"
+              aria-controls="collapseBasic"
+              class="hideIformation"
+            >
+              {{ colaps1Status }} informations
+            </h6>
+          </ul>
+        </div>
+      </div>
+      <div id="collapseBasic" [collapse]="isCollapsed1" [isAnimated]="true">
+        <div class="">
+          <form>
+            <div class="col-10">
+              <label for="exampleInputEmail1" class="form-label"
+                >Trading name</label
+              >
+              <input type="text" class="form-control" id="Businessname" />
+            </div>
+
+            <div class="col-10">
+              <label for="exampleInputEmail1" class="form-label"
+                >Business legal name</label
+              >
+              <input type="text" class="form-control" id="BusinessLegalname" />
+            </div>
+            <div class="col-10">
+              <label for="exampleFormControlTextarea1" class="form-label"
+                >Describe what you do ?</label
+              >
+              <textarea
+                class="form-control"
+                id="description"
+                rows="3"
+              ></textarea>
+            </div>
+            <div></div>
+            <div class="form-group col-10">
+              <label for="exampleFormControlTextarea1" class="form-label"
+                >Industry</label
+              >
+              <select class="custom-select" required>
+                <option value="1">Agriculture</option>
+                <option value="2">Commerce</option>
+                <option value="3">Education</option>
+                <option value="3">Hospitality</option>
+                <option value="3">Health</option>
+                <option value="3">Logistics</option>
+                <option value="3">Non-profits</option>
+                <option value="3">Travel</option>
+                <option value="3">Utilities</option>
+                <option value="3">Other</option>
+              </select>
+            </div>
+            <div class="col-10">
+              <label for="exampleInputEmail1" class="form-label"
+                >Business email address</label
+              >
+              <input type="email" class="form-control" id="Businessname" />
+            </div>
+            <div class="col-10">
+              <label for="exampleInputEmail1" class="form-label"
+                >Business phone number</label
+              >
+              <input type="text" class="form-control" id="Businessname" />
+            </div>
+            <div class="col-10">
+              <label for="exampleInputEmail1" class="form-label"
+                >Deliveryman's phone number</label
+              >
+              <p>
+                Who or which shipment company is supposed to ensure the delivery
+                of your product to the customers. Don't worry you can change the
+                deliveryman phone number anytime you received an order from your
+                customers
+              </p>
+              <input type="text" class="form-control" id="Businessname" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row text-center" id="colapseTitle">
+        <div class="col-6">
+          <h6 class="businessAdresse">Business Address</h6>
+        </div>
+        <div class="col-6">
+          <ul>
+            <h6
+              (click)="onChangeCollaps2()"
+              [attr.aria-expanded]="!isCollapsed2"
+              aria-controls="collapseBasic"
+              class="hideIformation"
+            >
+              {{ colaps2Status }} informations
+            </h6>
+          </ul>
+        </div>
+      </div>
+      <div id="collapseBasic" [collapse]="isCollapsed2" [isAnimated]="true">
+        <div class="">
+          <div class="form-group col-10">
+            <label for="exampleFormControlTextarea1" class="form-label"
+              >Country</label
+            >
+            <select class="custom-select" required>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="col-10">
+            <label for="exampleInputEmail1" class="form-label"
+              >State or Region</label
+            >
+            <input type="text" class="form-control" id="stateorregion" />
+          </div>
+          <div class="col-10">
+            <label for="exampleInputEmail1" class="form-label">City</label>
+            <input type="text" class="form-control" id="City" />
+          </div>
+          <div class="col-10">
+            <label for="exampleInputEmail1" class="form-label"
+              >Street Address</label
+            >
+            <input type="text" class="form-control" id="streetaddress" />
+          </div>
+        </div>
+      </div>
+      <div class="row text-center" id="colapseTitle">
+        <div class="col-6">
+          <h6 class="businessOwner">Business Owner</h6>
+        </div>
+        <div class="col-6">
+          <ul>
+            <h6
+              (click)="onChangeCollaps3()"
+              [attr.aria-expanded]="!isCollapsed3"
+              aria-controls="collapseBasic"
+              class="hideIformation"
+            >
+              {{ colaps3Status }} informations
+            </h6>
+          </ul>
+        </div>
+      </div>
+      <div id="collapseBasic" [collapse]="isCollapsed3" [isAnimated]="true">
+        <div class="">
+          <form>
+            <div class="form-row" style="margin-left: 12px">
+              <div class="form-group col-4">
+                <label for="inputEmail4">First name</label>
+                <input type="text" class="form-control" id="FirstName" />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Last name</label>
+                <input type="text" class="form-control" id="LastName" />
+              </div>
+            </div>
+            <!-- <div class="form-row">
+              <div class="form-group col-md-4">
+                <input
+                  type="month"
+                  class="form-control"
+                  id="inputEmail4"
+                />
+              </div>
+              <div class="form-group col-md-4">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="inputEmail4"
+                  placeholder="Email"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputPassword4"
+                  placeholder="Password"
+                />
+              </div>
+            </div> -->
+            <form [formGroup]="myForm">
+              <div class="row">
+                <div class="form-group col-8" style="margin-left: 15px">
+                  <label for="inputAddress">Date of Birth</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Datepicker"
+                    bsDatepicker
+                    formControlName="date"
+                  />
+                </div>
+              </div>
+            </form>
+            <div>
+              <label
+                for="exampleFormControlTextarea1"
+                style="margin-left: 15px"
+                class="form-label"
+                >Nationality</label
+              >
+            </div>
+            <div class="form-group col-9">
+              <select class="custom-select col-10" required>
+                <option value="0"></option>
+                <option value="2">GHANA</option>
+                <option value="3">NIGERIA</option>
+              </select>
+            </div>
+
+            <div class="form-group col-9">
+              <label for="exampleFormControlTextarea1" class="form-label"
+                >Identification Document</label
+              >
+              <select class="custom-select col-10" required>
+                <option value="0"></option>
+                <option value="2">Passport</option>
+                <option value="3">Vote ID</option>
+                <option value="3">National Card</option>
+              </select>
+            </div>
+            <!-- in app.component.html -->
+            <div class="row" style="margin-left: 5px">
+              <div class="container">
+                <label for="inputAddress" class="form-label">
+                  Upload a copy of your ID document's data page</label
+                >
+
+                <button
+                  style="width: 300px"
+                  type="button"
+                  class="btn btn-light btn-sm text-center"
+                >
+                  <ngx-dropzone
+                    style="
+                      border: none;
+                      height: 40px;
+                      background-color: rgb(238, 234, 234);
+                    "
+                    (change)="onSelect($event)"
+                  >
+                    <ngx-dropzone-label>Upload or drop </ngx-dropzone-label>
+                    <ngx-dropzone-preview
+                      *ngFor="let f of files"
+                      [removable]="true"
+                      (removed)="onRemove(f)"
+                    >
+                      <ngx-dropzone-label></ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+                  </ngx-dropzone>
+                </button>
+              </div>
+            </div>
+            <div class="submitButton text-center">
+              <button type="submit" class="btn btn-primary btn-sm bouton">
+                Add a Business
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

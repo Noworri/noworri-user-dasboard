@@ -249,7 +249,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.deliveryPhone = details.delivery_phone
               ? details.delivery_phone
               : "N/A";
-              console.log(this.deliveryPhone)
+            
             this.paymentData = {
               amount: this.totalAmount,
               currency: this.currency,

@@ -162,7 +162,7 @@ export class TransactionsService {
   }
 
   finalizeReleasePaystack(data) {
-    const url = `https://api.noworri.com/api/paystackrelease`;
+    const url = `https://api.noworri.com/api/paystackrelease/test`;
     let params = new HttpParams();
     params = params.append('transfer_code', data.transfer_code);
 
@@ -261,7 +261,7 @@ export class TransactionsService {
   }
 
   payStackPayment(paymentData) {
-    const url = `https://api.noworri.com/api/securewithpaystack`;
+    const url = `https://api.noworri.com/api/securewithpaystack/test`;
     let params = new HttpParams();
     params = params.append('email', paymentData.email);
     params = params.append('amount', paymentData.amount);
@@ -337,7 +337,7 @@ export class TransactionsService {
   }
 
   getBanks(country) {
-    const url = 'https://api.paystack.co/bank';
+    const url = 'https://api.paystack.co/bank/test';
     let params = new HttpParams();
     params = params.append('country', country);
     return this.http.get(url, { responseType: 'json', params: params }).pipe(
