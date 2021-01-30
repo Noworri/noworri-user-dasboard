@@ -121,12 +121,11 @@
 
   .submitButton {
     margin-top: 40px;
-    margin-left: 20px;
+    margin-left: 210px;
     button {
       background: #2bb996 0% 0% no-repeat padding-box;
-      border-radius: 7px;
+
       opacity: 1;
-      margin-left: 17px;
       text-align: left;
       font-size: small;
       font: Regular 4px/35px Poppins;
@@ -134,9 +133,6 @@
       color: #ffffff;
       opacity: 1;
       top: 20px;
-      &:after {
-        border-color: red;
-      }
     }
   }
 }

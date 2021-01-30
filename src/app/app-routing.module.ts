@@ -1,4 +1,8 @@
-import { NewBusinessComponent } from './theme/new-business/new-business.component';
+import { Step3Component } from './theme/create-business/step3/step3.component';
+import { Step2Component } from './theme/create-business/step2/step2.component';
+import { Step1Component } from './theme/create-business/step1/step1.component';
+
+
 import { Forgot2Component } from "./theme/auth/forgot2/forgot2.component";
 import { ForgotComponent } from "./theme/auth/forgot/forgot.component";
 import { RegisterStep3Component } from "./theme/auth/register/register-step3/register-step3.component";
@@ -184,12 +188,29 @@ const routes: Routes = [
         path: "Settings",
         component: SettingsComponent,
       },
+      //  for creating business //
       {
-        path: "new-business",
-        component: NewBusinessComponent,
+        path: "create-business",
+        children: [
+          {
+            path: "step1",
+            component: Step1Component,
+          },
+          {
+            path: "step2",
+            component: Step2Component
+          },
+          {
+            path: "step3",
+            component: Step3Component
+          },
+        ],
       },
+
     ],
   },
+
+
   {
     path: "whatnoworri",
     component: LandingPageComponent,
@@ -219,4 +240,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

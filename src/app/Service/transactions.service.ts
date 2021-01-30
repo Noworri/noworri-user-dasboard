@@ -337,7 +337,7 @@ export class TransactionsService {
   }
 
   getBanks(country) {
-    const url = 'https://api.paystack.co/bank/test';
+    const url = 'https://api.paystack.co/bank';
     let params = new HttpParams();
     params = params.append('country', country);
     return this.http.get(url, { responseType: 'json', params: params }).pipe(

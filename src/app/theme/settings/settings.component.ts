@@ -63,7 +63,6 @@ export class SettingsComponent implements OnInit {
       this.authService.uploadFile(file, this.userID).subscribe(
         (response: any) => {
           if (response && response.success) {
-            console.log(response)
             this.ppSrc = `https://noworri.com/api/public/uploads/images/pp/${response.file}`;
             // window.location.href = 'Settings';
           }
@@ -94,4 +93,7 @@ export class SettingsComponent implements OnInit {
     this.isDisplayHolPassword=false;
     this.isDisplayNewPassword=true
   }
+
+
+
 }
