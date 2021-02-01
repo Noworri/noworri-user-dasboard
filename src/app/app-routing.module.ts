@@ -23,7 +23,7 @@ import { AuthComponent } from "./layout/auth/auth.component";
 import { DisputPageComponent } from "./theme/disput-page/disput-page.component";
 import { HomeComponent } from "./theme/home/home.component";
 import { TransactionsComponent } from "./theme/transactions/transactions.component";
-import { PaymentComponent } from "./theme/payment/payment.component";
+
 import { ApiIntegrationComponent } from "./theme/api-integration/api-integration.component";
 import { SettingsComponent } from "./theme/settings/settings.component";
 import { LoginComponent } from "./theme/auth/login/login.component";
@@ -96,7 +96,7 @@ const routes: Routes = [
       },
       {
         path: "payments",
-        component: PaymentComponent,
+        component: PayementsComponent,
       },
 
       // ---------for escrow-------//

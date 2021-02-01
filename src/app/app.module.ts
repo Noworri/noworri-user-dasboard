@@ -52,7 +52,6 @@ import { CollapseModule } from "ngx-bootstrap/collapse";
 import { HttpClientModule } from "@angular/common/http";
 import { CoolComponent } from "./view/cool/cool.component";
 import { DisputPageComponent } from "./theme/disput-page/disput-page.component";
-import { PaymentComponent } from "./theme/payment/payment.component";
 import { HomeComponent } from "./theme/home/home.component";
 import { TransactionsComponent } from "./theme/transactions/transactions.component";
 import { SettingsComponent } from "./theme/settings/settings.component";
@@ -115,11 +114,11 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     DisputPageComponent,
     PrivacyComponent,
     PolicyComponent,
-    PaymentComponent,
     TermConditionsComponent,
     HomeComponent,
     TransactionsComponent,
     SettingsComponent,
+    PayementsComponent,
     ApiIntegrationComponent,
     RegisterComponent,
     LoginComponent,

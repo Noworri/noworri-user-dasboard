@@ -15,7 +15,7 @@ import { TransactionsReference } from './reference-data.interface';
 export class TransactionsService {
   status: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUserTransactions(userId: string): Observable<any> {
     const url = 'https://api.noworri.com/api/usertransactions/' + userId;
@@ -26,7 +26,7 @@ export class TransactionsService {
           if (typeof values.total_price === undefined) {
             values.total_price = values.price;
           }
-        
+
           if (values.etat === '0') {
             values.state = 'Cancelled';
           } else if (values.etat === '1') {
@@ -416,8 +416,8 @@ export class TransactionsService {
     );
   }
 
-  createRecipient(details) {
-    const url = 'https://api.noworri.com/api/createrecipient';
+  createRecipient(details,userId) {
+    const url = 'https://api.noworri.com/api/createrecipienttest/' + userId ;
     let params = new HttpParams();
     params = params.append('type', details.type);
     params = params.append('name', details.name);

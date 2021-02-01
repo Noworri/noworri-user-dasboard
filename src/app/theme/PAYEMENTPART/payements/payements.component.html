@@ -53,9 +53,6 @@
                     <h6 class="AccountName">Account name</h6>
                     <h6 class="Name">{{ detail.holder_name }}</h6>
                   </div>
-                  <div class="col-6">
-                    <h6 class="PrimaryAccount">Primary Acount</h6>
-                  </div>
                 </div>
               </div>
             </div>
@@ -190,9 +187,6 @@
                     <h6 class="AccountName">Account name</h6>
                     <h6 class="Name">{{ detail.holder_name }}</h6>
                   </div>
-                  <div class="col-6">
-                    <h6 class="PrimaryAccount">Primary Acount</h6>
-                  </div>
                 </div>
               </div>
             </div>
@@ -324,9 +318,6 @@
                   <div class="col-6">
                     <h6 class="AccountDate">12/21</h6>
                   </div>
-                  <div class="col-6">
-                    <h6 class="PrimaryAccount">Primary Acount</h6>
-                  </div>
                 </div>
               </div>
             </div>
@@ -347,7 +338,7 @@
                   </div>
                   <div class="col-6">
                     <mat-icon
-                    *ngIf="hasPaymentData"
+                      *ngIf="hasPaymentData"
                       style="cursor: pointer"
                       (click)="onWithDraw()"
                       class="play_arrow"
