@@ -1,3 +1,6 @@
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { CreateBusinessService } from './../../../Service/create-business.service';
 import { DatePipe } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -27,6 +30,7 @@ export class Step3Component implements OnInit {
   companyDocuments
   idDocumentFile: File;
   cdDocumentFile: File;
+  unsubscribe = new Subject()
 
   isIdUpload: boolean;
   isCdUpload: boolean;
@@ -38,7 +42,7 @@ export class Step3Component implements OnInit {
   isLegallyRegistered = ''
 
   allCreatBusinessData: object
-  constructor(private router: Router, private formbuilder: FormBuilder, private datepipe: DatePipe) { }
+  constructor(private router: Router, private formbuilder: FormBuilder, private datepipe: DatePipe, private creatBusinessService: CreateBusinessService) { }
   ngOnInit() {
     this.businessAdressFormInit()
   }
@@ -72,8 +76,28 @@ export class Step3Component implements OnInit {
       this.bsnessOwnerInputStatus.company_documents === 'form-control is-valid'
     ) {
       this.getAllCreatBusinessData()
+
+      setTimeout(() => {
+        this.createBusiness()
+      }, 2000);
     }
   }
+
+
+  createBusiness() {
+    this.creatBusinessService.
+      createNewBusiness(this.allCreatBusinessData).
+      pipe(takeUntil(this.unsubscribe)).
+      subscribe((data) => {
+        if (data) {
+          this.router.navigate(['/home'])
+        }
+      }), error => {
+        console.log(error)
+      }
+  }
+
+
   onGetRadioButtonValue(e) {
     this.isLegallyRegistered = e.value
     if (this.isLegallyRegistered === 'YES') {
@@ -100,7 +124,6 @@ export class Step3Component implements OnInit {
   onSelectIdocument(file: File) {
     this.idDocumentFile = file
     this.idUploadMessge = this.idDocumentFile['name']
-
   }
 
   onSelectCompanyDocuments(file: File) {
@@ -131,7 +154,6 @@ export class Step3Component implements OnInit {
     if (this.isLegallyRegistered === 'NO') {
       businessOwnerInformation.business_legal_name = 'null'
       this.companyDocuments = 'null'
-      console.log(this.bsnessOwnerInputStatus)
     }
     this.bsnessOwnerInputStatus.owner_fname = businessOwnerInformation.owner_fname ? 'form-control is-valid' : 'form-control is-invalid'
     this.bsnessOwnerInputStatus.owner_lname = businessOwnerInformation.owner_lname ? 'form-control is-valid' : 'form-control is-invalid'
