@@ -137,4 +137,25 @@ export class AuthserviceService {
         })
       );
   }
+    
+  aupDateUserAuth(userData){
+    const url = "https://api.noworri.com/api/register";
+    let params = new HttpParams();
+    params = params.append("user_uid", userData.user_uid);
+    params = params.append("email", userData.email);
+   
+    return this.http
+      .post(url, null, { responseType: "json", params: params })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log("Error", error.message);
+          return observableThrowError(error);
+        })
+      );
+  }
+
+
 }

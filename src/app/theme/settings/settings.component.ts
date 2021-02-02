@@ -23,12 +23,12 @@ export class SettingsComponent implements OnInit {
   userID: string;
   sessionData: any;
   hasFile: boolean;
-  isDisplayHoldEmail=true;
-  isDisplayNewnewEmail:boolean;
-  isDisplayHolPassword=true;
-  isDisplayNewPassword:boolean;
+  isDisplayHoldEmail = true;
+  isDisplayNewnewEmail: boolean;
+  isDisplayHolPassword = true;
+  isDisplayNewPassword: boolean;
 
-  constructor (private modalService: BsModalService, private router: Router, private authService: AuthserviceService) {
+  constructor(private authService: AuthserviceService, private modalService: BsModalService, private router: Router) {
     this.sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.first_name = this.sessionData.first_name;
     this.email = this.sessionData.email;
@@ -42,7 +42,7 @@ export class SettingsComponent implements OnInit {
 
   }
 
-  ngOnInit () {
+  ngOnInit() {
     this.ppSrc =
       this.sessionData.photo === null
         ? './../../../assets/profilPhotoAnimation.gif'
@@ -56,28 +56,28 @@ export class SettingsComponent implements OnInit {
     } else {
       this.hasFile = false;
     }
-  //  this.uploadFile(this.file) 
+    //  this.uploadFile(this.file) 
   }
 
   uploadFile(file) {
-      this.authService.uploadFile(file, this.userID).subscribe(
-        (response: any) => {
-          if (response && response.success) {
-            this.ppSrc = `https://noworri.com/api/public/uploads/images/pp/${response.file}`;
-            // window.location.href = 'Settings';
-          }
-        },
-        (error) => {
-          console.log('Error %j', error.message);
+    this.authService.uploadFile(file, this.userID).subscribe(
+      (response: any) => {
+        if (response && response.success) {
+          this.ppSrc = `https://noworri.com/api/public/uploads/images/pp/${response.file}`;
+          // window.location.href = 'Settings';
         }
-      );
+      },
+      (error) => {
+        console.log('Error %j', error.message);
+      }
+    );
   }
 
   upload(fileData: FileList) {
-      this.file = fileData.item(0);
-      this.hasFile = true;
-      this.onChangePP()
-    }
+    this.file = fileData.item(0);
+    this.hasFile = true;
+    this.onChangePP()
+  }
   logout() {
     localStorage.clear();
     sessionStorage.clear();
@@ -85,15 +85,16 @@ export class SettingsComponent implements OnInit {
       this.router.navigate(['/auth/login']);
     }, 2000);
   }
-  onChangeNewEmail(){
-    this.isDisplayHoldEmail=false;
-    this.isDisplayNewnewEmail=true
+  changeNewEmailButton() {
+    this.isDisplayHoldEmail = false;
+    this.isDisplayNewnewEmail = true
   }
-  onChangeNewPassWord(){
-    this.isDisplayHolPassword=false;
-    this.isDisplayNewPassword=true
+  changeNewPassWordButton() {
+    this.isDisplayHolPassword = false;
+    this.isDisplayNewPassword = true
   }
 
+  onAupdateProfilData() {
 
-
+  }
 }

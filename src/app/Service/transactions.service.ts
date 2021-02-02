@@ -27,15 +27,18 @@ export class TransactionsService {
             values.total_price = values.price;
           }
 
-          if (values.etat === '0') {
-            values.state = 'Cancelled';
-          } else if (values.etat === '1') {
-            values.state = 'Pending';
-          } else if (values.etat === '3' || values.etat === '5') {
-            values.state = 'Completed';
-          } else if (values.etat === '2') {
-            values.state = 'Secured';
-          }
+
+          if (values.etat)
+
+            if (values.etat === '0') {
+              values.state = 'Cancelled';
+            } else if (values.etat === '1') {
+              values.state = 'Pending';
+            } else if (values.etat === '3' || values.etat === '5') {
+              values.state = 'Completed';
+            } else if (values.etat === '2') {
+              values.state = 'Secured';
+            }
           return values;
         });
 
@@ -261,7 +264,7 @@ export class TransactionsService {
   }
 
   payStackPayment(paymentData) {
-    const url = `https://api.noworri.com/api/securewithpaystack/test`;
+    const url = `https://api.noworri.com/api/securewithpaystacktest`;
     let params = new HttpParams();
     params = params.append('email', paymentData.email);
     params = params.append('amount', paymentData.amount);
@@ -416,8 +419,8 @@ export class TransactionsService {
     );
   }
 
-  createRecipient(details,userId) {
-    const url = 'https://api.noworri.com/api/createrecipienttest/' + userId ;
+  createRecipient(details, userId) {
+    const url = 'https://api.noworri.com/api/createrecipienttest/' + userId;
     let params = new HttpParams();
     params = params.append('type', details.type);
     params = params.append('name', details.name);
@@ -471,6 +474,7 @@ export class TransactionsService {
     params = params.append('payment_id', transactionDetails.transaction_ref);
     params = params.append('etat', '2');
     params = params.append('deleted', '0');
+    params = params.append('currency', transactionDetails.currency);
 
     return this.http
       .post(url, transactionDetails, { responseType: 'json', params: params })

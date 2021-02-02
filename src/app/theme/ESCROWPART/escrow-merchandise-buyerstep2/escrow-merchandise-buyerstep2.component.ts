@@ -61,7 +61,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.deliveryPhone = escrowStep2Data.delivery_phone;
     this.initiator_role = escrowStep2Data.role === "Buyer" ? "Buy" : "Sell";
     this.destinator_role = this.initiator_role === "Buy" ? "Sell" : "Buy";
-    this.transactionType = escrowStep2Data.transactionType;
+    this.transactionType = escrowStep2Data.transaction_type;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
     this.description = escrowStep2Data.requirement || "";
@@ -87,6 +87,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       requirement: this.description,
       transaction_ref: "",
       etat: 4,
+      currency: 'GHS'
     };
   }
 
@@ -207,6 +208,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (transaction: any) => {
+
           setTimeout(() => {
             this.checkSuccessSecuredFunds(this.transaction_ref, transaction);
           }, 2000);
