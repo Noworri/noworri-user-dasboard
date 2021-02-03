@@ -118,7 +118,6 @@ export class Step3Component implements OnInit {
       ...businessAdrssInfo,
       ...this.businessOwnerInformation
     }
-    console.log(this.allCreatBusinessData)
   }
 
   onSelectIdocument(file: File) {

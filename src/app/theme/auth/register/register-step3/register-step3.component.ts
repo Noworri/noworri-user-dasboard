@@ -30,9 +30,9 @@ export class RegisterStep3Component implements OnInit {
     private router: Router,
     private authService: AuthserviceService,
     private http: HttpClient
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSignUpUser(form: NgForm) {
     this.isLoadingButton = true;
@@ -82,7 +82,6 @@ export class RegisterStep3Component implements OnInit {
       sessionStorage.getItem("profilInformation")
     );
     let userPhoneNumber = JSON.parse(sessionStorage.getItem("phoneNumber"));
-
     this.userData = {
       ...userProfilData,
       mobile_phone: userPhoneNumber,
@@ -122,7 +121,7 @@ export class RegisterStep3Component implements OnInit {
       fcm_token: "N/A",
       web_token: this.userToken,
     };
-    await this.authService
+    this.authService
       .register(userData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {

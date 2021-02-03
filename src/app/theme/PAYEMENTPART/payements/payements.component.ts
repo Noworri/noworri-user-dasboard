@@ -125,7 +125,6 @@ export class PayementsComponent implements OnInit, OnDestroy {
       .initiateReleasePaystack(releaseData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        console.log('response release', response);
         if (response && response['status'] === 'success') {
           this.hasWithdrawn = true;
           location.replace(`${location}`);
@@ -165,7 +164,6 @@ export class PayementsComponent implements OnInit, OnDestroy {
       bank_code: accountDetails.bankCode,
       currency: this.currency,
     };
-    console.log(this.accountDetails['userId'])
     this.transactionService
       .createRecipient(this.recipientDetails, this.accountDetails['userId'])
       .pipe(takeUntil(this.unsubscribe))

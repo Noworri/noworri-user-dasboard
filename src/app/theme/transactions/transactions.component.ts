@@ -41,7 +41,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadTransactions(this.userId);
-    
+
   }
 
   ngOnDestroy() {
@@ -56,6 +56,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (transactions) => {
+
           this.tableData = transactions.map((details) => {
             this.allDateData = details;
             this.transactionType = details.transaction_type.toLowerCase();
@@ -100,7 +101,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       );
   }
 
-  processDateData() {}
+  processDateData() { }
 
   onViewTransactionDetails(
     transactionKey,
