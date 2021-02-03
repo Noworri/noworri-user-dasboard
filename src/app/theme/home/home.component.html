@@ -1,49 +1,6 @@
 <div class="page-body">
   <div class="row">
     <div class="col-sm-12">
-      <app-card class="app-card1">
-        <h2>Nice to have you here !</h2>
-        <p class="getStarted">To get started, follow these steps.</p>
-        <hr />
-
-        <div class="row">
-          <div class="col-sm-6">
-            <p><a class="Take">Take a tour on how to use Noworri</a></p>
-          </div>
-          <div class="col-sm-6">
-            <button
-              type="submit"
-              class="btn btn-sm btn-primary m-b-0 ripple light float-right"
-            >
-              Watch
-            </button>
-          </div>
-        </div>
-
-        <hr />
-
-        <div class="row">
-          <div class="col-sm-6">
-            <p>
-              <a class="Active">
-                kindly add your bank or mobile account to your Noworri
-                account<br />
-                to be able to receive payment from your customers
-              </a>
-            </p>
-          </div>
-          <div class="col-sm-6">
-            <button
-            style="padding-left: 20px;padding-right: 20px;"
-              type="submit"
-              class="btn btn-sm btn-success m-b-0 ripple light float-right"
-            >
-            Add
-            </button>
-          </div>
-        </div>
-      </app-card>
-
       <app-card class="app-card2">
         <p class="Review">
           * Review the transaction below and select the type that fits what you
@@ -89,7 +46,9 @@
                     ngModel
                     [ngClass]="YourRoleInputControl"
                   >
-                    <option value="" selected disabled hidden>Choose a role</option>
+                    <option value="" selected disabled hidden>
+                      Choose a role
+                    </option>
                     <option value="buy">Buyer</option>
                     <option value="sell">Seller</option>
                   </select>

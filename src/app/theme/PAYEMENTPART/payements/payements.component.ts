@@ -125,7 +125,6 @@ export class PayementsComponent implements OnInit, OnDestroy {
       .initiateReleasePaystack(releaseData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        console.log('response release', response);
         if (response && response['status'] === 'success') {
           this.hasWithdrawn = true;
           location.replace(`${location}`);
@@ -137,7 +136,6 @@ export class PayementsComponent implements OnInit, OnDestroy {
 
   setupForm(form: NgForm) {
     if (form) {
-      console.log('form', form.value['holderName']);
       this.banks
         .filter((bank) => bank.name === form.value['bankName'])
         .forEach((value) => {
@@ -149,6 +147,7 @@ export class PayementsComponent implements OnInit, OnDestroy {
             userId: this.userId,
             type: value.type,
             recipient_code: '',
+
           };
         });
       this.createRecipient(this.accountDetails);
@@ -166,13 +165,14 @@ export class PayementsComponent implements OnInit, OnDestroy {
       currency: this.currency,
     };
     this.transactionService
-      .createRecipient(this.recipientDetails)
+      .createRecipient(this.recipientDetails, this.accountDetails['userId'])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response: any) => {
         if (response.data && response.data.recipient_code) {
           accountDetails.recipient_code = response.data.recipient_code;
           this.addAccountDetails(accountDetails);
-        } if (response.status === false) {
+        }
+        if (response.status === false) {
           this.errorMessage = response.message;
           this.isAdding = false;
         }

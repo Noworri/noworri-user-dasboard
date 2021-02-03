@@ -1,17 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TransactionsService } from 'src/app/Service/transactions.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { TransactionsReference } from 'src/app/Service/reference-data.interface';
-import { PaymentService } from 'src/app/Service/payment.service';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { TransactionsService } from "src/app/Service/transactions.service";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { TransactionsReference } from "src/app/Service/reference-data.interface";
+import { PaymentService } from "src/app/Service/payment.service";
+import { Router } from "@angular/router";
 
-const SESSION_STORAGE_KEY = 'noworri-user-session';
+const SESSION_STORAGE_KEY = "noworri-user-session";
 
 @Component({
-  selector: 'app-transactions',
-  templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.scss'],
+  selector: "app-transactions",
+  templateUrl: "./transactions.component.html",
+  styleUrls: ["./transactions.component.scss"],
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
   unsubscribe = new Subject();
@@ -28,6 +28,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   hasNoTransactions = false;
   columns: any[];
   paymentResponse: any;
+  allDateData: object;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -40,6 +41,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadTransactions(this.userId);
+
   }
 
   ngOnDestroy() {
@@ -54,44 +56,52 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (transactions) => {
+
           this.tableData = transactions.map((details) => {
+            this.allDateData = details;
             this.transactionType = details.transaction_type.toLowerCase();
             details.destinator_role =
-              details.initiator_role === 'buy' ? 'sell' : 'buy';
+              details.initiator_role === "buy" ? "sell" : "buy";
             if (
-              details.initiator_role === 'sell' &&
+              details.initiator_role === "sell" &&
               this.userId === details.initiator_id
             ) {
-              details['sellerPhone'] = details.initiator_phone;
-              details['buyerPhone'] = details.destinator_phone;
+              details["sellerPhone"] = details.initiator_phone;
+              details["buyerPhone"] = details.destinator_phone;
             } else if (
-              details.initiator_role === 'buy' &&
+              details.initiator_role === "buy" &&
               this.userId === details.initiator_id
             ) {
-              details['sellerPhone'] = details.destinator_phone;
-              details['buyerPhone'] = details.initiator_phone;
+              details["sellerPhone"] = details.destinator_phone;
+              details["buyerPhone"] = details.initiator_phone;
             } else if (
-              details.destinator_role === 'buy' &&
-              this.userId === details.destinator_id) {
-                details['sellerPhone'] = details.initiator_phone;
-                details['buyerPhone'] = details.destinator_phone;
+              details.destinator_role === "buy" &&
+              this.userId === details.destinator_id
+            ) {
+              details["sellerPhone"] = details.initiator_phone;
+              details["buyerPhone"] = details.destinator_phone;
             } else if (
-              details.destinator_role === 'sell' &&
-              this.userId === details.destinator_id) {
-                details['sellerPhone'] = details.destinator_phone;
-                details['buyerPhone'] = details.initiator_phone;
+              details.destinator_role === "sell" &&
+              this.userId === details.destinator_id
+            ) {
+              details["sellerPhone"] = details.destinator_phone;
+              details["buyerPhone"] = details.initiator_phone;
             } else {
-              details['sellerPhone'] = details.destinator_phone;
-              details['buyerPhone'] = details.initiator_phone;
+              details["sellerPhone"] = details.destinator_phone;
+              details["buyerPhone"] = details.initiator_phone;
             }
             this.amount = details.total_price;
+
             return details;
           });
+
           this.hasNoTransactions = transactions.length === 0 ? true : false;
         },
         (error) => console.log(error.message)
       );
   }
+
+  processDateData() { }
 
   onViewTransactionDetails(
     transactionKey,
@@ -108,16 +118,14 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       this.userRole = ownerRole;
     }
 
-    console.log(this.userRole);
-
-      if (this.userRole === 'buy' && transactionType === 'merchandise') {
-        this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
-      } else if (this.userRole === 'sell' && transactionType === 'merchandise') {
-        this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
-      } else if (this.userRole === 'buy' && transactionType === 'services') {
-        this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
-      } else if (this.userRole === 'sell' && transactionType === 'services') {
-        this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
-      }
+    if (this.userRole === "buy" && transactionType === "merchandise") {
+      this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
+    } else if (this.userRole === "sell" && transactionType === "merchandise") {
+      this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
+    } else if (this.userRole === "buy" && transactionType === "services") {
+      this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
+    } else if (this.userRole === "sell" && transactionType === "services") {
+      this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
+    }
   }
 }

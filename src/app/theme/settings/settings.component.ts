@@ -23,8 +23,12 @@ export class SettingsComponent implements OnInit {
   userID: string;
   sessionData: any;
   hasFile: boolean;
+  isDisplayHoldEmail = true;
+  isDisplayNewnewEmail: boolean;
+  isDisplayHolPassword = true;
+  isDisplayNewPassword: boolean;
 
-  constructor (private modalService: BsModalService, private router: Router, private authService: AuthserviceService) {
+  constructor(private authService: AuthserviceService, private modalService: BsModalService, private router: Router) {
     this.sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.first_name = this.sessionData.first_name;
     this.email = this.sessionData.email;
@@ -38,11 +42,12 @@ export class SettingsComponent implements OnInit {
 
   }
 
-  ngOnInit () {
+  ngOnInit() {
     this.ppSrc =
       this.sessionData.photo === null
         ? './../../../assets/profilPhotoAnimation.gif'
         : `https://noworri.com/api/public/uploads/images/pp/${this.sessionData.photo}`;
+
   }
 
   onChangePP() {
@@ -51,55 +56,45 @@ export class SettingsComponent implements OnInit {
     } else {
       this.hasFile = false;
     }
+    //  this.uploadFile(this.file) 
   }
 
   uploadFile(file) {
-      this.authService.uploadFile(file, this.userID).subscribe(
-        (response: any) => {
-          if (response && response.success) {
-            this.ppSrc = `https://noworri.com/api/public/uploads/images/pp/${response.file}`;
-            window.location.href = 'Settings';
-          }
-        },
-        (error) => {
-          console.log('Error %j', error.message);
+    this.authService.uploadFile(file, this.userID).subscribe(
+      (response: any) => {
+        if (response && response.success) {
+          this.ppSrc = `https://noworri.com/api/public/uploads/images/pp/${response.file}`;
+          // window.location.href = 'Settings';
         }
-      );
+      },
+      (error) => {
+        console.log('Error %j', error.message);
+      }
+    );
   }
 
   upload(fileData: FileList) {
-      this.file = fileData.item(0);
-      this.hasFile = true;
-    }
-
-  openModal1(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+    this.file = fileData.item(0);
+    this.hasFile = true;
+    this.onChangePP()
   }
-
-  openModal2(template: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(template, { class: 'modal-sm' });
-  }
-  closeFirstModal() {
-    if (!this.modalRef) {
-      return;
-    }
-
-    this.modalRef.hide();
-    this.modalRef = null;
-  }
-
-  openModal3(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
-  }
-  openModal4(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
-  }
-
   logout() {
     localStorage.clear();
     sessionStorage.clear();
     setTimeout(() => {
       this.router.navigate(['/auth/login']);
     }, 2000);
+  }
+  changeNewEmailButton() {
+    this.isDisplayHoldEmail = false;
+    this.isDisplayNewnewEmail = true
+  }
+  changeNewPassWordButton() {
+    this.isDisplayHolPassword = false;
+    this.isDisplayNewPassword = true
+  }
+
+  onAupdateProfilData() {
+
   }
 }

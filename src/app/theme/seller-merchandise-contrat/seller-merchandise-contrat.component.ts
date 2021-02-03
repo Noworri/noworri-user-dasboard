@@ -60,8 +60,8 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   countryData: any;
   locationData: string;
   displayInput: boolean;
-  buyerPhone:string;
-  sellerPhone:string;
+  buyerPhone: string;
+  sellerPhone: string;
   description: string;
   item: string;
   drawNumber: string;
@@ -83,14 +83,14 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   ) {
     this.transactionKey = this.route.snapshot.paramMap.get("transactionKey");
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
-    
+
     const transationData = JSON.parse(
       localStorage.getItem(MERCHANDISE_SELLER2_LOCAL_STORAGE_KEY_0)
     );
-    
-    this.sellerPhone=sessionData.mobile_phone
-    this.deliveryPhone = transationData.deliveryPhoneNumber;
-    this.buyerPhone=transationData.sellerPhoneNumber
+
+    this.sellerPhone = sessionData.mobile_phone
+    // this.deliveryPhone = transationData.deliveryPhoneNumber;
+    // this.buyerPhone=transationData.sellerPhoneNumber
     this.userId = sessionData.user_uid;
     this.email = sessionData.email;
     this.name = sessionData.name;
@@ -110,7 +110,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     this.getDataLocation();
     this.getAccountDetails();
     this.getBankList(this.country);
-   
+
   }
 
   ngOnDestroy() {
@@ -249,7 +249,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
             this.deliveryPhone = details.delivery_phone
               ? details.delivery_phone
               : "N/A";
-              console.log(this.deliveryPhone)
+
             this.paymentData = {
               amount: this.totalAmount,
               currency: this.currency,
@@ -300,7 +300,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
       currency: this.currency,
     };
     this.transactionsService
-      .createRecipient(this.recipientDetails)
+      .createRecipient(this.recipientDetails, this.accountDetails['userId'])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response: any) => {
         if (response.data && response.data.recipient_code) {

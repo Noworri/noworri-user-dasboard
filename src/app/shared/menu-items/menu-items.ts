@@ -49,7 +49,7 @@ const MENUITEMS = [
         type: "link",
       },
       {
-        state: "Get trusted",
+        state: "Trust Zone",
         short_label: "D",
         name: "homegetstrusted",
         icon: "",

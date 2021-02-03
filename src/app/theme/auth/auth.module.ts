@@ -1,13 +1,16 @@
-import { AngularFireModule } from '@angular/fire';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCardModule, MatCheckboxModule, MatOptionModule } from '@angular/material';
+import { RegisterStep1Component } from "./register/register-step1/register-step1.component";
+import { AngularFireModule } from "@angular/fire";
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {
+  MatCardModule,
+  MatCheckboxModule,
+  MatOptionModule,
+} from "@angular/material";
 
-
-
-
-import { AuthRoutingModule } from './auth-routing.module';
-import { SharedModule } from '../../shared/shared.module';
+import { AuthRoutingModule } from "./auth-routing.module";
+import { SharedModule } from "../../shared/shared.module";
+import { Forgot2Component } from './forgot2/forgot2.component';
 
 @NgModule({
   imports: [
@@ -16,8 +19,9 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule,
     MatCardModule,
     MatCheckboxModule,
-    AngularFireModule
+    AngularFireModule,
+    RegisterStep1Component,
   ],
-  declarations: []
+  declarations: [Forgot2Component],
 })
-export class AuthModule { }
+export class AuthModule {}

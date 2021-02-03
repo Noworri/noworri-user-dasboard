@@ -7,30 +7,128 @@
 
         <form class="md-float-material form-material" action="javascript:">
           <div class="text-center">
-            <img src="assets/images/logo.png" alt="logo.png">
+            <img src="assets/images/logo.png" alt="logo.png" />
           </div>
           <div class="auth-box card">
             <div class="card-block">
               <div class="row m-b-20">
                 <div class="col-md-12">
-                  <h3 class="text-left">Recover your password</h3>
+                  <h3 class="text-center">Recover your password</h3>
                 </div>
               </div>
 
-              <div class="form-group form-primary">
-                <input type="text" name="email-address" class="form-control" required="">
+              <div class="form-group form-primary text-center">
+                <mat-label class="labelPhoneNumber">Phone number</mat-label>
+                <form>
+                  <intl-tel-input
+                    *ngIf="waitingDisplayInput"
+                    [name]="'phoneNumber'"
+                    [options]="countryData"
+                    [cssClass]="'form-control'"
+                    [onlyLocalized]="true"
+                    [(E164PhoneNumber)]="E164PhoneNumber"
+                  >
+                  </intl-tel-input>
+                </form>
+                <div class="col" id="recapcha-container"></div>
                 <span class="form-bar"></span>
-                <label class="float-label">Your Email Address</label>
               </div>
+
+              <div class="container"></div>
               <div class="row">
                 <div class="col-md-12">
-                  <button type="button" class="btn btn-primary btn-md btn-block text-center m-b-20 ripple light">Reset Password</button>
+                  <button
+                    (click)="onResetPassword()"
+                    type="button"
+                    class="btn btn-primary btn-md btn-block text-center m-b-20 ripple light"
+                  >
+                    <span *ngIf="isLoadingButton" class="visually-hidden"
+                      >Loading...</span
+                    >
+                    <span *ngIf="isButtonActive"> Reset Password</span>
+                  </button>
+                  <div class="container text-center">
+                    <form
+                      (ngSubmit)="onSubmitVerificationCode(f2)"
+                      #f2="ngForm"
+                      style="margin-top: 30px"
+                      *ngIf="isSentVerificationCode"
+                    >
+                      <div class="centered-content">
+                        <div>
+                          <p>Please enter your verification code</p>
+                        </div>
+                        <div class="form-group form-primary">
+                          <mat-form-field class="col-md-4">
+                            <mat-label>Verification code</mat-label>
+                            <input
+                              type="tel"
+                              matInput
+                              id="VerificationCode"
+                              name="VerificationCode"
+                              ngModel
+                              required
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="btn-group mt-10">
+                          <button type="submit" class="btn btn-success btn-sm">
+                            <span
+                              *ngIf="isLoadingButton"
+                              class="visually-hidden"
+                              >Loading...</span
+                            >
+                            <span *ngIf="isButtonActive">Send</span>
+                          </button>
+                          <div class="col" id="recapcha-container"></div>
+                          <div
+                            *ngIf="hasError"
+                            class="alert alert-danger"
+                            role="alert"
+                          >
+                            {{ codeError }}
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
-              <p class="f-w-600 text-right">Back to <a [routerLink]="['/auth/login']">Login.</a></p>
+
+              <div
+                *ngIf="isCorrectEntryNotification"
+                class="alert alert-danger"
+                role="alert"
+              >
+                please correct your entry then press verify
+              </div>
+              <div
+                style="margin-top: 30px"
+                *ngIf="isValidCountry"
+                class="alert alert-danger text-center"
+                role="alert"
+              >
+                Sorry we don't operate in your country yet
+              </div>
+
+              <div
+                *ngIf="isRegistredNumber"
+                class="alert alert-danger"
+                role="alert"
+              >
+                sorry, we can't reset your password, you don't have a Noworri
+                account
+              </div>
               <div class="row">
-                <div class="col-md-10">
-                  <p class="text-inverse text-left"><a [routerLink]="['/home']"><b>Back to website</b></a></p>
+                <div class="col-6">
+                  <p class="text-inverse text-left">
+                    <a [routerLink]="['/home']"><b>Back to website</b></a>
+                  </p>
+                </div>
+                <div class="col-6">
+                  <p class="f-w-600 text-right">
+                    <a [routerLink]="['/auth/login']">Back to Login.</a>
+                  </p>
                 </div>
               </div>
             </div>

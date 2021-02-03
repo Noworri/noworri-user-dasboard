@@ -1,0 +1,115 @@
+<div class="full">
+  <section class="login-block">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="md-float-material form-material">
+            <div class="text-center">
+              <img src="" alt="" />
+            </div>
+            <div class="auth-box card">
+              <div class="card-block">
+                <div class="row m-b-20">
+                  <div class="col-md-12">
+                    <h3 class="text-center txt-primary">Sign up</h3>
+                  </div>
+                </div>
+                <aw-wizard #wizard class="arc-wizard">
+                  <aw-wizard-step stepTitle="Password">
+                    <form (ngSubmit)="onSignUpUser(f4)" #f4="ngForm">
+                      <div class="centered-content">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group form-primary">
+                              <mat-form-field class="col-md-12">
+                                <mat-label>Password</mat-label>
+                                <input
+                                  type="password"
+                                  matInput
+                                  id="password"
+                                  name="password"
+                                  required
+                                  ngModel
+                                />
+                              </mat-form-field>
+                              <span class="form-bar"></span>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="form-group form-primary">
+                              <mat-form-field class="col-md-12">
+                                <mat-label>Confirm-password</mat-label>
+                                <input
+                                  type="password"
+                                  matInput
+                                  id="confirm-password"
+                                  name="confirm-password"
+                                  required
+                                  ngModel
+                                />
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="btn-group mt-10">
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            [routerLink]="['/auth/register-step2']"
+                          >
+                            Back
+                          </button>
+                          <button type="submit" class="btn btn-primary btn-sm">
+                            <span
+                              *ngIf="isLoadingButton"
+                              class="visually-hidden"
+                              >Loading...</span
+                            >
+                            <span *ngIf="isButtonActive"> finish</span>
+                          </button>
+                        </div>
+                        <div
+                          *ngIf="isErrorMessage"
+                          style="margin-top: 30px"
+                          class="alert alert-danger"
+                          role="alert"
+                        >
+                          Your password does not correspond to one of the
+                          following conditions: <br />
+                          -They must be identical <br />
+                          - should contain at least one lower case <br />
+                          - should contain at least one upper case <br />
+                          - should contain at least 8 characters
+                        </div>
+                        <div
+                          *ngIf="isSuccesMessage"
+                          style="margin-top: 30px"
+                          class="alert alert-primary"
+                          role="alert"
+                        >
+                          congratulations ! your account has been created
+                          successfully please log in with your authentication
+                          information
+                        </div>
+                      </div>
+                    </form>
+                  </aw-wizard-step>
+                </aw-wizard>
+
+                <hr />
+                <div class="row">
+                  <div class="col-md-10">
+                    <p class="text-inverse text-right">
+                      Already have an account ?
+                      <a [routerLink]="['/auth/login']"><b>Login here</b></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
