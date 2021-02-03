@@ -16,28 +16,6 @@ export class CreateBusinessService {
 
   constructor(private http: HttpClient) { }
 
-  // addNewAccount(accountDetails) {
-  //   const url = 'https://api.noworri.com/api/addnewaccount';
-  //   let params = new HttpParams();
-  //   params = params.append('user_id', accountDetails.userId);
-  //   params = params.append('bank_name', accountDetails.bankName);
-  //   params = params.append('bank_code', accountDetails.bankCode);
-  //   params = params.append('holder_name', accountDetails.holderName);
-  //   params = params.append('account_no', accountDetails.accountNo);
-  //   params = params.append('recipient_code', accountDetails.recipient_code);
-
-  //   return this.http
-  //     .post(url, null, { responseType: 'json', params: params })
-  //     .pipe(
-  //       map((response) => {
-  //         return response;
-  //       }),
-  //       catchError((error: HttpErrorResponse) => {
-  //         console.log('Error:', error.message);
-  //         return observableThrowError(error);
-  //       })
-  //     );
-  // }
 
 
   createNewBusiness(allData) {

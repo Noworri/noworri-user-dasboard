@@ -111,15 +111,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     ownerPhone,
     transactionType
   ) {
-    console.log(transactionKey,
-      userRole,
-      ownerRole,
-      userPhone,
-      ownerPhone,
-      transactionType)
-
-    console.log(this.userPhone, this.userRole)
-
     transactionType = transactionType.toLowerCase();
     if (this.userPhone === userPhone) {
       this.userRole = userRole;

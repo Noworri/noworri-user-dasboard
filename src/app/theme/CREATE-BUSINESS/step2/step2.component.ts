@@ -39,7 +39,7 @@ export class Step2Component implements OnInit {
 
   onSaveBusnessInformation() {
     this.getBusinessAdressInformation()
-    console.log(this.businessInformation)
+
     if (
       this.bsnessAdressInputStatus.country === 'form-control is-valid' &&
       this.bsnessAdressInputStatus.region === 'form-control is-valid' &&
