@@ -80,6 +80,7 @@ export class LoginComponent implements OnInit {
                 photo: response.currentUser.photo,
                 name: response.currentUser.name,
                 status: response.currentUser.status,
+                id: response.currentUser.id,
               };
               const sessionData = {
                 token: response.currentUser.token,

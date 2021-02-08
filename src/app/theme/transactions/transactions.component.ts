@@ -41,7 +41,6 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadTransactions(this.userId);
-
   }
 
   ngOnDestroy() {
@@ -56,8 +55,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (transactions) => {
-
           this.tableData = transactions.map((details) => {
+            console.log("transactions data", details);
             this.allDateData = details;
             this.transactionType = details.transaction_type.toLowerCase();
             details.destinator_role =
@@ -101,7 +100,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       );
   }
 
-  processDateData() { }
+  processDateData() {}
 
   onViewTransactionDetails(
     transactionKey,
@@ -112,11 +111,18 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     transactionType
   ) {
     transactionType = transactionType.toLowerCase();
+    console.log("userRole before", userRole);
+    console.log("transactionKey before", transactionKey);
+    console.log("userPhone raw", userPhone);
+    console.log("ownerPhone raw", ownerPhone);
+
     if (this.userPhone === userPhone) {
       this.userRole = userRole;
     } else if (this.userPhone === ownerPhone) {
       this.userRole = ownerRole;
     }
+    console.log("userRole", this.userRole);
+    console.log("transactionKey", transactionKey);
 
     if (this.userRole === "buy" && transactionType === "merchandise") {
       this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);

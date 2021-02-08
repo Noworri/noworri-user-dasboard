@@ -1,24 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
   HttpParams,
-} from '@angular/common/http';
-import { Observable, throwError as observableThrowError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { TransactionsReference } from './reference-data.interface';
+} from "@angular/common/http";
+import { Observable, throwError as observableThrowError } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import { TransactionsReference } from "./reference-data.interface";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class TransactionsService {
   status: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getUserTransactions(userId: string): Observable<any> {
-    const url = 'https://api.noworri.com/api/usertransactions/' + userId;
+    const url = "https://api.noworri.com/api/usertransactions/" + userId;
 
     return this.http.get(url).pipe(
       map((data: TransactionsReference[]) => {
@@ -27,17 +28,17 @@ export class TransactionsService {
             values.total_price = values.price;
           }
 
-
           if (values.etat)
-
-            if (values.etat === '0') {
-              values.state = 'Cancelled';
-            } else if (values.etat === '1') {
-              values.state = 'Pending';
-            } else if (values.etat === '3' || values.etat === '5') {
-              values.state = 'Completed';
-            } else if (values.etat === '2') {
-              values.state = 'Secured';
+            if (values.etat === "0") {
+              values.state = "Cancelled";
+            } else if (values.etat === "1") {
+              values.state = "Pending";
+            } else if (values.etat === "3" || values.etat === "5") {
+              values.state = "Completed";
+            } else if (values.etat === "2") {
+              values.state = "Secured";
+            } else if (values.etat === "4") {
+              values.state = "Deleted";
             }
           return values;
         });
@@ -45,7 +46,7 @@ export class TransactionsService {
         return data;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -53,7 +54,7 @@ export class TransactionsService {
 
   getUserTransaction(transaction_id: string): Observable<any> {
     const url =
-      'https://api.noworri.com/api/getusertransaction/' + transaction_id;
+      "https://api.noworri.com/api/getusertransaction/" + transaction_id;
 
     return this.http.get(url).pipe(
       map((data: TransactionsReference[]) => {
@@ -66,25 +67,25 @@ export class TransactionsService {
         return data;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
   }
 
   processPayment(body): Observable<any> {
-    const url = 'https://api.noworri.com/api/makecardpayment';
+    const url = "https://api.noworri.com/api/makecardpayment";
     let params = new HttpParams();
     const amount = body.paymentDetails.amount.toString();
 
-    params = params.append('amount', amount);
+    params = params.append("amount", amount);
     // , { responseType: 'json', params: params}
     return this.http.post(url, body).pipe(
       map((response) => {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -97,7 +98,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -110,7 +111,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -119,14 +120,14 @@ export class TransactionsService {
   initiateReleasePaystack(data) {
     const url = `https://api.noworri.com/api/initiateRelease/${data.transactionID}`;
     let params = new HttpParams();
-    params = params.append('source', 'balance');
-    params = params.append('reason', 'Noworri Payment Release');
-    params = params.append('amount', data.amount);
-    params = params.append('recipient', data.recipient);
-    params = params.append('currency', data.currency);
+    params = params.append("source", "balance");
+    params = params.append("reason", "Noworri Payment Release");
+    params = params.append("amount", data.amount);
+    params = params.append("recipient", data.recipient);
+    params = params.append("currency", data.currency);
 
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, null, { responseType: "json", params: params })
       .pipe(
         map((response: any) => {
           const releaseFundsData = response.data;
@@ -136,7 +137,7 @@ export class TransactionsService {
           return releaseFundsData;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -145,20 +146,20 @@ export class TransactionsService {
   initiateRefundPaystack(data) {
     const url = `https://api.noworri.com/api/initiaterefund`;
     let params = new HttpParams();
-    params = params.append('transaction', data.transaction_ref);
-    params = params.append('customer_note', 'Transaction cancelled');
-    params = params.append('amount', data.amount);
-    params = params.append('currency', data.currency);
+    params = params.append("transaction", data.transaction_ref);
+    params = params.append("customer_note", "Transaction cancelled");
+    params = params.append("amount", data.amount);
+    params = params.append("currency", data.currency);
 
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, null, { responseType: "json", params: params })
       .pipe(
         map((response: any) => {
           const releaseFundsData = response.data;
           return releaseFundsData;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -167,16 +168,16 @@ export class TransactionsService {
   finalizeReleasePaystack(data) {
     const url = `https://api.noworri.com/api/paystackrelease/test`;
     let params = new HttpParams();
-    params = params.append('transfer_code', data.transfer_code);
+    params = params.append("transfer_code", data.transfer_code);
 
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, null, { responseType: "json", params: params })
       .pipe(
         map((response: any) => {
           return response.data;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -189,7 +190,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -202,7 +203,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -215,7 +216,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -224,17 +225,17 @@ export class TransactionsService {
   verifyReleaseCode(data) {
     const url = `https://api.noworri.com/api/verifycode`;
     let params = new HttpParams();
-    params = params.append('id', data.transaction_id);
-    params = params.append('release_code', data.release_code);
+    params = params.append("id", data.transaction_id);
+    params = params.append("release_code", data.release_code);
 
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, null, { responseType: "json", params: params })
       .pipe(
         map((response) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -243,57 +244,55 @@ export class TransactionsService {
   updateDeliveryPhone(transaction_id, delivery_phone) {
     const url = `https://api.noworri.com/api/updateecobankescrdevivery`;
     let params = new HttpParams();
-    params = params.append('deliver', delivery_phone);
-    params = params.append('id', transaction_id);
+    params = params.append("deliver", delivery_phone);
+    params = params.append("id", transaction_id);
     const body = {
       deliver: delivery_phone,
-      id: transaction_id
+      id: transaction_id,
     };
 
-    return this.http
-      .post(url, body)
-      .pipe(
-        map((response) => {
-          return response;
-        }),
-        catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
-          return observableThrowError(error);
-        })
-      );
+    return this.http.post(url, body).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("Error", error.message);
+        return observableThrowError(error);
+      })
+    );
   }
 
   payStackPayment(paymentData) {
-    const url = `https://api.noworri.com/api/securewithpaystacktest`;
+    const url = environment.payStackCheckoutUrl;
     let params = new HttpParams();
-    params = params.append('email', paymentData.email);
-    params = params.append('amount', paymentData.amount);
-    params = params.append('currency', paymentData.currency);
-    params = params.append('callback_url', 'https://web.noworri.com/home');
+    params = params.append("email", paymentData.email);
+    params = params.append("amount", paymentData.amount);
+    params = params.append("currency", paymentData.currency);
+    params = params.append("callback_url", paymentData.callback_url);
 
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, null, { responseType: "json", params: params })
       .pipe(
         map((response: any) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
   }
 
-  checkTransactionStatus(ref, transaction_key) {
-    const url = `https://api.noworri.com/api/chektransactionstatus`;
+  checkTransactionStatus(ref, transaction_key = null) {
+    const url = environment.checkTransactionStatusUrl;
     const transactionData = {
       payment_id: ref,
-      treansaction_key: transaction_key
+      transaction_key: transaction_key,
     };
     let params = new HttpParams();
-    params = params.append('payment_id', transactionData.payment_id);
-    params = params.append('transaction_key', transactionData.treansaction_key);
-    return this.http.get(url, { responseType: 'json', params: params }).pipe(
+    params = params.append("payment_id", transactionData.payment_id);
+    params = params.append("transaction_key", transactionData.transaction_key);
+    return this.http.get(url, { responseType: "json", params: params }).pipe(
       map((response: any) => {
         if (response.data) {
           this.status = response.data.status;
@@ -304,26 +303,38 @@ export class TransactionsService {
   }
 
   addNewAccount(accountDetails) {
-    const url = 'https://api.noworri.com/api/addnewaccount';
+    const url = `https://api.noworri.com/api/adduseraccounttest/${accountDetails.userId}`;
     let params = new HttpParams();
-    params = params.append('user_id', accountDetails.userId);
-    params = params.append('bank_name', accountDetails.bankName);
-    params = params.append('bank_code', accountDetails.bankCode);
-    params = params.append('holder_name', accountDetails.holderName);
-    params = params.append('account_no', accountDetails.accountNo);
-    params = params.append('recipient_code', accountDetails.recipient_code);
+    params = params.append("bank_name", accountDetails.bankName);
+    params = params.append("bank_code", accountDetails.bankCode);
+    params = params.append("name", accountDetails.holderName);
+    params = params.append("account_number", accountDetails.accountNo);
+    params = params.append("type", accountDetails.type);
 
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, null, { responseType: "json", params: params })
       .pipe(
         map((response) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error:', error.message);
+          console.log("Error:", error.message);
           return observableThrowError(error);
         })
       );
+  }
+
+  deleteUserAccount(accountDetails) {
+    const url = environment.deleteAccountUrl;
+    return this.http.post(url, accountDetails, { responseType: "json" }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("Error:", error.message);
+        return observableThrowError(error);
+      })
+    );
   }
 
   getAccountDetails(user_id) {
@@ -333,22 +344,22 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error: ', error.message);
+        console.log("Error: ", error.message);
         return observableThrowError(error);
       })
     );
   }
 
   getBanks(country) {
-    const url = 'https://api.paystack.co/bank';
+    const url = "https://api.paystack.co/bank";
     let params = new HttpParams();
-    params = params.append('country', country);
-    return this.http.get(url, { responseType: 'json', params: params }).pipe(
+    params = params.append("country", country);
+    return this.http.get(url, { responseType: "json", params: params }).pipe(
       map((response: any) => {
         return response.data;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error: ', error.message);
+        console.log("Error: ", error.message);
         return observableThrowError(error);
       })
     );
@@ -360,14 +371,14 @@ export class TransactionsService {
     // let params = new HttpParams();
     // params = params.append('file', files);
     const formData: FormData = new FormData();
-    formData.append('fichier', file);
+    formData.append("fichier", file);
 
-    return this.http.post(url, formData, { responseType: 'json' }).pipe(
+    return this.http.post(url, formData, { responseType: "json" }).pipe(
       map((response: any) => {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -376,30 +387,30 @@ export class TransactionsService {
   mapUploadedFiles(transaction_id, paths) {
     const url = `https://api.noworri.com/api/matchtransactionupload`;
     let params = new HttpParams();
-    params = params.append('path', paths);
-    params = params.append('transaction_id', transaction_id);
+    params = params.append("path", paths);
+    params = params.append("transaction_id", transaction_id);
 
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, null, { responseType: "json", params: params })
       .pipe(
         map((response: any) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
   }
 
   makeMomoPayment() {
-    const url = 'https://api.noworri.com/api/paywithmomo';
+    const url = "https://api.noworri.com/api/paywithmomo";
     return this.http.post(url, null).pipe(
       map((response) => {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -413,77 +424,76 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
   }
 
   createRecipient(details, userId) {
-    const url = 'https://api.noworri.com/api/createrecipienttest/' + userId;
+    const url = environment.addAccountUrl + userId;
     let params = new HttpParams();
-    params = params.append('type', details.type);
-    params = params.append('name', details.name);
-    params = params.append('description', details.description);
-    params = params.append('account_number', details.account_number);
-    params = params.append('bank_code', details.bank_code);
-    params = params.append('currency', details.currency);
+    params = params.append("type", details.type);
+    params = params.append("name", details.name);
+    params = params.append("description", details.description);
+    params = params.append("account_number", details.account_number);
+    params = params.append("bank_code", details.bank_code);
+    params = params.append("currency", details.currency);
     return this.http
-      .post(url, null, { responseType: 'json', params: params })
+      .post(url, null, { responseType: "json", params: params })
       .pipe(
         map((response: any) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
   }
 
   createTransaction(transactionDetails) {
-    const url = 'https://api.noworri.com/api/newtransaction';
-    // const url = 'https://api.noworri.com/api/createusertransaction';
-    let params = new HttpParams();
+    const url = "https://api.noworri.com/api/newtransaction";
+    // let params = new HttpParams();
     if (!transactionDetails.deadline || !transactionDetails.revision) {
-      transactionDetails.deadline = '';
+      transactionDetails.deadline = "";
       transactionDetails.revision = 0;
     }
     if (!transactionDetails.file_path) {
-      transactionDetails.file_path = 'N/A';
+      transactionDetails.file_path = "N/A";
     }
 
-    params = params.append('initiator_id', transactionDetails.initiator_id);
-    params = params.append('initiator_role', transactionDetails.initiator_role);
-    params = params.append('destinator_id', transactionDetails.destinator_id);
-    params = params.append(
-      'transaction_type',
-      transactionDetails.transaction_type
-    );
-    params = params.append('name', transactionDetails.service);
-    params = params.append('price', transactionDetails.price);
-    params = params.append('deadDays', '0');
-    params = params.append('deadHours', '0');
-    params = params.append('deadline', transactionDetails.deadline);
-    params = params.append('start', '');
-    params = params.append('deadline_type', transactionDetails.deadline_type);
-    params = params.append('delivery_phone', transactionDetails.delivery_phone);
-    params = params.append('revision', transactionDetails.revision);
-    params = params.append('requirement', transactionDetails.requirement);
-    params = params.append('file_path', transactionDetails.file_path);
-    params = params.append('payment_id', transactionDetails.transaction_ref);
-    params = params.append('etat', '2');
-    params = params.append('deleted', '0');
-    params = params.append('currency', transactionDetails.currency);
+    // params = params.append("initiator_id", transactionDetails.initiator_id);
+    // params = params.append("initiator_role", transactionDetails.initiator_role);
+    // params = params.append("destinator_id", transactionDetails.destinator_id);
+    // params = params.append(
+    //   "transaction_type",
+    //   transactionDetails.transaction_type
+    // );
+    // params = params.append("name", transactionDetails.service);
+    // params = params.append("price", transactionDetails.price);
+    // params = params.append("deadDays", "0");
+    // params = params.append("deadHours", "0");
+    // params = params.append("deadline", transactionDetails.deadline);
+    // params = params.append("start", "");
+    // params = params.append("deadline_type", transactionDetails.deadline_type);
+    // params = params.append("delivery_phone", transactionDetails.delivery_phone);
+    // params = params.append("revision", transactionDetails.revision);
+    // params = params.append("requirement", transactionDetails.requirement);
+    // params = params.append("file_path", transactionDetails.file_path);
+    // params = params.append("payment_id", transactionDetails.transaction_ref);
+    // params = params.append("etat", "2");
+    // params = params.append("deleted", "0");
+    // params = params.append("currency", transactionDetails.currency);
 
     return this.http
-      .post(url, transactionDetails, { responseType: 'json', params: params })
+      .post(url, transactionDetails, { responseType: "json" })
       .pipe(
         map((response) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -496,7 +506,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -509,32 +519,32 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log('Error', error.message);
+        console.log("Error", error.message);
         return observableThrowError(error);
       })
     );
   }
 
   setStepTransaction(stepDetails) {
-    const url = 'https://api.noworri.com/api/createsteptrans';
+    const url = "https://api.noworri.com/api/createsteptrans";
     let params = new HttpParams();
     if (!stepDetails.accepted) {
       stepDetails.accepted = 0;
     }
 
-    params = params.append('transaction_id', stepDetails.transaction_id);
-    params = params.append('step', stepDetails.step);
-    params = params.append('description', stepDetails.description);
-    params = params.append('accepted', stepDetails.accepted);
+    params = params.append("transaction_id", stepDetails.transaction_id);
+    params = params.append("step", stepDetails.step);
+    params = params.append("description", stepDetails.description);
+    params = params.append("accepted", stepDetails.accepted);
 
     return this.http
-      .put(url, stepDetails, { responseType: 'json', params: params })
+      .put(url, stepDetails, { responseType: "json", params: params })
       .pipe(
         map((response) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log('Error', error.message);
+          console.log("Error", error.message);
           return observableThrowError(error);
         })
       );
