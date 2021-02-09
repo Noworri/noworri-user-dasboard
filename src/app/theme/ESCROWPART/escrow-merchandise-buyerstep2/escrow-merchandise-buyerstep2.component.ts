@@ -41,7 +41,7 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
   wholeAmountPart: number;
   decimalPart: any;
 
-  unsubscribe = new Subject();
+  unsubscribe$ = new Subject();
 
   constructor(
     private formbuilder: FormBuilder,
@@ -59,8 +59,8 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.amount = +escrowStep2Data.price + +escrowStep2Data.noworriFee;
     this.sellerNumber = escrowStep2Data.seller;
     this.deliveryPhone = escrowStep2Data.delivery_phone;
-    this.initiator_role = escrowStep2Data.role === "Buyer" ? "Buy" : "Sell";
-    this.destinator_role = this.initiator_role === "Buy" ? "Sell" : "Buy";
+    this.initiator_role = escrowStep2Data.role;
+    this.destinator_role = this.initiator_role === "buy" ? "sell" : "buy";
     this.transactionType = escrowStep2Data.transaction_type;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
@@ -80,20 +80,32 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       destinator_id: this.destinator_id,
       transaction_type: this.transactionType,
       delivery_phone: this.deliveryPhone,
-      service: this.item,
+      name: this.item,
       price: this.price,
       noworri_fees: this.noworriFee,
-      total_price: this.amount,
       requirement: this.description,
-      transaction_ref: "",
-      etat: 4,
-      currency: 'GHS'
+      transaction_ref: null,
+      etat: 2,
+      currency: "GHS",
     };
   }
 
+  getUrlParams(url) {
+    let params = new URL(url).searchParams;
+    this.transaction_ref = params.get("reference");
+
+    if (this.transaction_ref) {
+      this.checkSuccessSecuredFunds(this.transaction_ref);
+    }
+  }
+
   ngOnInit() {
+    console.log("window.location.hostname", window.location.href);
+    const url = window.location.href;
+    this.getUrlParams(url);
+
     this.initCreditOrWallet();
-    this.router.events.pipe(takeUntil(this.unsubscribe)).subscribe((event) => {
+    this.router.events.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (
           !event.url.startsWith("/escrowmerchandisestep1") &&
@@ -185,18 +197,13 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       email: this.email,
       amount: Math.round(this.amount * 100),
       currency: "GHS",
+      callback_url: `${window.location.href}`,
     };
     this.transactionsService
       .payStackPayment(transactionData)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response: any) => {
-        window.open(
-          `${response.data.authorization_url}`,
-          "popup",
-          "width=500,height=650"
-        );
-        this.transaction_ref = response.data.reference;
-        this.createTransaction();
+        window.location.replace(`${response.data.authorization_url}`);
         return false;
       });
   }
@@ -205,14 +212,32 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.transactionDetails["transaction_ref"] = this.transaction_ref;
     this.transactionsService
       .createTransaction(this.transactionDetails)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (transaction: any) => {
-
-          setTimeout(() => {
-            this.checkSuccessSecuredFunds(this.transaction_ref, transaction);
-          }, 2000);
-          return transaction;
+          if (transaction && transaction.transaction_key) {
+            if (
+              transaction.initiator_id &&
+              transaction.initiator_id === this.initiator_id &&
+              transaction.initiator_role === "buy"
+            ) {
+              this.router.navigate([
+                `/buyermerchandisecontrat/${transaction.transaction_key}`,
+              ]);
+            } else if (
+              transaction.initiator_id &&
+              transaction.user_id === this.initiator_id &&
+              transaction.initiator_role === "sell"
+            ) {
+              this.router.navigate([
+                `/sellermerchandisecontrat/${transaction.transaction_key}`,
+              ]);
+            } else {
+              console.log("error", transaction);
+            }
+          } else {
+            const errorMessage = transaction.message;
+          }
         },
         (error) => {
           console.log(error.message);
@@ -220,37 +245,14 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
       );
   }
 
-  checkSuccessSecuredFunds(ref, transaction) {
+  checkSuccessSecuredFunds(ref) {
     this.transactionsService
-      .checkTransactionStatus(ref, transaction.transaction_key)
-
-      .pipe(takeUntil(this.unsubscribe))
+      .checkTransactionStatus(ref)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((statusData) => {
         if (statusData.data && statusData.data.status === "success") {
+          this.createTransaction();
           // this.isValidating = false;
-          //------J'ai fait ca juste pour contunier  j'y viendrai --//
-          this.router.navigate([
-            `/buyermerchandisecontrat/${transaction.transaction_key}`,
-          ]);
-          if (
-            transaction.initiator_id &&
-            transaction.initiator_id === this.initiator_id &&
-            transaction.initiator_role === "Buy"
-          ) {
-            this.router.navigate([
-              `/buyermerchandisecontrat/${transaction.transaction_key}`,
-            ]);
-          } else if (
-            transaction.initiator_id &&
-            transaction.user_id === this.initiator_id &&
-            transaction.initiator_role === "Sell"
-          ) {
-            this.router.navigate([
-              `/sellermerchandisecontrat/${transaction.transaction_key}`,
-            ]);
-          } else {
-            console.log("error", transaction);
-          }
         }
       });
   }

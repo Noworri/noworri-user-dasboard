@@ -1,7 +1,7 @@
-import { CreateBusinessService } from './Service/create-business.service';
-import { Step3Component } from './theme/create-business/step3/step3.component';
-import { Step2Component } from './theme/create-business/step2/step2.component';
-import { Step1Component } from './theme/create-business/step1/step1.component';
+import { CreateBusinessService } from "./Service/create-business.service";
+import { Step3Component } from "./theme/create-business/step3/step3.component";
+import { Step2Component } from "./theme/create-business/step2/step2.component";
+import { Step1Component } from "./theme/create-business/step1/step1.component";
 
 import { Forgot2Component } from "./theme/auth/forgot2/forgot2.component";
 import { ForgotComponent } from "./theme/auth/forgot/forgot.component";
@@ -95,11 +95,10 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-import { DatePipe } from '@angular/common';
+import { DatePipe } from "@angular/common";
 
-import { NgxDropzoneModule } from 'ngx-dropzone';
-
-
+import { NgxDropzoneModule } from "ngx-dropzone";
+import { CreateBusinessModule } from "./theme/CREATE-BUSINESS/create-business.module";
 
 @NgModule({
   declarations: [
@@ -147,7 +146,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     Forgot2Component,
     Step1Component,
     Step2Component,
-    Step3Component
+    Step3Component,
   ],
   imports: [
     BrowserModule,
@@ -184,7 +183,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    CreateBusinessModule,
   ],
 
   schemas: [],
@@ -199,4 +199,4 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

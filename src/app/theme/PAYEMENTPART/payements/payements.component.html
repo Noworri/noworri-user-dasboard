@@ -10,9 +10,10 @@
           </li>
           <li class="nav-item" class="Addabankaccount">
             <a
+              *ngIf="!hasMaxAccounts"
               class="nav-link"
               (click)="openAddBankAccountModal(AddBankAccounttemplate)"
-              >Add a bank account</a
+              > + Add a bank account</a
             >
           </li>
         </ul>
@@ -28,7 +29,7 @@
                     <h6 class="FidelityBank">{{ detail.bank_name }}</h6>
                   </div>
                   <div class="col-4">
-                    <h6 class="Delete">Delete</h6>
+                    <h6 class="Delete" (click) = "deletedAccount(detail.recipient_code)">Delete</h6>
                   </div>
                 </div>
                 <div class="row">
@@ -146,9 +147,10 @@
           </li>
           <li class="nav-item" class="Addamobilewallet">
             <a
+              *ngIf="!hasMaxWallets"
               class="nav-link"
               (click)="openAddBankAccountModal(AddMobileWallerAccounttemplate)"
-              >Add a mobile wallet account</a
+              > + Add a mobile wallet account</a
             >
           </li>
         </ul>
@@ -164,7 +166,7 @@
                     <h6 class="MTN">{{ detail.bank_name }}</h6>
                   </div>
                   <div class="col-4">
-                    <h6 class="Delete">Delete</h6>
+                    <h6 class="Delete" (click) = "deletedAccount(detail.recipient_code)">Delete</h6>
                   </div>
                 </div>
                 <div class="row">
@@ -271,7 +273,7 @@
         </ng-template>
       </mat-tab>
       <!----------------Card part ---------------------------->
-      <mat-tab label="Cards">
+      <!--<mat-tab label="Cards">
         <ul class="nav">
           <li class="nav-item">
             <img src="assets\payement\banque.png" class="WalletImag" />
@@ -355,7 +357,7 @@
             </div>
           </div>
         </div>
-        <!------------------ Add bank account Modale-------------------------------------------->
+        <! ------------------ Add bank account Modale-------------------------------------------- >
         <ng-template #AddCardAccounttemplate>
           <div class="modal-body">
             <div class="container">
@@ -402,7 +404,7 @@
             </form>
           </div>
         </ng-template>
-      </mat-tab>
+      </mat-tab> -->
     </mat-tab-group>
   </div>
 </div>

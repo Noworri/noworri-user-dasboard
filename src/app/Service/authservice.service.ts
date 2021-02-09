@@ -137,13 +137,13 @@ export class AuthserviceService {
         })
       );
   }
-    
-  aupDateUserAuth(userData){
+
+  aupDateUserAuth(userData) {
     const url = "https://api.noworri.com/api/register";
     let params = new HttpParams();
     params = params.append("user_uid", userData.user_uid);
     params = params.append("email", userData.email);
-   
+
     return this.http
       .post(url, null, { responseType: "json", params: params })
       .pipe(
@@ -157,5 +157,20 @@ export class AuthserviceService {
       );
   }
 
+  updateEmail(userData) {
+    const url = `https://api.noworri.com/api/updateemail`;
+    let params = new HttpParams();
+    params = params.append("id", userData.id);
+    params = params.append("email", userData.email);
 
+    return this.http.post(url, null, { responseType: "json", params }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
 }
