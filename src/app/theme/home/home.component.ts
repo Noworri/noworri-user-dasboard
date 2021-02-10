@@ -17,12 +17,18 @@ export class HomeComponent implements OnInit {
   TypeOfTransationInputControl = 'custum-select';
   YourRoleInputControl = 'custom-select ';
 
+
+    
+
+
+
+
   constructor(
     private homeInputService: HomeInputService,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   // ---Controle et envoi des donnees des champs, vers les objets du HomeInputService----------//
   OnSubmit(F: NgForm) {
     this.homeInputService.DataInputHome.TypeOfTransation =
@@ -74,4 +80,11 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['escrowmerchandisesellerstep1']);
     }
   }
+
+
+
+
+
+
+
 }

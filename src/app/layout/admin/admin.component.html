@@ -42,23 +42,62 @@
 
             <li class="ripple light" id="ProfilNameEtMail">
               <div class="row">
-                <a (click)="onViewProfile()" class="Nom"
-                  >{{ currentUser }} {{ lastName }}</a
-                >
+                <a (click)="onViewProfile()" class="Nom">
+                  <!-- {{ currentUser }} {{ lastName }} -->
+
+                  Business Name
+                </a>
               </div>
               <div
                 class="row"
                 style="margin-left: -20px; margin-top: -6px"
-               
                 routerLink="/create-business/step1"
               >
-                <mat-icon style="font-size: 20px">store</mat-icon>
-                <a style="margin-top: -10px; margin-left: -10px"
-                  >Add business</a
-                >
+                <!-- <mat-icon style="font-size: 20px">store</mat-icon> -->
+                <a style="margin-top: -10px; margin-left: -5px">
+                  <!-- Add business -->
+                  Business Id
+                </a>
               </div>
             </li>
-            <li class="header-search" *ngIf="waitingDisplayInput">
+
+            <!-- business Account information -->
+            <div class="row" id="businessAcount">
+              <div class="col-3">
+                <div class="card" style="width: 10rem; height: 50px">
+                  <div class="card-body">
+                    <h6 class="title">Total Revenu</h6>
+                    <h6 class="price1">Ghc 12,560.25</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="card" style="width: 10rem; height: 50px">
+                  <div class="card-body">
+                    <h6 class="title">Amount on Hold</h6>
+                    <h6 class="price2">Ghc 12,560.25</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="card" style="width: 10rem; height: 50px">
+                  <div class="card-body">
+                    <h6 class="title">Total Transactions</h6>
+                    <h6 class="price3">52</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="card" style="width: 10rem; height: 50px">
+                  <div class="card-body">
+                    <h6 class="title">Payout</h6>
+                    <h6 class="price4">Ghc 12,560.25</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <li class="header-search" *ngIf="waitingDisplayInput">
               <form #form="ngForm">
                 <intl-tel-input
                   [name]="'my-name'"
@@ -69,9 +108,9 @@
                   [(E164PhoneNumber)]="E164PhoneNumber"
                 ></intl-tel-input>
               </form>
-            </li>
+            </li> -->
           </ul>
-          <ul class="input-group-append prospan" *ngIf="waitingDisplayInput">
+          <!-- <ul class="input-group-append prospan" *ngIf="waitingDisplayInput">
             <button
               (click)="onSearchCompany(resultModal, warningModale)"
               class="btn btn-primary"
@@ -89,7 +128,7 @@
                 >
               </span>
             </button>
-          </ul>
+          </ul> -->
           <!---- <ul class="OnlineVendor">
             <h6>Are you an online vendor?</h6>
           </ul> --->
@@ -410,6 +449,30 @@
                       </a>
                     </li>
                   </ul>
+
+                  <div class="row" id="downProfil">
+                    <div class="col-6">
+                      <div class="main-menu-header">
+                        <a>
+                          <img
+                            src="../../../assets/homebg.jpg"
+                            class="img-menu-user img-radius"
+                            alt="User-Profile-Image"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="row">
+                        <a class="Nom">Mari Larochette</a>
+                      </div>
+                      <div class="row swich">
+                        <a style="margin-top: -10px; margin-left: -10px"
+                          >Swich Account</a
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

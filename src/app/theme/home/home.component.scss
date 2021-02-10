@@ -1,8 +1,8 @@
 //-----------App card----------//
 .page-body {
-  margin-top: 80px;
+  margin-top: 90px;
   margin-left: 50px;
- 
+
   .app-card1 {
     h2 {
       text-align: left;
@@ -105,7 +105,7 @@
       color: #ffffff;
       opacity: 1;
       top: 20px;
-      &:after{
+      &:after {
         border-color: red;
       }
     }
@@ -124,6 +124,15 @@
       color: #686868;
       opacity: 1;
       font-size: small;
+    }
+  }
+  .activeTransaction {
+    color: #7a4bff;
+    cursor: pointer;
+    font-size: 20px;
+
+    .span {
+      font-size: 30px;
     }
   }
 }
