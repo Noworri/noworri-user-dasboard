@@ -155,6 +155,19 @@ export class AdminComponent implements OnInit, OnDestroy {
     class: 'cool',
   };
 
+
+
+  businessStatus='actived'
+
+  dashbordStatus = {
+    isBusunessAccount: Boolean,
+    isPersonalAccount: Boolean
+  }
+
+
+
+
+
   countryData: any;
   locationData: string;
   waitingDisplayInput: boolean;
@@ -946,4 +959,10 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.router.navigate(['/auth/login']);
     }, 1000);
   }
+
+  loadDashBoardStatus() {
+   
+
+
+}
 }

@@ -43,7 +43,53 @@
     }
     .header-search {
       margin-top: 30px;
-      margin-left: 106px;
+      margin-left: 606px;
+    }
+
+    #businessAcount {
+      display: flex;
+      margin-left: 200px;
+      margin-top: 30px;
+      .card {
+        margin-left: 80px;
+        .title {
+          margin-top: -18px;
+          letter-spacing: 0px;
+          color: #9b9b9b;
+          opacity: 1;
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: 400;
+          text-align: center;
+        }
+      }
+      .price1 {
+        letter-spacing: 0px;
+        color: #2bb996;
+        opacity: 1;
+        text-align: center;
+        font-weight: bold;
+      }
+      .price2 {
+        letter-spacing: 0px;
+        color: #ff0045;
+        opacity: 1;
+        text-align: center;
+        font-weight: bold;
+      }
+      .price3 {
+        letter-spacing: 0px;
+        color: #010d4a;
+        opacity: 1;
+        text-align: center;
+        font-weight: bold;
+      }
+      .price4 {
+        letter-spacing: 0px;
+        color: #3aadd9;
+        opacity: 1;
+        text-align: center;
+        font-weight: bold;
+      }
     }
   }
   .nav-right {
@@ -1098,5 +1144,35 @@
   #inp {
     margin-left: 340px;
     margin-top: -30px;
+  }
+}
+
+// down profil
+
+#downProfil {
+  margin-top: -10px;
+  margin-left: -30px;
+  img {
+    height: 35px;
+    width: 35px;
+    margin-right: -30pxs;
+  }
+  .Nom {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 16px;
+    margin-left: -30px;
+  }
+  .swich {
+    margin-top: 10px;
+    margin-left: -34px;
+    a {
+      color: #2bb996;
+      cursor: pointer;
+      font-weight: 500;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
