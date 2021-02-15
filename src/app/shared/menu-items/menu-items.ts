@@ -51,7 +51,7 @@ const MENUITEMS = [
       {
         state: "Payouts",
         short_label: "D",
-        name: "homegetstrusted",
+        name: "transactiondetails",
         icon: "",
         type: "link",
       },

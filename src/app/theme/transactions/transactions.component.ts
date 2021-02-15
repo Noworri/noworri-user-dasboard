@@ -14,6 +14,7 @@ const SESSION_STORAGE_KEY = "noworri-user-session";
   styleUrls: ["./transactions.component.scss"],
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
+  dateIput:Boolean;
   unsubscribe = new Subject();
 
   tableData: any;
@@ -133,5 +134,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     } else if (this.userRole === "sell" && transactionType === "services") {
       this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
     }
+  }
+  onActivateDateInput() {
+    this.dateIput = !this.dateIput
   }
 }

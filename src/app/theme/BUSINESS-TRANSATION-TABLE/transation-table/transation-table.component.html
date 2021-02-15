@@ -60,47 +60,38 @@
               </div>
             </div>
             <div class="col-2" style="font-size: 13px; font-weight: bold">
-              transactions:10
+              transactions:10:
             </div>
             <div class="col-2" style="font-size: 13px; font-weight: bold">
               Revenu:
             </div>
           </div>
-
           <div class="table-data">
             <table class="table table-bordered table-striped table-sm">
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Transaction Type</th>
-                  <th>You're dealing with :</th>
-                  <th>Amount Secured</th>
+                  <th>Transaction ID</th>
+                  <th>Channel</th>
+                  <th>Amount</th>
                   <th>status</th>
+                  <th>Payout on</th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  style="cursor: pointer"
-                  (click)="
-                    onViewTransactionDetails(
-                      item.transaction_key,
-                      item.initiator_role,
-                      item.destinator_role,
-                      item.initiator_phone,
-                      item.destinator_phone,
-                      item.transaction_type
-                    )
-                  "
-                  *ngFor="let item of tableData"
-                >
+                <tr>
+                  <td>453535542475</td>
                   <td>
-                    {{ item.created_at | date: "shortDate" }}
-                    {{ item.created_at | date: "shortTime" }}
+                    <button class="btn btn-light btn-sm btn1 disabled">
+                      Bank Account
+                    </button>
                   </td>
-                  <td>{{ item.transaction_type }}</td>
-                  <td>{{ item.destinator_phone }}</td>
-                  <td>{{ item.price }}</td>
-                  <td>{{ item.state }}</td>
+                  <td>156.00 GH</td>
+                  <td>
+                    <button class="btn btn-primary btn-sm disabled btn2">
+                      Successful
+                    </button>
+                  </td>
+                  <td>Wednesday, January 13, 2021 5:17 PM</td>
                 </tr>
               </tbody>
             </table>

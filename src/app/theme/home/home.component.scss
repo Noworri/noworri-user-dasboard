@@ -1,7 +1,7 @@
 //-----------App card----------//
 .page-body {
   margin-top: 90px;
-  margin-left: 50px;
+  margin-left: 10px;
 
   .app-card1 {
     h2 {
@@ -127,12 +127,12 @@
     }
   }
   .activeTransaction {
-    color: #7a4bff;
+    color: #686868;
     cursor: pointer;
-    font-size: 20px;
-
-    .span {
-      font-size: 30px;
+    font-size: 10px;
+    span {
+      font-size: 18px;
+      color: #686868;
     }
   }
 }
