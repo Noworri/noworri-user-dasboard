@@ -1,3 +1,6 @@
+import { TransationTableComponent } from './theme/BUSINESS-TRANSATION-TABLE/transation-table/transation-table.component';
+
+import { TransactionDetailComponent } from './theme/TRANSACTION_DETAILS/transaction-detail/transaction-detail.component';
 import { Step3Component } from './theme/create-business/step3/step3.component';
 import { Step2Component } from './theme/create-business/step2/step2.component';
 import { Step1Component } from './theme/create-business/step1/step1.component';
@@ -155,7 +158,14 @@ const routes: Routes = [
         path: "buyermerchandisecontrat/:transactionKey",
         component: BuyerMerchandiseContratComponent,
       },
-
+      {
+        path: 'transactiondetails',
+        component: TransactionDetailComponent
+      },
+      {
+        path: 'transactiontable',
+        component: TransationTableComponent
+      },
       {
         path: "homegetstrusted",
         component: HomegetstrustedComponent,

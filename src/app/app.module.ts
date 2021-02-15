@@ -100,6 +100,10 @@ import { DatePipe } from "@angular/common";
 import { NgxDropzoneModule } from "ngx-dropzone";
 import { CreateBusinessModule } from "./theme/CREATE-BUSINESS/create-business.module";
 
+import { TransactionDetailComponent } from './theme/TRANSACTION_DETAILS/transaction-detail/transaction-detail.component';
+import { TransationTableComponent } from './theme/BUSINESS-TRANSATION-TABLE/transation-table/transation-table.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,6 +151,8 @@ import { CreateBusinessModule } from "./theme/CREATE-BUSINESS/create-business.mo
     Step1Component,
     Step2Component,
     Step3Component,
+    TransactionDetailComponent,
+    TransationTableComponent
   ],
   imports: [
     BrowserModule,
@@ -199,4 +205,4 @@ import { CreateBusinessModule } from "./theme/CREATE-BUSINESS/create-business.mo
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
