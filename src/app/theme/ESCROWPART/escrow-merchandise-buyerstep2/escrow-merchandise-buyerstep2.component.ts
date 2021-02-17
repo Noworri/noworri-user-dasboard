@@ -6,6 +6,7 @@ import { Subject } from "rxjs";
 import { Router, NavigationStart } from "@angular/router";
 
 const LOCAL_STORAGE_KEY = "merchandise-escrow-1";
+const LOCAL_STORAGE_KEY_0 = "noworri-escrow-0";
 const SESSION_STORAGE_KEY = "noworri-user-session";
 
 @Component({
@@ -54,14 +55,17 @@ export class EscrowMerchandiseBuyerstep2Component implements OnInit {
     this.name = sessionData.name;
     this.mobile_phone = sessionData.mobile_phone;
     this.initiator_id = sessionData.user_uid;
+    const escrowStep1Data = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY_0)
+    );
+    this.initiator_role = escrowStep1Data.role;
+    this.transactionType = escrowStep1Data.transactionType;
     const escrowStep2Data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     this.item = escrowStep2Data.name;
     this.amount = +escrowStep2Data.price + +escrowStep2Data.noworriFee;
     this.sellerNumber = escrowStep2Data.seller;
     this.deliveryPhone = escrowStep2Data.delivery_phone;
-    this.initiator_role = escrowStep2Data.role;
     this.destinator_role = this.initiator_role === "buy" ? "sell" : "buy";
-    this.transactionType = escrowStep2Data.transaction_type;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
     this.description = escrowStep2Data.requirement || "";

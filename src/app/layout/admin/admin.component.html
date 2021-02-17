@@ -40,12 +40,29 @@
               </div>
             </li>
 
-            <li class="ripple light" id="ProfilNameEtMail">
+            <li *ngIf="!isBusinessAccount || !hasBusinessAccount" class="ripple light" id="ProfilNameEtMail">
               <div class="row">
                 <a (click)="onViewProfile()" class="Nom">
-                  <!-- {{ currentUser }} {{ lastName }} -->
+                  {{ currentUser }} {{ lastName }}
+                </a>
+              </div>
+              <div
+                class="row"
+                style="margin-left: -20px; margin-top: -6px"
+                routerLink="/create-business/step1"
+                *ngIf="!hasBusinessAccount"
+              >
+                <mat-icon style="font-size: 20px">store</mat-icon>
+                <a style="margin-top: -10px; font-size: 11px">
+                  Add business
+                </a>
+              </div>
+            </li>
 
-                  Business Name
+            <li *ngIf="isBusinessAccount && hasBusinessAccount" class="ripple light" id="ProfilNameEtMail">
+              <div class="row">
+                <a (click)="onViewProfile()" class="Nom">
+                  {{businessAccountData ? businessAccountData.trading_name : 'Trading Name'}}
                 </a>
               </div>
               <div
@@ -53,21 +70,19 @@
                 style="margin-left: -20px; margin-top: -6px"
                 routerLink="/create-business/step1"
               >
-                <!-- <mat-icon style="font-size: 20px">store</mat-icon> -->
                 <a style="margin-top: -10px; font-size: 11px">
-                  <!-- Add business -->
-                  Business Id
+                  id: {{ businessAccountData ? businessAccountData.id : 'Business Id' }}
                 </a>
               </div>
             </li>
 
             <!-- business Account information -->
-            <div class="row" id="businessAcount">
+            <div *ngIf="summaryData && isBusinessAccount && hasBusinessAccount" class="row" id="businessAcount">
               <div class="col-3">
                 <div class="card" style="width: 10rem; height: 50px">
                   <div class="card-body">
                     <h6 class="title">Total Revenu</h6>
-                    <h6 class="price1">Ghc 12,560.25</h6>
+                    <h6 class="price1">GHC {{ summaryData.totalRevenue}}</h6>
                   </div>
                 </div>
               </div>
@@ -75,7 +90,7 @@
                 <div class="card" style="width: 10rem; height: 50px">
                   <div class="card-body">
                     <h6 class="title">Amount on Hold</h6>
-                    <h6 class="price2">Ghc 12,560.25</h6>
+                    <h6 class="price2">GHC {{ summaryData.totalAmountLocked}}</h6>
                   </div>
                 </div>
               </div>
@@ -83,7 +98,7 @@
                 <div class="card" style="width: 10rem; height: 50px">
                   <div class="card-body">
                     <h6 class="title">Total Transactions</h6>
-                    <h6 class="price3">52</h6>
+                    <h6 class="price3">{{ summaryData.totalTransactions}}</h6>
                   </div>
                 </div>
               </div>
@@ -91,13 +106,13 @@
                 <div class="card" style="width: 10rem; height: 50px">
                   <div class="card-body">
                     <h6 class="title">Payout</h6>
-                    <h6 class="price4">Ghc 12,560.25</h6>
+                    <h6 class="price4">GHC {{ summaryData.totalPayouts}}</h6>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- <li class="header-search" *ngIf="waitingDisplayInput">
+            <li class="header-search" *ngIf="waitingDisplayInput && !isBusinessAccount || !hasBusinessAccount">
               <form #form="ngForm">
                 <intl-tel-input
                   [name]="'my-name'"
@@ -108,9 +123,9 @@
                   [(E164PhoneNumber)]="E164PhoneNumber"
                 ></intl-tel-input>
               </form>
-            </li> -->
+            </li>
           </ul>
-          <!-- <ul class="input-group-append prospan" *ngIf="waitingDisplayInput">
+          <ul class="input-group-append prospan" *ngIf="waitingDisplayInput && !isBusinessAccount || !hasBusinessAccount">
             <button
               (click)="onSearchCompany(resultModal, warningModale)"
               class="btn btn-primary"
@@ -128,7 +143,7 @@
                 >
               </span>
             </button>
-          </ul> -->
+          </ul>
           <!---- <ul class="OnlineVendor">
             <h6>Are you an online vendor?</h6>
           </ul> --->
@@ -438,7 +453,7 @@
                 <div class="SideBar">
                   <ul
                     class="navbar-nav mr-auto"
-                    *ngFor="let asideItem of asideItems.main"
+                    *ngFor="let asideItem of menuItemsList"
                   >
                     <li class="nav-item">
                       <a
@@ -450,7 +465,7 @@
                       </a>
                     </li>
                   </ul>
-                  <div class="row" id="downProfil">
+                  <div  *ngIf="hasBusinessAccount"  class="row" id="downProfil">
                     <div class="col-6">
                       <div class="main-menu-header">
                         <a>
@@ -462,14 +477,28 @@
                         </a>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div *ngIf="hasBusinessAccount && !isBusinessAccount" class="col-6">
                       <div class="row">
-                        <a class="Nom">Mari Larochette</a>
+                        <a class="Nom">{{businessAccountData ? businessAccountData.trading_name : 'Trading Name'}}</a>
                       </div>
                       <div class="row swich">
-                        <a style="margin-top: -10px; margin-left: -10px"
-                          >Swich Account</a
-                        >
+                        <!-- <a style="margin-top: -10px; margin-left: -10px"
+                          >Switch Account</a
+                        > -->
+                        <mat-slide-toggle (change)="switchAccount()" [checked]="isBusinessAccount">Switch Account</mat-slide-toggle>
+                      </div>
+                    </div>
+                    <div *ngIf="hasBusinessAccount && isBusinessAccount" class="col-6">
+                      <div class="row">
+                        <a class="Nom">
+                          {{ currentUser }} {{ lastName }}
+                        </a>
+                      </div>
+                      <div class="row swich">
+                        <!-- <a style="margin-top: -10px; margin-left: -10px"
+                          >Switch Account</a
+                        > -->
+                        <mat-slide-toggle (change)="switchAccount()" [checked]="isBusinessAccount">Switch Account</mat-slide-toggle>
                       </div>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import { CreateBusinessService } from "./../../../Service/create-business.service";
+import { BusinessService } from "../../../Service/business.service";
 import { Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { FormBuilder } from "@angular/forms";
@@ -40,7 +40,7 @@ export class Step1Component implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private createBusines: CreateBusinessService,
+    private createBusines: BusinessService,
     private geoLocationService: GeoLocationService
   ) {}
 

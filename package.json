@@ -63,6 +63,7 @@
     "ng-bootstrap": "^1.6.3",
     "ng-click-outside": "^3.3.0",
     "ng-material-datetimepicker": "^1.19.5",
+    "ng-otp-input": "^1.7.1",
     "ng-payment-card": "0.0.8",
     "ng-select": "^1.0.0-rc.5",
     "ng2-archwizard": "^2.1.0",

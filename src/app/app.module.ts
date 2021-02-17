@@ -1,4 +1,4 @@
-import { CreateBusinessService } from "./Service/create-business.service";
+import { BusinessService } from "./Service/business.service";
 import { Step3Component } from "./theme/create-business/step3/step3.component";
 import { Step2Component } from "./theme/create-business/step2/step2.component";
 import { Step1Component } from "./theme/create-business/step1/step1.component";
@@ -88,7 +88,12 @@ import { EscrowMerchandiseBuyerstep2Component } from "./theme/ESCROWPART/escrow-
 import { PayementsComponent } from "./theme/PAYEMENTPART/payements/payements.component";
 import { NgbTabsetModule } from "@ng-bootstrap/ng-bootstrap";
 import { MatDialogModule } from "@angular/material/dialog";
-import { MatOptionModule, MatSelectModule } from "@angular/material";
+import { NgOtpInputModule } from "ng-otp-input";
+import {
+  MatOptionModule,
+  MatSelectModule,
+  MatSlideToggleModule,
+} from "@angular/material";
 import { DataTableModule } from "ornamentum";
 
 import { AngularFireModule } from "@angular/fire";
@@ -100,9 +105,8 @@ import { DatePipe } from "@angular/common";
 import { NgxDropzoneModule } from "ngx-dropzone";
 import { CreateBusinessModule } from "./theme/CREATE-BUSINESS/create-business.module";
 
-import { TransactionDetailComponent } from './theme/TRANSACTION_DETAILS/transaction-detail/transaction-detail.component';
-import { TransationTableComponent } from './theme/BUSINESS-TRANSATION-TABLE/transation-table/transation-table.component';
-
+import { TransactionDetailComponent } from "./theme/TRANSACTION_DETAILS/transaction-detail/transaction-detail.component";
+import { TransationTableComponent } from "./theme/BUSINESS-TRANSATION-TABLE/transation-table/transation-table.component";
 
 @NgModule({
   declarations: [
@@ -152,7 +156,7 @@ import { TransationTableComponent } from './theme/BUSINESS-TRANSATION-TABLE/tran
     Step2Component,
     Step3Component,
     TransactionDetailComponent,
-    TransationTableComponent
+    TransationTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -168,6 +172,7 @@ import { TransationTableComponent } from './theme/BUSINESS-TRANSATION-TABLE/tran
     MatButtonModule,
     MatRadioModule,
     MatFormFieldModule,
+    MatSlideToggleModule,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
@@ -191,6 +196,7 @@ import { TransationTableComponent } from './theme/BUSINESS-TRANSATION-TABLE/tran
     AngularFireStorageModule,
     NgxDropzoneModule,
     CreateBusinessModule,
+    NgOtpInputModule,
   ],
 
   schemas: [],
@@ -200,9 +206,9 @@ import { TransationTableComponent } from './theme/BUSINESS-TRANSATION-TABLE/tran
     RegisterService,
     BsModalRef,
     GeoLocationService,
-    CreateBusinessService,
+    BusinessService,
     DatePipe,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -194,6 +194,8 @@ export class EscrowMerchandiseBuyerstep1Component implements OnInit, OnDestroy {
       this.prefixCountryCode = "+234";
     } else if (intelInputId === "2") {
       this.prefixCountryCode = "+225";
+    } else {
+      this.prefixCountryCode = "+233";
     }
     this.escrowStep1Data.item = form.value["item"];
     this.escrowStep1Data.price = form.value["price"];

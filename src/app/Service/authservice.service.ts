@@ -104,20 +104,19 @@ export class AuthserviceService {
 
   getUserDetails(phoneNumber): Observable<any> {
     const url = "https://api.noworri.com/api/getuserbyphone";
-    let params = new HttpParams();
-    params = params.append("user_phone", phoneNumber);
+    const body = {
+      user_phone: phoneNumber,
+    };
 
-    return this.http
-      .post(url, null, { responseType: "json", params: params })
-      .pipe(
-        map((response) => {
-          return response;
-        }),
-        catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
-          return observableThrowError(error);
-        })
-      );
+    return this.http.post(url, body, { responseType: "json" }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("Error", error.message);
+        return observableThrowError(error);
+      })
+    );
   }
 
   getUserDetailsById(uid): Observable<any> {

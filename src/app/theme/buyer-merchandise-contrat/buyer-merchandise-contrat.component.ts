@@ -51,7 +51,8 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   initiator_id: string;
   template: TemplateRef<any>;
   digitFom: FormGroup;
-  displayReleaseButton=true;
+  displayReleaseButton = true;
+  otp: string;
 
   sellerPhone: string;
   description: string;
@@ -59,7 +60,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   deliveryPhone: string;
   transactionKey: string;
   modalRef: BsModalRef;
-  sucessMessage: boolean;
+  successMessage: boolean;
   constructor(
     private transactionsService: TransactionsService,
     private router: Router,
@@ -107,16 +108,14 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
     this.openModal(template);
   }
 
+  onOtpInput(otp) {
+    this.otp = otp;
+  }
+
   onInitiateRelease() {
-    let number1 = this.digitFom.get("number1").value;
-    let number2 = this.digitFom.get("number2").value;
-    let number3 = this.digitFom.get("number3").value;
-    let number4 = this.digitFom.get("number4").value;
-    let number5 = this.digitFom.get("number5").value;
-    const code = number1 + number2 + number3 + number4 + number5;
     const releaseData = {
       transaction_id: this.transactionId,
-      release_code: code,
+      release_code: this.otp,
     };
     this.verifyReleaseCode(releaseData);
   }
@@ -128,13 +127,8 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         if (response && response.status === "success") {
           this.modalRef.hide();
-          this.sucessMessage = true;
+          this.successMessage = true;
           this.loadUserTransaction(this.transactionKey);
-          if ((this.isFundsReleased = true)) {
-            this.displayReleaseButton = false;
-          } else {
-            this.displayReleaseButton = true;
-          }
         } else {
           this.isValidCode = false;
         }

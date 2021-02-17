@@ -1,5 +1,5 @@
 
-  <div *ngIf='sucessMessage' class="card-body alerteCard">
+  <div *ngIf='successMessage' class="card-body alerteCard">
     <div class="alert alert-primary" role="alert">
       Well done ! You have successfully completed the deal.
     </div>
@@ -114,7 +114,7 @@
             <div class="col-sm" id="STARTNOWORRI">
               <div class="text-center">
                 <button
-                *ngIf='displayReleaseButton'
+                *ngIf='!isFundsReleased'
                   type="submit"
                   (click)="onReleaseFunds(AddBankAccounttemplate)"
                   mat-raised-button
@@ -133,7 +133,11 @@
                   <form>
                     <div class="form-group text-center" [formGroup]="digitFom">
                       <div class="row">
-                        <input
+                        <ng-otp-input 
+                        (onInputChange)="onOtpInput($event)"
+                        [config]="{ length: 5 }"            
+                        ></ng-otp-input>
+                        <!-- <input
                           type="text"
                           maxlength="1"
                           class="form-control col-sm-2"
@@ -167,7 +171,7 @@
                           class="form-control col-sm-2"
                           id="numberInput"
                           formControlName="number5"
-                        />
+                        /> -->
                       </div>
                     </div>
                     <div class="row">
