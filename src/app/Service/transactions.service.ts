@@ -18,10 +18,16 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) {}
 
-  getUserTransactions(userId: string): Observable<any> {
+  getUserTransactions(userId: string, range = null): Observable<any> {
+    let params = new HttpParams();
+    if (range) {
+      params = params.append("from", range.from);
+      params = params.append("to", range.to);
+    } else {
+      params = null;
+    }
     const url = "https://api.noworri.com/api/usertransactions/" + userId;
-
-    return this.http.get(url).pipe(
+    return this.http.get(url, { params: params }).pipe(
       map((data: TransactionsReference[]) => {
         data.map((values) => {
           if (typeof values.total_price === undefined) {
@@ -33,8 +39,10 @@ export class TransactionsService {
               values.state = "Cancelled";
             } else if (values.etat === "1") {
               values.state = "Pending";
-            } else if (values.etat === "3" || values.etat === "5") {
-              values.state = "Completed";
+            } else if (values.etat === "3") {
+              values.state = "Funds Released";
+            } else if (values.etat === "5") {
+              values.state = "Withdrawn";
             } else if (values.etat === "2") {
               values.state = "Secured";
             } else if (values.etat === "4") {
@@ -501,6 +509,19 @@ export class TransactionsService {
 
   getStepTransDetails(transaction_id) {
     const url = `https://api.noworri.com/api/getsteptransdetails/${transaction_id}`;
+    return this.http.get(url).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("Error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  getUserTransactionSummary(user_id) {
+    const url = `https://api.noworri.com/api/getusertransactionssummary/${user_id}`;
     return this.http.get(url).pipe(
       map((response) => {
         return response;

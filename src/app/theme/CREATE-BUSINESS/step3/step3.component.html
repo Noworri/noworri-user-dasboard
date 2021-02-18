@@ -62,7 +62,7 @@
                 [ngClass]="[bsnessOwnerInputStatus.nationality]"
                 required
               >
-                <option value="0"></option>
+                <!-- <option value="0"></option> -->
                 <option value="Afganistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
@@ -151,7 +151,7 @@
                 <option value="Gambia">Gambia</option>
                 <option value="Georgia">Georgia</option>
                 <option value="Germany">Germany</option>
-                <option value="Ghana">Ghana</option>
+                <option value="Ghana" [selected]="true">Ghana</option>
                 <option value="Gibraltar">Gibraltar</option>
                 <option value="Great Britain">Great Britain</option>
                 <option value="Greece">Greece</option>
@@ -357,7 +357,7 @@
                 [ngClass]="[bsnessOwnerInputStatus.identification_document]"
                 required
               >
-                <option value="0"></option>
+                <option value="0" selected>Select ID Type </option>
                 <option value="2">Passport</option>
                 <option value="3">Vote ID</option>
                 <option value="3">National Card</option>
@@ -478,7 +478,7 @@
               class="btn btn-primary btn-sm"
               (click)="onSaveOwnerInformation()"
             >
-              Activate Businesse
+              Activate Business
             </button>
           </div>
         </form>

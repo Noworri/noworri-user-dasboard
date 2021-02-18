@@ -3,18 +3,43 @@
     <div class="col-sm-12">
       <div id="app-card">
         <app-card>
-          <div class="row">
+          <div class="row"
+          >
             <div
               class="col-xs-12 col-12 col-md-4 form-group"
               style="float: left"
             >
-              <input
-                *ngIf="dateIput"
+            <form (ngSubmit)="onSearch(searchForm)" #searchForm="ngForm"
+            >
+              <div *ngIf="isDateInput && !isFilterInput">
+                <input
                 type="text"
                 placeholder="Pick your date range"
                 class="form-control"
+                name="dateRange"
                 bsDaterangepicker
+                ngModel
               />
+              <button type="submit">
+                <i class="bi bi-search">Search</i>
+              </button>
+              </div>
+              <div *ngIf="isFilterInput && !isDateInput">
+                <input
+                type="text"
+                placeholder="Filter By"
+                class="form-control"
+                name="filterInput"
+                ngModel
+              />
+              <button type="submit">
+                <i class="bi bi-search">Filter</i>
+              </button>
+              </div>
+            </form>
+            <button *ngIf="isFilterInput || isDateInput" (click)="resetFilter(searchForm)">
+              <i class="bi bi-search">Reset</i>
+            </button>
             </div>
           </div>
           <div class="row" style="margin-left: 10px; margin-bottom: 10px">
@@ -46,24 +71,24 @@
                     >
                       <button
                         class="btn btn-sm"
-                        (click)="onActivateDateInput()"
+                        (click)="showFilterInput('Date')"
                         ngbDropdownItem
                       >
                         Date
                       </button>
-                      <button class="btn btn-sm" ngbDropdownItem>Two</button>
-                      <button class="btn btn-sm" ngbDropdownItem>Four!</button>
-                      <button class="btn btn-sm" ngbDropdownItem>Four!</button>
+                      <button class="btn btn-sm" (click)="showFilterInput('initiator_phone')" ngbDropdownItem>Customer</button>
+                      <button class="btn btn-sm" (click)="showFilterInput('state')" ngbDropdownItem>Status</button>
+                      <button class="btn btn-sm" (click)="showFilterInput('transaction_key')" ngbDropdownItem>ID</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-2" style="font-size: 13px; font-weight: bold">
-              transactions:10
+              transactions:{{currentTransactionsCount}}
             </div>
             <div class="col-2" style="font-size: 13px; font-weight: bold">
-              Revenu:
+              <!-- Revenu: -->
             </div>
           </div>
 
@@ -72,6 +97,7 @@
               <thead>
                 <tr>
                   <th>Date</th>
+                  <th>Transaction ID</th>
                   <th>Transaction Type</th>
                   <th>You're dealing with :</th>
                   <th>Amount Secured</th>
@@ -97,6 +123,7 @@
                     {{ item.created_at | date: "shortDate" }}
                     {{ item.created_at | date: "shortTime" }}
                   </td>
+                  <td>{{ item.transaction_key }}</td>
                   <td>{{ item.transaction_type }}</td>
                   <td>{{ item.destinator_phone }}</td>
                   <td>{{ item.price }}</td>
@@ -105,7 +132,7 @@
               </tbody>
             </table>
             <div #noDataMessage *ngIf="hasNoTransactions">
-              <h4 text-align="center">NO TRANSACTIONS CREATED YET</h4>
+              <h4 text-align="center">{{noDataErrorMessage}}</h4>
             </div>
           </div>
           <div class="Prolongement"></div>

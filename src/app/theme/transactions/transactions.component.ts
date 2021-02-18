@@ -5,6 +5,8 @@ import { takeUntil } from "rxjs/operators";
 import { TransactionsReference } from "src/app/Service/reference-data.interface";
 import { PaymentService } from "src/app/Service/payment.service";
 import { Router } from "@angular/router";
+import { NgForm } from "@angular/forms";
+import * as moment from "moment";
 
 const SESSION_STORAGE_KEY = "noworri-user-session";
 
@@ -14,7 +16,9 @@ const SESSION_STORAGE_KEY = "noworri-user-session";
   styleUrls: ["./transactions.component.scss"],
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
-  dateIput:Boolean;
+  isDateInput: Boolean;
+  isFilterInput: boolean;
+  filterKey: string;
   unsubscribe = new Subject();
 
   tableData: any;
@@ -26,11 +30,13 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   userPhone: string;
   ownerPhone: string;
   ownerRole: string;
-  hasNoTransactions = false;
+  hasNoTransactions: boolean;
   columns: any[];
   paymentResponse: any;
   allDateData: object;
-
+  currentTransactionsCount = 0;
+  currentRevenue = 0;
+  noDataErrorMessage = "NO TRANSACTIONS CREATED YET";
   constructor(
     private transactionsService: TransactionsService,
     private router: Router
@@ -49,15 +55,14 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  loadTransactions(userId: string) {
+  loadTransactions(userId: string, dateRangeData = null) {
     // userId = 'a9twRK1JpPPQDrB6hNvfAr2ju682' this is a test User_uid
     this.transactionsService
-      .getUserTransactions(userId)
+      .getUserTransactions(userId, dateRangeData)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (transactions) => {
           this.tableData = transactions.map((details) => {
-            console.log("transactions data", details);
             this.allDateData = details;
             this.transactionType = details.transaction_type.toLowerCase();
             details.destinator_role =
@@ -95,13 +100,64 @@ export class TransactionsComponent implements OnInit, OnDestroy {
             return details;
           });
 
-          this.hasNoTransactions = transactions.length === 0 ? true : false;
+          this.currentTransactionsCount = transactions.length;
+
+          this.hasNoTransactions = !transactions.length ? true : false;
         },
         (error) => console.log(error.message)
       );
   }
 
   processDateData() {}
+
+  onSearch(searchForm: NgForm) {
+    const range = searchForm.value["dateRange"];
+    const filterBy = searchForm.value["filterInput"];
+    if (range) {
+      let startDate = range[0];
+      startDate = moment(startDate).format("YYYY-MM-DD");
+      let endDate = range[1];
+      endDate = moment(endDate).format("YYYY-MM-DD");
+      const dateRangeData = {
+        from: startDate,
+        to: endDate,
+      };
+      this.loadTransactions(this.userId, dateRangeData);
+    } else {
+      this.doFilter(filterBy);
+    }
+  }
+
+  doFilter(filterBy: string) {
+    if (filterBy.length) {
+      filterBy = filterBy.toLocaleLowerCase();
+      this.tableData = this.tableData.filter(
+        (row) => {
+          const values = Object.values(row).map((value: string) => {
+            return value ? value.toLocaleLowerCase() : value;
+          });
+          return values.includes(filterBy);
+        }
+        // col[this.filterKey].toLocaleLowerCase().includes(filterBy)
+        // col[this.filterKey].toLocaleLowerCase().indexOf(filterBy) !== -1
+      );
+      if (!this.tableData.length) {
+        this.noDataErrorMessage = "NO MATCH FOUND";
+        this.hasNoTransactions = true;
+        // setTimeout(() => {
+        //   this.loadTransactions(this.userId);
+        // }, 3000);
+      }
+      this.currentTransactionsCount = this.tableData.length;
+    } else {
+      this.loadTransactions(this.userId);
+    }
+  }
+
+  resetFilter(searchForm: NgForm) {
+    searchForm.reset();
+    this.loadTransactions(this.userId);
+  }
 
   onViewTransactionDetails(
     transactionKey,
@@ -112,18 +168,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     transactionType
   ) {
     transactionType = transactionType.toLowerCase();
-    console.log("userRole before", userRole);
-    console.log("transactionKey before", transactionKey);
-    console.log("userPhone raw", userPhone);
-    console.log("ownerPhone raw", ownerPhone);
 
     if (this.userPhone === userPhone) {
       this.userRole = userRole;
     } else if (this.userPhone === ownerPhone) {
       this.userRole = ownerRole;
     }
-    console.log("userRole", this.userRole);
-    console.log("transactionKey", transactionKey);
 
     if (this.userRole === "buy" && transactionType === "merchandise") {
       this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
@@ -135,7 +185,14 @@ export class TransactionsComponent implements OnInit, OnDestroy {
       this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
     }
   }
-  onActivateDateInput() {
-    this.dateIput = !this.dateIput
+  showFilterInput(filter: string) {
+    if (filter === "Date") {
+      this.isDateInput = !this.isDateInput;
+      this.isFilterInput = false;
+    } else {
+      this.filterKey = filter;
+      this.isFilterInput = !this.isFilterInput;
+      this.isDateInput = false;
+    }
   }
 }

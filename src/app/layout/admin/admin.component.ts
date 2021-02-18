@@ -1,8 +1,8 @@
-import { FormGroup } from '@angular/forms';
-import { DisputeDataService } from 'src/app/Service/dispute-data.service';
-import { NoworriSearchService } from './../../Service/noworri-search.service';
-import { Router } from '@angular/router';
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { FormGroup } from "@angular/forms";
+import { DisputeDataService } from "src/app/Service/dispute-data.service";
+import { NoworriSearchService } from "./../../Service/noworri-search.service";
+import { Router } from "@angular/router";
+import { Component, OnDestroy, OnInit, TemplateRef } from "@angular/core";
 import {
   animate,
   AUTO_STYLE,
@@ -10,96 +10,102 @@ import {
   style,
   transition,
   trigger,
-} from '@angular/animations';
-import { MenuItems } from '../../shared/menu-items/menu-items';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { GeoLocationService } from '../../Service/geo-location.service';
-import { CompanyReference } from 'src/app/Service/reference-data.interface';
-import { isEmpty } from 'lodash';
+} from "@angular/animations";
+import { MenuItems } from "../../shared/menu-items/menu-items";
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { GeoLocationService } from "../../Service/geo-location.service";
+import { CompanyReference } from "src/app/Service/reference-data.interface";
+import { isEmpty } from "lodash";
+import { TransactionsService } from "src/app/Service/transactions.service";
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
+import { UserTransactionsSummary } from "src/app/Models/user-transactions-summary";
+import { BusinessService } from "src/app/Service/business.service";
+import { isEmptyObject } from "jquery";
 
-const SESSION_STORAGE_KEY = 'noworri-user-session';
+const SESSION_STORAGE_KEY = "noworri-user-session";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss'],
+  selector: "app-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.scss"],
   animations: [
-    trigger('notificationBottom', [
+    trigger("notificationBottom", [
       state(
-        'an-off, void',
+        "an-off, void",
         style({
-          overflow: 'hidden',
-          height: '0px',
+          overflow: "hidden",
+          height: "0px",
         })
       ),
       state(
-        'an-animate',
+        "an-animate",
         style({
-          overflow: 'visible',
+          overflow: "visible",
           height: AUTO_STYLE,
         })
       ),
-      transition('an-off <=> an-animate', [animate('400ms ease-in-out')]),
+      transition("an-off <=> an-animate", [animate("400ms ease-in-out")]),
     ]),
-    trigger('slideInOut', [
+    trigger("slideInOut", [
       state(
-        'in',
+        "in",
         style({
-          width: '280px',
+          width: "280px",
           // transform: 'translate3d(0, 0, 0)'
         })
       ),
       state(
-        'out',
+        "out",
         style({
-          width: '0',
+          width: "0",
           // transform: 'translate3d(100%, 0, 0)'
         })
       ),
-      transition('in => out', animate('400ms ease-in-out')),
-      transition('out => in', animate('400ms ease-in-out')),
+      transition("in => out", animate("400ms ease-in-out")),
+      transition("out => in", animate("400ms ease-in-out")),
     ]),
-    trigger('mobileHeaderNavRight', [
+    trigger("mobileHeaderNavRight", [
       state(
-        'nav-off, void',
+        "nav-off, void",
         style({
-          overflow: 'hidden',
-          height: '0px',
+          overflow: "hidden",
+          height: "0px",
         })
       ),
       state(
-        'nav-on',
+        "nav-on",
         style({
           height: AUTO_STYLE,
         })
       ),
-      transition('nav-off <=> nav-on', [animate('400ms ease-in-out')]),
+      transition("nav-off <=> nav-on", [animate("400ms ease-in-out")]),
     ]),
-    trigger('fadeInOutTranslate', [
-      transition(':enter', [
+    trigger("fadeInOutTranslate", [
+      transition(":enter", [
         style({ opacity: 0 }),
-        animate('400ms ease-in-out', style({ opacity: 1 })),
+        animate("400ms ease-in-out", style({ opacity: 1 })),
       ]),
-      transition(':leave', [
-        style({ transform: 'translate(0)' }),
-        animate('400ms ease-in-out', style({ opacity: 0 })),
+      transition(":leave", [
+        style({ transform: "translate(0)" }),
+        animate("400ms ease-in-out", style({ opacity: 0 })),
       ]),
     ]),
-    trigger('mobileMenuTop', [
+    trigger("mobileMenuTop", [
       state(
-        'no-block, void',
+        "no-block, void",
         style({
-          overflow: 'hidden',
-          height: '0px',
+          overflow: "hidden",
+          height: "0px",
         })
       ),
       state(
-        'yes-block',
+        "yes-block",
         style({
           height: AUTO_STYLE,
         })
       ),
-      transition('no-block <=> yes-block', [animate('400ms ease-in-out')]),
+      transition("no-block <=> yes-block", [animate("400ms ease-in-out")]),
     ]),
   ],
 })
@@ -126,11 +132,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   searchInputType: any;
   isValideInputType: boolean;
   prefixContryCode: string;
-  searchInputStyleAttribut = 'style';
+  searchInputStyleAttribut = "style";
   searInputSuccesStyleattribute =
-    'border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:#4040a1';
+    "border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:#4040a1";
   searInputFailStyleattribute =
-    'border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:red';
+    "border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:red";
   SearchButtonStatus: boolean;
   LoadingStatus: boolean;
   phoneNumber: string;
@@ -140,7 +146,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   resultWarning = {
     ignoreBackdropClick: true,
-    class: 'modal-lg',
+    class: "modal-lg",
   };
   disputetWarning = {
     ignoreBackdropClick: true,
@@ -152,21 +158,15 @@ export class AdminComponent implements OnInit, OnDestroy {
     keyboard: true,
     backdrop: true,
     ignoreBackdropClick: true,
-    class: 'cool',
+    class: "cool",
   };
 
-
-
-  businessStatus='actived'
+  businessStatus = "actived";
 
   dashbordStatus = {
     isBusunessAccount: Boolean,
-    isPersonalAccount: Boolean
-  }
-
-
-
-
+    isPersonalAccount: Boolean,
+  };
 
   countryData: any;
   locationData: string;
@@ -209,7 +209,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   public innerChatSlideInOut: string;
 
   public searchWidth: number;
-  public searchWidthString: string = '300px';
+  public searchWidthString: string = "300px";
 
   public navRight: string;
   public windowWidth: number;
@@ -246,6 +246,15 @@ export class AdminComponent implements OnInit, OnDestroy {
   public config: any;
   public searchInterval: any;
   public lastName: string;
+  userId: string;
+  summaryData: UserTransactionsSummary;
+  hasBusinessAccount: boolean;
+  isBusinessAccount: boolean;
+  menuItemsList: any;
+  accountTypeData: any;
+  businessAccountData: any;
+
+  unsubscribe$ = new Subject();
 
   // ----For search input ---------//
 
@@ -253,18 +262,18 @@ export class AdminComponent implements OnInit, OnDestroy {
     const scrollPosition = window.pageYOffset;
     if (scrollPosition > 50) {
       if (this.isSidebarChecked === true) {
-        this.pcodedSidebarPosition = 'fixed';
+        this.pcodedSidebarPosition = "fixed";
       }
-      if (this.pcodedDeviceType === 'desktop') {
-        this.headerFixedTop = '0';
+      if (this.pcodedDeviceType === "desktop") {
+        this.headerFixedTop = "0";
       }
-      this.sidebarFixedNavHeight = '100%';
+      this.sidebarFixedNavHeight = "100%";
     } else {
-      if (this.pcodedDeviceType === 'desktop') {
-        this.headerFixedTop = 'auto';
+      if (this.pcodedDeviceType === "desktop") {
+        this.headerFixedTop = "auto";
       }
-      this.pcodedSidebarPosition = 'absolute';
-      this.sidebarFixedNavHeight = '';
+      this.pcodedSidebarPosition = "absolute";
+      this.sidebarFixedNavHeight = "";
     }
   };
 
@@ -275,67 +284,73 @@ export class AdminComponent implements OnInit, OnDestroy {
     private geoLocationService: GeoLocationService,
     private router: Router,
     private searchService: NoworriSearchService,
-    private dataService: DisputeDataService
+    private dataService: DisputeDataService,
+    private transactionService: TransactionsService,
+    private businessService: BusinessService
   ) {
+    this.accountTypeData = JSON.parse(
+      localStorage.getItem("selected_account_type")
+    );
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.lastName = sessionData.name;
+    this.userId = sessionData.user_uid;
     this.currentUser = sessionData.first_name;
     this.userEmail = sessionData.email;
     this.pp =
       sessionData.photo === null
-        ? './../../../assets/profilPhotoAnimation.gif'
+        ? "./../../../assets/profilPhotoAnimation.gif"
         : `https://noworri.com/api/public/uploads/images/pp/${sessionData.photo}`;
-    this.animateSidebar = '';
-    this.navType = 'st2';
-    this.themeLayout = 'vertical';
-    this.verticalPlacement = 'left';
-    this.verticalLayout = 'wide';
-    this.pcodedDeviceType = 'desktop';
-    this.verticalNavType = 'expanded';
-    this.verticalEffect = 'shrink';
-    this.vnavigationView = 'view1';
-    this.freamType = 'theme1';
-    this.sidebarImg = 'false';
-    this.sidebarImgType = 'img1';
-    this.layoutType = 'light'; // light(default) dark(dark)
+    this.animateSidebar = "";
+    this.navType = "st2";
+    this.themeLayout = "vertical";
+    this.verticalPlacement = "left";
+    this.verticalLayout = "wide";
+    this.pcodedDeviceType = "desktop";
+    this.verticalNavType = "expanded";
+    this.verticalEffect = "shrink";
+    this.vnavigationView = "view1";
+    this.freamType = "theme1";
+    this.sidebarImg = "false";
+    this.sidebarImgType = "img1";
+    this.layoutType = "light"; // light(default) dark(dark)
 
-    this.headerTheme = 'theme1'; // theme1(default)
-    this.pcodedHeaderPosition = 'fixed';
+    this.headerTheme = "theme1"; // theme1(default)
+    this.pcodedHeaderPosition = "fixed";
 
-    this.headerFixedTop = 'auto';
+    this.headerFixedTop = "auto";
 
-    this.liveNotification = 'an-off';
-    this.profileNotification = 'an-off';
+    this.liveNotification = "an-off";
+    this.profileNotification = "an-off";
 
-    this.chatSlideInOut = 'out';
-    this.innerChatSlideInOut = 'out';
+    this.chatSlideInOut = "out";
+    this.innerChatSlideInOut = "out";
 
     this.searchWidth = 0;
 
-    this.navRight = 'nav-on';
+    this.navRight = "nav-on";
 
     this.toggleOn = true;
-    this.toggleIcon = 'icon-toggle-right';
-    this.navBarTheme = 'themelight1'; // themelight1(default) theme1(dark)
-    this.activeItemTheme = 'theme1';
-    this.pcodedSidebarPosition = 'fixed';
-    this.menuTitleTheme = 'theme1'; // theme1(default) theme10(dark)
-    this.dropDownIcon = 'style1';
-    this.subItemIcon = 'style1';
+    this.toggleIcon = "icon-toggle-right";
+    this.navBarTheme = "themelight1"; // themelight1(default) theme1(dark)
+    this.activeItemTheme = "theme1";
+    this.pcodedSidebarPosition = "fixed";
+    this.menuTitleTheme = "theme1"; // theme1(default) theme10(dark)
+    this.dropDownIcon = "style1";
+    this.subItemIcon = "style1";
 
-    this.displayBoxLayout = 'd-none';
+    this.displayBoxLayout = "d-none";
     this.isVerticalLayoutChecked = false;
     this.isSidebarChecked = true;
     this.isHeaderChecked = true;
-    this.headerFixedMargin = '50px'; // 50px
-    this.sidebarFixedHeight = 'calc(100vh - 55px)'; // calc(100vh - 190px)
-    this.itemBorderStyle = 'none';
+    this.headerFixedMargin = "50px"; // 50px
+    this.sidebarFixedHeight = "calc(100vh - 55px)"; // calc(100vh - 190px)
+    this.itemBorderStyle = "none";
     this.subItemBorder = true;
     this.itemBorder = true;
 
-    this.isCollapsedSideBar = 'no-block';
+    this.isCollapsedSideBar = "no-block";
 
-    this.perfectDisable = '';
+    this.perfectDisable = "";
 
     this.windowWidth = window.innerWidth;
 
@@ -359,16 +374,57 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getBusinessAccountDetails();
+    this.getMenuItems();
     this.getDataLocation();
-    this.setBackgroundPattern('theme1');
+    this.setBackgroundPattern("theme1");
+    this.getTransactionsSummaryData(this.userId);
+    console.log("accountData", this.accountTypeData);
+    console.log("!!accountData", !!this.accountTypeData);
+    this.isBusinessAccount = this.accountTypeData
+      ? this.accountTypeData.isBusinessAccount
+      : this.isBusinessAccount;
+    this.getMenuItems();
   }
 
+  getMenuItems() {
+    let itemsList = this.menuItems.getAll().map((item) => {
+      return item.main;
+    });
+    if (!this.isBusinessAccount) {
+      this.menuItemsList = itemsList[0].filter(
+        (item) => !item.state.includes("Payouts")
+      );
+    } else {
+      this.menuItemsList = itemsList[0];
+    }
+  }
+
+  getTransactionsSummaryData(userId: string) {
+    this.transactionService
+      .getUserTransactionSummary(userId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((summaryData: UserTransactionsSummary) => {
+        this.summaryData = summaryData;
+        return summaryData;
+      });
+  }
+
+  switchAccount() {
+    this.isBusinessAccount = !this.isBusinessAccount;
+    const accountData = {
+      isBusinessAccount: this.isBusinessAccount,
+    };
+
+    localStorage.setItem("selected_account_type", JSON.stringify(accountData));
+    window.location.reload();
+  }
   searchInputStyle() {
     document
-      .getElementsByTagName('input')[0]
+      .getElementsByTagName("input")[0]
       .setAttribute(
-        'style',
-        'border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:blue'
+        "style",
+        "border-top-left-radius:9px;border-bottom-left-radius:9px; opacity: 1;width: 400px;border-color:blue"
       );
   }
 
@@ -378,12 +434,12 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     let reSizeFlag = true;
     if (
-      this.pcodedDeviceType === 'tablet' &&
+      this.pcodedDeviceType === "tablet" &&
       this.windowWidth >= 768 &&
       this.windowWidth <= 992
     ) {
       reSizeFlag = false;
-    } else if (this.pcodedDeviceType === 'phone' && this.windowWidth < 768) {
+    } else if (this.pcodedDeviceType === "phone" && this.windowWidth < 768) {
       reSizeFlag = false;
     }
     /* for check device */
@@ -394,33 +450,33 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   setHeaderAttributes(windowWidth) {
     if (windowWidth <= 992) {
-      this.navRight = 'nav-off';
+      this.navRight = "nav-off";
     } else {
-      this.navRight = 'nav-on';
+      this.navRight = "nav-on";
     }
   }
 
   setMenuAttributes(windowWidth) {
     if (windowWidth >= 768 && windowWidth <= 992) {
-      this.pcodedDeviceType = 'tablet';
-      this.verticalNavType = 'offcanvas';
-      this.verticalEffect = 'overlay';
-      this.toggleIcon = 'icon-toggle-left';
-      this.headerFixedTop = '50px';
-      this.headerFixedMargin = '0';
+      this.pcodedDeviceType = "tablet";
+      this.verticalNavType = "offcanvas";
+      this.verticalEffect = "overlay";
+      this.toggleIcon = "icon-toggle-left";
+      this.headerFixedTop = "50px";
+      this.headerFixedMargin = "0";
     } else if (windowWidth < 768) {
-      this.pcodedDeviceType = 'phone';
-      this.verticalNavType = 'offcanvas';
-      this.verticalEffect = 'overlay';
-      this.toggleIcon = 'icon-toggle-left';
-      this.headerFixedTop = '50px';
-      this.headerFixedMargin = '0';
+      this.pcodedDeviceType = "phone";
+      this.verticalNavType = "offcanvas";
+      this.verticalEffect = "overlay";
+      this.toggleIcon = "icon-toggle-left";
+      this.headerFixedTop = "50px";
+      this.headerFixedMargin = "0";
     } else {
-      this.pcodedDeviceType = 'desktop';
-      this.verticalNavType = 'expanded';
-      this.verticalEffect = 'shrink';
-      this.toggleIcon = 'icon-toggle-right';
-      this.headerFixedMargin = '50px';
+      this.pcodedDeviceType = "desktop";
+      this.verticalNavType = "expanded";
+      this.verticalEffect = "shrink";
+      this.toggleIcon = "icon-toggle-right";
+      this.headerFixedMargin = "50px";
     }
 
     /*else if (windowWidth >= 1024 && windowWidth < 1366) {
@@ -434,106 +490,106 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   toggleHeaderNavRight() {
-    this.navRight = this.navRight === 'nav-on' ? 'nav-off' : 'nav-on';
-    this.chatTopPosition = this.chatTopPosition === 'nav-on' ? '112px' : '';
-    if (this.navRight === 'nav-off' && this.innerChatSlideInOut === 'in') {
+    this.navRight = this.navRight === "nav-on" ? "nav-off" : "nav-on";
+    this.chatTopPosition = this.chatTopPosition === "nav-on" ? "112px" : "";
+    if (this.navRight === "nav-off" && this.innerChatSlideInOut === "in") {
       this.toggleInnerChat();
     }
-    if (this.navRight === 'nav-off' && this.chatSlideInOut === 'in') {
+    if (this.navRight === "nav-off" && this.chatSlideInOut === "in") {
       this.toggleChat();
     }
   }
 
   toggleLiveNotification() {
-    if (this.profileNotification === 'an-animate') {
+    if (this.profileNotification === "an-animate") {
       this.toggleProfileNotification();
     }
 
     this.liveNotification =
-      this.liveNotification === 'an-off' ? 'an-animate' : 'an-off';
+      this.liveNotification === "an-off" ? "an-animate" : "an-off";
     this.liveNotificationClass =
-      this.liveNotification === 'an-animate' ? 'show' : '';
+      this.liveNotification === "an-animate" ? "show" : "";
 
     if (
-      this.liveNotification === 'an-animate' &&
-      this.innerChatSlideInOut === 'in'
+      this.liveNotification === "an-animate" &&
+      this.innerChatSlideInOut === "in"
     ) {
       this.toggleInnerChat();
     }
     if (
-      this.liveNotification === 'an-animate' &&
-      this.chatSlideInOut === 'in'
+      this.liveNotification === "an-animate" &&
+      this.chatSlideInOut === "in"
     ) {
       this.toggleChat();
     }
   }
 
   toggleProfileNotification() {
-    if (this.liveNotification === 'an-animate') {
+    if (this.liveNotification === "an-animate") {
       this.toggleLiveNotification();
     }
 
     this.profileNotification =
-      this.profileNotification === 'an-off' ? 'an-animate' : 'an-off';
+      this.profileNotification === "an-off" ? "an-animate" : "an-off";
     this.profileNotificationClass =
-      this.profileNotification === 'an-animate' ? 'show' : '';
+      this.profileNotification === "an-animate" ? "show" : "";
 
     if (
-      this.profileNotification === 'an-animate' &&
-      this.innerChatSlideInOut === 'in'
+      this.profileNotification === "an-animate" &&
+      this.innerChatSlideInOut === "in"
     ) {
       this.toggleInnerChat();
     }
     if (
-      this.profileNotification === 'an-animate' &&
-      this.chatSlideInOut === 'in'
+      this.profileNotification === "an-animate" &&
+      this.chatSlideInOut === "in"
     ) {
       this.toggleChat();
     }
   }
 
   notificationOutsideClick(ele: string) {
-    if (ele === 'live' && this.liveNotification === 'an-animate') {
+    if (ele === "live" && this.liveNotification === "an-animate") {
       this.toggleLiveNotification();
-    } else if (ele === 'profile' && this.profileNotification === 'an-animate') {
+    } else if (ele === "profile" && this.profileNotification === "an-animate") {
       this.toggleProfileNotification();
     }
   }
 
   toggleChat() {
-    if (this.innerChatSlideInOut === 'in') {
-      this.innerChatSlideInOut = 'out';
+    if (this.innerChatSlideInOut === "in") {
+      this.innerChatSlideInOut = "out";
     } else {
-      this.chatSlideInOut = this.chatSlideInOut === 'out' ? 'in' : 'out';
+      this.chatSlideInOut = this.chatSlideInOut === "out" ? "in" : "out";
     }
   }
 
   toggleInnerChat() {
     this.innerChatSlideInOut =
-      this.innerChatSlideInOut === 'out' ? 'in' : 'out';
+      this.innerChatSlideInOut === "out" ? "in" : "out";
   }
 
   searchOn() {
-    document.querySelector('#main-search').classList.add('open');
+    document.querySelector("#main-search").classList.add("open");
     this.searchInterval = setInterval(() => {
       if (this.searchWidth >= 200) {
         clearInterval(this.searchInterval);
         return false;
       }
       this.searchWidth = this.searchWidth + 15;
-      this.searchWidthString = this.searchWidth + 'px';
+      this.searchWidthString = this.searchWidth + "px";
     }, 35);
   }
 
   searchOff() {
     this.searchInterval = setInterval(() => {
       if (this.searchWidth <= 0) {
-        document.querySelector('#main-search').classList.remove('open');
+        document.querySelector("#main-search").classList.remove("open");
         clearInterval(this.searchInterval);
         return false;
       }
       this.searchWidth = this.searchWidth - 15;
-      this.searchWidthString = this.searchWidth + 'px';
+      this.searchWidthString = this.searchWidth + "px";
     }, 35);
   }
 
@@ -546,38 +602,38 @@ export class AdminComponent implements OnInit, OnDestroy {
   toggleOpened(e) {
     if (this.windowWidth <= 992) {
       this.toggleOn =
-        this.verticalNavType === 'offcanvas' ? true : this.toggleOn;
-      if (this.navRight === 'nav-on') {
+        this.verticalNavType === "offcanvas" ? true : this.toggleOn;
+      if (this.navRight === "nav-on") {
         this.toggleHeaderNavRight();
       }
       this.verticalNavType =
-        this.verticalNavType === 'expanded' ? 'offcanvas' : 'expanded';
+        this.verticalNavType === "expanded" ? "offcanvas" : "expanded";
     } else {
       this.verticalNavType =
-        this.verticalNavType === 'expanded' ? 'collapsed' : 'expanded';
+        this.verticalNavType === "expanded" ? "collapsed" : "expanded";
     }
     this.toggleIcon =
-      this.verticalNavType === 'expanded'
-        ? 'icon-toggle-right'
-        : 'icon-toggle-left';
-    this.animateSidebar = 'pcoded-toggle-animate';
+      this.verticalNavType === "expanded"
+        ? "icon-toggle-right"
+        : "icon-toggle-left";
+    this.animateSidebar = "pcoded-toggle-animate";
 
-    if (this.verticalNavType === 'collapsed') {
-      this.perfectDisable = 'disabled';
-      this.sidebarFixedHeight = '100%';
+    if (this.verticalNavType === "collapsed") {
+      this.perfectDisable = "disabled";
+      this.sidebarFixedHeight = "100%";
     } else {
-      this.perfectDisable = '';
+      this.perfectDisable = "";
     }
 
     if (
-      this.verticalNavType === 'collapsed' &&
+      this.verticalNavType === "collapsed" &&
       this.isHeaderChecked === false
     ) {
       this.setSidebarPosition();
     }
 
     setTimeout(() => {
-      this.animateSidebar = '';
+      this.animateSidebar = "";
     }, 500);
   }
 
@@ -585,94 +641,94 @@ export class AdminComponent implements OnInit, OnDestroy {
     if (
       (this.windowWidth <= 992 &&
         this.toggleOn &&
-        this.verticalNavType !== 'offcanvas') ||
-      this.verticalEffect === 'overlay'
+        this.verticalNavType !== "offcanvas") ||
+      this.verticalEffect === "overlay"
     ) {
       this.toggleOn = true;
-      this.verticalNavType = 'offcanvas';
-      this.toggleIcon = 'icon-toggle-left';
+      this.verticalNavType = "offcanvas";
+      this.toggleIcon = "icon-toggle-left";
     }
   }
 
   toggleRightbar() {
-    this.configOpenRightBar = this.configOpenRightBar === 'open' ? '' : 'open';
+    this.configOpenRightBar = this.configOpenRightBar === "open" ? "" : "open";
   }
 
   setNavBarTheme(theme: string) {
-    if (theme === 'themelight1') {
-      this.navBarTheme = 'themelight1';
-      this.menuTitleTheme = 'theme1';
-      this.sidebarImg = 'false';
+    if (theme === "themelight1") {
+      this.navBarTheme = "themelight1";
+      this.menuTitleTheme = "theme1";
+      this.sidebarImg = "false";
     } else {
-      this.menuTitleTheme = 'theme9';
-      this.navBarTheme = 'theme1';
-      this.sidebarImg = 'false';
+      this.menuTitleTheme = "theme9";
+      this.navBarTheme = "theme1";
+      this.sidebarImg = "false";
     }
   }
 
   setLayoutType(type: string) {
-    if (type === 'dark') {
-      this.headerTheme = 'theme1';
-      this.navBarTheme = 'theme1';
-      this.activeItemTheme = 'theme1';
-      this.freamType = 'theme1';
-      document.querySelector('body').classList.add('dark');
-      this.setBackgroundPattern('theme1');
-      this.menuTitleTheme = 'theme9';
+    if (type === "dark") {
+      this.headerTheme = "theme1";
+      this.navBarTheme = "theme1";
+      this.activeItemTheme = "theme1";
+      this.freamType = "theme1";
+      document.querySelector("body").classList.add("dark");
+      this.setBackgroundPattern("theme1");
+      this.menuTitleTheme = "theme9";
       this.layoutType = type;
-      this.sidebarImg = 'false';
-    } else if (type === 'light') {
-      this.headerTheme = 'theme1';
-      this.navBarTheme = 'themelight1';
-      this.menuTitleTheme = 'theme1';
-      this.activeItemTheme = 'theme1';
-      this.freamType = 'theme1';
-      document.querySelector('body').classList.remove('dark');
-      this.setBackgroundPattern('theme1');
+      this.sidebarImg = "false";
+    } else if (type === "light") {
+      this.headerTheme = "theme1";
+      this.navBarTheme = "themelight1";
+      this.menuTitleTheme = "theme1";
+      this.activeItemTheme = "theme1";
+      this.freamType = "theme1";
+      document.querySelector("body").classList.remove("dark");
+      this.setBackgroundPattern("theme1");
       this.layoutType = type;
-      this.sidebarImg = 'false';
-    } else if (type === 'img') {
-      this.sidebarImg = 'true';
-      this.navBarTheme = 'themelight1';
-      this.menuTitleTheme = 'theme1';
-      this.freamType = 'theme1';
-      document.querySelector('body').classList.remove('dark');
-      this.setBackgroundPattern('theme1');
-      this.activeItemTheme = 'theme1';
+      this.sidebarImg = "false";
+    } else if (type === "img") {
+      this.sidebarImg = "true";
+      this.navBarTheme = "themelight1";
+      this.menuTitleTheme = "theme1";
+      this.freamType = "theme1";
+      document.querySelector("body").classList.remove("dark");
+      this.setBackgroundPattern("theme1");
+      this.activeItemTheme = "theme1";
     }
   }
 
   setVerticalLayout() {
     this.isVerticalLayoutChecked = !this.isVerticalLayoutChecked;
     if (this.isVerticalLayoutChecked) {
-      this.verticalLayout = 'box';
-      this.displayBoxLayout = '';
-      this.pcodedHeaderPosition = 'relative';
-      this.pcodedSidebarPosition = 'absolute';
-      this.headerFixedMargin = '';
+      this.verticalLayout = "box";
+      this.displayBoxLayout = "";
+      this.pcodedHeaderPosition = "relative";
+      this.pcodedSidebarPosition = "absolute";
+      this.headerFixedMargin = "";
     } else {
-      this.verticalLayout = 'wide';
-      this.displayBoxLayout = 'd-none';
-      this.pcodedHeaderPosition = 'fixed';
-      this.pcodedSidebarPosition = 'fixed';
-      this.headerFixedMargin = '50px';
+      this.verticalLayout = "wide";
+      this.displayBoxLayout = "d-none";
+      this.pcodedHeaderPosition = "fixed";
+      this.pcodedSidebarPosition = "fixed";
+      this.headerFixedMargin = "50px";
     }
   }
 
   setBackgroundPattern(pattern: string) {
-    document.querySelector('body').setAttribute('themebg-pattern', pattern);
+    document.querySelector("body").setAttribute("themebg-pattern", pattern);
     // this.menuTitleTheme = this.freamType = this.activeItemTheme = this.headerTheme = pattern;
   }
 
   setSidebarPosition() {
-    if (this.verticalNavType !== 'collapsed') {
+    if (this.verticalNavType !== "collapsed") {
       this.isSidebarChecked = !this.isSidebarChecked;
       this.pcodedSidebarPosition =
-        this.isSidebarChecked === true ? 'fixed' : 'absolute';
+        this.isSidebarChecked === true ? "fixed" : "absolute";
       this.sidebarFixedHeight =
-        this.isSidebarChecked === true ? 'calc(100vh - 50px)' : '100%';
+        this.isSidebarChecked === true ? "calc(100vh - 50px)" : "100%";
       if (this.isHeaderChecked === false) {
-        window.addEventListener('scroll', this.scroll, true);
+        window.addEventListener("scroll", this.scroll, true);
         window.scrollTo(0, 0);
       }
     }
@@ -681,54 +737,54 @@ export class AdminComponent implements OnInit, OnDestroy {
   setHeaderPosition() {
     this.isHeaderChecked = !this.isHeaderChecked;
     this.pcodedHeaderPosition =
-      this.isHeaderChecked === true ? 'fixed' : 'relative';
-    this.headerFixedMargin = this.isHeaderChecked === true ? '50px' : '';
+      this.isHeaderChecked === true ? "fixed" : "relative";
+    this.headerFixedMargin = this.isHeaderChecked === true ? "50px" : "";
     if (this.isHeaderChecked === false) {
-      window.addEventListener('scroll', this.scroll, true);
+      window.addEventListener("scroll", this.scroll, true);
       window.scrollTo(0, 0);
     } else {
-      window.removeEventListener('scroll', this.scroll, true);
-      if (this.pcodedDeviceType === 'desktop') {
-        this.headerFixedTop = 'auto';
+      window.removeEventListener("scroll", this.scroll, true);
+      if (this.pcodedDeviceType === "desktop") {
+        this.headerFixedTop = "auto";
       }
-      this.pcodedSidebarPosition = 'fixed';
-      if (this.verticalNavType !== 'collapsed') {
+      this.pcodedSidebarPosition = "fixed";
+      if (this.verticalNavType !== "collapsed") {
         this.sidebarFixedHeight =
           this.isSidebarChecked === true
-            ? 'calc(100vh - 50px)'
-            : 'calc(100vh + 50px)';
+            ? "calc(100vh - 50px)"
+            : "calc(100vh + 50px)";
       }
     }
   }
 
   toggleOpenedSidebar() {
     this.isCollapsedSideBar =
-      this.isCollapsedSideBar === 'yes-block' ? 'no-block' : 'yes-block';
-    if (this.verticalNavType !== 'collapsed') {
+      this.isCollapsedSideBar === "yes-block" ? "no-block" : "yes-block";
+    if (this.verticalNavType !== "collapsed") {
       this.sidebarFixedHeight =
-        this.isCollapsedSideBar === 'yes-block'
-          ? 'calc(100vh - 50px)'
-          : 'calc(100vh - 50px)';
+        this.isCollapsedSideBar === "yes-block"
+          ? "calc(100vh - 50px)"
+          : "calc(100vh - 50px)";
     }
   }
 
   hoverOutsideSidebar() {
-    if (this.verticalNavType === 'collapsed') {
-      const mainEle = document.querySelectorAll('.pcoded-trigger');
+    if (this.verticalNavType === "collapsed") {
+      const mainEle = document.querySelectorAll(".pcoded-trigger");
       for (let i = 0; i < mainEle.length; i++) {
-        mainEle[i].classList.remove('pcoded-trigger');
+        mainEle[i].classList.remove("pcoded-trigger");
       }
     }
   }
 
   fireClick(e) {
-    if (this.verticalNavType === 'collapsed') {
+    if (this.verticalNavType === "collapsed") {
       const parentEle = e.target.parentNode.parentNode;
-      if (parentEle.classList.contains('pcoded-trigger')) {
-        const subEle = parentEle.querySelectorAll('.pcoded-hasmenu');
+      if (parentEle.classList.contains("pcoded-trigger")) {
+        const subEle = parentEle.querySelectorAll(".pcoded-hasmenu");
         for (let i = 0; i < subEle.length; i++) {
-          if (subEle[i].classList.contains('pcoded-trigger')) {
-            subEle[i].classList.remove('pcoded-trigger');
+          if (subEle[i].classList.contains("pcoded-trigger")) {
+            subEle[i].classList.remove("pcoded-trigger");
           }
         }
       } else {
@@ -738,47 +794,47 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   fireClickLeave(e) {
-    if (this.verticalNavType === 'collapsed') {
+    if (this.verticalNavType === "collapsed") {
       const parentEle = <HTMLElement>e.target.parentNode.parentNode;
-      const subEle = parentEle.querySelectorAll('.pcoded-hasmenu');
+      const subEle = parentEle.querySelectorAll(".pcoded-hasmenu");
       for (let i = 0; i < subEle.length; i++) {
-        if (subEle[i].classList.contains('pcoded-trigger')) {
-          subEle[i].classList.remove('pcoded-trigger');
+        if (subEle[i].classList.contains("pcoded-trigger")) {
+          subEle[i].classList.remove("pcoded-trigger");
         }
       }
     }
   }
 
   onViewProfile() {
-    this.Router.navigate(['Settings']);
+    this.Router.navigate(["Settings"]);
   }
 
   logout() {
-    localStorage.setItem('dataToken', 'false');
+    localStorage.setItem("dataToken", "false");
   }
 
   lock() {
-    localStorage.setItem('lockScreen', 'true');
+    localStorage.setItem("lockScreen", "true");
   }
   routingseachpage() {
-    this.Router.navigate(['searchpage']);
+    this.Router.navigate(["searchpage"]);
   }
   routingToHomegetstrusted() {
-    this.Router.navigate(['homegetstrusted']);
+    this.Router.navigate(["homegetstrusted"]);
   }
 
   // --For contry location-- then set input style ----//
   getDataLocation() {
     new Promise((resolve) => {
       this.geoLocationService.getLocation().subscribe((data) => {
-        resolve((this.locationData = data['country']));
+        resolve((this.locationData = data["country"]));
       });
     })
       .then(() => {
         this.countryData = {
           preferredCountries: [`${this.locationData}`],
-          localizedCountries: { ng: 'Nigeria', gh: 'Ghana' },
-          onlyCountries: ['GH', 'NG'],
+          localizedCountries: { ng: "Nigeria", gh: "Ghana" },
+          onlyCountries: ["GH", "NG"],
         };
       })
       .then(() => {
@@ -791,9 +847,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   // for payement//
   onRoutingTopayement() {
-    this.router.navigate(['/payement']);
+    this.router.navigate(["/payement"]);
   }
-  
 
   defaultPictureOrNot() {
     setTimeout(() => {
@@ -820,35 +875,35 @@ export class AdminComponent implements OnInit, OnDestroy {
     resultModal: TemplateRef<any>,
     warningModale: TemplateRef<any>
   ) {
-    const searchInputNumberValue = document.getElementsByTagName('input')[0]
+    const searchInputNumberValue = document.getElementsByTagName("input")[0]
       .value;
 
     const searchPlaceholderInputValue = document
-      .getElementsByTagName('input')[0]
-      .getAttribute('placeholder');
+      .getElementsByTagName("input")[0]
+      .getAttribute("placeholder");
     //      remove space and first 0 of seachInput value    //
-    let rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
+    let rigthValue = searchInputNumberValue.split(" ").join("").substring(1);
 
     //     validation   //
     this.validateInputType(rigthValue);
 
     //  to choice a number corresponding  some contry  //
 
-    if (searchPlaceholderInputValue === '023 123 4567') {
-      this.prefixContryCode = '+233';
-    } else if (searchPlaceholderInputValue === '0802 123 4567') {
-      rigthValue = searchInputNumberValue.split(' ').join('').substring(1);
-      this.prefixContryCode = '+234';
+    if (searchPlaceholderInputValue === "023 123 4567") {
+      this.prefixContryCode = "+233";
+    } else if (searchPlaceholderInputValue === "0802 123 4567") {
+      rigthValue = searchInputNumberValue.split(" ").join("").substring(1);
+      this.prefixContryCode = "+234";
     }
     // ----- if input data is not correct ------//
     if (
-      rigthValue === '' ||
+      rigthValue === "" ||
       rigthValue.length < 8 ||
       rigthValue.length > 10 ||
       !this.isValideInputType
     ) {
       document
-        .getElementsByTagName('input')[0]
+        .getElementsByTagName("input")[0]
         .setAttribute(
           this.searchInputStyleAttribut,
           this.searInputFailStyleattribute
@@ -856,7 +911,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       // -------if input data is correct -----------//
     } else {
       document
-        .getElementsByTagName('input')[0]
+        .getElementsByTagName("input")[0]
         .setAttribute(
           this.searchInputStyleAttribut,
           this.searInputSuccesStyleattribute
@@ -869,9 +924,9 @@ export class AdminComponent implements OnInit, OnDestroy {
       });
       this.searchService.getCompanyDetails(this.phoneNumber).subscribe(
         (company: CompanyReference) => {
-          if (isEmpty(company) || company.state !== 'approved') {
+          if (isEmpty(company) || company.state !== "approved") {
             this.modalRefResult = this.modalService.show(warningModale);
-            this.ValidInvalidColor = '';
+            this.ValidInvalidColor = "";
             this.LoadingStatus = false;
             this.SearchButtonStatus = true;
           } else {
@@ -887,15 +942,15 @@ export class AdminComponent implements OnInit, OnDestroy {
             this.city = company.city;
             this.sector = company.sector;
             const services = company.services;
-            this.services = services.split(',');
+            this.services = services.split(",");
             this.country = company.country;
             this.businessphone = company.businessphone;
             const additionnalphone = company.additionnalphone;
-            this.additionnalphone = additionnalphone.split(',');
+            this.additionnalphone = additionnalphone.split(",");
             this.identitycardverifyfile = company.identitycardverifyfile;
             this.facebook = company.facebook;
             this.instagram = company.instagram;
-            this.whatsapp = company.whatsapp.split('+233').pop();
+            this.whatsapp = company.whatsapp.split("+233").pop();
             this.state = company.state;
             this.created_at = company.created_at;
             this.identitycard = company.identitycard;
@@ -904,7 +959,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          console.log('Error %j', error.message);
+          console.log("Error %j", error.message);
         }
       );
     }
@@ -912,18 +967,18 @@ export class AdminComponent implements OnInit, OnDestroy {
   onOpenDispute(disputeModale: TemplateRef<any>) {
     new Promise((resolve) => {
       this.geoLocationService.getLocation().subscribe((data) => {
-        resolve((this.locationData = data['country']));
+        resolve((this.locationData = data["country"]));
       });
     })
       .then(() => {
         this.countryData = {
           preferredCountries: [`${this.locationData}`],
           localizedCountries: {
-            ng: 'Nigeria',
-            gh: 'Ghana',
-            ci: 'Côte d Ivoire',
+            ng: "Nigeria",
+            gh: "Ghana",
+            ci: "Côte d Ivoire",
           },
-          onlyCountries: ['GH', 'NG', 'BJ'],
+          onlyCountries: ["GH", "NG", "BJ"],
         };
       })
       .then(() => {
@@ -946,7 +1001,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           this.isFormSubmitted = true;
         },
         (error) => {
-          console.log('Error %j', error);
+          console.log("Error %j", error);
         }
       );
     }
@@ -956,13 +1011,25 @@ export class AdminComponent implements OnInit, OnDestroy {
     localStorage.clear();
     sessionStorage.clear();
     setTimeout(() => {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(["/auth/login"]);
     }, 1000);
   }
 
-  loadDashBoardStatus() {
-   
+  loadDashBoardStatus() {}
 
-
-}
+  getBusinessAccountDetails() {
+    this.businessService
+      .getBusinessDetails(this.userId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((businessData: any) => {
+        if (businessData.status !== 404) {
+          this.businessAccountData = businessData;
+          this.hasBusinessAccount = true;
+        } else {
+          this.hasBusinessAccount = false;
+        }
+        console.log("hasBusinessAccount", this.hasBusinessAccount);
+        return businessData;
+      });
+  }
 }

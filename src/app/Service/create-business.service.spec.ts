@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { CreateBusinessService } from './create-business.service';
+import { BusinessService } from "./business.service";
 
-describe('CreateBusinessService', () => {
+describe("CreateBusinessService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: CreateBusinessService = TestBed.get(CreateBusinessService);
+  it("should be created", () => {
+    const service: BusinessService = TestBed.get(BusinessService);
     expect(service).toBeTruthy();
   });
 });
