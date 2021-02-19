@@ -1,3 +1,67 @@
-<p>
-  api-integration works!
-</p>
+<div class="page-body">
+  <div class="row">
+    <div class="col-10">
+      <div id="app-card">
+        <app-card>
+          <hr />
+       
+          <h6 class="viewApikey" (click)='onViewApiDoc()'>View API Guide</h6>
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h6 class="apiKey">API keys</h6>
+              <div class="row">
+                <div class="col-6">
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Test key</label>
+                    </div>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inlineFormInputGroupUsername2"
+                      />
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Copy</div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-6">
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Live key</label>
+                    </div>
+
+                    <div class="input-group mb-2 mr-sm-2">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inlineFormInputGroupUsername2"
+                      />
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Show Keys</div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <form>
+              <div class="col-12">
+                <input
+                  id="userId"
+                  type="text"
+                  class="form-control col-12"
+                  placeholder="User ID"
+                />
+              </div>
+            </form>
+          </div>
+        </app-card>
+      </div>
+    </div>
+  </div>
+</div>

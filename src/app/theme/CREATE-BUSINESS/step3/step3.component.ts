@@ -96,7 +96,7 @@ export class Step3Component implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((data) => {
         if (data) {
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/pending-timer"]);
         }
       }),
       (error) => {

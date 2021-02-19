@@ -51,7 +51,7 @@ const MENUITEMS = [
       {
         state: "Payouts",
         short_label: "D",
-        name: "transactiondetails",
+        name: "payout",
         icon: "",
         type: "link",
       },
@@ -87,6 +87,13 @@ const MENUITEMS = [
         state: "",
         short_label: "AI",
         name: "sellerservicescontrat",
+        icon: "",
+        type: "link",
+      },
+      {
+        state: "Developers",
+        short_label: "apiintegration",
+        name: "apiintegration",
         icon: "",
         type: "link",
       },
