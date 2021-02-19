@@ -11,8 +11,8 @@ import { SelectModule } from 'ng-select';
   imports: [
     CommonModule,
     ApiIntegrationRoutingModule,
-    SharedModule, 
-    SelectModule
+    SharedModule,
+    SelectModule,
   ]
 })
 export class ApiIntegrationModule { }

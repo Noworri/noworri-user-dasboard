@@ -53,6 +53,7 @@ export class PayementsComponent implements OnInit, OnDestroy {
   hasWithdrawn = false;
   hasPaymentData: boolean;
 
+
   addBankAccountconfig = {
     class: "AddBankaccountCss",
   };
@@ -170,6 +171,10 @@ export class PayementsComponent implements OnInit, OnDestroy {
       .subscribe((response: any) => {
         if (response.data && response.data.recipient_code) {
           this.isAdding = false;
+          this.modalRef.hide();
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         }
         if (response.status === false) {
           this.errorMessage = response.message;

@@ -1,0 +1,49 @@
+.page-body {
+  #app-card {
+    margin-top: 100px;
+    margin-left: 23px;
+    padding-bottom: 200px;
+    .viewApikey {
+      font-weight: 700;
+      color: #2bb996;
+      font-size: 15px;
+      text-decoration: underline;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+  }
+  hr {
+    margin-left: -30px;
+    width: 1200px;
+    margin-top: -21px;
+    background: rgb(255, 133, 89);
+    padding-bottom: 2px;
+  }
+
+  .jumbotron {
+    height: 170px;
+    border: #ececec solid 0.2px;
+    background-color: white;
+    .apiKey {
+      font-weight: 700;
+      color: black;
+      font-size: 15px;
+      margin-top: -50px;
+    }
+    label {
+      margin-top: 8px;
+      font-weight: 500;
+    }
+    form {
+      .input-group-text {
+        font-size: small;
+        color: black;
+        cursor: pointer;
+        font-weight: bold;
+      }
+    }
+  }
+  #userId {
+    width: 410px;
+  }
+}

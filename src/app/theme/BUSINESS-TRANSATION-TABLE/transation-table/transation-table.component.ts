@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransationTableComponent implements OnInit {
 
-  dateIput: Boolean;
+ 
 
   constructor() { }
 
@@ -15,8 +15,6 @@ export class TransationTableComponent implements OnInit {
   }
 
 
-  onActivateDateInput() {
-    this.dateIput = !this.dateIput
-  }
+ 
 
 }

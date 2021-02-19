@@ -1,3 +1,4 @@
+import { PendingTimerComponent } from './theme/pending-timer/pending-timer.component';
 import { TransationTableComponent } from './theme/BUSINESS-TRANSATION-TABLE/transation-table/transation-table.component';
 
 import { TransactionDetailComponent } from './theme/TRANSACTION_DETAILS/transaction-detail/transaction-detail.component';
@@ -163,7 +164,15 @@ const routes: Routes = [
         component: TransactionDetailComponent
       },
       {
-        path: 'transactiontable',
+        path: 'apiintegration',
+        component: ApiIntegrationComponent
+      },
+      {
+        path: 'pending-timer',
+        component: PendingTimerComponent
+      },
+      {
+        path: 'payout',
         component: TransationTableComponent
       },
       {

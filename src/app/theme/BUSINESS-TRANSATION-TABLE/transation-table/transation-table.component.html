@@ -59,15 +59,25 @@
                 </div>
               </div>
             </div>
-            <div class="col-2" style="font-size: 13px; font-weight: bold">
-              transactions:10:
-            </div>
-            <div class="col-2" style="font-size: 13px; font-weight: bold">
-              Revenu:
+            <div class="Next col-12">
+              <div class="row">
+                <div class="col-12">
+                  <h6>
+                    Next Payout:<span class="chiffre">12000 GHC</span>
+                    <button type="button" class="btn btn-sm btn-primary">
+                      Withdraw
+                    </button>
+                  </h6>
+                </div>
+              </div>
             </div>
           </div>
           <div class="table-data">
-            <table class="table table-bordered table-striped table-sm">
+            <table
+              routerLink="/transactiondetails"
+              style="cursor: pointer"
+              class="table table-bordered table-striped table-sm"
+            >
               <thead>
                 <tr>
                   <th>Transaction ID</th>

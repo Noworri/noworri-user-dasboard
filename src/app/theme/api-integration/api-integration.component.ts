@@ -11,5 +11,7 @@ export class ApiIntegrationComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  onViewApiDoc() {
+    window.location.href = 'https://api.noworri.com/docs';
+  }
 }

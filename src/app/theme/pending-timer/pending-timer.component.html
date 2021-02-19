@@ -1,0 +1,32 @@
+<div class="page-body">
+  <div class="row">
+    <div class="col-10">
+      <div id="app-card">
+        <app-card>
+          <h4 class="activation text-center">Activation pending</h4>
+          <p class="thank text-center">
+            Thank you for your interest in our products. Please give us a few
+            hours to activate your business.
+          </p>
+          <div class="countdown">
+            <div
+              [styles]="
+                '
+        font-size: 20px;
+        color: black;
+        background-color: white;
+        padding: 10px 4px;
+        font-weight: bold;
+        font-size:30px
+      '
+              "
+              simpleCountdown
+              [dateTo]="1660656382"
+              [hideUnit]="'d'"
+            ></div>
+          </div>
+        </app-card>
+      </div>
+    </div>
+  </div>
+</div>
