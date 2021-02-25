@@ -22,8 +22,8 @@ import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { TransactionsService } from "src/app/Service/transactions.service";
 import { AuthserviceService } from "src/app/Service/authservice.service";
 import { DomSanitizer } from "@angular/platform-browser";
+import { SESSION_STORAGE_KEY } from "src/app/shared/constants";
 
-const SESSION_STORAGE_KEY = "noworri-user-session";
 const LOCAL_STORAGE_KEY = "merchandise-escrow-1";
 
 @Component({

@@ -253,6 +253,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   menuItemsList: any;
   accountTypeData: any;
   businessAccountData: any;
+  businessPp: string;
 
   unsubscribe$ = new Subject();
 
@@ -393,7 +394,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
     if (!this.isBusinessAccount) {
       this.menuItemsList = itemsList[0].filter(
-        (item) => !item.state.includes("Payouts")
+        (item) =>
+          !item.state.includes("Payouts") && !item.state.includes("Developers")
       );
     } else {
       this.menuItemsList = itemsList[0];
@@ -406,6 +408,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((summaryData: UserTransactionsSummary) => {
         this.summaryData = summaryData;
+        localStorage.setItem("summary_data", JSON.stringify(this.summaryData));
         return summaryData;
       });
   }
@@ -1022,8 +1025,12 @@ export class AdminComponent implements OnInit, OnDestroy {
       .getBusinessDetails(this.userId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((businessData: any) => {
-        if (businessData.status !== 404) {
+        if (businessData.status !== 404 && businessData.status === "approved") {
           this.businessAccountData = businessData;
+          this.businessPp =
+            businessData.business_logo === null || undefined
+              ? "../../../assets/homebg.jpg"
+              : `https://noworri.com/api/public/uploads/company/business/${businessData.business_logo}`;
           this.hasBusinessAccount = true;
         } else {
           this.hasBusinessAccount = false;

@@ -14,10 +14,12 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { GeoLocationService } from "../../../Service/geo-location.service";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import {
+  LOCAL_STORAGE_KEY_MERCHANDISE_0,
+  LOCAL_STORAGE_KEY_MERCHANDISE_1,
+  SESSION_STORAGE_KEY,
+} from "src/app/shared/constants";
 
-const MERCHANDISE_SELLER1_LOCAL_STORAGE_KEY_0 = "noworri-escrow-0";
-const MERCHANDISE_SELLER1_STORAGE_KEY_1 = "merchandise-escrow-1";
-const MERCHANDISE_SELLER1_SESSION_STORAGE_KEY = "noworri-user-session";
 const TRANSATION_SUMURY = "transation-sumary";
 
 @Component({
@@ -54,8 +56,7 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
   destinator_role: string;
   transactionType: string;
   description: string;
-
-  
+  feePrice: number;
 
   deliveryPhone: string;
   rawDeliveryPhone: string;
@@ -65,10 +66,15 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
   waitingDisplayInput: boolean;
 
   inputValidation: RegExp;
+  prefixCountryCode: string;
+  rawDeliveryPhoneNumber: string;
+
+  // ------- fror recap Modale----- //
+
+  sellerPhoneNumber: any;
+  deliveryPhoneNumber: any;
 
   rawNumber: string;
-
-
 
   // -------------------Date or time variable-------------------//
 
@@ -84,7 +90,6 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
 
   role: string;
   E164PhoneNumber = "+233544990518";
-  prefixCountryCode: string;
   buyersOrSeller: string;
   accept1: boolean;
   accept2 = true;
@@ -119,9 +124,7 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
     private transactionsService: TransactionsService,
     private geoLocationService: GeoLocationService
   ) {
-    const sessionData = JSON.parse(
-      localStorage.getItem(MERCHANDISE_SELLER1_SESSION_STORAGE_KEY)
-    );
+    const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
     this.first_name = sessionData.first_name;
     this.email = sessionData.email;
     this.name = sessionData.name;
@@ -135,7 +138,7 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
     }
 
     const localData = JSON.parse(
-      localStorage.getItem(MERCHANDISE_SELLER1_LOCAL_STORAGE_KEY_0)
+      localStorage.getItem(LOCAL_STORAGE_KEY_MERCHANDISE_0)
     );
     this.initiator_role = localData.role;
     this.destinator_role = this.initiator_role === "buy" ? "sell" : "buy";
@@ -163,7 +166,7 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
   //   this.createTransaction(this.transactionSummary);
   // }
 
-  onCompleteStep1(recap, form: NgForm, sellersForms, deliveryForms) {
+  onCompleteStep1(form: NgForm, sellersForms, deliveryForms) {
     const telInputPlaceholderInputValue = document
       .getElementsByTagName("input")[0]
       .getAttribute("placeholder");
@@ -176,20 +179,24 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
       this.prefixCountryCode = "+234";
     } else if (intelInputId === "2") {
       this.prefixCountryCode = "+225";
+    } else {
+      this.prefixCountryCode = "+233";
     }
     this.escrowStep1Data.item = form.value["item"];
     this.escrowStep1Data.price = form.value["price"];
     this.escrowStep1Data.sellerPhoneNumber = `${this.prefixCountryCode}${sellersForms.value["sellerPhoneNumber"]}`;
-    this.rawDeliveryPhone = deliveryForms.value["deliveryPhoneNumber"];
-    this.deliveryPhone = this.rawDeliveryPhone.split(" ").join("").substring(0);
+    this.rawDeliveryPhoneNumber = deliveryForms.value["deliveryPhoneNumber"];
+    this.deliveryPhoneNumber = this.rawDeliveryPhoneNumber
+      ? this.rawDeliveryPhoneNumber.split(" ").join("").substring(0)
+      : `${this.prefixCountryCode}${this.deliveryPhoneNumber}`;
     this.escrowStep1Data.deliveryPhoneNumber =
-      this.deliveryPhone !== undefined
-        ? `${this.prefixCountryCode}${this.deliveryPhone}`
+      deliveryForms.value["deliveryPhoneNumber"] !== undefined
+        ? `${this.prefixCountryCode}${this.deliveryPhoneNumber}`
         : `${this.prefixCountryCode}${sellersForms.value["sellerPhoneNumber"]}`;
     this.escrowStep1Data.description = form.value["description"];
     this.price = parseInt(this.escrowStep1Data.price, 10);
+
     this.noworriFee = this.getNoworriFee(this.price);
-    this.escrowStep1Data.noworriFee = this.noworriFee.toFixed(2);
     this.totalAmount =
       parseInt(this.escrowStep1Data.price, 10) - this.noworriFee;
     this.rawSeller = sellersForms.value["sellerPhoneNumber"];
@@ -244,32 +251,32 @@ export class EscrowMerchandiseSellerstep1Component implements OnInit {
       this.accept5 === true
     ) {
       this.transactionSummary = {
-        initiator_role: this.initiator_role,
+        initiator_role: this.role,
         initiator_id: this.initiator_id,
         name: this.escrowStep1Data.item,
         destinator_id: this.destinator_id,
         requirement: this.escrowStep1Data.description,
+        seller: this.escrowStep1Data.sellerPhoneNumber,
         transaction_type: this.transactionType,
+        noworriFee: this.noworriFee.toFixed(2),
         price: this.price.toFixed(2),
         delivery_phone: this.escrowStep1Data.deliveryPhoneNumber,
         transaction_ref: "",
-        currency:this.currency,
-        etat: 1,
+        currency: this.currency,
+        etat: 2,
       };
-      localStorage.setItem(
-        MERCHANDISE_SELLER1_LOCAL_STORAGE_KEY_0,
-        JSON.stringify(this.escrowStep1Data)
-      );
-      localStorage.setItem(
-        TRANSATION_SUMURY,
-        JSON.stringify(this.transactionSummary)
-      );
-
-      this.router.navigate(["escrowmerchandisesellerstep2"]);
-      // this.openModal(recap)
-      this.isValidating = false;
-     
+      this.orderDetails = JSON.stringify(this.transactionSummary);
+      localStorage.setItem(LOCAL_STORAGE_KEY_MERCHANDISE_1, this.orderDetails);
+      setTimeout(() => {
+        this.isValidating = false;
+        this.router.navigate(["escrowmerchandisesellerstep2"]);
+      }, 2000);
     }
+  }
+
+  getFees() {
+    const price = (this.feePrice / 100) * 2.2;
+    return price.toFixed(2);
   }
 
   openModal(template: TemplateRef<any>) {

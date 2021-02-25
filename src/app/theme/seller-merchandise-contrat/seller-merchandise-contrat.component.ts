@@ -36,6 +36,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   isCancelled = false;
   isUpdatingDelivery = false;
   prefixCountryCode: string;
+  isVendorTransaction: boolean;
 
   // ---- bak stuff --- //
   email: string;
@@ -45,6 +46,8 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   accountDetails: object;
   form: FormGroup;
   isAdding = false;
+  isTransactionActive = false;
+  isFundsLocked = false;
   hasAccount: boolean;
   details: any;
   recipientDetails: object;
@@ -52,7 +55,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   bankList: any;
   country: string;
   modalRef: BsModalRef;
-  addBankAccountconfig = {
+  addBankAccountConfig = {
     class: "AddBankaccountCss",
   };
 
@@ -88,7 +91,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
       localStorage.getItem(MERCHANDISE_SELLER2_LOCAL_STORAGE_KEY_0)
     );
 
-    this.sellerPhone = sessionData.mobile_phone
+    this.sellerPhone = sessionData.mobile_phone;
     // this.deliveryPhone = transationData.deliveryPhoneNumber;
     // this.buyerPhone=transationData.sellerPhoneNumber
     this.userId = sessionData.user_uid;
@@ -110,7 +113,6 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
     this.getDataLocation();
     this.getAccountDetails();
     this.getBankList(this.country);
-
   }
 
   ngOnDestroy() {
@@ -224,7 +226,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
   }
 
   onWithdraw(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, this.addBankAccountconfig);
+    this.modalRef = this.modalService.show(template, this.addBankAccountConfig);
   }
 
   loadUserTransaction(transaction_id: string) {
@@ -255,6 +257,12 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
               currency: this.currency,
               transactionID: this.transactionId,
             };
+            if (details.etat === "1") {
+              this.isTransactionActive = true;
+            }
+            if (details.etat === "2") {
+              this.isFundsLocked = true;
+            }
             if (details.etat === "3") {
               this.isFundsReleased = true;
             }
@@ -264,6 +272,11 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
             if (details.etat === "5") {
               this.isFundsReleased = true;
               this.hasWithdrawn = true;
+            }
+            if (details.transaction_source === "vendor") {
+              this.isVendorTransaction = true;
+            } else {
+              this.isVendorTransaction = false;
             }
           });
         },
@@ -300,7 +313,7 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
       currency: this.currency,
     };
     this.transactionsService
-      .createRecipient(this.recipientDetails, this.accountDetails['userId'])
+      .createRecipient(this.recipientDetails, this.accountDetails["userId"])
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response: any) => {
         if (response.data && response.data.recipient_code) {
@@ -341,6 +354,6 @@ export class SellerMerchandiseContratComponent implements OnInit, OnDestroy {
 
   // ----------- create Bank account modale---------------------------//
   openAddBankAccountModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, this.addBankAccountconfig);
+    this.modalRef = this.modalService.show(template, this.addBankAccountConfig);
   }
 }

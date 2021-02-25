@@ -10,8 +10,7 @@ import { AuthserviceService } from "src/app/Service/authservice.service";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { NgForm } from "@angular/forms";
 import { FormGroup, FormBuilder } from "@angular/forms";
-
-const SESSION_STORAGE_KEY = "noworri-user-session";
+import { SESSION_STORAGE_KEY } from "src/app/shared/constants";
 
 @Component({
   selector: "app-buyer-merchandise-contrat",
@@ -41,6 +40,7 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
   isPending = false;
   isValidCode = true;
   hasDeliveryPhone: boolean;
+  isVendorTransaction: boolean;
   recipientCode: string;
   isFundsSecured = true;
   transaction_ref: string;
@@ -344,6 +344,11 @@ export class BuyerMerchandiseContratComponent implements OnInit, OnDestroy {
             }
             if (details.etat === "1") {
               this.isPending = true;
+            }
+            if (details.transaction_source === "vendor") {
+              this.isVendorTransaction = true;
+            } else {
+              this.isVendorTransaction = false;
             }
 
             return details;

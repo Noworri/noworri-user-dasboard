@@ -126,7 +126,7 @@ export class TransactionsService {
   }
 
   initiateReleasePaystack(data) {
-    const url = `https://api.noworri.com/api/initiateRelease/${data.transactionID}`;
+    const url = `${environment.payStackReleaseUrl}${data.transactionID}`;
     let params = new HttpParams();
     params = params.append("source", "balance");
     params = params.append("reason", "Noworri Payment Release");
@@ -461,8 +461,7 @@ export class TransactionsService {
   }
 
   createTransaction(transactionDetails) {
-    const url = "https://api.noworri.com/api/newtransaction";
-    // let params = new HttpParams();
+    const url = environment.createTransactionUrl;
     if (!transactionDetails.deadline || !transactionDetails.revision) {
       transactionDetails.deadline = "";
       transactionDetails.revision = 0;
@@ -470,29 +469,6 @@ export class TransactionsService {
     if (!transactionDetails.file_path) {
       transactionDetails.file_path = "N/A";
     }
-
-    // params = params.append("initiator_id", transactionDetails.initiator_id);
-    // params = params.append("initiator_role", transactionDetails.initiator_role);
-    // params = params.append("destinator_id", transactionDetails.destinator_id);
-    // params = params.append(
-    //   "transaction_type",
-    //   transactionDetails.transaction_type
-    // );
-    // params = params.append("name", transactionDetails.service);
-    // params = params.append("price", transactionDetails.price);
-    // params = params.append("deadDays", "0");
-    // params = params.append("deadHours", "0");
-    // params = params.append("deadline", transactionDetails.deadline);
-    // params = params.append("start", "");
-    // params = params.append("deadline_type", transactionDetails.deadline_type);
-    // params = params.append("delivery_phone", transactionDetails.delivery_phone);
-    // params = params.append("revision", transactionDetails.revision);
-    // params = params.append("requirement", transactionDetails.requirement);
-    // params = params.append("file_path", transactionDetails.file_path);
-    // params = params.append("payment_id", transactionDetails.transaction_ref);
-    // params = params.append("etat", "2");
-    // params = params.append("deleted", "0");
-    // params = params.append("currency", transactionDetails.currency);
 
     return this.http
       .post(url, transactionDetails, { responseType: "json" })

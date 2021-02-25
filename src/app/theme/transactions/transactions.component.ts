@@ -7,9 +7,10 @@ import { PaymentService } from "src/app/Service/payment.service";
 import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import * as moment from "moment";
-
-const SESSION_STORAGE_KEY = "noworri-user-session";
-
+import {
+  SESSION_STORAGE_KEY,
+  transactionSource,
+} from "src/app/shared/constants";
 @Component({
   selector: "app-transactions",
   templateUrl: "./transactions.component.html",
@@ -20,7 +21,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   isFilterInput: boolean;
   filterKey: string;
   unsubscribe = new Subject();
-
+  selectedAccountType: any;
+  isBuyer: boolean;
+  isBusinessSeller: boolean;
   tableData: any;
   userRole: string;
   storedTransactionDetails: any;
@@ -42,6 +45,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     const sessionData = JSON.parse(localStorage.getItem(SESSION_STORAGE_KEY));
+    this.selectedAccountType = JSON.parse(
+      localStorage.getItem("selected_account_type")
+    );
     this.userId = sessionData.user_uid;
     this.userPhone = sessionData.mobile_phone;
   }
@@ -65,6 +71,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
           this.tableData = transactions.map((details) => {
             this.allDateData = details;
             this.transactionType = details.transaction_type.toLowerCase();
+            if (details.price.includes(",")) {
+              const prices = details.price.split(",");
+              details.price = prices.reduce((a, b) => {
+                return +a + +b;
+              }, 0);
+            }
             details.destinator_role =
               details.initiator_role === "buy" ? "sell" : "buy";
             if (
@@ -89,6 +101,7 @@ export class TransactionsComponent implements OnInit, OnDestroy {
               details.destinator_role === "sell" &&
               this.userId === details.destinator_id
             ) {
+              this.isBusinessSeller = true;
               details["sellerPhone"] = details.destinator_phone;
               details["buyerPhone"] = details.initiator_phone;
             } else {
@@ -96,10 +109,26 @@ export class TransactionsComponent implements OnInit, OnDestroy {
               details["buyerPhone"] = details.initiator_phone;
             }
             this.amount = details.total_price;
-
             return details;
           });
-
+          if (
+            this.selectedAccountType &&
+            this.selectedAccountType.isBusinessAccount &&
+            this.isBusinessSeller
+          ) {
+            this.tableData = this.tableData.filter(
+              (detail) => detail.transaction_source !== transactionSource.VENDOR
+            );
+          } else if (
+            this.selectedAccountType &&
+            !this.selectedAccountType.isBusinessAccount &&
+            this.isBusinessSeller
+          ) {
+            this.tableData = this.tableData.filter(
+              (detail) =>
+                detail.transaction_source !== transactionSource.COMMERCE
+            );
+          }
           this.currentTransactionsCount = transactions.length;
 
           this.hasNoTransactions = !transactions.length ? true : false;

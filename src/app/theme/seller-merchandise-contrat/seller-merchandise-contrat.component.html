@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="isVendorTransaction" class="container">
   <div class="row">
     <div class="col-sm" id="col-sm">
       <div class="card">
@@ -11,8 +11,8 @@
               <div *ngIf="!isFundsReleased" class="col-sm-2">
                 <a class="nav-link cancel" href="#">Cancel</a>
               </div>
-              <div class="col-sm">
-                <a class="nav-link changer" href="#">Changer the Deliveryman</a>
+              <div *ngIf="!isFundsReleased" class="col-sm">
+                <a class="nav-link changer" href="" (click)="onUpdateDeliveryPhone()">Change the Deliveryman</a>
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
                     account.
                   </p>
                 </table> -->
-                <table *ngIf="!isFundsReleased" class="table">
+                <table *ngIf="!isFundsReleased && isFundsLocked" class="table">
                   <h5 style="color: #497dd5; margin: 8px">
                     Buyer's Funds locked
                   </h5>
@@ -130,11 +130,11 @@
               {{ description }}
             </div>
           </div>
-          <div *ngIf="isFundsReleased" class="text-center">
+          <div *ngIf="isFundsReleased && !hasWithdrawn" class="text-center">
             <button
               type="submit"
               *ngIf="!isValidating"
-              (click)="onWithdraw()"
+              (click)="onWithdraw(accountDetails)"
               mat-raised-button
             >
               Withdraw:{{ amount }} GHC
@@ -149,3 +149,9 @@
     <div class="col-sm"></div>
   </div>
 </div>
+<app-transaction-detail *ngIf="!isVendorTransaction" [transactionKey]="transactionKey"></app-transaction-detail>
+<ng-template class="card-body" #accountDetails>
+  <app-payments [paymentData]="paymentData"></app-payments>
+</ng-template>
+
+

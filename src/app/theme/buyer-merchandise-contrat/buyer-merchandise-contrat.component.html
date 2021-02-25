@@ -5,7 +5,7 @@
     </div>
   </div>
 
-<div class="container">
+<div *ngIf="isVendorTransaction" class="container">
   <div class="row">
     <div class="col-sm" id="col-sm">
       <div class="card">
@@ -15,7 +15,7 @@
               <h6>Transaction ID:{{ transactionKey }}</h6>
             </div>
             <div class="col link">
-              <a class="nav-link" href="#">Changer the deliveryman</a>
+              <a class="nav-link" href="">Change the deliveryman</a>
             </div>
           </div>
           <div class="container">
@@ -213,3 +213,4 @@
     <div class="col-sm"></div>
   </div>
 </div>
+<app-transaction-detail *ngIf="!isVendorTransaction" [transactionKey]="transactionKey"></app-transaction-detail>

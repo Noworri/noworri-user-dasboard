@@ -29,12 +29,21 @@
         <div class="navbar-container container-fluid">
           <ul class="nav-left">
             <li class="ripple light">
-              <div class="main-menu-header">
+              <div *ngIf="!isBusinessAccount" class="main-menu-header">
                 <a (click)="onViewProfile()">
                   <img
                     src="{{ pp }}"
                     class="img-menu-user img-radius"
                     alt="User-Profile-Image"
+                  />
+                </a>
+              </div>
+              <div *ngIf="isBusinessAccount"  class="main-menu-header">
+                <a (click)="onViewProfile()">
+                  <img
+                    src="{{businessPp}}"
+                    class="card-img-top"
+                    alt="..."
                   />
                 </a>
               </div>
@@ -497,18 +506,26 @@
                   </ul>
                   <div *ngIf="hasBusinessAccount" class="row" id="downProfil">
                     <div class="col-6 profilType1">
-                      <div class="main-menu-header">
-                        <a>
+                      <div *ngIf="isBusinessAccount" class="main-menu-header">
+                        <a (click)="onViewProfile()">
                           <img
-                            src="../../../assets/homebg.jpg"
+                            src="{{ pp }}"
                             class="img-menu-user img-radius"
                             alt="User-Profile-Image"
                           />
                         </a>
                       </div>
+                      <div *ngIf="!isBusinessAccount"  class="main-menu-header">
+                        <a (click)="onViewProfile()">
+                          <img
+                            src="{{businessPp}}"
+                            class="card-img-top"
+                            alt="..."
+                          />
+                        </a>
+                      </div>
                     </div>
                     <div
-
                       *ngIf="hasBusinessAccount && !isBusinessAccount"
                       class="col-6 profilType1"
                     >

@@ -84,6 +84,7 @@ export interface UserReference {
     updated_at: string;
     user_name: string;
     user_uid: string;
+    currency: string;
   };
   error: string;
 }

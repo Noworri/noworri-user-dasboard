@@ -46,14 +46,14 @@
                     >
                       <button
                         class="btn btn-sm"
-                        (click)="onActivateDateInput()"
+                        (click)="showFilterInput('Date')"
                         ngbDropdownItem
                       >
                         Date
                       </button>
-                      <button class="btn btn-sm" ngbDropdownItem>Two</button>
-                      <button class="btn btn-sm" ngbDropdownItem>Four!</button>
-                      <button class="btn btn-sm" ngbDropdownItem>Four!</button>
+                      <button class="btn btn-sm" (click)="showFilterInput('initiator_phone')" ngbDropdownItem>Customer</button>
+                      <button class="btn btn-sm" (click)="showFilterInput('state')" ngbDropdownItem>Status</button>
+                      <button class="btn btn-sm" (click)="showFilterInput('transaction_key')" ngbDropdownItem>ID</button>
                     </div>
                   </div>
                 </div>
@@ -63,8 +63,8 @@
               <div class="row">
                 <div class="col-12">
                   <h6>
-                    Next Payout:<span class="chiffre">12000 GHC</span>
-                    <button type="button" class="btn btn-sm btn-primary">
+                    Next Payout:<span class="chiffre">{{summaryData.totalPayouts}}</span>
+                    <button (click)="onWithdraw(accountDetails)" type="button" class="btn btn-sm btn-primary">
                       Withdraw
                     </button>
                   </h6>
@@ -110,6 +110,9 @@
             </div>
           </div>
           <div class="Prolongement"></div>
+          <ng-template class="card-body" #accountDetails>
+            <app-payments [paymentData]="paymentData"></app-payments>
+          </ng-template>          
         </app-card>
       </div>
     </div>

@@ -88,7 +88,7 @@ import { EscrowMerchandiseBuyerstep2Component } from "./theme/ESCROWPART/escrow-
 import { PayementsComponent } from "./theme/PAYEMENTPART/payements/payements.component";
 import { NgbTabsetModule } from "@ng-bootstrap/ng-bootstrap";
 import { MatDialogModule } from "@angular/material/dialog";
-import { NgOtpInputModule } from 'ng-otp-input'
+import { NgOtpInputModule } from "ng-otp-input";
 import {
   MatOptionModule,
   MatSelectModule,
@@ -107,12 +107,10 @@ import { CreateBusinessModule } from "./theme/CREATE-BUSINESS/create-business.mo
 
 import { TransactionDetailComponent } from "./theme/TRANSACTION_DETAILS/transaction-detail/transaction-detail.component";
 import { TransationTableComponent } from "./theme/BUSINESS-TRANSATION-TABLE/transation-table/transation-table.component";
-import { PendingTimerComponent } from './theme/pending-timer/pending-timer.component';
+import { PendingTimerComponent } from "./theme/pending-timer/pending-timer.component";
 
-
-import { CountdownTimerModule } from 'ngx-countdown-timer';
-import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
-
+import { CountdownTimerModule } from "ngx-countdown-timer";
+import { NgxSimpleCountdownModule } from "ngx-simple-countdown";
 
 @NgModule({
   declarations: [
@@ -164,8 +162,6 @@ import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
     TransactionDetailComponent,
     TransationTableComponent,
     PendingTimerComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -207,8 +203,7 @@ import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
     CreateBusinessModule,
     NgOtpInputModule,
     CountdownTimerModule.forRoot(),
-    NgxSimpleCountdownModule
-
+    NgxSimpleCountdownModule,
   ],
 
   schemas: [],
@@ -223,4 +218,4 @@ import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

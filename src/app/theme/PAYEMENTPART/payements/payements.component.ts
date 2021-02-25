@@ -19,7 +19,7 @@ import { FormGroup, FormBuilder, NgForm } from "@angular/forms";
 const SESSION_STORAGE_KEY = "noworri-user-session";
 
 @Component({
-  selector: "app-payements",
+  selector: "app-payments",
   templateUrl: "./payements.component.html",
   styleUrls: ["./payements.component.scss"],
   encapsulation: ViewEncapsulation.None,
@@ -35,7 +35,7 @@ export class PayementsComponent implements OnInit, OnDestroy {
   name: string;
   mobile_phone: string;
   userId: string;
-  unsubscribe = new Subject();
+  unsubscribe$ = new Subject();
   accountDetails: object;
   form: FormGroup;
   isAdding = false;
@@ -49,10 +49,8 @@ export class PayementsComponent implements OnInit, OnDestroy {
   bankList: any;
   country: string;
   modalRef: BsModalRef;
-  unsubscribe$ = new Subject();
   hasWithdrawn = false;
   hasPaymentData: boolean;
-
 
   addBankAccountconfig = {
     class: "AddBankaccountCss",
@@ -88,8 +86,8 @@ export class PayementsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   // ----------- create Bank account modale---------------------------//
@@ -100,7 +98,7 @@ export class PayementsComponent implements OnInit, OnDestroy {
   getBankList(country) {
     this.transactionService
       .getBanks(country)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((banks) => {
         this.bankList = banks.filter(
           (bank) => bank.type === "ghipss" || bank.type === "nuban"
@@ -167,14 +165,12 @@ export class PayementsComponent implements OnInit, OnDestroy {
     };
     this.transactionService
       .createRecipient(this.recipientDetails, this.accountDetails["userId"])
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response: any) => {
         if (response.data && response.data.recipient_code) {
           this.isAdding = false;
           this.modalRef.hide();
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          this.getAccountDetails();
         }
         if (response.status === false) {
           this.errorMessage = response.message;
@@ -187,7 +183,7 @@ export class PayementsComponent implements OnInit, OnDestroy {
   addAccountDetails(accountDetails) {
     this.transactionService
       .addNewAccount(accountDetails)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
         this.isAdding = false;
         this.modalRef.hide();
@@ -203,7 +199,7 @@ export class PayementsComponent implements OnInit, OnDestroy {
     };
     this.transactionService
       .deleteUserAccount(accountData)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
         if (response["status"] === true) {
           this.getAccountDetails();
@@ -215,7 +211,7 @@ export class PayementsComponent implements OnInit, OnDestroy {
   getAccountDetails() {
     this.transactionService
       .getAccountDetails(this.userId)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((details: any) => {
         if (isEmpty(details)) {
           this.hasAccount = false;

@@ -3,12 +3,25 @@
     <div class="col-10">
       <div id="app-card">
         <app-card>
-          <h4 class="activation text-center">Activation pending</h4>
-          <p class="thank text-center">
-            Thank you for your interest in our products. Please give us a few
-            hours to activate your business.
-          </p>
-          <div class="countdown">
+          <div *ngIf="!isApproved">
+            <h4 class="activation text-center">Activation pending</h4>
+            <p class="thank text-center">
+              Thank you for your interest in our products. Please give us a few
+              hours to activate your business.
+            </p>
+          </div>
+          <div *ngIf="isApproved">
+            <h4 class="activation text-center">Business Account Activated</h4>
+            <p class="thank text-center">
+              Thank you for your patience. You can now access your business
+              account. Flip the switch down there to go to your business
+              Account.
+            </p>
+            <button type="button" class="btn btn-primary">
+            </button>
+          </div>
+
+          <!-- <div class="countdown">
             <div
               [styles]="
                 '
@@ -21,9 +34,20 @@
       '
               "
               simpleCountdown
-              [dateTo]="1660656382"
+              dateTo="countDownEnd"
+              [endMessage]="'The countdown is completed'"
               [hideUnit]="'d'"
             ></div>
+          </div> -->
+          <div *ngIf="!isApproved" class="countdown">
+            <button type="button" class="btn btn-light">
+              HH:MM:SS
+              <h5>
+                <div class="container">
+                    <countdown-timer [end]="countDownEnd"></countdown-timer>
+                </div>
+              </h5>
+            </button>
           </div>
         </app-card>
       </div>

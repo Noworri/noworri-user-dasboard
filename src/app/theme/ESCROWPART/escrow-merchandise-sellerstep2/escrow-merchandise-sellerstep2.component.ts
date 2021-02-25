@@ -4,9 +4,11 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Router, NavigationStart } from "@angular/router";
+import {
+  LOCAL_STORAGE_KEY_MERCHANDISE_0,
+  LOCAL_STORAGE_KEY_MERCHANDISE_1,
+} from "src/app/shared/constants";
 
-const MERCHANDISE_SELLER2_LOCAL_STORAGE_KEY_0 = "noworri-escrow-0";
-const MERCHANDISE_SELLER2_STORAGE_KEY_1 = "merchandise-escrow-1";
 const MERCHANDISE_SELLER2_SESSION_STORAGE_KEY = "noworri-user-session";
 const TRANSATION_SUMMURYKEY = "transation-sumary";
 
@@ -35,6 +37,7 @@ export class EscrowMerchandiseSellerstep2Component implements OnInit {
   description: string;
   deliveryPhone: string;
   transaction_ref: string;
+  currency: string;
   transactionSummary: any;
 
   // wholeAmountPart: number;
@@ -58,27 +61,40 @@ export class EscrowMerchandiseSellerstep2Component implements OnInit {
     this.mobile_phone = sessionData2.mobile_phone;
     this.initiator_id = sessionData1.user_uid;
     const escrowStep2Data = JSON.parse(
-      localStorage.getItem(MERCHANDISE_SELLER2_LOCAL_STORAGE_KEY_0)
+      localStorage.getItem(LOCAL_STORAGE_KEY_MERCHANDISE_1)
     );
-    this.item = escrowStep2Data.item;
-    this.amount = +escrowStep2Data.price + +escrowStep2Data.noworriFee;
-    this.sellerNumber = escrowStep2Data.sellerPhoneNumber;
-    this.deliveryPhone = escrowStep2Data.deliveryPhoneNumber;
-    this.initiator_role = escrowStep2Data.role === "Buyer" ? "Buy" : "Sell";
-    this.destinator_role = this.initiator_role === "Buy" ? "Sell" : "Buy";
-    this.transactionType = escrowStep2Data.transactionType;
+    this.item = escrowStep2Data.name;
+    this.amount = +escrowStep2Data.price - +escrowStep2Data.noworriFee;
+    this.sellerNumber = escrowStep2Data.seller;
+    this.deliveryPhone = escrowStep2Data.delivery_phone;
+    this.initiator_role = escrowStep2Data.role === "buy" ? "buy" : "sell";
+    this.destinator_role = this.initiator_role === "buy" ? "sell" : "buy";
+    this.transactionType = escrowStep2Data.transaction_type;
     this.noworriFee = escrowStep2Data.noworriFee;
     this.price = escrowStep2Data.price;
-    this.description = escrowStep2Data.description || "";
+    this.description = escrowStep2Data.requirement || "";
     this.destinator_id = escrowStep2Data.destinator_id;
+    this.currency = escrowStep2Data.currency;
+
+    this.transactionSummary = {
+      initiator_id: this.initiator_id,
+      initiator_role: this.initiator_role,
+      destinator_id: this.destinator_id,
+      transaction_type: this.transactionType,
+      delivery_phone: this.deliveryPhone,
+      name: this.item,
+      price: this.price,
+      noworri_fees: this.noworriFee,
+      requirement: this.description,
+      transaction_ref: null,
+      etat: 1,
+      currency: this.currency,
+    };
   }
 
   ngOnInit() {}
 
   onConfirmTransaction() {
-    this.transactionSummary = JSON.parse(
-      localStorage.getItem(TRANSATION_SUMMURYKEY)
-    );
     this.createTransaction(this.transactionSummary);
   }
 
@@ -92,7 +108,7 @@ export class EscrowMerchandiseSellerstep2Component implements OnInit {
         (transaction: any) => {
           if (
             transaction.initiator_id &&
-            transaction.user_id === this.initiator_id &&
+            transaction.initiator_id === this.initiator_id &&
             transaction.initiator_role === "buy"
           ) {
             this.router.navigate([
@@ -100,7 +116,7 @@ export class EscrowMerchandiseSellerstep2Component implements OnInit {
             ]);
           } else if (
             transaction.initiator_id &&
-            transaction.user_id === this.initiator_id &&
+            transaction.initiator_id === this.initiator_id &&
             transaction.initiator_role === "sell"
           ) {
             this.router.navigate([

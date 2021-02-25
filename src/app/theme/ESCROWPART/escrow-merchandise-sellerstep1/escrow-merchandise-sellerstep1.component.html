@@ -1,6 +1,8 @@
 <div class="container">
   <form
-    (ngSubmit)="onCompleteStep1(recap, form, sellersForms, deliveryForms)"
+    (ngSubmit)="
+      onCompleteStep1(form, sellersForms, deliveryForms)
+    "
     #form="ngForm"
   >
     <div class="row">
@@ -8,7 +10,7 @@
         <div class="card">
           <div class="ServiceStep1">
             <mat-icon class="cancel" routerLink="/home">cancel</mat-icon>
-            <h6 class="Merchandise">Merchandise: Transaction Creation</h6>
+            <h6 class="Merchandise">Escrow Merchandise</h6>
             <hr />
             <div class="card-body">
               <div id="Please">
@@ -19,7 +21,7 @@
               <div id="Form1">
                 <div class="form-group">
                   <label id="PrincipaleTitle" for="exampleInputEmail1"
-                    >What are you selling ?</label
+                    >What are you purchasing?</label
                   >
                   <input
                     type="text"
@@ -45,6 +47,7 @@
                 <div class="row">
                   <div class="col">
                     <input
+                    [(ngModel)]="feePrice"
                       type="text"
                       style="width: 420px"
                       class="form-control"
@@ -55,24 +58,19 @@
                       [ngClass]="priceControl"
                     />
                   </div>
+                 
                   <div class="col">
                     <div class="input-group-text">
-                      <img src="assets/images/devise.png" />
+                      <!-- <img src="assets/images/devise.png" /> -->
                       <h1 class="GHC">{{ currency }}</h1>
                     </div>
                   </div>
-                  <!-----<p class="NoworriFee">Noworri Charges :</p>-->
-                  <!---- <span class="fee">1.95% of the price</span>--->
-
-                  <!--------------
-                    <p class="NoworriFee">Noworri Fees  :</p>
-                  <span class="fee">1.98% of the price</span>
-                  -->
-                
+                  <p class="NoworriFee">Noworri Fees: </p>
+                  <span class="fee">-{{getFees()}}</span>
                 </div>
 
                 <div id="PetitInput1">
-                  <label class="Sellersphone">Buyer's phone number</label>
+                  <label class="Sellersphone">Seller's phone number</label>
                   <div>
                     <form #sellersForms="ngForm">
                       <intl-tel-input
@@ -90,22 +88,20 @@
                 </div>
                 <div id="PetitInput2">
                   <label>Delivery phone number</label>
-                  
+
                   <div class="inp">
-                    <div>
-                      <form #deliveryForms="ngForm">
-                        <intl-tel-input
-                          *ngIf="waitingDisplayInput"
-                          (click)="AfficheSide4()"
-                          [name]="'deliveryPhoneNumber'"
-                          [options]="countryData"
-                          [cssClass]="'form-control'"
-                          [onlyLocalized]="true"
-                          [(E164PhoneNumber)]="E164PhoneNumber"
-                        >
-                        </intl-tel-input>
-                      </form>
-                    </div>
+                    <form #deliveryForms="ngForm">
+                      <intl-tel-input
+                        *ngIf="waitingDisplayInput"
+                        (click)="AfficheSide4()"
+                        [name]="'deliveryPhoneNumber'"
+                        [options]="countryData"
+                        [cssClass]="'form-control'"
+                        [onlyLocalized]="true"
+                        [(E164PhoneNumber)]="E164PhoneNumber"
+                      >
+                      </intl-tel-input>
+                    </form>
                   </div>
                 </div>
 
@@ -125,7 +121,7 @@
                   <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm">
-                      <div *ngIf="isValidating" class="Loading">
+                      <div class="Loading">
                         <button *ngIf="isValidating" mat-raised-button>
                           <span
                             class="spinner-border spinner-border-sm"
@@ -162,10 +158,10 @@
                   <div class="col">
                     <p>
                       After you create the transaction Noworri will send a 5
-                      digits code by SMS to the deliveryman and yourself which
-                      must be given to the buyer to confirm the reception of the
-                      goods and money will be released automatically to your
-                      account.
+                      digits code by SMS to the deliveryman in order to confirm
+                      the reception of your goods you must enter the 5 digits
+                      code this will automatically release the money to the
+                      seller account.
                     </p>
                   </div>
                 </div>
@@ -199,8 +195,9 @@
                   </div>
                   <div class="col">
                     <p>
-                      Put the price of the items or products, make sure both you
-                      and buyer agree to the price
+                      Put the price of the items or products you want to
+                      purchase. If you don't know the price kindly ask the
+                      seller.
                     </p>
                   </div>
                 </div>
@@ -216,9 +213,10 @@
                   </div>
                   <div class="col">
                     <p>
-                      Enter the Phone number of the buyer. Make sure he has a
-                      Noworri's Account otherwise invite him
-                      <a style="color: blue" href="">HERE</a>
+                      Put the seller's phone number. The seller must have a
+                      Noworri account for you to be able to create this
+                      transaction. If the seller hasn't a Noworri account, tell
+                      him to create an account.
                     </p>
                   </div>
                 </div>
@@ -235,8 +233,9 @@
                   <div class="col">
                     <p>
                       Put the phone number of the deliveryman who is supposing
-                      to ship the product to the buyer. You can put your own
-                      phone number if you bring to the buyer the product    
+                      to bring you the product or items. If you don't have the
+                      deliveryman's number, ask the seller or leave it empty the
+                      seller will fill it.
                     </p>
                   </div>
                 </div>
@@ -251,7 +250,11 @@
                     <mat-icon class="local"> local_offer</mat-icon>
                   </div>
                   <div class="col">
-                    <p>Do you have anything to say? Write it down  </p>
+                    <p>
+                      If you want to give more specifications of the product you
+                      want to purchase you can write it: Ex: l want 2 bags one
+                      should be bleu and the second one black.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -261,40 +264,35 @@
       </div>
     </div>
   </form>
-  <!-----------------------Recap template------------------------------------>
-  <!-- <ng-template #recap>
+  <!-----------------------Recap template-----------
+     <ng-template #recaptemplate >
     <div class="container" id="recapTemplate">
       <div class="row">
         <div class="col-sm-5">
           <div class="img">
-            <img
-              src="assets\merchandise escrow modal log.png"
-              class="card-img-top"
-              alt="..."
-            />
+            <img src="assets\merchandise escrow modal log.png" class="card-img-top" alt="...">
           </div>
         </div>
-        <div class="col-sm-7 rightSide">
+        <div class="col-sm-7   rightSide" >
           <mat-icon class="cancel" (click)="modalRef.hide()">cancel</mat-icon>
           <div class="text">
             <h6 class="title">Items or service</h6>
-            <h6 class="variable">{{ escrowStep1Data.item }}</h6>
-            <h6 class="title">You're dealing with</h6>
-            <h6 class="variable">{{ escrowStep1Data.sellerPhoneNumber }}</h6>
+            <h6 class="variable" >{{escrowStep1Data.item}}</h6>
+            <h6 class="title" >You're dealing with</h6>
+            <h6 class="variable" >{{escrowStep1Data.sellerPhoneNumber}}</h6>
             <h6 class="title">Product will be delivered by</h6>
-            <h6 class="variable">{{ escrowStep1Data.deliveryPhoneNumber }}</h6>
+            <h6 class="variable" >{{escrowStep1Data.deliveryPhoneNumber}}</h6>
           </div>
-          <div class="button text-center">
-            <button
-              type="button"
-              (click)="onConfirmTransaction()"
-              class="btn btn-primary btn-sm"
-            >
-              confirm {{ totalAmount }}
-            </button>
+          <div class="button text-center" >
+            <button type="button" (click)="onSecureFunds()" class="btn btn-primary btn-sm">Lock Up : {{totalAmount}}</button>
           </div>
         </div>
       </div>
     </div>
-  </ng-template> -->
+  </ng-template>
+    
+    
+    
+    
+    ------------------------->
 </div>

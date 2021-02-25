@@ -234,38 +234,34 @@
       box-shadow: 0px 3px 6px #00000029;
       border-radius: 14px;
       opacity: 1;
-     
     }
     .ServiceStep2 {
-     .transation{
-       margin-left:-40px;
-       margin-top: 30px;
-     
-     }
-     .cancel{
-       margin-left: -43px;
-       margin-top: 18px;
-       font-size: 16px;
-       text-decoration: underline;
-     }
-     .changer{
-      margin-left: -37px;
-      margin-top: 19px;
-      font-size: 14px;
-      text-decoration: underline;
-     }
-      
+      .transation {
+        margin-left: -40px;
+        margin-top: 30px;
+      }
+      .cancel {
+        margin-left: -43px;
+        margin-top: 18px;
+        font-size: 16px;
+        text-decoration: underline;
+      }
+      .changer {
+        margin-left: -37px;
+        margin-top: 19px;
+        font-size: 14px;
+        text-decoration: underline;
+      }
     }
-    table{
+    table {
       margin-top: 30px;
       margin-left: -40px;
       border: 2px solid;
       border-color: rgb(238, 234, 234);
       margin-bottom: -20px;
-      
     }
     button {
-      background: #497DD5 0% 0% no-repeat padding-box;
+      background: #497dd5 0% 0% no-repeat padding-box;
       border-radius: 7px;
       opacity: 1;
       margin-left: 30px;
@@ -280,4 +276,3 @@
     }
   }
 }
-

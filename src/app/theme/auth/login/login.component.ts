@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
                 name: response.currentUser.name,
                 status: response.currentUser.status,
                 id: response.currentUser.id,
+                currency: response.currentUser.currency,
               };
               const sessionData = {
                 token: response.currentUser.token,

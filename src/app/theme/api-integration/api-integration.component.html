@@ -4,10 +4,10 @@
       <div id="app-card">
         <app-card>
           <hr />
-       
-          <h6 class="viewApikey" (click)='onViewApiDoc()'>View API Guide</h6>
+
+          <h6 class="viewApikey" (click)="onViewApiDoc()">View API Guide</h6>
           <div class="jumbotron jumbotron-fluid">
-            <div class="container">
+            <div *ngIf="businessAccountData" class="container">
               <h6 class="apiKey">API keys</h6>
               <div class="row">
                 <div class="col-6">
@@ -17,12 +17,27 @@
                     </div>
                     <div class="input-group mb-2 mr-sm-2">
                       <input
+                        #testKey
                         type="text"
                         class="form-control"
                         id="inlineFormInputGroupUsername2"
+                        [value]="businessAccountData.api_key_test"
+                        readonly
                       />
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">Copy</div>
+                      <div
+                        class="input-group-prepend"
+                        id="link-copy-btn"
+                        class="input-group-append"
+                      >
+                        <button
+                          mat-icon-button
+                          matSuffix
+                          placement="top"
+                          ngbPopover="Copied!"
+                          (click)="copyInputMessage(testKey)"
+                        >
+                          <mat-icon>content_copy</mat-icon>
+                        </button>
                       </div>
                     </div>
                   </form>
@@ -35,12 +50,35 @@
 
                     <div class="input-group mb-2 mr-sm-2">
                       <input
-                        type="text"
+                        #liveKey
+                        readonly
+                        [type]="hide ? 'password' : 'text'"
                         class="form-control"
                         id="inlineFormInputGroupUsername2"
+                        [value]="businessAccountData.api_key_live"
                       />
                       <div class="input-group-prepend">
-                        <div class="input-group-text">Show Keys</div>
+                        <button
+                          mat-icon-button
+                          matSuffix
+                          (click)="hide = !hide"
+                          [attr.aria-lavel]="'hide password'"
+                          [attr.aria-pressed]="hide"
+                        >
+                          <mat-icon>{{
+                            hide ? "visibility_off" : "visibility"
+                          }}</mat-icon>
+                        </button>
+                        <button
+                          *ngIf="!hide"
+                          mat-icon-button
+                          matSuffix
+                          placement="top"
+                          ngbPopover="Copied!"
+                          (click)="copyInputMessage(liveKey)"
+                        >
+                          <mat-icon>content_copy</mat-icon>
+                        </button>
                       </div>
                     </div>
                   </form>
@@ -48,17 +86,41 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <form>
-              <div class="col-12">
-                <input
-                  id="userId"
-                  type="text"
-                  class="form-control col-12"
-                  placeholder="User ID"
-                />
-              </div>
-            </form>
+          <div *ngIf="businessAccountData" class="container">
+            <h6 class="apiKey">Business User</h6>
+            <div class="row">
+              <form *ngIf="businessAccountData">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">User ID</label>
+                </div>
+                <div class="input-group col-12">
+                  <input
+                    #userID
+                    id="userId"
+                    type="text"
+                    class="form-control col-12"
+                    placeholder="User ID"
+                    readonly
+                    [value]="businessAccountData.user_id"
+                  />
+                  <div
+                    class="input-group-prepend"
+                    id="link-copy-btn"
+                    class="input-group-append"
+                  >
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      placement="top"
+                      ngbPopover="Copied!"
+                      (click)="copyInputMessage(userID)"
+                    >
+                      <mat-icon>content_copy</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </app-card>
       </div>
