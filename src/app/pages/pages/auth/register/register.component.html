@@ -19,8 +19,8 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="grow">
-          <mat-label>E-Mail</mat-label>
-          <input formControlName="email" matInput required>
+          <mat-label>Phone Number</mat-label>
+          <input formControlName="phoneNumber" matInput required>
         </mat-form-field>
 
         <mat-form-field fxFlex="grow">
@@ -52,7 +52,7 @@
       </button>
       <p class="text-secondary text-center">
         Already have an account?<br/>
-        <a [routerLink]="['/login']">Sign in here</a>
+        <a (lick)="navigate('/auth/login')">Sign in here</a>
       </p>
     </div>
   </div>

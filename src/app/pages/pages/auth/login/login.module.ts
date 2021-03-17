@@ -12,6 +12,7 @@ import { IconModule } from '@visurel/iconify-angular';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { IntlTelInputNgModule } from 'intl-tel-input-ng';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     IconModule,
     MatTooltipModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    IntlTelInputNgModule
   ]
 })
 export class LoginModule {

@@ -6,23 +6,33 @@ import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 
 const routes: VexRoutes = [
   {
-    path: 'login',
-    loadChildren: () => import('./pages/pages/auth/login/login.module').then(m => m.LoginModule),
+    path: '',
+    redirectTo: "auth/login",
+    pathMatch: "full",
   },
   {
-    path: 'register',
-    loadChildren: () => import('./pages/pages/auth/register/register.module').then(m => m.RegisterModule),
-  },
-  {
-    path: 'forgot-password',
-    loadChildren: () => import('./pages/pages/auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule),
+    path: 'auth',
+    children: [
+      {
+        path: 'login',
+        loadChildren: () => import('./pages/pages/auth/login/login.module').then(m => m.LoginModule),
+      },
+      {
+        path: 'register',
+        loadChildren: () => import('./pages/pages/auth/register/register.module').then(m => m.RegisterModule),
+      },
+      {
+        path: 'forgot-password',
+        loadChildren: () => import('./pages/pages/auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule),
+      },
+    ]
   },
   {
     path: 'coming-soon',
     loadChildren: () => import('./pages/pages/coming-soon/coming-soon.module').then(m => m.ComingSoonModule),
   },
   {
-    path: '',
+    path: 'dashboards',
     component: CustomLayoutComponent,
     children: [
       {
