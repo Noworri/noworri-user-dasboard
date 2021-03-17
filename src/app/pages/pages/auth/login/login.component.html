@@ -16,7 +16,8 @@
         <mat-form-field fxFlex="grow">
           <mat-label>Phone Number</mat-label>
           <input formControlName="phoneNumber" matInput required>
-          <mat-error *ngIf="form.get('phoneNumber').hasError('required')">We need a phone number to log you in</mat-error>
+          <mat-error *ngIf="form.get('phoneNumber').hasError('required')">We need a phone number to log you in
+          </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="grow">
           <mat-label>Password</mat-label>
@@ -35,12 +36,13 @@
         <a [routerLink]="['/forgot-password']" class="caption">Forgot Password?</a>
       </div>
 
-      <button (click)="login()" color="primary" mat-raised-button type="button" [disabled]="form.get('phoneNumber').hasError('required') || form.get('password').hasError('required') ">
+      <button (click)="login()" color="primary" mat-raised-button type="button"
+        [disabled]="form.get('phoneNumber').hasError('required') || form.get('password').hasError('required') ">
         SIGN IN
       </button>
 
       <p class="text-secondary text-center">
-        Don't have an account?<br/>
+        Don't have an account?<br />
         <a [routerLink]="['/auth/register']">Click here to create one</a>
       </p>
     </div>
