@@ -15,10 +15,13 @@ import { IntlTelInputNgModule } from 'intl-tel-input-ng';
 import { ArchwizardModule } from 'angular-archwizard';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Step1Component } from './step1/step1.component';
+import { Step2Component } from './step2/step2.component';
+import { Step3Component } from './step3/step3.component';
 
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, Step1Component, Step2Component, Step3Component],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
