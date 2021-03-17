@@ -19,6 +19,7 @@ import icLock from '@iconify/icons-ic/twotone-lock';
 import icNotificationsOff from '@iconify/icons-ic/twotone-notifications-off';
 import { Icon } from '@visurel/iconify-angular';
 import { PopoverRef } from '../../../../components/popover/popover-ref';
+import { SESSION_STORAGE_KEY } from 'src/app/Models/constants';
 
 export interface OnlineStatus {
   id: 'online' | 'away' | 'dnd' | 'offline';
@@ -121,6 +122,12 @@ export class ToolbarUserDropdownComponent implements OnInit {
   }
 
   close() {
+    this.popoverRef.close();
+  }
+
+  logout() {
+    sessionStorage.clear();
+    localStorage.removeItem(SESSION_STORAGE_KEY)
     this.popoverRef.close();
   }
 }

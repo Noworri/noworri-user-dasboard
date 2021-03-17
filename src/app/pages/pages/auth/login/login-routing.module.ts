@@ -8,7 +8,10 @@ import { VexRoutes } from '../../../../../@vex/interfaces/vex-route.interface';
 const routes: VexRoutes = [
   {
     path: '',
-    component: LoginComponent
+    component: LoginComponent,
+    data: {
+      title: 'Login'
+    }
   }
 ];
 
