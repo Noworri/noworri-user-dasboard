@@ -5,6 +5,11 @@ import { VexRoutes } from "../@vex/interfaces/vex-route.interface";
 import { QuicklinkModule, QuicklinkStrategy } from "ngx-quicklink";
 import { Step2Component } from "./pages/pages/auth/register/step2/step2.component";
 import { Step3Component } from "./pages/pages/auth/register/step3/step3.component";
+import { aioTableData } from "src/static-data/aio-table-data";
+import { AioTableComponent } from "./pages/apps/aio-table/aio-table.component";
+import { CalendarComponent } from "./pages/apps/calendar/calendar.component";
+import { TransactionTableComponent } from "./pages/dashboards/dashboard-analytics/transaction-table/transaction-table.component";
+import { DashboardAnalyticsComponent } from "./pages/dashboards/dashboard-analytics/dashboard-analytics.component";
 
 const routes: VexRoutes = [
   {
@@ -60,6 +65,7 @@ const routes: VexRoutes = [
             "./pages/dashboards/dashboard-analytics/dashboard-analytics.module"
           ).then((m) => m.DashboardAnalyticsModule),
       },
+
       {
         path: "apps",
         children: [
