@@ -25,6 +25,14 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatRippleModule } from "@angular/material/core";
 import { PayoutsComponent } from './payouts/payouts.component';
+import { AioTableRoutingModule } from "../../apps/aio-table/aio-table-routing.module";
+import { CustomerCreateUpdateModule } from "../../apps/aio-table/customer-create-update/customer-create-update.module";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatMenuModule } from "@angular/material/menu";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSelectModule } from "@angular/material/select";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [DashboardAnalyticsComponent, TransactionTableComponent, PayoutsComponent],
@@ -48,10 +56,20 @@ import { PayoutsComponent } from './payouts/payouts.component';
     PageLayoutModule,
     ContainerModule,
     MatTableModule,
-    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
+    AioTableRoutingModule,
+    FlexLayoutModule,
+    CustomerCreateUpdateModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    FormsModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatButtonToggleModule
+
   ],
 })
 export class DashboardAnalyticsModule {}

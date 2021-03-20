@@ -1,6 +1,11 @@
 export const USER_SESSION_KEY = "noworri-user-session";
 export const SESSION_STORAGE_KEY = "user_session_data";
 
+export enum TRANSACTION_SOURCE {
+  BUSINESS = 'e-commerce',
+  VENDOR = 'vendor'
+}
+
 export const countryISO = {
     BD: "880",
     BE: "32",
