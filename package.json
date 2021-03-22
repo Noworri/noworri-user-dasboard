@@ -43,6 +43,7 @@
     "intl-tel-input": "^17.0.12",
     "intl-tel-input-ng": "^0.3.0",
     "luxon": "~1.26.0",
+    "ng-otp-input": "^1.7.1",
     "ngx-quicklink": "~0.2.7",
     "ngx-quill": "~13.2.0",
     "ngx-showdown": "~6.0.0",

@@ -18,10 +18,16 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) {}
 
-  getUserTransactions(userId: string): Observable<any> {
-    const url = "https://api.noworri.com/api/usertransactions/" + userId;
-
-    return this.http.get(url).pipe(
+  getUserTransactions(userId: string, range = null): Observable<any> {
+    let params = new HttpParams();
+    if (range) {
+      params = params.append("from", range.from);
+      params = params.append("to", range.to);
+    } else {
+      params = null;
+    }
+    const url = `${environment.getTransactionsListUrl}${userId}`;
+    return this.http.get(url, { params: params }).pipe(
       map((data: TransactionsReference[]) => {
         data.map((values) => {
           if (typeof values.total_price === undefined) {
@@ -33,8 +39,10 @@ export class TransactionsService {
               values.state = "Cancelled";
             } else if (values.etat === "1") {
               values.state = "Pending";
-            } else if (values.etat === "3" || values.etat === "5") {
-              values.state = "Completed";
+            } else if (values.etat === "3") {
+              values.state = "Funds Released";
+            } else if (values.etat === "5") {
+              values.state = "Withdrawn";
             } else if (values.etat === "2") {
               values.state = "Secured";
             } else if (values.etat === "4") {
@@ -53,8 +61,7 @@ export class TransactionsService {
   }
 
   getUserTransaction(transaction_id: string): Observable<any> {
-    const url =
-      "https://api.noworri.com/api/getusertransaction/" + transaction_id;
+    const url = `${environment.getTransactionByIdUrl}${transaction_id}`;
 
     return this.http.get(url).pipe(
       map((data: TransactionsReference[]) => {
@@ -118,7 +125,7 @@ export class TransactionsService {
   }
 
   initiateReleasePaystack(data) {
-    const url = `https://api.noworri.com/api/initiateRelease/${data.transactionID}`;
+    const url = `${environment.payStackReleaseUrl}${data.transactionID}`;
     let params = new HttpParams();
     params = params.append("source", "balance");
     params = params.append("reason", "Noworri Payment Release");
@@ -223,7 +230,7 @@ export class TransactionsService {
   }
 
   verifyReleaseCode(data) {
-    const url = `https://api.noworri.com/api/verifycode`;
+    const url = environment.verifyReleaseCodeUrl;
     let params = new HttpParams();
     params = params.append("id", data.transaction_id);
     params = params.append("release_code", data.release_code);
@@ -453,8 +460,7 @@ export class TransactionsService {
   }
 
   createTransaction(transactionDetails) {
-    const url = "https://api.noworri.com/api/newtransaction";
-    // let params = new HttpParams();
+    const url = environment.createTransactionUrl;
     if (!transactionDetails.deadline || !transactionDetails.revision) {
       transactionDetails.deadline = "";
       transactionDetails.revision = 0;
@@ -462,29 +468,6 @@ export class TransactionsService {
     if (!transactionDetails.file_path) {
       transactionDetails.file_path = "N/A";
     }
-
-    // params = params.append("initiator_id", transactionDetails.initiator_id);
-    // params = params.append("initiator_role", transactionDetails.initiator_role);
-    // params = params.append("destinator_id", transactionDetails.destinator_id);
-    // params = params.append(
-    //   "transaction_type",
-    //   transactionDetails.transaction_type
-    // );
-    // params = params.append("name", transactionDetails.service);
-    // params = params.append("price", transactionDetails.price);
-    // params = params.append("deadDays", "0");
-    // params = params.append("deadHours", "0");
-    // params = params.append("deadline", transactionDetails.deadline);
-    // params = params.append("start", "");
-    // params = params.append("deadline_type", transactionDetails.deadline_type);
-    // params = params.append("delivery_phone", transactionDetails.delivery_phone);
-    // params = params.append("revision", transactionDetails.revision);
-    // params = params.append("requirement", transactionDetails.requirement);
-    // params = params.append("file_path", transactionDetails.file_path);
-    // params = params.append("payment_id", transactionDetails.transaction_ref);
-    // params = params.append("etat", "2");
-    // params = params.append("deleted", "0");
-    // params = params.append("currency", transactionDetails.currency);
 
     return this.http
       .post(url, transactionDetails, { responseType: "json" })
@@ -501,6 +484,19 @@ export class TransactionsService {
 
   getStepTransDetails(transaction_id) {
     const url = `https://api.noworri.com/api/getsteptransdetails/${transaction_id}`;
+    return this.http.get(url).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("Error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  getUserTransactionSummary(user_id) {
+    const url = `https://api.noworri.com/api/getusertransactionssummary/${user_id}`;
     return this.http.get(url).pipe(
       map((response) => {
         return response;

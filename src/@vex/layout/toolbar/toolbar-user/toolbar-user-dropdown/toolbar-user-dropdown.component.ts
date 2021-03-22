@@ -19,7 +19,7 @@ import icLock from '@iconify/icons-ic/twotone-lock';
 import icNotificationsOff from '@iconify/icons-ic/twotone-notifications-off';
 import { Icon } from '@visurel/iconify-angular';
 import { PopoverRef } from '../../../../components/popover/popover-ref';
-import { SESSION_STORAGE_KEY } from 'src/app/Models/constants';
+import { SESSION_STORAGE_KEY, USER_SESSION_KEY } from 'src/app/Models/constants';
 
 export interface OnlineStatus {
   id: 'online' | 'away' | 'dnd' | 'offline';
@@ -36,6 +36,7 @@ export interface OnlineStatus {
 })
 export class ToolbarUserDropdownComponent implements OnInit {
 
+  userData: any;
   items: MenuItem[] = [
     {
       id: '1',
@@ -45,30 +46,30 @@ export class ToolbarUserDropdownComponent implements OnInit {
       colorClass: 'text-teal',
       route: '/apps/social'
     },
-    {
-      id: '2',
-      icon: icMoveToInbox,
-      label: 'My Inbox',
-      description: 'Messages & Latest News',
-      colorClass: 'text-primary',
-      route: '/apps/chat'
-    },
-    {
-      id: '3',
-      icon: icListAlt,
-      label: 'My Projects',
-      description: 'Tasks & Active Projects',
-      colorClass: 'text-amber',
-      route: '/apps/scrumboard'
-    },
-    {
-      id: '4',
-      icon: icTableChart,
-      label: 'Billing Information',
-      description: 'Pricing & Current Plan',
-      colorClass: 'text-purple',
-      route: '/pages/pricing'
-    }
+    // {
+    //   id: '2',
+    //   icon: icMoveToInbox,
+    //   label: 'My Inbox',
+    //   description: 'Messages & Latest News',
+    //   colorClass: 'text-primary',
+    //   route: '/apps/chat'
+    // },
+    // {
+    //   id: '3',
+    //   icon: icListAlt,
+    //   label: 'My Projects',
+    //   description: 'Tasks & Active Projects',
+    //   colorClass: 'text-amber',
+    //   route: '/apps/scrumboard'
+    // },
+    // {
+    //   id: '4',
+    //   icon: icTableChart,
+    //   label: 'Billing Information',
+    //   description: 'Pricing & Current Plan',
+    //   colorClass: 'text-purple',
+    //   route: '/pages/pricing'
+    // }
   ];
 
   statuses: OnlineStatus[] = [
@@ -111,7 +112,10 @@ export class ToolbarUserDropdownComponent implements OnInit {
   icNotificationsOff = icNotificationsOff;
 
   constructor(private cd: ChangeDetectorRef,
-              private popoverRef: PopoverRef<ToolbarUserDropdownComponent>) { }
+              private popoverRef: PopoverRef<ToolbarUserDropdownComponent>) {
+                const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
+                this.userData = sessionData;
+              }
 
   ngOnInit() {
   }
@@ -127,7 +131,7 @@ export class ToolbarUserDropdownComponent implements OnInit {
 
   logout() {
     sessionStorage.clear();
-    localStorage.removeItem(SESSION_STORAGE_KEY)
+    localStorage.removeItem(USER_SESSION_KEY)
     this.popoverRef.close();
   }
 }

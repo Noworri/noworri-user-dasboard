@@ -18,6 +18,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Step1Component } from './step1/step1.component';
 import { Step2Component } from './step2/step2.component';
 import { Step3Component } from './step3/step3.component';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { Step3Component } from './step3/step3.component';
     MatButtonModule,
     MatTooltipModule,
     MatCheckboxModule,
+    NgOtpInputModule,
+    MatSelectModule
     // MatLabel,
     // IconModule,
     // IntlTelInputNgModule,

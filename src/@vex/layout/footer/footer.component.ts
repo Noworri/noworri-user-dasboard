@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import icShoppingBasket from '@iconify/icons-ic/twotone-shopping-basket';
+import { version } from '../../../../package.json';
 
 @Component({
   selector: 'vex-footer',
@@ -10,6 +11,8 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   @Input() customTemplate: TemplateRef<any>;
   icShoppingBasket = icShoppingBasket;
+
+  public version: string = version;
 
   constructor() {
   }
