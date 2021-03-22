@@ -7,11 +7,12 @@ import {
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule, NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { VexModule } from "../@vex/vex.module";
 import { HttpClientModule } from "@angular/common/http";
 import { CustomLayoutModule } from "./custom-layout/custom-layout.module";
 import { IntlTelInputNgModule } from "intl-tel-input-ng";
+import { NgOtpInputModule } from "ng-otp-input";
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,8 @@ import { IntlTelInputNgModule } from "intl-tel-input-ng";
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NoopAnimationsModule,
+    NgOtpInputModule,
 
     // Vex
     VexModule,

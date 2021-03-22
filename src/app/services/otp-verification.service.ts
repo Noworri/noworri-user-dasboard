@@ -28,10 +28,10 @@ export class OtpVerificationService {
   }
 
   async sendVerificationCode(realPhonenumber) {
-    const ApVerifier = this.windRef.recaptchartVerifier;
+    const applicationVerifier = this.windRef.recaptchartVerifier;
     await firebase.default
       .auth()
-      .signInWithPhoneNumber(realPhonenumber, ApVerifier)
+      .signInWithPhoneNumber(realPhonenumber, applicationVerifier)
       .then((res) => {
         this.windRef.confirmationResult = res;
         // this.sendVerificationCodeSubject.next(res);

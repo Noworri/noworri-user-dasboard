@@ -125,7 +125,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         .subscribe(
           (response: UserReference) => {
             this.isValidating = false;
-            if (response.error !== "Unauthorized") {
+            if (!response.error || response.error !== "Unauthorized") {
               this.sessionResponse = {
                 first_name: response.currentUser.first_name,
                 email: response.currentUser.email,
@@ -144,6 +144,9 @@ export class LoginComponent implements OnInit, OnDestroy {
               const userData = JSON.stringify(this.sessionResponse);
               localStorage.setItem(USER_SESSION_KEY, userData);
               this.router.navigate(["dashboards"]);
+            } else {
+              this.isValidating = false;
+              this.isValidUser = false;  
             }
           },
           (error) => {

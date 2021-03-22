@@ -1,46 +1,96 @@
-<div class="w-full h-full bg-pattern" fxLayout="column" fxLayoutAlign="center center">
-    <div @fadeInUp class="card overflow-hidden w-full max-w-xs">
-        <div class="p-6 pb-0" fxLayout="column" fxLayoutAlign="center center">
-            <div class="fill-current text-center">
-                <img class="w-16" src="assets/img/demo/logo.svg">
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <h2 class="title m-0">Register for an account</h2>
-            <h4 class="body-2 text-secondary m-0">please write your phone number</h4>
-        </div>
-
-        <div [formGroup]="form" class="p-6" fxLayout="column" fxLayoutGap="16px">
-            <div fxFlex="auto" fxLayout="column">
-                <div fxFlex="auto" fxLayout="column">
-                    <mat-form-field fxFlex="grow">
-                        <mat-label>Phone Number</mat-label>
-                        <input formControlName="phoneNumber" matInput required>
-                    </mat-form-field>
-                </div>
-                <button color="primary" mat-raised-button type="button">
-                    SEND ME OTP CODE
-                </button>
-            </div>
-            <div fxFlex="auto" fxLayout="column">
-
-                <div fxFlex="auto" fxLayout="column">
-                    <mat-form-field fxFlex="grow">
-                        <mat-label>OTP CODE</mat-label>
-                        <input formControlName="otpCode" matInput required>
-                    </mat-form-field>
-                </div>
-
-                <button (click)="send()" color="primary" mat-raised-button type="button">
-                    VERIFY CODE
-                </button>
-            </div>
-
-            <p class="text-secondary text-center">
-                Already have an account?<br />
-                <a routerLink=''>Sign in here</a>
-            </p>
-        </div>
+<div
+  class="w-full h-full bg-pattern"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <div class="card overflow-hidden w-full max-w-xs">
+    <div class="p-6 pb-0" fxLayout="column" fxLayoutAlign="center center">
+      <div class="fill-current text-center">
+        <img class="w-16" src="assets/img/demo/logo.svg" />
+      </div>
     </div>
+
+    <div class="text-center mt-4">
+      <h2 class="title m-0">Register for an account</h2>
+      <h4 class="body-2 text-secondary m-0">STEP 1</h4>
+    </div>
+
+    <div [formGroup]="form" class="p-6" fxLayout="column" fxLayoutGap="16px">
+      <div fxFlex="auto" fxLayout="column">
+        <div fxFlex="auto" fxLayout="column">
+          <mat-form-field fxFlex="grow">
+            <mat-label>Phone Number</mat-label>
+            <input
+              formControlName="phoneNumber"
+              pattern="^\d*[0-9]\d*$"
+              matInput
+              required
+            />
+            <mat-error>
+              <span
+                *ngFor="let error of form.get('phoneNumber').errors | keyvalue"
+              >
+                {{ validationMessages.phoneNumber[error.key] }}
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <button
+          [disabled]="form.get('phoneNumber').invalid"
+          color="primary"
+          (click)="sendOtp()"
+          mat-raised-button
+          type="button"
+        >
+          SEND OTP
+        </button>
+      </div>
+
+      <!-- <div *ngIf="isOTPSent" fxFlex="auto" fxLayout="column"> -->
+      <div *ngIf="isOTPSent" fxFlex="auto" fxLayout="column">
+        <div fxFlex="auto" fxLayout="column">
+          <mat-form-field fxFlex="grow">
+            <mat-label>OTP CODE</mat-label>
+            <input
+              formControlName="otpCode"
+              pattern="^\d*[0-9]\d*$"
+              matInput
+              required
+            />
+            <mat-error>
+              <span *ngFor="let error of form.get('otpCode').errors | keyvalue">
+                {{ validationMessages.otpCode[error.key] }}
+              </span>
+            </mat-error>
+          </mat-form-field>
+          <!-- <div class="form-group">
+                            <mat-label>OTP CODE</mat-label>
+                            <div class="row">
+                                <ng-otp-input 
+                                class="otp"
+                                (onInputChange)="onOtpInput($event)"
+                                [config]="{ length: 5, size: 3 }" 
+                                ></ng-otp-input>
+                            </div>
+                        </div> -->
+        </div>
+
+        <button
+          [disabled]="form.get('otpCode').invalid"
+          (click)="verifyOTP()"
+          color="primary"
+          mat-raised-button
+          type="button"
+        >
+          VERIFY OTP
+        </button>
+      </div>
+
+      <p class="text-secondary text-center">
+        Already have an account?<br />
+        <a routerLink="" href="">Sign in here</a>
+      </p>
+    </div>
+    <div class="col" id="recapcha-container"></div>
+  </div>
 </div>

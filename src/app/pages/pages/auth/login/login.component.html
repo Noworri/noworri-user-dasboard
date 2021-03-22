@@ -41,6 +41,10 @@
         SIGN IN
       </button>
 
+      <mat-error *ngIf="!isValidUser" fxLayout="row" fxLayoutAlign="center">
+        <span class="mat-button-wrapper">Invalid phone number/password</span>
+      </mat-error>
+
       <p class="text-secondary text-center">
         Don't have an account?<br />
         <a [routerLink]="['/auth/register']">Click here to create one</a>
