@@ -37,7 +37,7 @@ import { ConfigName } from "../@vex/interfaces/config-name.model";
 import icMail from "@iconify/icons-ic/twotone-mail";
 import icHome from "@iconify/icons-ic/twotone-home";
 import icMoney from "@iconify/icons-ic/twotone-money";
-import icStart from "@iconify/icons-ic/twotone-star-outline";
+import icPayement from "@iconify/icons-ic/twotone-payment";
 
 import * as firebase from "firebase";
 
@@ -146,8 +146,15 @@ export class AppComponent {
             type: "link",
             label: "Payouts",
             route: "/dashboards/payouts",
-            icon: icStart,
+            icon: icPayement,
           },
+           {
+            type: "link",
+            label: "API document ",
+            route: "/dashboards/api",
+            icon: icPayement,
+          },
+
 
           // {
           //   type: "link",

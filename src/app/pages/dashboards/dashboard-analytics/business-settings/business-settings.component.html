@@ -1,0 +1,131 @@
+<mat-card class="mat-card ml-10 mt-12 pb-10">
+    <mat-tab-group>
+        <mat-tab label="Business profil"> Content 1 </mat-tab>
+        <mat-tab label="Payout account">
+            <div class="mt-8">
+                <h4 (click)="toggleModal()" class="text-sm  underline cursor-pointer   text-gray-300 ">Add Payout
+                    Account
+                </h4>
+            </div>
+            <div class="mt-8">
+                <div class="grid grid-flow-col grid-cols-4 grid-rows-1 gap-4">
+                    <div>
+                        <h4 class="text-sm   text-gray-300">Currency</h4>
+                    </div>
+                    <div>
+                        <h4 class="text-sm   text-gray-300">
+                            Bank/Mobile Money
+                        </h4>
+                    </div>
+                    <div>
+                        <h4 class="text-sm   text-gray-300">Account detail</h4>
+                    </div>
+                    <div>
+                        <h4 class="text-sm   text-gray-300">Enabled</h4>
+                    </div>
+                </div>
+                <div class="grid  mt-8 grid-flow-col grid-cols-4 grid-rows-1 gap-4">
+                    <div>
+                        <h4 class="text-xs   text-gray-300">GHC</h4>
+                    </div>
+                    <div>
+                        <h4 class="text-xs   text-gray-300">First bank ghana limited</h4>
+                        <h4 class="text-xs text-red -mt-2 underline cursor-pointer   text-gray-300">Change Payout
+                            Account
+                        </h4>
+                    </div>
+                    <div>
+                        <h4 class="text-xs   text-gray-300">005543354666</h4>
+                    </div>
+                    <div>
+                        <h4 class="text-xs   text-gray-300">Default</h4>
+                    </div>
+                </div>
+                <div class="grid mt-8 grid-flow-col grid-cols-4 grid-rows-1 gap-4">
+                    <div>
+                        <h4 class="text-xs   text-gray-300">GHC</h4>
+                    </div>
+                    <div>
+                        <h4 class="text-xs   text-gray-300">MTN</h4>
+                    </div>
+                    <div>
+                        <h4 class="text-xs   text-gray-300">0058886994888748</h4>
+                    </div>
+                    <div></div>
+
+                </div>
+            </div>
+
+            <!-- popup -->
+
+            <div *ngIf="showModal"
+                class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                <div class="relative w-auto my-6 mx-auto max-w-sm">
+                    <!--content-->
+                    <div
+                        class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        <!--header-->
+                        <div
+                            class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                            <h3 class="text-sm   text-gray-300">
+                                ADD A PAYOUT ACCOUNT
+                            </h3>
+                            <button
+                                class="p-1 ml-auto bg-transparent border-0 text-red opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                (click)="toggleModal()">
+                                <span
+                                    class="bg-transparent -mt-2 text-red opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                    ×
+                                </span>
+                            </button>
+                        </div>
+                        <!--body-->
+                        <div class="relative p-6 flex-auto">
+                            <div>
+                                <mat-form-field appearance="fill">
+                                    <mat-label class="text-xs   text-gray-300">Select your Payout account</mat-label>
+                                    <mat-select>
+                                        <mat-option class="text-xs   text-gray-300" value="one">
+                                            <h4 class="text-xs   text-gray-300">Exemple account 1</h4>
+                                        </mat-option>
+                                        <mat-option class="text-xs   text-gray-300" value="two">
+                                            <h4 class="text-xs   text-gray-300">Exemple account 2</h4>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div class=" -mt-4 mb-4">
+                                    <h4 class="text-xs  underline cursor-pointer   text-gray-300">Bank account or
+                                        Mobile Money</h4>
+                                </div>
+                                <mat-form-field appearance="fill">
+                                    <mat-label class="text-xs   text-gray-300">First Nationnal bank limited</mat-label>
+                                    <mat-select>
+                                        <mat-option class="text-xs   text-gray-300" value="one">
+                                            <h4 class="text-xs   text-gray-300">Exemple account 1</h4>
+                                        </mat-option>
+                                        <mat-option class="text-xs   text-gray-300" value="two">
+                                            <h4 class="text-xs   text-gray-300">Exemple account 2</h4>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill">
+                                    <mat-label class="text-xs   text-gray-300"> Acount Number</mat-label>
+                                    <input matInput>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <!--footer-->
+                        <div class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b">
+                            <button mat-raised-button color="primary">Add payout Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            <!-- popup -->
+        </mat-tab>
+    </mat-tab-group>
+
+</mat-card>

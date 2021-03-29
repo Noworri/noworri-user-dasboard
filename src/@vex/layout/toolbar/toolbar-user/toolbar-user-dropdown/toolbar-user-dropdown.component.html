@@ -14,7 +14,7 @@
   </div>
 
   <div class="dropdown-content">
-    <a (click)="close()" *ngFor="let item of items; trackBy: trackById" [routerLink]="item.route" class="notification"
+    <a (click)="close()" *ngFor="let item of items; trackBy: trackById" routerLink="{{item.route}}" class="notification"
       fxLayout="row" fxLayoutAlign="start center" matRipple>
       <mat-icon [icIcon]="item.icon" [ngClass]="item.colorClass" class="notification-icon" fxFlex="none"></mat-icon>
       <div fxFlex="auto">

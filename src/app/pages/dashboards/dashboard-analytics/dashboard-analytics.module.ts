@@ -24,7 +24,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatRippleModule } from "@angular/material/core";
-import { PayoutsComponent } from './payouts/payouts.component';
+import { PayoutsComponent } from "./payouts/payouts.component";
 import { AioTableRoutingModule } from "../../apps/aio-table/aio-table-routing.module";
 import { CustomerCreateUpdateModule } from "../../apps/aio-table/customer-create-update/customer-create-update.module";
 import { MatPaginatorModule } from "@angular/material/paginator";
@@ -33,9 +33,30 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSelectModule } from "@angular/material/select";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
-
+import { TransactionDetailsComponent } from "./transaction-details/transaction-details.component";
+import { UserProfilComponent } from "./user-profil/user-profil.component";
+import { AddBusinessComponent } from "./add-business/add-business.component";
+import { MatCardModule } from "@angular/material/card";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatRadioModule } from "@angular/material/radio";
+import { BusinessSettingsComponent } from './business-settings/business-settings.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { DevelopersComponent } from './developers/developers.component';
+import { BusinessActivationPendingComponent } from './business-activation-pending/business-activation-pending.component'; 
+import {MatDialogModule} from '@angular/material/dialog'; 
 @NgModule({
-  declarations: [DashboardAnalyticsComponent, TransactionTableComponent, PayoutsComponent],
+  declarations: [
+    DashboardAnalyticsComponent,
+    TransactionTableComponent,
+    PayoutsComponent,
+    TransactionDetailsComponent,
+    UserProfilComponent,
+    AddBusinessComponent,
+    BusinessSettingsComponent,
+    DevelopersComponent,
+    BusinessActivationPendingComponent,
+  ],
   imports: [
     CommonModule,
     DashboardAnalyticsRoutingModule,
@@ -46,7 +67,6 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle";
     WidgetQuickValueCenterModule,
     WidgetQuickValueStartModule,
     WidgetLargeGoalChartModule,
-    IconModule,
     WidgetAssistantModule,
     WidgetLargeChartModule,
     WidgetTableModule,
@@ -68,8 +88,15 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle";
     MatTooltipModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatButtonToggleModule
-
+    MatButtonToggleModule,
+    MatIconModule,
+    IconModule,
+    MatCardModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatTabsModule,
+    MatDialogModule
   ],
 })
 export class DashboardAnalyticsModule {}
