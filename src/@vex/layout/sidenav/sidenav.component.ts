@@ -6,7 +6,9 @@ import icRadioButtonUnchecked from "@iconify/icons-ic/twotone-radio-button-unche
 import { LayoutService } from "../../services/layout.service";
 import { ConfigService } from "../../services/config.service";
 import { map } from "rxjs/operators";
-import icPerson from "@iconify/icons-ic/twotone-person";
+
+import icStore from "@iconify/icons-ic/twotone-store";
+import { Router } from "@angular/router";
 @Component({
   selector: "vex-sidenav",
   templateUrl: "./sidenav.component.html",
@@ -30,12 +32,13 @@ export class SidenavComponent implements OnInit {
   icRadioButtonChecked = icRadioButtonChecked;
   icRadioButtonUnchecked = icRadioButtonUnchecked;
 
-  icPerson = icPerson;
+  icStore = icStore;
 
   constructor(
     private navigationService: NavigationService,
     private layoutService: LayoutService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -53,6 +56,8 @@ export class SidenavComponent implements OnInit {
       ? this.layoutService.expandSidenav()
       : this.layoutService.collapseSidenav();
   }
-
+  addBusiness() {
+    this.router.navigate(["/dashboards/add-business"]);
+  }
   // for left profil photo//
 }

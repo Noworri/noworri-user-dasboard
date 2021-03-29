@@ -1,12 +1,8 @@
-<div
-  class="w-full h-full bg-pattern"
-  fxLayout="column"
-  fxLayoutAlign="center center"
->
+<div class="w-full h-full bg-pattern" fxLayout="column" fxLayoutAlign="center center">
   <div class="card overflow-hidden w-full max-w-xs">
     <div class="p-6 pb-0" fxLayout="column" fxLayoutAlign="center center">
       <div class="fill-current text-center">
-        <img class="w-16" src="assets/img/demo/logo.svg" />
+        <img class="w-40 h-80" src="../../../../../assets/img/img/logo transparence.png">
       </div>
     </div>
 
@@ -20,28 +16,16 @@
         <div fxFlex="auto" fxLayout="column">
           <mat-form-field fxFlex="grow">
             <mat-label>Phone Number</mat-label>
-            <input
-              formControlName="phoneNumber"
-              pattern="^\d*[0-9]\d*$"
-              matInput
-              required
-            />
+            <input formControlName="phoneNumber" pattern="^\d*[0-9]\d*$" matInput required />
             <mat-error>
-              <span
-                *ngFor="let error of form.get('phoneNumber').errors | keyvalue"
-              >
+              <span *ngFor="let error of form.get('phoneNumber').errors | keyvalue">
                 {{ validationMessages.phoneNumber[error.key] }}
               </span>
             </mat-error>
           </mat-form-field>
         </div>
-        <button
-          [disabled]="form.get('phoneNumber').invalid"
-          color="primary"
-          (click)="sendOtp()"
-          mat-raised-button
-          type="button"
-        >
+        <button [disabled]="form.get('phoneNumber').invalid" color="primary" (click)="sendOtp()" mat-raised-button
+          type="button">
           SEND OTP
         </button>
       </div>
@@ -51,12 +35,7 @@
         <div fxFlex="auto" fxLayout="column">
           <mat-form-field fxFlex="grow">
             <mat-label>OTP CODE</mat-label>
-            <input
-              formControlName="otpCode"
-              pattern="^\d*[0-9]\d*$"
-              matInput
-              required
-            />
+            <input formControlName="otpCode" pattern="^\d*[0-9]\d*$" matInput required />
             <mat-error>
               <span *ngFor="let error of form.get('otpCode').errors | keyvalue">
                 {{ validationMessages.otpCode[error.key] }}
@@ -75,13 +54,8 @@
                         </div> -->
         </div>
 
-        <button
-          [disabled]="form.get('otpCode').invalid"
-          (click)="verifyOTP()"
-          color="primary"
-          mat-raised-button
-          type="button"
-        >
+        <button [disabled]="form.get('otpCode').invalid" (click)="verifyOTP()" color="primary" mat-raised-button
+          type="button">
           VERIFY OTP
         </button>
       </div>
