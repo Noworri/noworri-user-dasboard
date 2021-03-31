@@ -3,6 +3,7 @@ import { PopoverService } from '../../../components/popover/popover.service';
 import { ToolbarUserDropdownComponent } from './toolbar-user-dropdown/toolbar-user-dropdown.component';
 import icPerson from '@iconify/icons-ic/twotone-person';
 import { USER_SESSION_KEY } from 'src/app/Models/constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vex-toolbar-user',
@@ -16,9 +17,14 @@ export class ToolbarUserComponent implements OnInit {
   userData: any;
 
   constructor(private popover: PopoverService,
+              private router: Router,
               private cd: ChangeDetectorRef) {
                 const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
-                this.userData = sessionData;
+                if(sessionData) {
+                  this.userData = sessionData;
+                } else {
+                  router.navigate(['/auth/login'])
+                }
               }
 
   ngOnInit() {

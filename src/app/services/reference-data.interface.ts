@@ -62,6 +62,8 @@ export interface TransactionsReference {
 
 export interface UserReference {
   currentUser: {
+    currency: string;
+    country_code: string;
     account: string;
     buyer: string;
     code: string;

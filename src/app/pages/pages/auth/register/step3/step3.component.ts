@@ -103,7 +103,6 @@ export class Step3Component implements OnInit {
   validateTermsAndConditions(control: FormControl): ValidationErrors {
     const value = control.value;
     const checked = value === true ? true : false;
-    console.log('checked', checked);
     return checked === false ? { hasNotcheckedTerms: true} : null;
   }
 

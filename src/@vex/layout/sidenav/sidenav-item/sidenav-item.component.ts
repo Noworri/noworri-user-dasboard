@@ -1,57 +1,84 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { NavigationDropdown, NavigationItem, NavigationLink } from '../../../interfaces/navigation-item.interface';
-import { dropdownAnimation } from '../../../animations/dropdown.animation';
-import { NavigationEnd, Router } from '@angular/router';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter } from 'rxjs/operators';
-import { NavigationService } from '../../../services/navigation.service';
-import icKeyboardArrowRight from '@iconify/icons-ic/twotone-keyboard-arrow-right';
-
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from "@angular/core";
+import {
+  NavigationDropdown,
+  NavigationItem,
+  NavigationLink,
+} from "../../../interfaces/navigation-item.interface";
+import { dropdownAnimation } from "../../../animations/dropdown.animation";
+import { NavigationEnd, Router } from "@angular/router";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+import { filter } from "rxjs/operators";
+import { NavigationService } from "../../../services/navigation.service";
+import icKeyboardArrowRight from "@iconify/icons-ic/twotone-keyboard-arrow-right";
+import { SUMMARY_DATA_KEY } from "src/app/Models/constants";
+import { UserTransactionsSummary } from "src/app/Models/interfaces";
 
 @UntilDestroy()
 @Component({
-  selector: 'vex-sidenav-item',
-  templateUrl: './sidenav-item.component.html',
-  styleUrls: ['./sidenav-item.component.scss'],
+  selector: "vex-sidenav-item",
+  templateUrl: "./sidenav-item.component.html",
+  styleUrls: ["./sidenav-item.component.scss"],
   animations: [dropdownAnimation],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidenavItemComponent implements OnInit, OnChanges {
-
   @Input() item: NavigationItem;
   @Input() level: number;
   isOpen: boolean;
   isActive: boolean;
   icKeyboardArrowRight = icKeyboardArrowRight;
+  transactionsSummary: UserTransactionsSummary;
 
   isLink = this.navigationService.isLink;
   isDropdown = this.navigationService.isDropdown;
   isSubheading = this.navigationService.isSubheading;
 
-  constructor(private router: Router,
-              private cd: ChangeDetectorRef,
-              private navigationService: NavigationService) { }
+  constructor(
+    private router: Router,
+    private cd: ChangeDetectorRef,
+    private navigationService: NavigationService
+  ) {
+    const summaryData = localStorage.getItem(SUMMARY_DATA_KEY);
+    this.transactionsSummary = JSON.parse(summaryData);
+  }
 
-  @HostBinding('class')
+  @HostBinding("class")
   get levelClass() {
     return `item-level-${this.level}`;
   }
 
   ngOnInit() {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      filter(() => this.isDropdown(this.item)),
-      untilDestroyed(this)
-    ).subscribe(() => this.onRouteChange());
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        filter(() => this.isDropdown(this.item)),
+        untilDestroyed(this)
+      )
+      .subscribe(() => this.onRouteChange());
 
-    this.navigationService.openChange$.pipe(
-      filter(() => this.isDropdown(this.item)),
-      untilDestroyed(this)
-    ).subscribe(item => this.onOpenChange(item));
+    this.navigationService.openChange$
+      .pipe(
+        filter(() => this.isDropdown(this.item)),
+        untilDestroyed(this)
+      )
+      .subscribe((item) => this.onOpenChange(item));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes.hasOwnProperty('item') && this.isDropdown(this.item)) {
+    if (
+      changes &&
+      changes.hasOwnProperty("item") &&
+      this.isDropdown(this.item)
+    ) {
       this.onRouteChange();
     }
   }
@@ -97,12 +124,12 @@ export class SidenavItemComponent implements OnInit, OnChanges {
     }
 
     return parent.children
-      .filter(child => this.isDropdown(child))
-      .some(child => this.isChildrenOf(child as NavigationDropdown, item));
+      .filter((child) => this.isDropdown(child))
+      .some((child) => this.isChildrenOf(child as NavigationDropdown, item));
   }
 
   hasActiveChilds(parent: NavigationDropdown) {
-    return parent.children.some(child => {
+    return parent.children.some((child) => {
       if (this.isDropdown(child)) {
         return this.hasActiveChilds(child);
       }
@@ -113,7 +140,7 @@ export class SidenavItemComponent implements OnInit, OnChanges {
     });
   }
 
-  isFunction(prop: NavigationLink['route']) {
+  isFunction(prop: NavigationLink["route"]) {
     return prop instanceof Function;
   }
 }

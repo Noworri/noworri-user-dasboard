@@ -1,22 +1,53 @@
-<div (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [class.collapsed]="collapsed"
-  [class.open]="collapsed && collapsedOpen$ | async" class="sidenav flex flex-col">
+<div
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  [class.collapsed]="collapsed"
+  [class.open]="collapsed && collapsedOpen$ | async"
+  class="sidenav flex flex-col"
+>
   <div class="sidenav-toolbar flex-none flex items-center">
-
-    <div #originRef
+    <div
+      #originRef
       class="flex items-center rounded cursor-pointer relative trans-ease-out select-none py-1 pr-1 pl-3 hover:bg-hover"
-      matRipple>
-
-      <div class="rounded-full h-9 w-9 flex items-center justify-center text-primary bg-primary-light">
+      matRipple
+    >
+    <div *ngIf="!hasBusiness">
+      <div
+        class="rounded-full h-9 w-9 flex items-center justify-center text-primary bg-primary-light"
+      >
         <mat-icon [icIcon]="icStore"></mat-icon>
       </div>
-      <div (click)='addBusiness()' class="body-1 ml-3 font-medium leading-snug ltr:mr-3 rtl:ml-4" fxHide.xs>Add business
+      <div
+        (click)="addBusiness()"
+        class="body-1 ml-3 font-medium leading-snug ltr:mr-3 rtl:ml-4"
+        fxHide.xs
+      >
+        Add business
       </div>
+    </div>
+    <div *ngIf="hasBusiness">
+      <div
+        class="rounded-full h-9 w-9 flex items-center justify-center text-primary bg-primary-light"
+      >
+        <img src="{{ businessLogoUrl }}"/>
+      </div>
+      <div
+        class="body-1 ml-3 font-medium leading-snug ltr:mr-3 rtl:ml-4"
+        fxHide.xs
+      >
+        {{ businessDetails.trading_name }}
+      </div>
+    </div>
     </div>
   </div>
 
   <vex-scrollbar class="flex-auto">
     <div class="sidenav-items">
-      <vex-sidenav-item *ngFor="let item of items; trackBy: trackByRoute" [item]="item" [level]="0"></vex-sidenav-item>
+      <vex-sidenav-item
+        *ngFor="let item of items; trackBy: trackByRoute"
+        [item]="item"
+        [level]="0"
+      ></vex-sidenav-item>
     </div>
   </vex-scrollbar>
 </div>

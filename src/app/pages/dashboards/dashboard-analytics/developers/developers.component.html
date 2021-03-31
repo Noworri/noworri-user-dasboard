@@ -1,46 +1,100 @@
+<div class="secondary-toolbar-placeholder">
+  <div class="w-full flex flex-col sm:flex-row justify-between">
+    <div>
+      <h1 class="title mt-0 mb-1">API integration</h1>
+      <vex-breadcrumbs [crumbs]="['Dashboard','Api Integration']"></vex-breadcrumbs>
+    </div>  
+  </div>
+</div>
 <mat-card class="mat-card ml-10">
-    <div class="mx-4">
-        <h4 class="text-xs underline  text-gray-300">View Api Guide</h4>
+  <div class="mx-4">
+    <h4 class="text-xs underline text-gray-300"  (click)="onViewApiDoc()">View Api Guide</h4>
+  </div>
+  <mat-card class="border-black mat-card2 mt-8">
+    <h4 class="text-xs text-gray-300">API Keys</h4>
+
+    <div class="grid mt-8 grid-flow-col grid-cols-2 grid-rows-1 gap-1">
+      <div>
+        <h4 class="text-xs text-gray-300">Test Key</h4>
+      </div>
+      <div>
+        <h4 class="text-xs text-gray-300">Live Key</h4>
+      </div>
     </div>
-    <mat-card class="border-black mat-card2 mt-8">
-        <h4 class="text-xs   text-gray-300">API Key</h4>
 
-        <div class="grid mt-8 grid-flow-col grid-cols-2 grid-rows-1 gap-1">
-            <div>
-                <h4 class="text-xs   text-gray-300">Test Key</h4>
-            </div>
-            <div>
-                <h4 class="text-xs   text-gray-300">Live Key</h4>
-            </div>
-        </div>
-
-
-        <div class="grid grid-flow-col grid-cols-2 mt-2 grid-rows-1 gap-1">
-            <div>
-                <mat-form-field appearance="fill">
-                    <input disabled matInput placeholder="gzwetrrfsf123">
-                    <div class="ml-24 -mt-6">
-                        <button class="text-xs   text-gray-300" mat-raised-button color="primary">Copy</button>
-                    </div>
-                </mat-form-field>
-            </div>
-
-            <div>
-                <div>
-                    <mat-form-field appearance="fill">
-                        <input disabled matInput placeholder="hfgewqe">
-                        <div class="ml-20 -mt-6">
-                            <button class="text-xs   text-gray-300" mat-raised-button color="primary">Show Key</button>
-                        </div>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-    </mat-card>
-    <div class="mt-8">
+    <div class="grid grid-flow-col grid-cols-2 mt-2 grid-rows-1 gap-1">
+      <div>
         <mat-form-field appearance="fill">
-            <mat-label class="text-xs   text-gray-300">User Id</mat-label>
-            <input disabled matInput>
+          <input
+            matInput
+            #testKey
+            [value]="businessAccountData?.api_key_test"
+            readonly
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            matTooltip="Copy"
+            (click)="copyInputMessage(testKey)"
+          >
+            <mat-icon>content_copy</mat-icon>
+          </button>
         </mat-form-field>
+      </div>
+
+      <div>
+        <div>
+          <mat-form-field appearance="fill">
+            <input
+              matInput
+              #liveKey
+              readonly
+              [type]="hide ? 'password' : 'text'"
+              id="inlineFormInputGroupUsername2"
+              [value]="businessAccountData?.api_key_live"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <button
+              *ngIf="!hide"
+              mat-icon-button
+              matSuffix
+              matTooltip="Copy"
+              (click)="copyInputMessage(liveKey)"
+            >
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
+  </mat-card>
+  <mat-card class="border-black mat-card2 mt-8">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label class="text-xs text-gray-300">User Id</mat-label>
+        <input
+        matInput
+        #uid
+        [value]="businessAccountData?.user_id"
+        readonly
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        matTooltip="Copy"
+        (click)="copyInputMessage(uid)"
+      >
+        <mat-icon>content_copy</mat-icon>
+      </button>
+      </mat-form-field>
+    </div>
+  </mat-card>
 </mat-card>

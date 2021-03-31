@@ -25,9 +25,11 @@ import icNotificationsOff from "@iconify/icons-ic/twotone-notifications-off";
 import { Icon } from "@visurel/iconify-angular";
 import { PopoverRef } from "../../../../components/popover/popover-ref";
 import {
+  BUSINESS_DATA_KEY,
   SESSION_STORAGE_KEY,
   USER_SESSION_KEY,
 } from "src/app/Models/constants";
+import { BUSINESS_INFO_KEY } from "src/app/pages/dashboards/dashboard-analytics/add-business/add-business.component";
 
 export interface OnlineStatus {
   id: "online" | "away" | "dnd" | "offline";
@@ -140,6 +142,9 @@ export class ToolbarUserDropdownComponent implements OnInit {
   logout() {
     sessionStorage.clear();
     localStorage.removeItem(USER_SESSION_KEY);
+    localStorage.removeItem(BUSINESS_DATA_KEY);
+    localStorage.removeItem(BUSINESS_INFO_KEY);
+    localStorage.clear()
     this.popoverRef.close();
   }
 }

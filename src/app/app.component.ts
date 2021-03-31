@@ -38,6 +38,7 @@ import icMail from "@iconify/icons-ic/twotone-mail";
 import icHome from "@iconify/icons-ic/twotone-home";
 import icMoney from "@iconify/icons-ic/twotone-money";
 import icPayement from "@iconify/icons-ic/twotone-payment";
+import icCode from "@iconify/icons-ic/twotone-code"
 
 import * as firebase from "firebase";
 
@@ -141,6 +142,11 @@ export class AppComponent {
             label: "Transactions",
             route: "/dashboards/transactions",
             icon: icMoney,
+            badge: {
+              value: '0',
+              textClass: 'text-teal',
+              bgClass: 'bg-cyan-light',
+            }
           },
           {
             type: "link",
@@ -150,9 +156,9 @@ export class AppComponent {
           },
            {
             type: "link",
-            label: "API document ",
+            label: "API Integration ",
             route: "/dashboards/api",
-            icon: icPayement,
+            icon: icCode,
           },
 
 

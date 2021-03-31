@@ -21,15 +21,20 @@ const routes: Routes = [
       },
       {
         path: "transactions",
-        component: TransactionTableComponent,
+        children: [
+          {
+            path: "",
+            component: TransactionTableComponent,
+          },
+          {
+            path: "transaction-details/:transactionKey",
+            component: TransactionDetailsComponent,
+          },
+        ]
       },
       {
         path: "payouts",
         component: PayoutsComponent,
-      },
-      {
-        path: "transaction-details",
-        component: TransactionDetailsComponent,
       },
       {
         path: "user-profil",

@@ -23,7 +23,7 @@ import { TransactionTableComponent } from "./transaction-table/transaction-table
 import { MatTableModule } from "@angular/material/table";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { MatRippleModule } from "@angular/material/core";
+import { MatNativeDateModule, MatRippleModule } from "@angular/material/core";
 import { PayoutsComponent } from "./payouts/payouts.component";
 import { AioTableRoutingModule } from "../../apps/aio-table/aio-table-routing.module";
 import { CustomerCreateUpdateModule } from "../../apps/aio-table/customer-create-update/customer-create-update.module";
@@ -45,6 +45,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { DevelopersComponent } from './developers/developers.component';
 import { BusinessActivationPendingComponent } from './business-activation-pending/business-activation-pending.component'; 
 import {MatDialogModule} from '@angular/material/dialog'; 
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { DashboardDialogComponent } from './dashboard-dialog/dashboard-dialog.component';
 @NgModule({
   declarations: [
     DashboardAnalyticsComponent,
@@ -56,6 +58,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     BusinessSettingsComponent,
     DevelopersComponent,
     BusinessActivationPendingComponent,
+    DashboardDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -79,6 +82,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AioTableRoutingModule,
     FlexLayoutModule,
     CustomerCreateUpdateModule,

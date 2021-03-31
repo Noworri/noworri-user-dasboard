@@ -8,11 +8,15 @@ export const environment = {
   payStackReleaseUrl: `https://api.noworri.com/api/initiatereleasetest/`,
   checkTransactionStatusUrl: `https://api.noworri.com/api/chektransactionstatustest`,
   addAccountUrl: `https://api.noworri.com/api/createrecipienttest/`,
+  updateAccountUrl: `https://api.noworri.com/api/updateuseraccounttest/`,
   createTransactionUrl: `https://api.noworri.com/api/newtransactiontest`,
   deleteAccountUrl: `https://api.noworri.com/api/deleteduseraccounttest`,
   getTransactionByIdUrl: `https://api.noworri.com/api/getusertransactiontest/`,
   getTransactionsListUrl: `https://api.noworri.com/api/usertransactionstest/`,
   verifyReleaseCodeUrl: `https://api.noworri.com/api/verifycodetest`,
+  cancelTransactionUrl: `https://api.noworri.com/api/cancelescrowtransactiontest/`,
+  getBusinessUserPayoutsUrl: `https://api.noworri.com/api/getbusinessuserpayoutstest/`,
+  getBusinessTransactionsSummaryUrl: `https://api.noworri.com/api/getusertransactionssummarytest/`
 };
 
 /*

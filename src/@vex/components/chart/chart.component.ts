@@ -79,21 +79,24 @@ export class ChartComponent implements OnInit, OnChanges {
   }
 
   private _createElement() {
-    if (this.series) {
-      this.options.series = this.series;
+    if(this.options) {
+      if (this.series) {
+        this.options.series = this.series;
+      }
+  
+      if (this.chart) {
+        this.chart.destroy();
+      }
+  
+      this.ngZone.runOutsideAngular(() => {
+        this.chart = new ApexCharts(
+          this.chartElement.nativeElement,
+          this.options
+        );
+  
+        this.render();
+      });
     }
-
-    if (this.chart) {
-      this.chart.destroy();
-    }
-
-    this.ngZone.runOutsideAngular(() => {
-      this.chart = new ApexCharts(
-        this.chartElement.nativeElement,
-        this.options
-      );
-
-      this.render();
-    });
+ 
   }
 }

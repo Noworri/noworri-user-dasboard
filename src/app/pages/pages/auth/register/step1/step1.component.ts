@@ -56,7 +56,7 @@ export class Step1Component implements OnInit {
   locationData: any;
   waitingDisplayInput: boolean;
   countryData: any;
-  prefixContryCode: string;
+  prefixCountryCode: string;
   isValidCountry = true;
   phoneNumberReg = /^\d+$/;
   isCorrectPhoneEntry: boolean;
@@ -143,11 +143,11 @@ export class Step1Component implements OnInit {
           this.locationData.country_code === "GH" ||
           this.locationData.country_code === "NG"
         ) {
-          this.prefixContryCode = this.locationData.country_calling_code;
+          this.prefixCountryCode = this.locationData.country_calling_code;
           this.isValidCountry = false;
         } else {
           this.isValidCountry = true;
-          this.prefixContryCode = "+233";
+          this.prefixCountryCode = "+233";
         }
       });
   }
@@ -159,10 +159,10 @@ export class Step1Component implements OnInit {
       if (phoneNumberWithoutSpace.charAt(0) === "0") {
         this.isCorrectPhoneEntry = true;
         this.realPhoneNumber =
-          this.prefixContryCode + phoneNumberWithoutSpace.substr(1);
+          this.prefixCountryCode + phoneNumberWithoutSpace.substr(1);
       } else {
         this.isCorrectPhoneEntry = true;
-        this.realPhoneNumber = this.prefixContryCode + phoneNumberWithoutSpace;
+        this.realPhoneNumber = this.prefixCountryCode + phoneNumberWithoutSpace;
       }
     } else {
       this.isCorrectPhoneEntry = false;
@@ -224,7 +224,6 @@ export class Step1Component implements OnInit {
     this.otpverificationService
       .submitVerificationCode(verificationCode)
       .then((response) => {
-        console.log('verify otp response', response);
         this.router.navigate(["auth/register/step2"]);
       })
       .catch((error) => {

@@ -9,6 +9,7 @@ import { map } from "rxjs/operators";
 
 import icStore from "@iconify/icons-ic/twotone-store";
 import { Router } from "@angular/router";
+import { BUSINESS_DATA_KEY } from "src/app/Models/constants";
 @Component({
   selector: "vex-sidenav",
   templateUrl: "./sidenav.component.html",
@@ -33,15 +34,25 @@ export class SidenavComponent implements OnInit {
   icRadioButtonUnchecked = icRadioButtonUnchecked;
 
   icStore = icStore;
+  businessDetails: any;
+  hasBusiness: boolean;
+  businessLogoUrl: any;
 
   constructor(
     private navigationService: NavigationService,
     private layoutService: LayoutService,
     private configService: ConfigService,
     private router: Router
-  ) {}
+  ) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const businessData = localStorage.getItem(BUSINESS_DATA_KEY,);
+    this.businessDetails = JSON.parse(businessData)
+    this.hasBusiness = this.businessDetails ? true : false;
+
+    this.businessLogoUrl = `https://noworri.com/api/public/uploads/company/business/${this.businessDetails.business_logo}`
+  }
 
   onMouseEnter() {
     this.layoutService.collapseOpenSidenav();
