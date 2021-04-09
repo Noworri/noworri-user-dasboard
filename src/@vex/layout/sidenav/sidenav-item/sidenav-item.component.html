@@ -11,7 +11,7 @@
   <span *ngIf="item.badge"
         [ngClass]="[item.badge.bgClass, item.badge.textClass]"
         class="item-badge"
-        fxFlex="none">{{ item.badge.value }}</span>
+        fxFlex="none">{{ transactionsSummary?.activeTransactions || 0 }}</span>
 </a>
 
 <div (click)="item.route()"

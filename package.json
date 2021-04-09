@@ -1,6 +1,6 @@
 {
-  "name": "vex",
-  "version": "11.1.0",
+  "name": "noworri-user-dashboard",
+  "version": "2.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -43,6 +43,7 @@
     "intl-tel-input": "^17.0.12",
     "intl-tel-input-ng": "^0.3.0",
     "luxon": "~1.26.0",
+    "material-design-icons": "^3.0.1",
     "ng-otp-input": "^1.7.1",
     "ngx-quicklink": "~0.2.7",
     "ngx-quill": "~13.2.0",

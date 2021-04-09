@@ -63,6 +63,25 @@ export class MegaMenuComponent implements OnInit {
       label: 'All-In-One Table',
       route: '/apps/aio-table'
     },
+    
+    {
+      label: 'Transactions',
+      route: 'dashboards/transactions'
+    },
+
+    {
+      label: 'Transaction Details',
+      route: 'dashboards/transactions/transaction-details'
+    },
+    {
+      label: 'Payouts',
+      route: 'dashboards/payouts'
+    },
+    {
+      label: 'Api Integration',
+      route: 'dashboards/api'
+    },
+
     {
       label: 'Authentication',
       route: '/login'

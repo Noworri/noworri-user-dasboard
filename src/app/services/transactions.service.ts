@@ -80,6 +80,23 @@ export class TransactionsService {
     );
   }
 
+  getBusinessUserPayouts(user_id: string): Observable<any> {
+    const url = `${environment.getBusinessUserPayoutsUrl}${user_id}`;
+
+    return this.http.get(url).pipe(
+      map((data: any) => {
+        data.map((transaction) => {
+          return transaction;
+        });
+        return data;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("Error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
   processPayment(body): Observable<any> {
     const url = "https://api.noworri.com/api/makecardpayment";
     let params = new HttpParams();
@@ -124,7 +141,7 @@ export class TransactionsService {
     );
   }
 
-  initiateReleasePaystack(data) {
+  initiateWithdrawal(data) {
     const url = `${environment.payStackReleaseUrl}${data.transactionID}`;
     let params = new HttpParams();
     params = params.append("source", "balance");
@@ -132,6 +149,7 @@ export class TransactionsService {
     params = params.append("amount", data.amount);
     params = params.append("recipient", data.recipient);
     params = params.append("currency", data.currency);
+    params = params.append("user_id", data.user_id);
 
     return this.http
       .post(url, null, { responseType: "json", params: params })
@@ -190,9 +208,9 @@ export class TransactionsService {
       );
   }
 
-  cancelOrder(transaction_key) {
-    const url = `https://api.noworri.com/api/cancelTransaction/${transaction_key}`;
-    return this.http.post(url, null).pipe(
+  cancelOrder(data) {
+    const url = `${environment.cancelTransactionUrl}`;
+    return this.http.post(url, data).pipe(
       map((response) => {
         return response;
       }),
@@ -345,7 +363,7 @@ export class TransactionsService {
   }
 
   getAccountDetails(user_id) {
-    const url = `https://api.noworri.com/api/getuseraccountdetails/${user_id}`;
+    const url = `https://api.noworri.com/api/getbusinessuseraccountdetails/${user_id}`;
     return this.http.get(url).pipe(
       map((response) => {
         return response;
@@ -438,7 +456,7 @@ export class TransactionsService {
   }
 
   createRecipient(details, userId) {
-    const url = environment.addAccountUrl + userId;
+    const url = `${environment.addAccountUrl}${userId}`;
     let params = new HttpParams();
     params = params.append("type", details.type);
     params = params.append("name", details.name);
@@ -446,6 +464,30 @@ export class TransactionsService {
     params = params.append("account_number", details.account_number);
     params = params.append("bank_code", details.bank_code);
     params = params.append("currency", details.currency);
+    return this.http
+      .post(url, null, { responseType: "json", params: params })
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log("Error", error.message);
+          return observableThrowError(error);
+        })
+      );
+  }
+
+  updateRecipient(details, userId) {
+    const url = `${environment.updateAccountUrl}${userId}`;
+    let params = new HttpParams();
+    params = params.append("type", details.type);
+    params = params.append("name", details.name);
+    params = params.append("description", details.description);
+    params = params.append("account_number", details.account_number);
+    params = params.append("bank_code", details.bank_code);
+    params = params.append("currency", details.currency);
+    params = params.append("recipient_code", details.recipient_code);
+    
     return this.http
       .post(url, null, { responseType: "json", params: params })
       .pipe(
@@ -495,9 +537,16 @@ export class TransactionsService {
     );
   }
 
-  getUserTransactionSummary(user_id) {
-    const url = `https://api.noworri.com/api/getusertransactionssummary/${user_id}`;
-    return this.http.get(url).pipe(
+  getUserTransactionSummary(user_id, range =  null) {
+    let params = new HttpParams();
+    if (range) {
+      params = params.append("from", range.from);
+      params = params.append("to", range.to);
+    } else {
+      params = null;
+    }
+    const url = `${environment.getBusinessTransactionsSummaryUrl}${user_id}`;
+    return this.http.get(url, {params: params}).pipe(
       map((response) => {
         return response;
       }),

@@ -8,7 +8,7 @@
 
     <div class="flex justify-center mt-4  mr-20">
         <label for="fileUpload" class="btn underline text-center text-xs  btn-primary btn-block btn-outlined">Upload
-            your photo profil</label>
+            Your Profil Picture</label>
         <input type="file" id="fileUpload" style="display: none;">
     </div>
 
@@ -16,24 +16,24 @@
         <div>
             <h4 class="text-xs   text-gray-300">First Name</h4>
             <mat-form-field appearance="fill">
-                <mat-label>Ismael</mat-label>
+                <mat-label>{{userData.first_name}}</mat-label>
                 <input disabled matInput>
             </mat-form-field>
         </div>
         <div>
             <div>
-                <h4 class="text-xs   text-gray-300">Contry</h4>
+                <h4 class="text-xs   text-gray-300">Country</h4>
                 <mat-form-field appearance="fill">
-                    <mat-label>Ismael</mat-label>
+                    <mat-label>{{ userData.country_code}}</mat-label>
                     <input disabled matInput>
                 </mat-form-field>
             </div>
         </div>
         <div>
             <div>
-                <h4 class="text-xs   text-gray-300">Email adresse</h4>
+                <h4 class="text-xs   text-gray-300">Email address</h4>
                 <mat-form-field appearance="fill">
-                    <mat-label>clubttb@gmail.com</mat-label>
+                    <mat-label>{{ userData.email }}</mat-label>
                     <input matInput placeholder="new email">
                 </mat-form-field>
             </div>
@@ -42,7 +42,7 @@
             <div>
                 <h4 class="text-xs   text-gray-300">Last Name</h4>
                 <mat-form-field appearance="fill">
-                    <mat-label>Dady</mat-label>
+                    <mat-label>{{  userData.last_name}}</mat-label>
                     <input disabled matInput>
                 </mat-form-field>
             </div>
@@ -51,7 +51,7 @@
             <div>
                 <h4 class="text-xs   text-gray-300">Phone Number</h4>
                 <mat-form-field appearance="fill">
-                    <mat-label>+233279414289</mat-label>
+                    <mat-label>{{ userData.mobile_phone }}</mat-label>
                     <input disabled matInput>
                 </mat-form-field>
             </div>

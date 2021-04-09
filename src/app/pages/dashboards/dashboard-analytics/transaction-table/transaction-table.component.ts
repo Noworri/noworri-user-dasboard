@@ -20,8 +20,10 @@ import { Subject } from "rxjs";
 import {
   SESSION_STORAGE_KEY,
   TRANSACTION_SOURCE,
+  TRANSACTION_TABLE_LABELS,
   USER_SESSION_KEY,
 } from "src/app/Models/constants";
+import { TableColumn } from "src/@vex/interfaces/table-column.interface";
 
 export interface TransactionsData {
   transactionType: string;
@@ -130,6 +132,17 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
     "amount",
     "status",
   ];
+
+  statusLabels = TRANSACTION_TABLE_LABELS;
+
+    // cols: TableColumn<any>[] = [
+    //   { label: 'Date', property: 'date', type: 'text', visible: true },
+    //   { label: 'Transaction Type', property: 'transactionType', type: 'image', visible: true },
+    //   { label: 'Daling With', property: 'dealingWith', type: 'text', visible: true },
+    //   { label: 'Amount', property: 'amount', type: 'text', visible: true },
+    //   { label: 'Status', property: 'status', type: 'button', visible: true },
+    //  ];
+  
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   applyFilter(event: Event) {
@@ -164,6 +177,10 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadTransactions(this.userId);
+  }
+
+  getStatusLabel(status: string) {
+    return this.statusLabels.find(label => label.text === status)
   }
 
   ngOnDestroy() {
@@ -222,12 +239,15 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
               details["buyerPhone"] = details.initiator_phone;
             }
             this.amount = details.total_price;
+            details.state = this.getStatusLabel(details.state)
+
             return details;
           });
           const filteredDetails = this.transactionsData.filter(detail => detail.transaction_source === TRANSACTION_SOURCE.BUSINESS)
 
           this.hasNoTransactions = transactions.length === 0 ? true : false;
           this.dataSource = new MatTableDataSource(filteredDetails);
+          // this.dataSource = new MatTableDataSource(this.transactionsData);
         },
         (error) => console.log(error.message)
       );
@@ -235,32 +255,27 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
 
   processDateData() {}
 
-  onViewTransactionDetails(
-    transactionKey,
-    userRole,
-    ownerRole,
-    userPhone,
-    ownerPhone,
-    transactionType
+  viewTransactionDetails(
+    transactionData
   ) {
-    transactionType = transactionType.toLowerCase();
+    const transactionKey = transactionData.transaction_key;
+    this.router.navigate([`dashboards/transactions/transaction-details/${transactionKey}`]);
+    // const userRole = transactionData.destinator_role;
+    // // ownerRole,
+    // const userPhone = transactionData.destinator_phone;
+    // let transactionType = transactionData.transaction_type;
+    // transactionType = transactionType.toLowerCase();
 
-    if (this.userPhone === userPhone) {
-      this.userRole = userRole;
-    } else if (this.userPhone === ownerPhone) {
-      this.userRole = ownerRole;
-    }
-    console.log("userRole", this.userRole);
-    console.log("transactionKey", transactionKey);
 
-    if (this.userRole === "buy" && transactionType === "merchandise") {
-      this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
-    } else if (this.userRole === "sell" && transactionType === "merchandise") {
-      this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
-    } else if (this.userRole === "buy" && transactionType === "services") {
-      this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
-    } else if (this.userRole === "sell" && transactionType === "services") {
-      this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
-    }
+
+    // if (this.userRole === "buy" && transactionType === "merchandise") {
+    //   this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
+    // } else if (this.userRole === "sell" && transactionType === "merchandise") {
+    //   this.router.navigate([`sellermerchandisecontrat/${transactionKey}`]);
+    // } else if (this.userRole === "buy" && transactionType === "services") {
+    //   this.router.navigate([`buyerservicescontrat/${transactionKey}`]);
+    // } else if (this.userRole === "sell" && transactionType === "services") {
+    //   this.router.navigate([`sellerservicescontrat/${transactionKey}`]);
+    // }
   }
 }

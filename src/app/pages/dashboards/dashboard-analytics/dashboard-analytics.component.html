@@ -1,21 +1,30 @@
+  <div class="secondary-toolbar-placeholder">
+    <div class="w-full flex flex-col sm:flex-row justify-between">
+      <div>
+        <h1 class="title mt-0 mb-1">Dashboard</h1>
+        <vex-breadcrumbs [crumbs]="['Dashboard']"></vex-breadcrumbs>
+      </div>  
+    </div>
+  </div>
+
 <div class="p-gutter" gdColumns="0.2fr 0.2fr 0.2fr 0.2fr" gdColumns.lt-md="1fr 1fr" gdColumns.lt-sm="1fr" gdGap="16px"
   vexContainer>
   <div class="bg-white h-24 shadow">
-    <h4 class="text-center text-xs text-gray-300 items-center my-1 ">Total revenu</h4>
-    <h2 class="text-center text-xl my-0">GHC 12.560.25</h2>
+    <h4 class="text-center text-xs text-gray-300 items-center my-1 ">Total revenue</h4>
+    <h2 class="display-2 font-bold m-0 text-center text-xl my-0">{{ userData.currency}} {{ summaryData.totalRevenue }}</h2>
   </div>
   <div class="bg-white h-24 shadow">
     <h4 class="text-center text-xs text-gray-300 items-center my-1">Amount on Hold</h4>
-    <h2 class="text-center text-xl my-0">GHC 12.560.25</h2>
-  </div>
-  <div class="bg-white h-24 shadow ">
-    <h4 class="text-center text-xs text-gray-300 items-center my-1">Total Transations</h4>
-    <h2 class="text-center text-xl my-0">GHC 12.560.25</h2>
+    <h2 class="display-2 font-bold m-0 text-center text-xl my-0">{{ userData.currency}} {{ summaryData.totalAmountLocked }}</h2>
   </div>
   <div class="bg-white h-24 shadow">
     <h4 class="text-center text-xs text-gray-300 items-center my-1">Payout </h4>
-    <h2 class="text-center text-xl my-0 text-pink-800 text-green-400">GHC 12.560.25</h2>
+    <h2 class="display-2 font-bold m-0 text-center text-xl my-0 text-pink-800 text-green-400">{{ userData.currency}} {{ summaryData.totalPayouts }}</h2>
   </div>
-  <vex-widget-large-goal-chart [series]="salesSeries" gdColumn="1 / -1" gdColumn.lt-sm="1" total="4,374">
+  <div class="bg-white h-24 shadow ">
+    <h4 class="text-center text-xs text-gray-300 items-center my-1">Total Transations</h4>
+    <h2 class="display-2 font-bold m-0 text-center text-xl my-0">{{ summaryData.totalTransactions}}</h2>
+  </div>
+  <vex-widget-large-goal-chart *ngIf="salesSeries?.length" [dateArray]="dateArray" [series]="salesSeries" [options]="options" gdColumn="1 / -1" gdColumn.lt-sm="1" total="{{currentMonthSales}}">
   </vex-widget-large-goal-chart>
 </div>

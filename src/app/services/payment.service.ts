@@ -24,7 +24,6 @@ export class PaymentService {
 
     return this.http.post(url, body, { headers }).pipe(
       map((response) => {
-        console.log("response", response);
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
