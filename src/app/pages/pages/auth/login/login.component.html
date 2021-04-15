@@ -15,7 +15,7 @@
       <div fxFlex="auto" fxLayout="column">
         <mat-form-field fxFlex="grow">
           <mat-label>Phone Number</mat-label>
-          <input formControlName="phoneNumber" matInput required>
+          <input formControlName="phoneNumber" placeholder="Ex:0279404001" matInput required>
           <mat-error *ngIf="form.get('phoneNumber').hasError('required')">We need a phone number to log you in
           </mat-error>
         </mat-form-field>
