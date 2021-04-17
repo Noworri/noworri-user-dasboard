@@ -1,14 +1,20 @@
-.btn-outlined.btn-primary {
-  color: #000;
+.btn-file {
+  position: relative;
+  overflow: hidden;
 }
-.btn-outlined.btn-primary:active,
-.btn-outlined.btn-positive:active,
-.btn-outlined.btn-negative:active {
-  color: #000;
-}
-.btn-block {
-  text-align: center;
+.btn-file input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+
+  filter: alpha(opacity=0);
+  opacity: 0;
+
   cursor: pointer;
+  display: block;
 }
 
 .mat-card {

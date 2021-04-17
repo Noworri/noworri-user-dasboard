@@ -1,8 +1,8 @@
 <div class="dropdown">
   <div class="dropdown-header" fxLayout="row" fxLayoutAlign="space-between center">
     <div fxLayout="row" fxLayoutAlign="start center">
-      <div class="dropdown-heading-icon" fxLayout="row" fxLayoutAlign="center center">
-        <mat-icon [icIcon]="icPerson"></mat-icon>
+      <div class="rounded-full h-9 w-9 -mb-6 flex items-center justify-center text-primary bg-primary-light">
+        <img src="" />
       </div>
       <div class="dropdown-heading">{{ userData.first_name }} {{userData.name}}</div>
     </div>
@@ -26,15 +26,7 @@
   </div>
 
   <div class="dropdown-footer" fxLayout="row" fxLayoutAlign="space-between center">
-    <button [matMenuTriggerFor]="statusMenu" class="dropdown-footer-select" mat-button type="button">
-      <ng-container *ngFor="let status of statuses; trackBy: trackById">
-        <span *ngIf="status === activeStatus">
-          <mat-icon [icIcon]="status.icon" [ngClass]="status.colorClass"></mat-icon>
-          <span>{{ status.label }}</span>
-          <mat-icon [icIcon]="icArrowDropDown" class="dropdown-footer-select-caret"></mat-icon>
-        </span>
-      </ng-container>
-    </button>
+
     <a (click)="logout()" [routerLink]="['/auth/login']" color="primary" mat-button>LOGOUT</a>
   </div>
 </div>
