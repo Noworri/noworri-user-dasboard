@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { USER_SESSION_KEY } from 'src/app/Models/constants';
+import { Component, OnInit } from "@angular/core";
+import { USER_SESSION_KEY } from "src/app/Models/constants";
 
 @Component({
-  selector: 'vex-user-profil',
-  templateUrl: './user-profil.component.html',
-  styleUrls: ['./user-profil.component.scss']
+  selector: "vex-user-profil",
+  templateUrl: "./user-profil.component.html",
+  styleUrls: ["./user-profil.component.scss"],
 })
 export class UserProfilComponent implements OnInit {
   hide = true;
@@ -14,7 +14,5 @@ export class UserProfilComponent implements OnInit {
     this.userData = JSON.parse(sessionData);
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

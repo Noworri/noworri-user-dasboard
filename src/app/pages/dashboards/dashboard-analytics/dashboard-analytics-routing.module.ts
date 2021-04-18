@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { QuicklinkModule } from "ngx-quicklink";
+import { ForgotPasswordComponent } from "../../pages/auth/forgot-password/forgot-password.component";
 import { AddBusinessComponent } from "./add-business/add-business.component";
 import { BusinessActivationPendingComponent } from "./business-activation-pending/business-activation-pending.component";
 import { BusinessSettingsComponent } from "./business-settings/business-settings.component";
@@ -30,7 +31,7 @@ const routes: Routes = [
             path: "transaction-details/:transactionKey",
             component: TransactionDetailsComponent,
           },
-        ]
+        ],
       },
       {
         path: "payouts",
@@ -55,6 +56,10 @@ const routes: Routes = [
       {
         path: "activation-pending",
         component: BusinessActivationPendingComponent,
+      },
+      {
+        path: "forgot-password",
+        component: ForgotPasswordComponent,
       },
     ],
   },

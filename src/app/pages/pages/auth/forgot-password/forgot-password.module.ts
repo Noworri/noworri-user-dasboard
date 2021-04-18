@@ -9,10 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { IconModule } from '@visurel/iconify-angular';
 import { MatIconModule } from '@angular/material/icon';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 
 @NgModule({
-  declarations: [ForgotPasswordComponent],
+  declarations: [ForgotPasswordComponent, NewPasswordComponent],
   imports: [
     CommonModule,
     ForgotPasswordRoutingModule,
