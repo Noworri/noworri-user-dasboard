@@ -144,7 +144,7 @@ export class ToolbarUserDropdownComponent implements OnInit {
     localStorage.removeItem(USER_SESSION_KEY);
     localStorage.removeItem(BUSINESS_DATA_KEY);
     localStorage.removeItem(BUSINESS_INFO_KEY);
-    localStorage.clear()
+    localStorage.clear();
     this.popoverRef.close();
   }
 }

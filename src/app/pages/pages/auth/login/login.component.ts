@@ -30,6 +30,7 @@ import { UserReference } from "src/app/services/reference-data.interface";
   animations: [fadeInUp400ms],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  phonePlaceHolder: string;
   unsubscribe$ = new Subject();
   isValidCountry = true;
   countryData: any;
@@ -91,15 +92,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
     })
       .then(() => {
-        if (!this.locationData) {
-          this.waitingDisplayInput = false;
+        if (this.locationData.country_code === "GH") {
+          this.phonePlaceHolder = "Ex:0279404001";
+        } else if (this.locationData.country_code === "NG") {
+          this.phonePlaceHolder = "Ex:1 1345 5643 ";
         } else {
-          this.waitingDisplayInput = true;
-          this.countryData = {
-            preferredCountries: [`${this.locationData}`],
-            localizedCountries: { ng: "Nigeria", gh: "Ghana" },
-            onlyCountries: ["GH", "NG"],
-          };
+          this.phonePlaceHolder = "We are not yet available in your country";
         }
       })
       .then(() => {
@@ -150,7 +148,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 status: response.currentUser.status,
                 id: response.currentUser.id,
                 currency: response.currentUser.currency,
-                country_code: response.currentUser.country_code
+                country_code: response.currentUser.country_code,
               };
               const sessionData = {
                 token: response.currentUser.token,

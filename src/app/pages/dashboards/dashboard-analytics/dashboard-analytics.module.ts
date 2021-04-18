@@ -40,13 +40,15 @@ import { MatCardModule } from "@angular/material/card";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatRadioModule } from "@angular/material/radio";
-import { BusinessSettingsComponent } from './business-settings/business-settings.component';
-import {MatTabsModule} from '@angular/material/tabs';
-import { DevelopersComponent } from './developers/developers.component';
-import { BusinessActivationPendingComponent } from './business-activation-pending/business-activation-pending.component'; 
-import {MatDialogModule} from '@angular/material/dialog'; 
+import { BusinessSettingsComponent } from "./business-settings/business-settings.component";
+import { MatTabsModule } from "@angular/material/tabs";
+import { DevelopersComponent } from "./developers/developers.component";
+import { BusinessActivationPendingComponent } from "./business-activation-pending/business-activation-pending.component";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { DashboardDialogComponent } from './dashboard-dialog/dashboard-dialog.component';
+import { DashboardDialogComponent } from "./dashboard-dialog/dashboard-dialog.component";
+
+import { MatFileUploadModule } from "mat-file-upload";
 @NgModule({
   declarations: [
     DashboardAnalyticsComponent,
@@ -101,7 +103,8 @@ import { DashboardDialogComponent } from './dashboard-dialog/dashboard-dialog.co
     MatCheckboxModule,
     MatRadioModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFileUploadModule,
   ],
 })
 export class DashboardAnalyticsModule {}

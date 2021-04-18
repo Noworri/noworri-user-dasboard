@@ -16,54 +16,34 @@
         </div>
         <div>
           <div *ngIf="businessLogoName" class="flex justify-center mt-4">
-            <img
-              alt="Placeholder"
-              class="block w-20 h-20 rounded-full"
-              src="{{ businessLogoName }}"
-            />
+            <img alt="Placeholder" class="block w-20 h-20 rounded-full" src="{{ businessLogoName }}" />
           </div>
         </div>
 
-        <div class="flex justify-center mt-4">
-          <label
-            for="fileUpload"
-            class="btn underline text-center text-xs btn-primary btn-block btn-outlined"
-            >Upload Business logo</label
-          >
-          <input
-            type="file"
-            id="fileUpload"
-            formControlName="business_logo"
-          />
+        <div class="flex justify-center mt-4 ">
+          <span class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded btn-file">
+            Upload Business logo <input type="file" id="fileUpload" formControlName="business_logo" />
+          </span>
         </div>
 
         <mat-accordion>
-          <mat-expansion-panel
-            class="mt-8"
-            (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-          >
+          <mat-expansion-panel class="mt-8" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title class="text-xs text-gray-300">
                 Business Information
               </mat-panel-title>
-              <mat-panel-description
-                class="flex text-xs text-gray-300 justify-end"
-              >
+              <mat-panel-description class="flex text-xs text-gray-300 justify-end">
                 Hide Information
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="example-container">
-              <div class="grid grid-flow-col grid-cols-3 grid-rows-3 gap-4">
+              <div class="grid grid-flow-col grid-cols-3 grid-rows-2 gap-4">
                 <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300"
-                    >Trading Name</mat-label
-                  >
+                  <mat-label class="text-xs text-gray-300">Trading Name</mat-label>
                   <input matInput formControlName="trading_name" #input />
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300"
-                    >Describe what you do
+                  <mat-label class="text-xs text-gray-300">Describe what you do
                   </mat-label>
                   <input matInput #input formControlName="description" />
                 </mat-form-field>
@@ -71,56 +51,34 @@
                   <mat-label class="text-xs text-gray-300">Industry</mat-label>
                   <mat-select formControlName="industry">
                     <mat-option value="" disabled>Select</mat-option>
-                    <mat-option
-                      *ngFor="let industry of industries"
-                      [value]="industry"
-                      >{{ industry }}</mat-option
-                    >
+                    <mat-option *ngFor="let industry of industries" [value]="industry">{{ industry }}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300">Category</mat-label>
                   <mat-select formControlName="category">
                     <mat-option value="" disabled>Select</mat-option>
-                    <mat-option
-                      *ngFor="let category of categories"
-                      [value]="category"
-                      >{{ category }}</mat-option
-                    >
+                    <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300"
-                    >Business phone number</mat-label
-                  >
+                  <mat-label class="text-xs text-gray-300">Business phone number</mat-label>
                   <input matInput #input formControlName="business_phone" />
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300"
-                    >Business Email</mat-label
-                  >
+                  <mat-label class="text-xs text-gray-300">Business Email</mat-label>
                   <input matInput #input formControlName="business_email" />
                 </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300"
-                    >Delivery's man phone number</mat-label
-                  >
-                  <input matInput #input formControlName="delivery_phone" />
-                </mat-form-field>
+
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel
-            (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-          >
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title class="text-xs text-gray-300">
                 Business Adress
               </mat-panel-title>
-              <mat-panel-description
-                class="flex text-xs text-gray-300 justify-end"
-              >
+              <mat-panel-description class="flex text-xs text-gray-300 justify-end">
                 Hide Information
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -129,17 +87,11 @@
                 <mat-label class="text-xs text-gray-300">Country</mat-label>
                 <mat-select formControlName="country">
                   <mat-option value="" disabled>Select</mat-option>
-                  <mat-option
-                    *ngFor="let country of countries"
-                    [value]="country.code"
-                    >{{ country.name }}</mat-option
-                  >
+                  <mat-option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300"
-                  >State or Region</mat-label
-                >
+                <mat-label class="text-xs text-gray-300">State or Region</mat-label>
                 <input matInput #input formControlName="region" />
               </mat-form-field>
               <mat-form-field appearance="fill">
@@ -147,28 +99,21 @@
                 <input matInput #input formControlName="city" />
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300"
-                  >Street Address</mat-label
-                >
+                <mat-label class="text-xs text-gray-300">Street Address</mat-label>
                 <input matInput #input formControlName="streetAddress" />
               </mat-form-field>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel
-            (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-          >
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title class="text-xs text-gray-300">
                 Business Owner
               </mat-panel-title>
-              <mat-panel-description
-                class="flex text-xs text-gray-300 justify-end"
-              >
+              <mat-panel-description class="flex text-xs text-gray-300 justify-end">
                 Hide Information
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <div class="grid grid-flow-col grid-cols-3 grid-rows-3 gap-4">
+            <div class="grid grid-flow-col grid-cols-2 grid-rows-3 gap-4">
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300">First Name</mat-label>
                 <input matInput #input formControlName="owner_fname" />
@@ -184,192 +129,68 @@
                 <input matInput #input formControlName="dob" />
               </mat-form-field> -->
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300"
-                  >Date Of Birth</mat-label
-                >
-                <input
-                  matInput
-                  [matDatepicker]="picker"
-                  #input
-                  formControlName="dob"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
+                <mat-label class="text-xs text-gray-300">Date Of Birth</mat-label>
+                <input matInput [matDatepicker]="picker" #input formControlName="dob" />
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300"
-                  >Nationnality</mat-label
-                >
+                <mat-label class="text-xs text-gray-300">Nationnality</mat-label>
                 <mat-select formControlName="nationality">
                   <mat-option value="" disabled>Select</mat-option>
-                  <mat-option
-                    *ngFor="let nationality of nationalities"
-                    [value]="nationality"
-                    >{{ nationality }}</mat-option
-                  >
+                  <mat-option *ngFor="let nationality of nationalities" [value]="nationality">{{ nationality }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300"
-                  >Your Address</mat-label
-                >
+                <mat-label class="text-xs text-gray-300">Your Address</mat-label>
                 <input matInput #input formControlName="owner_adresse" />
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300"
-                  >Identification document
+                <mat-label class="text-xs text-gray-300">Identification document
                 </mat-label>
                 <mat-select formControlName="identification_document">
                   <mat-option value="" disabled>Select</mat-option>
                   <mat-option *ngFor="let idType of idTypes" [value]="idType">{{
                     idType
-                  }}</mat-option>
+                    }}</mat-option>
                 </mat-select>
-                <!-- <input
-                  matInput
-                  #input
-                  formControlName="identification_document"
-                /> -->
               </mat-form-field>
-              <mat-form-field appearance="fill">
-                <!-- <mat-label class="text-xs   text-gray-300">Upload Your id
-                                    document </mat-label> -->
-                <mat-label class="text-xs text-gray-300"
-                  >Upload your ID
-                </mat-label>
-                <input matInput disabled value="{{ idDocumentFile?.name }}" />
-                <button
-                  type="button"
-                  mat-icon-button
-                  matSuffix
-                  (click)="idFile.click()"
-                >
-                  <mat-icon>attach_file</mat-icon>
-                </button>
-                <input
-                  (change)="uploadID($event)"
-                  type="file"
-                  id="fileUpload"
-                  hidden
-                  #idFile
-                  formControlName="identification_documentUpload"
-                />
-              </mat-form-field>
-              <div>
-                <!-- <mat-form-field class="columns">
-                                    <mat-label *ngIf="selectedFiles; else newFile">{{selectedFiles.name}}</mat-label>
-                                    <ng-template #newFile>
-                                        <mat-label>Choose file</mat-label>
-                                    </ng-template>
-                                    <input matInput disabled formControlName="identification_documentUpload">
-                                    <button mat-icon-button matSuffix (click)="fileInput.click()">
-                                        <mat-icon>attach_file</mat-icon>
-                                    </button>
-                                    <input formControlName="identification_documentUpload" hidden (change)="selectFile($event)" #fileInput type="file" id="file">
-                                </mat-form-field> -->
-                <!-- <label for="fileUpload"
-                                    class="btn btn-primary text-xs   text-gray-300 btn-block btn-outlined">Upload Your id
-                                    document
-                                </label>
-                                <input matInput disabled formControlName="identification_documentUpload">
-                                <button type="button" mat-icon-button matSuffix (click)="fileInput.click()">
-                                    <mat-icon>attach_file</mat-icon>
-                                </button>
-                                <input (change)="selectFile($event)" type="file" id="fileUpload" hidden #fileInput  formControlName="identification_documentUpload"> -->
-              </div>
-              <div>
-                <label
-                  id="example-radio-group-label "
-                  class="text-xs text-gray-300"
-                  >is it legally registred ?</label
-                >
-                <mat-radio-group
-                  formControlName="is_legally_registered"
-                  aria-label="Select an option"
-                  class="mt-4"
-                >
-                  <mat-radio-button value="true">YES</mat-radio-button>
-                  <mat-radio-button value="false" class="ml-4"
-                    >NO</mat-radio-button
-                  >
+            </div>
+            <div class="grid grid-flow-col grid-cols-2 grid-rows-6">
+              <mat-file-upload [labelText]="''" [uploadButtonText]="'upload'" [showUploadButton]="true"
+                [selectButtonText]="'Upload your ID'" [showUploadButton]="true" [acceptedTypes]="'.doc, .pdf'"
+                (uploadClicked)="uploadID($event)">
+              </mat-file-upload>
+              <div class="mt-6">
+                <label id="example-radio-group-label " class="text-md text-gray-300 ml-4 ">is it legally registred
+                  ?</label>
+                <mat-radio-group class="ml-4" (change)='bsnssRegiStatus($event)'>
+                  <mat-radio-button value="NO" checked>NO</mat-radio-button>
+                  <mat-radio-button class="ml-4" value="YES">YES</mat-radio-button>
                 </mat-radio-group>
               </div>
-              <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300"
-                  >Business Legal Name
+              <mat-form-field *ngIf='hasBusinessInformation' appearance="fill" class="">
+                <mat-label class="text-xs text-gray-300">Business Legal Name
                 </mat-label>
                 <input matInput #input formControlName="business_legal_name" />
               </mat-form-field>
-              <mat-form-field appearance="fill">
-                <!-- <mat-label class="text-xs   text-gray-300">Upload Your id
-                                    document </mat-label> -->
-                <mat-label class="text-xs text-gray-300"
-                  >Uload Company document
-                </mat-label>
-                <input
-                  matInput
-                  disabled
-                  value="{{ companyDocumentFile?.name }}"
-                />
-                <button
-                  type="button"
-                  mat-icon-button
-                  matSuffix
-                  (click)="docFile.click()"
-                >
-                  <mat-icon>attach_file</mat-icon>
-                </button>
-                <input
-                  (change)="uploadCompanyDoc($event)"
-                  type="file"
-                  id="fileUpload"
-                  hidden
-                  #docFile
-                  formControlName="company_documentUpload"
-                />
-              </mat-form-field>
-
-              <div>
-                <!-- <label
-                  for="fileUpload"
-                  class="btn btn-primary btn-block btn-outlined text-xs text-gray-300"
-                  >Upload Your Company document
-                </label>
-                <input
-                  type="file"
-                  formControlName="company_documents"
-                  id="fileUpload"
-                  style="display: none"
-                  formControlName="company_documentUpload"
-                /> -->
-              </div>
+              <mat-file-upload *ngIf='hasBusinessInformation' [labelText]="''" [uploadButtonText]="'upload'"
+                [showUploadButton]="true" [selectButtonText]="'Uload Company document'" [showUploadButton]="true"
+                [acceptedTypes]="'.doc, .pdf'" (uploadClicked)="uploadCompanyDoc($event)">
+              </mat-file-upload>
             </div>
           </mat-expansion-panel>
         </mat-accordion>
-        <div class="mt-8 flex justify-center">
-          <button
-            *ngIf="!isBusinessSubmitted"
-            mat-raised-button
-            (click)="addBusiness()"
-            color="primary"
-            type="submit"
-          >
+        <div class="mt-2 flex justify-center">
+          <button *ngIf="!isBusinessSubmitted" mat-raised-button (click)="addBusiness()" color="primary" type="submit">
             Add Business
           </button>
-          <button
-          *ngIf="isBusinessSubmitted"
-          mat-raised-button
-          (click)="addBusiness()"
-          color="primary"
-          type="submit"
-          disabled
-        >
-          Adding...
-        </button>
-        <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
+          <button *ngIf="isBusinessSubmitted" mat-raised-button (click)="addBusiness()" color="primary" type="submit"
+            disabled>
+            Adding...
+          </button>
+          <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
         </div>
       </form>
     </div>
