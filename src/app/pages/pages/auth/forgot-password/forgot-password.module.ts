@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { IconModule } from '@visurel/iconify-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { NewPasswordComponent } from './new-password/new-password.component';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { HighlightModule } from 'src/@vex/components/highlight/highlight.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     MatInputModule,
     MatButtonModule,
     IconModule,
-    MatIconModule
+    MatIconModule,
+    NgOtpInputModule,
+    HighlightModule,
+    MatSnackBarModule
   ]
 })
 export class ForgotPasswordModule {

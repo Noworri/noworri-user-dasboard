@@ -47,8 +47,7 @@ export class AuthserviceService {
       );
   }
 
-  uploadFile(file: File, uid: string) {
-    // 279414289
+  uploadPhoto(file: File, uid: string) {
     const url = `https://api.noworri.com/api/uploadpp`;
     const formData: FormData = new FormData();
     formData.append("photo", file);
@@ -146,6 +145,98 @@ export class AuthserviceService {
     params = params.append("email", userData.email);
 
     return this.http.post(url, null, { responseType: "json", params }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  updatePassword(userData) {
+    const url = `https://api.noworri.com/api/forgotpassupdate`;
+    let params = new HttpParams();
+    params = params.append("uid", userData.uid);
+    params = params.append("password", userData.password);
+
+    return this.http.post(url, null, { responseType: "json", params }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  verifyUserPassword(userData) {
+    const url = `https://api.noworri.com/api/verifyuserpassword`;
+    return this.http.post(url, userData, { responseType: "json" }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  verifyEmail(userID, otp) {
+    const url = `https://api.noworri.com/api/verifyemail`;
+    let params = new HttpParams();
+    params = params.append("user_id", userID);
+    params = params.append("otp", otp);
+
+    return this.http.post(url, null, { responseType: "json", params }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  sendEmailVerificationCode(userData) {
+    const url = `https://api.noworri.com/api/sendotptoemail`;
+    let params = new HttpParams();
+    params = params.append("id", userData.id);
+    params = params.append("email", userData.email);
+
+    return this.http.post(url, null, { responseType: "json", params }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  sendSMSVerificationCode(userData) {
+    const url = `https://api.noworri.com/api/sendotptomobile`;
+
+    return this.http.post(url, userData, { responseType: "json" }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error", error.message);
+        return observableThrowError(error);
+      })
+    );
+  }
+
+  verifyUserByOTP(userData) {
+    const url = `https://api.noworri.com/api/verifyotp`;
+
+    return this.http.post(url, userData, { responseType: "json" }).pipe(
       map((response) => {
         return response;
       }),

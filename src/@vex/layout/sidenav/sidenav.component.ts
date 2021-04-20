@@ -51,7 +51,7 @@ export class SidenavComponent implements OnInit {
     this.businessDetails = JSON.parse(businessData)
     this.hasBusiness = this.businessDetails ? true : false;
 
-    this.businessLogoUrl = `https://noworri.com/api/public/uploads/company/business/${this.businessDetails.business_logo}`
+    this.businessLogoUrl = `https://noworri.com/api/public/uploads/company/business/${this.businessDetails?.business_logo}`
   }
 
   onMouseEnter() {

@@ -169,7 +169,7 @@ export class Step1Component implements OnInit {
     }
   }
 
-  // verifier si l'user s'est deja inscrit avec ce numero//
+  // Verify if the current  user is already registeredwith this phone number//
 
   verifyUser(realPhoneNumber) {
     this.authService
