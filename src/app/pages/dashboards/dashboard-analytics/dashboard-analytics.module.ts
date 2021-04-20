@@ -49,6 +49,10 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { DashboardDialogComponent } from "./dashboard-dialog/dashboard-dialog.component";
 
 import { MatFileUploadModule } from "mat-file-upload";
+import { NgOtpInputModule } from "ng-otp-input";
+import { HighlightModule } from "src/@vex/components/highlight/highlight.module";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { ImageCropperModule } from "ngx-image-cropper";
 @NgModule({
   declarations: [
     DashboardAnalyticsComponent,
@@ -105,6 +109,11 @@ import { MatFileUploadModule } from "mat-file-upload";
     MatTabsModule,
     MatDialogModule,
     MatFileUploadModule,
+    NgOtpInputModule,
+    FlexLayoutModule,
+    HighlightModule,
+    MatSnackBarModule,
+    ImageCropperModule
   ],
 })
 export class DashboardAnalyticsModule {}

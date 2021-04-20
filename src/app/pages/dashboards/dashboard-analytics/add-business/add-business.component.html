@@ -64,6 +64,7 @@
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300">Business phone number</mat-label>
                   <input matInput #input formControlName="business_phone" />
+                  <span matPrefix>{{ prefixCountryCode }}</span>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300">Business Email</mat-label>

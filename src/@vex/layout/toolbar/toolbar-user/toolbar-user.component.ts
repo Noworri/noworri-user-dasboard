@@ -4,6 +4,7 @@ import { ToolbarUserDropdownComponent } from './toolbar-user-dropdown/toolbar-us
 import icPerson from '@iconify/icons-ic/twotone-person';
 import { USER_SESSION_KEY } from 'src/app/Models/constants';
 import { Router } from '@angular/router';
+import { UserSession } from 'src/app/Models/interfaces';
 
 @Component({
   selector: 'vex-toolbar-user',
@@ -14,7 +15,8 @@ export class ToolbarUserComponent implements OnInit {
 
   dropdownOpen: boolean;
   icPerson = icPerson;
-  userData: any;
+  userData: UserSession;
+  ppURL: string;
 
   constructor(private popover: PopoverService,
               private router: Router,
@@ -28,6 +30,7 @@ export class ToolbarUserComponent implements OnInit {
               }
 
   ngOnInit() {
+    this.ppURL = this.userData.photo ? `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}` : `https://picsum.photos/200/300`;
   }
 
   showPopover(originRef: HTMLElement) {

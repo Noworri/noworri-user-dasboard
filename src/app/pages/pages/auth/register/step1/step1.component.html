@@ -17,6 +17,7 @@
           <mat-form-field fxFlex="grow">
             <mat-label>Phone Number</mat-label>
             <input formControlName="phoneNumber" pattern="^\d*[0-9]\d*$" matInput required />
+            <span matPrefix>{{ prefixCountryCode }}</span>
             <mat-error>
               <span *ngFor="let error of form.get('phoneNumber').errors | keyvalue">
                 {{ validationMessages.phoneNumber[error.key] }}

@@ -16,6 +16,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { CustomLayoutModule } from "./custom-layout/custom-layout.module";
 import { IntlTelInputNgModule } from "intl-tel-input-ng";
 import { NgOtpInputModule } from "ng-otp-input";
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { NgOtpInputModule } from "ng-otp-input";
     VexModule,
     CustomLayoutModule,
     IntlTelInputNgModule.forRoot(),
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent],
