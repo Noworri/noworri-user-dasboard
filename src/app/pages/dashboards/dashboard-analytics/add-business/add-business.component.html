@@ -160,7 +160,7 @@
             </div>
             <div class="grid grid-flow-col grid-cols-2 grid-rows-6">
               <mat-file-upload [labelText]="''" [uploadButtonText]="'upload'" [showUploadButton]="true"
-                [selectButtonText]="'Upload your ID'" [showUploadButton]="true" [acceptedTypes]="'.doc, .pdf'"
+                [selectButtonText]="'Upload your ID'" [showUploadButton]="false" [acceptedTypes]="'.doc, .pdf'"
                 (uploadClicked)="uploadID($event)">
               </mat-file-upload>
               <div class="mt-6">
@@ -177,8 +177,8 @@
                 <input matInput #input formControlName="business_legal_name" />
               </mat-form-field>
               <mat-file-upload *ngIf='hasBusinessInformation' [labelText]="''" [uploadButtonText]="'upload'"
-                [showUploadButton]="true" [selectButtonText]="'Uload Company document'" [showUploadButton]="true"
-                [acceptedTypes]="'.doc, .pdf'" (uploadClicked)="uploadCompanyDoc($event)">
+                [showUploadButton]="true" [selectButtonText]="'Uload Company document'" [showUploadButton]="false"
+                [acceptedTypes]="'.doc, .pdf'" (uploadClicked)=" uploadCompanyDoc($event)">
               </mat-file-upload>
             </div>
           </mat-expansion-panel>

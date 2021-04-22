@@ -4,15 +4,9 @@
       <div class="rounded-full h-9 w-9 -mb-6 flex items-center justify-center text-primary bg-primary-light">
         <img src="" />
       </div>
-      <div class="dropdown-heading">{{ userData.first_name }} {{userData.name}}</div>
+      <div class="dropdown-heading">{{ userData.first_name }} {{userData.name}} </div>
     </div>
-
-    <button [matMenuTriggerFor]="settingsMenu" mat-icon-button matTooltip="Settings" matTooltipPosition="before"
-      type="button">
-      <mat-icon [icIcon]="icSettings" class="notifications-header-icon"></mat-icon>
-    </button>
   </div>
-
   <div class="dropdown-content">
     <a (click)="close()" *ngFor="let item of items; trackBy: trackById" routerLink="{{item.route}}" class="notification"
       fxLayout="row" fxLayoutAlign="start center" matRipple>
