@@ -10,7 +10,7 @@ import icPerson from "@iconify/icons-ic/twotone-person";
 import { USER_SESSION_KEY } from "src/app/Models/constants";
 import { Router } from "@angular/router";
 import { UserSession } from "src/app/Models/interfaces";
-import icArrow from "@iconify/icons-ic/twotone-arrow-right";
+import icArrow from "@iconify/icons-ic/twotone-arrow-drop-down";
 
 @Component({
   selector: "vex-toolbar-user",

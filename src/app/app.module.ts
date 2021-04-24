@@ -17,6 +17,7 @@ import { CustomLayoutModule } from "./custom-layout/custom-layout.module";
 import { IntlTelInputNgModule } from "intl-tel-input-ng";
 import { NgOtpInputModule } from "ng-otp-input";
 import { ImageCropperModule } from 'ngx-image-cropper';
+import {MatFormFieldModule} from '@angular/material/form-field'; 
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     VexModule,
     CustomLayoutModule,
     IntlTelInputNgModule.forRoot(),
-    ImageCropperModule
+    ImageCropperModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent],

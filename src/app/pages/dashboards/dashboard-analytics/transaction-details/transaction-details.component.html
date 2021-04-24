@@ -1,173 +1,222 @@
 <vex-page-layout>
-  <vex-page-layout-header
-    class="pb-16"
-    fxLayout="column"
-    fxLayoutAlign="center start"
-  >
+  <vex-page-layout-header class="pb-16" fxLayout="column" fxLayoutAlign="center start">
     <div class="w-full flex flex-col sm:flex-row justify-between">
       <div>
         <h1 class="title mt-0 mb-1">Transactions Details</h1>
-        <vex-breadcrumbs
-          [crumbs]="['Dashboard', 'Transactions', 'Transaction-details']"
-        ></vex-breadcrumbs>
+        <vex-breadcrumbs [crumbs]="['Dashboard', 'Transactions', 'Transaction-details']"></vex-breadcrumbs>
       </div>
     </div>
   </vex-page-layout-header>
 
-  <vex-page-layout-content 
-  [class.container]="true"
-  [class.px-gutter]="true"
-  class="mt-6">
-  <div class="card overflow-auto -mt-16">
-    <div class="grid grid-flow-col ml-4 my-12 grid-cols-4 gap-x-4 grid-rows-1">
-      <div class="col-span-3">
-        <div class="py-4 pb-10 h-30 w-11/12 shadow-lg">
-          <div
-            class="grid grid-flow-col gap-x-12 ml-4 my-4 grid-cols-4 grid-rows-1"
-          >
-            <div class="col-span-3">
-              <h4 class="text-xs mx-2 text-gray-300">
-                Transations ID: {{ transactionDetails?.id }}
-              </h4>
+  <vex-page-layout-content [class.container]="true" [class.px-gutter]="true" class="-mt-16">
+    <div>
+      <div class="grid grid-flow-col grid-cols-3 head  grid-rows-1 gap-4">
+        <div class="col-span-2">
+          <div class="grid grid-flow-col grid-cols-3  grid-rows-1 ">
+            <div>
+              <div class="grid grid-flow-col grid-cols grid-rows-2 gap-4">
+                <div>
+                  <div class="grid grid-flow-col grid-cols-2 grid-rows-1 mt-2">
+                    <div class="ml-2"> <img class="block w-6 h-6  rounded-full" src="" /></div>
+                    <div class="-ml-12">
+                      <span class="text-xs text-gray-300">Marie Sanchaz</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="grid grid-flow-col grid-cols-2 grid-rows-1 gap-8">
+                    <div style="margin-top: -14px;">
+                      <ic-icon [icIcon]="icPhone" size="20px"></ic-icon>
+                    </div>
+                    <div class="-ml-16 -mt-4 ">
+                      <span class="text-xs text-gray-300">
+                        +233279414289
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div *ngIf="!isCancelled" class="w-12/12 items-right">
-              <button mat-button (click)="cancelTransaction()" color="warn">
-                Cancel
-              </button>
+            <div>
+              <div class="grid grid-flow-col grid-cols-2 grid-rows-1 mt-5 ">
+                <div class="-ml-12  mt-4">
+                  <ic-icon [icIcon]="icMap" size="20px"></ic-icon>
+                </div>
+                <div class="-ml-16 mt-2" style="margin-top: 13px;">
+                  <span class="text-xs text-gray-300  ">
+                    114,church streat,Accra
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div>
-            <div class="container my-4">
-              <div class="w-100 border">
-                <div class="p-2">
-                  <h4 class="buyersFunds text-base text-gray-300 items-left">
-                    Buyer's Funds locked
-                  </h4>
-                  <p class="text-xs text-gray-300 items-left">
-                    We have sent 5 digits codes by SMS to the carrier
-                    {{ transactionDetails?.delivery_phone }} and your self
-                    {{ transactionDetails?.destinator_phone }}
-                    which must be given to the buyer to confirm the reception of
-                    goods and money will be released automatically to your
-                    account
-                  </p>
+            <div>
+              <div class="grid grid-flow-col grid-cols-2 grid-rows-1  mt-12">
+                <div class="-ml-4 -mt-4 ">
+                  <ic-icon [icIcon]="icEmail" size="20px"></ic-icon>
+                </div>
+                <div class="-ml-12 -mt-4">
+                  <span class="text-xs text-gray-300">
+                    marisanchez@gmail.com
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-
-          <h4 class="text-xs mx-6 text-gray-300 underline">
-            {{ transactionDetails?.initiator_name }}'s order
-          </h4>
-          <!-- <div class="  grid grid-flow-col grid-cols-5 mx-6 my-6 grid-rows-3 gap-4"> -->
-          <table
-            mat-table
-            [dataSource]="dataSource"
-            class="mat-elevation-z8 w-full"
-            matSort
-          >
-            <!--  Column -->
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef>Item ID</th>
-              <td mat-cell *matCellDef="let item">
-                {{ item?.item_id }}
-              </td>
-            </ng-container>
-
-            <!--  Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>Item name</th>
-              <td mat-cell *matCellDef="let item">
-                {{ item?.name }}
-              </td>
-            </ng-container>
-
-            <!--  Column -->
-            <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef>Desription</th>
-              <td mat-cell *matCellDef="let item">
-                {{ item?.description }}
-              </td>
-            </ng-container>
-
-            <!--  Column -->
-            <ng-container matColumnDef="qty">
-              <th mat-header-cell *matHeaderCellDef>Quantity</th>
-              <td mat-cell *matCellDef="let item">{{ item?.items_qty }}</td>
-            </ng-container>
-
-            <!--  Column -->
-            <ng-container matColumnDef="price">
-              <th mat-header-cell *matHeaderCellDef>Price</th>
-              <td mat-cell *matCellDef="let item">{{ item?.price }}</td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="4">No data Data Found!</td>
-            </tr>
-          </table>
-          <!-- </div> -->
+        </div>
+        <div>
+          <div class="grid grid-cols-3 col-end-7 ">
+            <div class="mt-2">
+              <ic-icon [icIcon]="icLock" size="20px"></ic-icon>
+            </div>
+            <div class="-ml-8 mt-2">
+              <h3 class="text-md text-gray-300 ">6000.00 GHS</h3>
+            </div>
+            <div class="mt-2">
+              <ic-icon style="color:rgb(197, 55, 55);cursor: pointer;" [icIcon]="icCancel" size="20px"></ic-icon>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="grid grid-flow-col grid-cols-1 mx-4 grid-rows-2 gap-4">
-        <div class="shadow-lg w-12/12 h-20 pb-48">
-          <div class="grid grid-flow-col grid-cols-1 grid-rows-3 gap-2">
-            <div class="flex flex-row my-6 mx-6">
-              <div>
-                <mat-icon [icIcon]="icPerson"></mat-icon>
-              </div>
-              <div class="mx-2">
-                <h4 class="text-xs text-gray-300">
-                  {{ transactionDetails?.initiator_name }}
-                  {{ transactionDetails?.initiator_first_name }}
-                </h4>
-              </div>
-              <!-- <img alt="Placeholder" class="block w-10 h-10 rounded-full "
-                                      src="https://picsum.photos/200/300"> -->
-            </div>
-            <div class="flex flex-row -my-8 mx-6">
-              <div>
-                <mat-icon [icIcon]="icPhone"></mat-icon>
-              </div>
-              <div class="mx-2">
-                <h4 class="text-xs text-gray-300">
-                  {{ transactionDetails?.initiator_phone }}
-                </h4>
+
+
+
+      <div>
+        <div class="grid grid-cols-3 pb-20  bg-white ">
+          <div class="col-span-2">
+            <div class="flex mt-4 ml-4 ">
+              <div class="grid grid-flow-col grid-cols-1">
+                <ic-icon class="text-red" [icIcon]="icInfo" size="20px"></ic-icon>
+                <p class="text-xs text-gray-300 text-red">This transaction can only be cancelled by you </p>
               </div>
             </div>
-            <div class="flex flex-row -my-20 mx-6">
-              <div>
-                <mat-icon [icIcon]="icMap"></mat-icon>
+            <div class="flex mt-4 ml-4 ">
+              <div class="  grid grid-flow-col grid-cols-1">
+                <ic-icon class="text-red" [icIcon]="icInfo" size="20px"></ic-icon>
+                <p class="text-xs text-gray-300 text-red">Custumer must acknowledge receipe of goods with the delivery
+                  code this
+                  will release the money to your
+                  account </p>
               </div>
-              <div class="mx-2">
-                <h4 class="text-xs text-gray-300">
-                  {{
-                    transactionDetails?.initiator_address ||
-                      "This user has no delivery adress, please ask him toadd one."
-                  }}
-                </h4>
+            </div>
+
+
+            <hr class=" mt-4 bg-gray h-0.90 w-900 ">
+
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full ml-2 mt-4 px-7" matSort>
+              <!--  Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Item ID</th>
+                <td mat-cell *matCellDef="let item">
+                  {{ item?.item_id }}
+                </td>
+              </ng-container>
+
+
+              <!--  Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Item name</th>
+                <td mat-cell *matCellDef="let item">
+                  {{ item?.name }}
+                </td>
+              </ng-container>
+
+              <!--  Column -->
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Desription</th>
+                <td mat-cell *matCellDef="let item">
+                  {{ item?.description }}
+                </td>
+              </ng-container>
+
+
+
+              <!--  Column -->
+              <ng-container matColumnDef="qty">
+                <th mat-header-cell *matHeaderCellDef>Quantity</th>
+                <td mat-cell *matCellDef="let item">{{ item?.items_qty }}</td>
+              </ng-container>
+
+              <!--  Column -->
+              <ng-container matColumnDef="unity price">
+                <th mat-header-cell *matHeaderCellDef>Unity price</th>
+                <td mat-cell *matCellDef="let item">{{ item?.price }}</td>
+              </ng-container>
+
+
+              <!--  Column -->
+              <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef>Total</th>
+                <td mat-cell *matCellDef="let item"> 6000</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data Data Found!</td>
+              </tr>
+            </table>
+            <hr class=" mt-4 bg-gray h-0.90 w-900 ">
+
+            <div class="grid grid-flow-col grid-cols-2 ml-4 head mt-2 grid-rows-1 gap-8">
+              <div>
+                <h6 class="ml-4">Amount secured</h6>
+              </div>
+              <div class="flex flex-wrap  w-24 -pr-8 ml-48 ">
+                <ic-icon style="color: rgb(75, 75, 214)  " [icIcon]=" icLock" size="20px"></ic-icon>
+                <h6 class="text-right"> 6000 GHC</h6>
               </div>
             </div>
           </div>
-        </div>
-        <div class="shadow-lg w-12/12 h-200">
-          <div class="mx-2 my-1">
-            <h4 class="text-xs text-left mx-6 text-gray-300 underline">
-              shipment/Deliveryman
-            </h4>
+          <div>
+            <div class="h-64 grid grid-rows-2 grid-flow-col-1 gap-4">
+              <div>
+                <div class="grid grid-flow-col grid-cols-1 ml-4 head mt-2 grid-rows-1 gap-8">
+                  <div>
+                    <h6 class="text-center w-100">Delivery code confirmation</h6>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="text-center w-100 mt-10">55443</h3>
+                </div>
+              </div>
+
+              <div>
+                <div>
+                  <div class="grid grid-flow-col grid-cols-1 ml-4 head mt-2 grid-rows-1 gap-8">
+                    <div>
+                      <h6 class="text-center w-100">Dispatch Rider contact </h6>
+                      <p class="text-center text-gray-300 text-xs w-100 ">Every time you will change the dispatch
+                        rider,the
+                        custumer
+                        will get
+                        modified </p>
+                    </div>
+                  </div>
+                  <div *ngIf=' displayPhoneInput' class="ml-20 mt-4">
+                    <p>
+                      <mat-form-field appearance="legacy">
+                        <input matInput>
+                      </mat-form-field>
+                    </p>
+                    <div>
+                      <button mat-raised-button style="width: 180px;" color="primary">Change</button>
+                    </div>
+                  </div>
+                  <div class="  grid grid-flow-col grid-cols-1   text-center mt-4" *ngIf='!displayPhoneNumber'>
+                    <h5 class="text-md mr-8 text-gray-300">
+                      +233279414289
+                    </h5>
+                    <ic-icon [icIcon]="icEdit" class="-ml-56 " (click)='onDisplayInput()'
+                      style="cursor: pointer; color: rgb(75, 75, 214);" size="20px"></ic-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="text-xs text-gray-300 text-center ml-2 mr-2">
-            {{ transactionDetails?.delivery_phone }} is going to deliver the
-            items to the custumers.You can change change the delivery phone
-            number any time
-          </p>
         </div>
       </div>
     </div>
-  </div>
-
   </vex-page-layout-content>
 </vex-page-layout>
