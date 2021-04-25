@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import icPhone from "@iconify/icons-ic/twotone-phone";
-import icMap from "@iconify/icons-ic/twotone-map";
+import icMap from "@iconify/icons-ic/twotone-maps-home-work";
 import { IconModule } from "@visurel/iconify-angular";
 import { take, takeUntil } from "rxjs/operators";
 import { USER_SESSION_KEY } from "src/app/Models/constants";
@@ -9,7 +9,13 @@ import { TransactionsService } from "src/app/services/transactions.service";
 import { Subject } from "rxjs";
 import { NgForm } from "@angular/forms";
 import { MatTableDataSource } from "@angular/material/table";
-import icPerson from '@iconify/icons-ic/twotone-person';
+import icPerson from "@iconify/icons-ic/twotone-person";
+import icEmail from "@iconify/icons-ic/twotone-email";
+import icLock from "@iconify/icons-ic/twotone-lock";
+import icCancel from "@iconify/icons-ic/twotone-cancel";
+import icInfo from "@iconify/icons-ic/twotone-info";
+import icEdit from "@iconify/icons-ic/twotone-edit";
+import { MatTableModule } from "@angular/material/table";
 
 @Component({
   selector: "vex-transaction-details",
@@ -20,6 +26,14 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   icPhone = icPhone;
   icMap = icMap;
   icPerson = icPerson;
+  icEmail = icEmail;
+  icLock = icLock;
+  icCancel = icCancel;
+  icInfo = icInfo;
+  icEdit = icEdit;
+
+  displayPhoneNumber: boolean;
+  displayPhoneInput: boolean;
 
   orderData: any;
   userSessionData: any;
@@ -48,7 +62,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   dataLoaded = false;
   transactionKey: string;
   dataSource = new MatTableDataSource();
-  displayedColumns: string[] = ["id", "name", "description", "qty", "price"];
+  displayedColumns: string[] = ["id", "name", "description", "qty", "unity price","total"];
 
   constructor(
     private transactionsService: TransactionsService,
@@ -185,15 +199,21 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   }
 
   cancelTransaction() {
-    const data  = {
+    const data = {
       id: this.transactionDetails.id,
-      canceled_by: this.userSessionData.user_uid
-    }
-    this.transactionsService.cancelOrder(data).pipe(takeUntil(this.unsubscribe$))
-    .subscribe((response: any) => {
-      if(response.success && response.success === true) {
-        this.loadUserTransaction();
-      }
-    })
+      canceled_by: this.userSessionData.user_uid,
+    };
+    this.transactionsService
+      .cancelOrder(data)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response: any) => {
+        if (response.success && response.success === true) {
+          this.loadUserTransaction();
+        }
+      });
+  }
+  onDisplayInput() {
+    this.displayPhoneInput = !this.displayPhoneInput;
+    this.displayPhoneNumber = !this.displayPhoneNumber;
   }
 }

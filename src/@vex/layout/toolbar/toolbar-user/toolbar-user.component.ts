@@ -1,36 +1,46 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { PopoverService } from '../../../components/popover/popover.service';
-import { ToolbarUserDropdownComponent } from './toolbar-user-dropdown/toolbar-user-dropdown.component';
-import icPerson from '@iconify/icons-ic/twotone-person';
-import { USER_SESSION_KEY } from 'src/app/Models/constants';
-import { Router } from '@angular/router';
-import { UserSession } from 'src/app/Models/interfaces';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from "@angular/core";
+import { PopoverService } from "../../../components/popover/popover.service";
+import { ToolbarUserDropdownComponent } from "./toolbar-user-dropdown/toolbar-user-dropdown.component";
+import icPerson from "@iconify/icons-ic/twotone-person";
+import { USER_SESSION_KEY } from "src/app/Models/constants";
+import { Router } from "@angular/router";
+import { UserSession } from "src/app/Models/interfaces";
+import icArrow from "@iconify/icons-ic/twotone-arrow-drop-down";
 
 @Component({
-  selector: 'vex-toolbar-user',
-  templateUrl: './toolbar-user.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "vex-toolbar-user",
+  templateUrl: "./toolbar-user.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarUserComponent implements OnInit {
-
+  icArrow = icArrow;
   dropdownOpen: boolean;
   icPerson = icPerson;
   userData: UserSession;
   ppURL: string;
 
-  constructor(private popover: PopoverService,
-              private router: Router,
-              private cd: ChangeDetectorRef) {
-                const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
-                if(sessionData) {
-                  this.userData = sessionData;
-                } else {
-                  router.navigate(['/auth/login'])
-                }
-              }
+  constructor(
+    private popover: PopoverService,
+    private router: Router,
+    private cd: ChangeDetectorRef
+  ) {
+    const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
+    if (sessionData) {
+      this.userData = sessionData;
+    } else {
+      router.navigate(["/auth/login"]);
+    }
+  }
 
   ngOnInit() {
-    this.ppURL = this.userData.photo ? `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}` : `https://picsum.photos/200/300`;
+    this.ppURL = this.userData.photo
+      ? `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`
+      : `https://picsum.photos/200/300`;
   }
 
   showPopover(originRef: HTMLElement) {
@@ -43,18 +53,18 @@ export class ToolbarUserComponent implements OnInit {
       offsetY: 12,
       position: [
         {
-          originX: 'center',
-          originY: 'top',
-          overlayX: 'center',
-          overlayY: 'bottom'
+          originX: "center",
+          originY: "top",
+          overlayX: "center",
+          overlayY: "bottom",
         },
         {
-          originX: 'end',
-          originY: 'bottom',
-          overlayX: 'end',
-          overlayY: 'top',
+          originX: "end",
+          originY: "bottom",
+          overlayX: "end",
+          overlayY: "top",
         },
-      ]
+      ],
     });
 
     popoverRef.afterClosed$.subscribe(() => {

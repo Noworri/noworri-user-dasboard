@@ -5,7 +5,6 @@ import { takeUntil } from "rxjs/operators";
 import { BUSINESS_DATA_KEY, USER_SESSION_KEY } from "src/app/Models/constants";
 import { BusinessAcount, UserSession } from "src/app/Models/interfaces";
 import { TransactionsService } from "src/app/services/transactions.service";
-
 @Component({
   selector: "vex-business-settings",
   templateUrl: "./business-settings.component.html",
@@ -51,6 +50,7 @@ export class BusinessSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBankList(this.country);
+
     this.getBusinessAccountDetails();
     this.accountDetails = this.formBuilder.group({
       bankName: ["", Validators.required],
@@ -65,7 +65,7 @@ export class BusinessSettingsComponent implements OnInit {
   }
 
   toggleUpdateAccountModal() {
-    this.showUpdateModal = !this.showUpdateModal
+    this.showUpdateModal = !this.showUpdateModal;
   }
 
   setupAccountDetailsForm() {
@@ -123,7 +123,7 @@ export class BusinessSettingsComponent implements OnInit {
       account_number: accountDetails.accountNo,
       bank_code: accountDetails.bankCode,
       currency: this.userData.currency,
-      recipient_code: this.businessAccountDetails.recipient_code
+      recipient_code: this.businessAccountDetails.recipient_code,
     };
     this.transactionService
       .updateRecipient(this.recipientDetails, this.userId)
@@ -164,7 +164,7 @@ export class BusinessSettingsComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((details: any) => {
         this.businessAccountDetails = details.data;
-        this.hasPayoutAccount = details.data ? true: false;
+        this.hasPayoutAccount = details.data ? true : false;
         // this.businessAccountDetails = details.data?.find(
         //   (detail) =>
         //     !detail.bank_name.includes("AirtelTigo") &&

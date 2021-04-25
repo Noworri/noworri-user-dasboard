@@ -13,6 +13,7 @@ import icAdd from "@iconify/icons-ic/twotone-add";
 import icFilterList from "@iconify/icons-ic/twotone-filter-list";
 import icMoreHoriz from "@iconify/icons-ic/twotone-more-horiz";
 import icFolder from "@iconify/icons-ic/twotone-folder";
+
 import { Router } from "@angular/router";
 import { TransactionsService } from "src/app/services/transactions.service";
 import { takeUntil } from "rxjs/operators";
@@ -135,14 +136,14 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
 
   statusLabels = TRANSACTION_TABLE_LABELS;
 
-    // cols: TableColumn<any>[] = [
-    //   { label: 'Date', property: 'date', type: 'text', visible: true },
-    //   { label: 'Transaction Type', property: 'transactionType', type: 'image', visible: true },
-    //   { label: 'Daling With', property: 'dealingWith', type: 'text', visible: true },
-    //   { label: 'Amount', property: 'amount', type: 'text', visible: true },
-    //   { label: 'Status', property: 'status', type: 'button', visible: true },
-    //  ];
-  
+  // cols: TableColumn<any>[] = [
+  //   { label: 'Date', property: 'date', type: 'text', visible: true },
+  //   { label: 'Transaction Type', property: 'transactionType', type: 'image', visible: true },
+  //   { label: 'Daling With', property: 'dealingWith', type: 'text', visible: true },
+  //   { label: 'Amount', property: 'amount', type: 'text', visible: true },
+  //   { label: 'Status', property: 'status', type: 'button', visible: true },
+  //  ];
+
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   applyFilter(event: Event) {
@@ -180,7 +181,7 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
   }
 
   getStatusLabel(status: string) {
-    return this.statusLabels.find(label => label.text === status)
+    return this.statusLabels.find((label) => label.text === status);
   }
 
   ngOnDestroy() {
@@ -239,11 +240,14 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
               details["buyerPhone"] = details.initiator_phone;
             }
             this.amount = details.total_price;
-            details.state = this.getStatusLabel(details.state)
+            details.state = this.getStatusLabel(details.state);
 
             return details;
           });
-          const filteredDetails = this.transactionsData.filter(detail => detail.transaction_source === TRANSACTION_SOURCE.BUSINESS)
+          const filteredDetails = this.transactionsData.filter(
+            (detail) =>
+              detail.transaction_source === TRANSACTION_SOURCE.BUSINESS
+          );
 
           this.hasNoTransactions = transactions.length === 0 ? true : false;
           this.dataSource = new MatTableDataSource(filteredDetails);
@@ -255,18 +259,16 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
 
   processDateData() {}
 
-  viewTransactionDetails(
-    transactionData
-  ) {
+  viewTransactionDetails(transactionData) {
     const transactionKey = transactionData.transaction_key;
-    this.router.navigate([`dashboards/transactions/transaction-details/${transactionKey}`]);
+    this.router.navigate([
+      `dashboards/transactions/transaction-details/${transactionKey}`,
+    ]);
     // const userRole = transactionData.destinator_role;
     // // ownerRole,
     // const userPhone = transactionData.destinator_phone;
     // let transactionType = transactionData.transaction_type;
     // transactionType = transactionType.toLowerCase();
-
-
 
     // if (this.userRole === "buy" && transactionType === "merchandise") {
     //   this.router.navigate([`buyermerchandisecontrat/${transactionKey}`]);
