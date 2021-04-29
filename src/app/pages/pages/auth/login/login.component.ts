@@ -14,6 +14,7 @@ import { fadeInUp400ms } from "../../../../../@vex/animations/fade-in-up.animati
 import { AuthserviceService } from "src/app/services/authservice.service";
 import { GeoLocationService } from "src/app/services/geo-location.service";
 import {
+  BUSINESS_DATA_KEY,
   countryISO,
   SESSION_STORAGE_KEY,
   USER_SESSION_KEY,
@@ -21,6 +22,7 @@ import {
 import { take, takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { UserReference } from "src/app/services/reference-data.interface";
+import { BusinessService } from "src/app/services/business.service";
 
 @Component({
   selector: "vex-login",
@@ -48,6 +50,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   isValidating = false;
   password: string;
   sessionResponse: any;
+  userId: string;
+  businessAccountData: any;
+
 
   form: FormGroup;
 
@@ -63,6 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private snackbar: MatSnackBar,
     private authService: AuthserviceService,
+    private businessService: BusinessService,
     private geoLocationService: GeoLocationService
   ) {
     const sessionData = sessionStorage.getItem(SESSION_STORAGE_KEY);
@@ -150,6 +156,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 currency: response.currentUser.currency,
                 country_code: response.currentUser.country_code,
               };
+              this.userId = response.currentUser.user_uid
+              this.getBusinessAccountDetails();
               const sessionData = {
                 token: response.currentUser.token,
               };
@@ -157,7 +165,6 @@ export class LoginComponent implements OnInit, OnDestroy {
               sessionStorage.setItem(SESSION_STORAGE_KEY, sessionStorageData);
               const userData = JSON.stringify(this.sessionResponse);
               localStorage.setItem(USER_SESSION_KEY, userData);
-              this.router.navigate(["dashboards"]);
             } else {
               this.isValidating = false;
               this.isValidUser = false;
@@ -171,6 +178,23 @@ export class LoginComponent implements OnInit, OnDestroy {
     } else {
       this.isValidating = false;
     }
+  }
+
+  getBusinessAccountDetails() {
+    this.businessService
+      .getBusinessDetails(this.userId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((businessData: any) => {
+        if (businessData.status !== 404) {
+        // if (businessData.status !== 404 && businessData.status === "approved") {
+          this.businessAccountData = businessData;
+          localStorage.setItem(BUSINESS_DATA_KEY, JSON.stringify(businessData));
+        } else {
+          return 'No business aded yet'
+        }
+        this.router.navigate(["dashboards"]);
+        return businessData;
+      });
   }
 
   ProcessphoneNumber() {

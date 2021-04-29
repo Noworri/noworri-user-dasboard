@@ -7,13 +7,37 @@ export enum TRANSACTION_SOURCE {
   VENDOR = "vendor",
 }
 
+export const PAYOUT_TABLE_LABELS = [
+  {
+    text: 'Pending',
+    textClass: 'text-primary',
+    cssClasses: ['text-primary','bg-primary-light'],
+    bgClass: 'bg-primary-light',
+    previewClass: 'bg-primary'
+  },
+  {
+    text: 'Completed',
+    textClass: 'text-green',
+    cssClasses: ['text-green','bg-cyan-light'],
+    bgClass: 'bg-cyan-light',
+    previewClass: 'bg-green'
+  },
+  {
+    text: 'Cancelled',
+    cssClasses: ['text-purple','bg-purple-light'],
+    textClass: 'text-purple',
+    bgClass: 'bg-puple-light',
+    previewClass: 'bg-cyan'
+  },
+];
+
 export const TRANSACTION_TABLE_LABELS = [
   {
     text: 'Withdrawn',
-    textClass: 'text-blue',
-    cssClasses: ['text-blue','bg-blue-light'],
-    bgClass: 'bg-blue-light',
-    previewClass: 'bg-green'
+    textClass: 'text-primary',
+    cssClasses: ['text-primary','bg-primary-light'],
+    bgClass: 'bg-primary-light',
+    previewClass: 'bg-primary'
   },
   {
     text: 'Secured',

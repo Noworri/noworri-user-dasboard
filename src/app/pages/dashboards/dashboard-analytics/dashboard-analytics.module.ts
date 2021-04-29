@@ -53,6 +53,9 @@ import { NgOtpInputModule } from "ng-otp-input";
 import { HighlightModule } from "src/@vex/components/highlight/highlight.module";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { ImageCropperModule } from "ngx-image-cropper";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { UserProfileModalComponent } from './user-profil/user-profile-modal/user-profile-modal.component';
+import { AddPayoutAccountModalComponent } from './business-settings/add-payout-account-modal/add-payout-account-modal.component';
 @NgModule({
   declarations: [
     DashboardAnalyticsComponent,
@@ -65,6 +68,8 @@ import { ImageCropperModule } from "ngx-image-cropper";
     DevelopersComponent,
     BusinessActivationPendingComponent,
     DashboardDialogComponent,
+    UserProfileModalComponent,
+    AddPayoutAccountModalComponent,
   ],
   imports: [
     CommonModule,
@@ -113,7 +118,8 @@ import { ImageCropperModule } from "ngx-image-cropper";
     FlexLayoutModule,
     HighlightModule,
     MatSnackBarModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatProgressBarModule
   ],
 })
 export class DashboardAnalyticsModule {}

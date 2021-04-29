@@ -1,22 +1,25 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { BUSINESS_DATA_KEY, USER_SESSION_KEY } from "src/app/Models/constants";
-import { BusinessAcount, UserSession } from "src/app/Models/interfaces";
-import { TransactionsService } from "src/app/services/transactions.service";
-import { AddPayoutAccountModalComponent } from "./add-payout-account-modal/add-payout-account-modal.component";
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { BUSINESS_DATA_KEY, USER_SESSION_KEY } from 'src/app/Models/constants';
+import { UserSession } from 'src/app/Models/interfaces';
+import { AuthserviceService } from 'src/app/services/authservice.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
+
 @Component({
-  selector: "vex-business-settings",
-  templateUrl: "./business-settings.component.html",
-  styleUrls: ["./business-settings.component.scss"],
+  selector: 'vex-add-payout-account-modal',
+  templateUrl: './add-payout-account-modal.component.html',
+  styleUrls: ['./add-payout-account-modal.component.scss']
 })
-export class BusinessSettingsComponent implements OnInit {
+export class AddPayoutAccountModalComponent implements OnInit {
+  configs: any;
+  userData: UserSession;
+  userBusinessData: any;
   showModal = false;
   showUpdateModal = false;
-  userBusinessData: BusinessAcount;
-  userData: UserSession;
   userId: string;
   businessAccountDetails: any;
   isAdding = false;
@@ -32,26 +35,41 @@ export class BusinessSettingsComponent implements OnInit {
   bankNames = [];
   country: string;
   hasPayoutAccount = false;
-  actionResult: any;
-  
+
   unsubscribe$ = new Subject();
+
   constructor(
-    private dialog: MatDialog,
     private transactionService: TransactionsService,
-    private formBuilder: FormBuilder
+    private snackBar: MatSnackBar,
+    private formBuilder: FormBuilder,
+    private cd: ChangeDetectorRef,
+    private authService: AuthserviceService,
+    private dialogRef: MatDialogRef<any>,
+    @Inject(MAT_DIALOG_DATA) data
   ) {
+    this.configs = data;
+    const sessionData = localStorage.getItem(USER_SESSION_KEY);
+    this.userData = JSON.parse(sessionData);
     const businessData = localStorage.getItem(BUSINESS_DATA_KEY);
     this.userBusinessData = JSON.parse(businessData);
-    const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
-    this.userData = sessionData;
-    this.userId = sessionData.user_uid;
-    if (sessionData.currency === "GHS") {
+    this.userId = this.userData.user_uid;
+    if (this.userData.currency === "GHS") {
       this.country = "Ghana";
     } else {
       this.country = "Nigeria";
     }
+
   }
 
+  
+  openSnackbar(message: string) {
+    this.snackBar.open(message, "CLOSE", {
+      duration: 3000,
+      horizontalPosition: "right",
+    });
+  }
+
+  
   ngOnInit(): void {
     this.getBankList(this.country);
 
@@ -64,28 +82,6 @@ export class BusinessSettingsComponent implements OnInit {
       type: ["", Validators.required],
     });
   }
-
-  
-  openDialog(showAddModal, showUpdateModal) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose =  false;
-    dialogConfig.data = {
-      dialogHeader: showAddModal ? 'UPDATE EMAIL' : 'UPDATE PASSWORD',
-      buttonCancel: 'CANCEL',
-      buttonConfirm: 'CONFRIM',
-      showUpdateModal,
-      showAddModal
-    }
-    this.dialog.open(AddPayoutAccountModalComponent, dialogConfig).afterClosed().subscribe(result => {
-      this.actionResult = result;
-      if(result === 'Yes') {
-        console.log('confirmed');
-        // this.withdraw();
-      }
-    });
-  }
-
-
   toggleModal() {
     this.showModal = !this.showModal;
   }
@@ -157,7 +153,8 @@ export class BusinessSettingsComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === true && response.data?.recipient_code) {
           this.isAdding = false;
-          this.toggleUpdateAccountModal();
+          this.close('');
+          this.openSnackbar('Payout Account Updated Successfully!');
           this.getBusinessAccountDetails();
         }
         if (response.status === false) {
@@ -178,6 +175,7 @@ export class BusinessSettingsComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
         if (response["status"] === true) {
+          this.openSnackbar('Payout Account deleted Successfully!');
           this.getBusinessAccountDetails();
         }
         return response;
@@ -237,6 +235,7 @@ export class BusinessSettingsComponent implements OnInit {
         if (response.status === true && response.data?.recipient_code) {
           this.isAdding = false;
           this.toggleModal();
+          this.openSnackbar('Payout Account Added Successfully!');
           this.getBusinessAccountDetails();
         }
         if (response.status === false) {
@@ -245,5 +244,9 @@ export class BusinessSettingsComponent implements OnInit {
         }
         return response;
       });
+  }
+
+  close(answer: string) {
+    this.dialogRef.close(answer);
   }
 }
