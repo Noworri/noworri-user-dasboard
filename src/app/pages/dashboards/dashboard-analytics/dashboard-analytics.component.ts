@@ -154,7 +154,6 @@ export class DashboardAnalyticsComponent implements OnInit {
   ngOnInit() {
     this.getTransactionsSummaryData(this.userId);
     this.getTransactionsSummaryCurrentMonthData()
-    this.getBusinessAccountDetails();
     this.isBusinessAccount = this.accountTypeData
       ? this.accountTypeData.isBusinessAccount
       : this.isBusinessAccount;
@@ -263,24 +262,4 @@ export class DashboardAnalyticsComponent implements OnInit {
     window.location.reload();
   }
 
-  getBusinessAccountDetails() {
-    this.businessService
-      .getBusinessDetails(this.userId)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((businessData: any) => {
-        if (businessData.status !== 404) {
-        // if (businessData.status !== 404 && businessData.status === "approved") {
-          this.businessAccountData = businessData;
-          localStorage.setItem(BUSINESS_DATA_KEY, JSON.stringify(businessData));
-          this.businessPp =
-            businessData.business_logo === null || undefined
-              ? "../../../assets/homebg.jpg"
-              : `https://noworri.com/api/public/uploads/company/business/${businessData.business_logo}`;
-          this.hasBusinessAccount = true;
-        } else {
-          this.hasBusinessAccount = false;
-        }
-        return businessData;
-      });
-  }
 }

@@ -1,0 +1,231 @@
+
+<!-- popup -->
+<div
+  *ngIf="configs.showPaswordModal"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
+>
+  <div class="relative w-auto my-6 mx-auto max-w-sm">
+    <!--content-->
+    <form [formGroup]="updatePasswordForm">
+      <div
+        class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+      >
+        <!--header-->
+        <div
+          class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
+        >
+          <h3 class="text-sm text-gray-300">UPDATE PASSWORD</h3>
+          <button
+            class="p-1 ml-auto bg-transparent border-0 text-red opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            (click)="close('No answer')"
+          >
+            <span
+              class="bg-transparent -mt-2 text-red opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"
+            >
+              ×
+            </span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label class="text-xs text-gray-300"
+                >Current Password</mat-label
+              >
+              <input
+                type="password"
+                formControlName="currentPswd"
+                matInput
+                required
+              />
+              <!-- <button (click)="toggleVisibility()" mat-icon-button matSuffix matTooltip="Toggle Visibility" type="button">
+                          <mat-icon *ngIf="visible" [icIcon]="icVisibility"></mat-icon>
+                          <mat-icon *ngIf="!visible" [icIcon]="icVisibilityOff"></mat-icon>
+                        </button> -->
+              <mat-error
+                *ngIf="
+                  updatePasswordForm.get('currentPswd').hasError('required')
+                "
+                >Current password is required</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label class="text-xs text-gray-300">New Password</mat-label>
+              <input
+                [type]="inputType"
+                formControlName="newPswd"
+                matInput
+                required
+              />
+              <button
+                (click)="toggleVisibility()"
+                mat-icon-button
+                matSuffix
+                matTooltip="Toggle Visibility"
+                type="button"
+              >
+                <mat-icon *ngIf="visible" [icIcon]="icVisibility"></mat-icon>
+                <mat-icon
+                  *ngIf="!visible"
+                  [icIcon]="icVisibilityOff"
+                ></mat-icon>
+              </button>
+              <mat-hint>Click the eye to toggle visibility</mat-hint>
+              <mat-error
+                *ngIf="updatePasswordForm.get('newPswd').hasError('required')"
+                >New password is required</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label class="text-xs text-gray-300"
+                >Confirm Password</mat-label
+              >
+              <input
+                [type]="inputType"
+                formControlName="confirmPswd"
+                matInput
+                required
+              />
+              <button
+                (click)="toggleVisibility()"
+                mat-icon-button
+                matSuffix
+                matTooltip="Toggle Visibility"
+                type="button"
+              >
+                <mat-icon *ngIf="visible" [icIcon]="icVisibility"></mat-icon>
+                <mat-icon
+                  *ngIf="!visible"
+                  [icIcon]="icVisibilityOff"
+                ></mat-icon>
+              </button>
+              <mat-hint>Click the eye to toggle visibility</mat-hint>
+              <mat-error
+                *ngIf="
+                  updatePasswordForm.get('confirmPswd').hasError('required')
+                "
+                >Confirmation is required</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <mat-error *ngIf="updatePasswordForm.errors?.passwordsDoNotMatch">
+            The Passwords Do Not Match
+          </mat-error>
+        </div>
+        <!--footer-->
+        <div
+          class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b"
+        >
+          <button
+            (click)="updatePassword()"
+            [disabled]="updatePasswordForm.invalid"
+            mat-raised-button
+            color="primary"
+          >
+            Update Password
+          </button>
+        </div>
+        <div class="row">
+          <mat-error *ngIf="hasError"> Current Password is Wrong! </mat-error>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div
+  *ngIf="configs.showPaswordModal"
+  class="opacity-25 fixed inset-0 z-40 bg-black"
+></div>
+<!-- popup -->
+
+<!-- popup -->
+
+<div
+  *ngIf="configs.showEmailModal"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
+>
+  <div class="relative w-auto my-6 mx-auto max-w-sm">
+    <!--content-->
+    <form [formGroup]="updateEmailForm">
+      <div
+        class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+      >
+        <!--header-->
+        <div
+          class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
+        >
+          <h3 class="text-sm text-gray-300">UPDATE EMAIL</h3>
+          <button
+            class="p-1 ml-auto bg-transparent border-0 text-red opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            (click)="close('No answer')"
+          >
+            <span
+              class="bg-transparent -mt-2 text-red opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"
+            >
+              ×
+            </span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <div>
+            <mat-form-field *ngIf="!isOTPSent" appearance="fill">
+              <mat-label class="text-xs text-gray-300">
+                New Email</mat-label
+              >
+              <input matInput type="email" formControlName="email" />
+              <mat-error *ngIf="updateEmailForm.status === 'INVALID'">
+                  Please enter a valid Email
+              </mat-error>    
+            </mat-form-field>
+            <div *ngIf="isOTPSent">
+              <mat-label>OTP CODE</mat-label>
+              <div class="row">
+                <ng-otp-input
+                  class="otp"
+                  (onInputChange)="onOtpInput($event)"
+                  [config]="{ length: 5, size: 3 }"
+                ></ng-otp-input>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--footer-->
+        <div
+          *ngIf="!isOTPSent"
+          class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b"
+        >
+          <button
+            [disabled]="updateEmailForm.status === 'INVALID' || !isButtonActive"
+            (click)="sendVerificationCode()"
+            mat-raised-button
+            color="primary"
+          >
+            Send Verification Code
+          </button>
+        </div>
+        <!--footer-->
+        <div
+          *ngIf="isOTPSent"
+          class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b"
+        >
+          <button
+          [disabled]="!isButtonActive"
+          (click)="verifyOTP()"
+            mat-raised-button
+            color="primary"
+          >
+            Verify Email
+          </button>
+          <mat-error *ngIf="hasError">{{ codeError }}</mat-error>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div
+  *ngIf="showEmailModal"
+  class="opacity-25 fixed inset-0 z-40 bg-black"
+></div>
+<!-- popup -->

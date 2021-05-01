@@ -7,7 +7,7 @@ import { USER_SESSION_KEY } from "src/app/Models/constants";
 import { ActivatedRoute } from "@angular/router";
 import { TransactionsService } from "src/app/services/transactions.service";
 import { Subject } from "rxjs";
-import { NgForm } from "@angular/forms";
+import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import { MatTableDataSource } from "@angular/material/table";
 import icPerson from "@iconify/icons-ic/twotone-person";
 import icEmail from "@iconify/icons-ic/twotone-email";
@@ -16,6 +16,7 @@ import icCancel from "@iconify/icons-ic/twotone-cancel";
 import icInfo from "@iconify/icons-ic/twotone-info";
 import icEdit from "@iconify/icons-ic/twotone-edit";
 import { MatTableModule } from "@angular/material/table";
+import { GeoLocationService } from "src/app/services/geo-location.service";
 
 @Component({
   selector: "vex-transaction-details",
@@ -48,6 +49,8 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   noworriFee;
   hasDeliveryPhone;
   deliveryPhone;
+  newDeliveryNo: string;
+  buyerPhototURL: string;
   isUpdating = false;
   isUpdatingDelivery: boolean;
   prefixCountryCode: string;
@@ -62,11 +65,17 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   dataLoaded = false;
   transactionKey: string;
   dataSource = new MatTableDataSource();
-  displayedColumns: string[] = ["id", "name", "description", "qty", "unity price","total"];
+  displayedColumns: string[] = ["id", "name", "description", "qty","total"];
+  locationData: any;
+  countryData: any;
+  waitingDisplayInput: boolean;
+  form: FormGroup;
 
   constructor(
     private transactionsService: TransactionsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private geoLocationService: GeoLocationService,
+    private fb: FormBuilder
   ) {
     const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
     this.userSessionData = sessionData;
@@ -76,7 +85,9 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getLocationData();
     this.loadUserTransaction();
+    this.setUpdateDeliveryForm();
   }
 
   ngOnDestroy() {
@@ -104,19 +115,15 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
     this.isUpdatingDelivery = this.isUpdatingDelivery === true ? false : true;
   }
 
-  updateDeliveryPhone(form: NgForm) {
+  setUpdateDeliveryForm() {
+    this.form = this.fb.group({
+      newDeliveryNo: ["", [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    });
+  }
+
+  updateDeliveryPhone() {
+    const newDeliveryNo = this.form.value['newDeliveryNo'];
     this.isUpdating = true;
-    const newDeliveryNo = form.value["newDelivery"];
-    const telInputPlaceholderInputValue = document
-      .getElementsByTagName("input")[1]
-      .getAttribute("placeholder");
-    if (telInputPlaceholderInputValue === "023 123 4567") {
-      this.prefixCountryCode = "+233";
-    } else if (telInputPlaceholderInputValue === "0802 123 4567") {
-      this.prefixCountryCode = "+234";
-    } else if (telInputPlaceholderInputValue === "01 23 45 67") {
-      this.prefixCountryCode = "+225";
-    }
     const newDelivery = `${this.prefixCountryCode}${newDeliveryNo}`;
     this.transactionsService
       .updateDeliveryPhone(this.transactionId, newDelivery)
@@ -135,6 +142,36 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
           this.loadUserTransaction();
         }
       );
+  }
+
+  getLocationData() {
+    new Promise((resolve) => {
+      this.geoLocationService.getLocation().subscribe((data) => {
+        resolve((this.locationData = data));
+      });
+    })
+      .then(() => {
+        if (!this.locationData) {
+          this.waitingDisplayInput = false;
+        } else {
+          this.waitingDisplayInput = true;
+          this.countryData = {
+            preferredCountries: [`${this.locationData}`],
+            localizedCountries: { ng: "Nigeria", gh: "Ghana" },
+            onlyCountries: ["GH", "NG"],
+          };
+        }
+      })
+      .then(() => {
+        if (
+          this.locationData.country_code === "GH" ||
+          this.locationData.country_code === "NG"
+        ) {
+          this.prefixCountryCode = this.locationData.country_calling_code;
+        } else {
+          this.prefixCountryCode = "+233";
+        }
+      });
   }
 
   loadUserTransaction() {
@@ -158,6 +195,10 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
             this.deliveryPhone = details.delivery_phone
               ? details.delivery_phone
               : "N/A";
+              this.buyerPhototURL = details.initiator_photo
+              ? `https://noworri.com/api/public/uploads/images/pp/${details.initiator_photo}`
+              : ``;      
+  
             if (details.etat === "3") {
               this.isFundsReleased = true;
             }

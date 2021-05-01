@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import icSearch from "@iconify/icons-ic/twotone-search";
 import { MatTableDataSource } from "@angular/material/table";
-import { BUSINESS_DATA_KEY, SUMMARY_DATA_KEY, USER_SESSION_KEY } from "src/app/Models/constants";
+import { BUSINESS_DATA_KEY, PAYOUT_TABLE_LABELS, SUMMARY_DATA_KEY, USER_SESSION_KEY } from "src/app/Models/constants";
 import { BusinessAcount, UserSession, UserTransactionsSummary } from "src/app/Models/interfaces";
 import { TransactionsService } from "src/app/services/transactions.service";
 import { takeUntil } from "rxjs/operators";
@@ -40,6 +40,15 @@ export class PayoutsComponent implements OnInit {
     "status",
     "payoutOn",
   ];
+  statusLabels = PAYOUT_TABLE_LABELS;
+  TRANSFER_MODE = {
+    text: 'Bank Wiring',
+    textClass: 'text-primary',
+    cssClasses: ['text-primary','bg-primary-light'],
+    bgClass: 'bg-primary-light',
+    previewClass: 'bg-primary'
+  };
+
 
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 20, 50];
@@ -79,6 +88,10 @@ export class PayoutsComponent implements OnInit {
   ngOnInit(): void {
     this.isWithdrawable = this.summaryData.totalPayouts > 1000 ? true : false;
     this.loadPayouts(this.userData.user_uid);
+  }
+
+  getStatusLabel(status: string) {
+    return this.statusLabels.find((label) => label.text === status);
   }
 
   openDialog() {
@@ -142,7 +155,11 @@ export class PayoutsComponent implements OnInit {
       .subscribe(
         (transactions) => {
           this.hasPayouts = transactions.length ? true : false;
-          this.dataSource = new MatTableDataSource(transactions);
+          const updatedTransactions = transactions.map(transfer => {
+            transfer.status = this.getStatusLabel(transfer.status);
+            return transfer;
+          })
+          this.dataSource = new MatTableDataSource(updatedTransactions);
         },
         (error) => console.log(error.message)
       );

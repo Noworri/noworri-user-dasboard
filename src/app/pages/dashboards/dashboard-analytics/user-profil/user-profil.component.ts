@@ -17,6 +17,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { HttpErrorResponse } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { ImageCroppedEvent } from "ngx-image-cropper";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { UserProfileModalComponent } from "./user-profile-modal/user-profile-modal.component";
 
 @Component({
   selector: "vex-user-profil",
@@ -27,6 +29,7 @@ export class UserProfilComponent implements OnInit {
   hide = true;
   userData: UserSession;
   icEdit = icEdit;
+  isUpdating: boolean;
   showPaswordModal: boolean;
   showEmailModal: boolean;
   updatePasswordForm: FormGroup;
@@ -44,6 +47,7 @@ export class UserProfilComponent implements OnInit {
   profilePicture: string;
   ppURL: string;
   fileToUpload: any;
+  actionResult: any;
 
   imageChangedEvent: any = "";
   croppedImage: any = "";
@@ -52,7 +56,8 @@ export class UserProfilComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
     private authService: AuthserviceService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {
     const sessionData = localStorage.getItem(USER_SESSION_KEY);
     this.userData = JSON.parse(sessionData);
@@ -62,150 +67,6 @@ export class UserProfilComponent implements OnInit {
     this.ppURL = this.userData.photo
       ? `https://noworri.com/api/public/uploads/images/pp/${this.userData.photo}`
       : `https://picsum.photos/200/300`;
-    this.setUpUpdatePasswordForm();
-    this.setUpUpdateEmailForm();
-  }
-
-  setUpUpdatePasswordForm() {
-    this.updatePasswordForm = this.formBuilder.group(
-      {
-        currentPswd: ["", Validators.required],
-        newPswd: ["", Validators.required],
-        confirmPswd: ["", Validators.required],
-      },
-      {
-        validator: this.validatePasswords,
-      }
-    );
-  }
-
-  setUpUpdateEmailForm() {
-    this.updateEmailForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-    });
-  }
-
-  toggleUpdatePasswordModal() {
-    this.showPaswordModal = !this.showPaswordModal;
-  }
-
-  updatePassword() {
-    const password = this.updatePasswordForm.value["currentPswd"];
-    this.authService
-      .login(this.userData.mobile_phone, password)
-      .pipe(take(1))
-      .subscribe(
-        (response) => {
-          if (!response.error || response.error !== "Unauthorized") {
-            this.processUpdatePassword();
-          } else {
-            this.hasError = true;
-            this.codeError = "Wrong password";
-          }
-        },
-        catchError((error: HttpErrorResponse) => {
-          this.hasError = true;
-          this.codeError = "Wrong password";
-          return throwError(error);
-        })
-      );
-  }
-
-  processUpdatePassword() {
-    const passwordData = {
-      uid: this.userData.user_uid,
-      password: this.updatePasswordForm.value["newPswd"],
-    };
-    this.authService
-      .updatePassword(passwordData)
-      .pipe(take(1))
-      .subscribe((response) => {
-        if (Object.keys(response).length) {
-          const message = "Password Updated Successfully!";
-          this.openSnackbar(message);
-          this.toggleUpdatePasswordModal();
-        } else {
-          const message = "Something went wrong!";
-          this.openSnackbar(message);
-        }
-      });
-  }
-
-  validatePasswords(updatePasswordForm: FormGroup): ValidationErrors {
-    const password = updatePasswordForm.value["newPswd"];
-    const confirmPassword = updatePasswordForm.value["confirmPswd"];
-    if (confirmPassword === password) {
-      return null;
-    } else {
-      return {
-        passwordsDoNotMatch: true,
-      };
-    }
-  }
-
-  toggleUpdateEmailModal() {
-    this.isOTPSent = false;
-    this.showEmailModal = !this.showEmailModal;
-  }
-
-  toggleVisibility() {
-    if (this.visible) {
-      this.inputType = "password";
-      this.visible = false;
-      this.cd.markForCheck();
-    } else {
-      this.inputType = "text";
-      this.visible = true;
-      this.cd.markForCheck();
-    }
-  }
-
-  onOtpInput(otp) {
-    this.otp = otp;
-  }
-
-  sendVerificationCode() {
-    const userData = {
-      email: this.updateEmailForm.value["email"],
-      id: this.userData.id,
-    };
-    // this.isLoadingButton = true;
-    this.isButtonActive = false;
-    this.authService
-      .sendEmailVerificationCode(userData)
-      .pipe(take(1))
-      .subscribe((response) => {
-        if (response["status"] === true) {
-          this.isOTPSent = true;
-          this.isSentVerificationCode = true;
-          // this.isLoadingButton = false;
-          this.isButtonActive = true;
-        } else {
-          this.codeError = response["message"];
-        }
-      });
-  }
-
-  verifyOTP() {
-    // this.isLoadingButton = true;
-    this.isButtonActive = false;
-    const verificationCode = this.otp;
-    this.authService
-      .verifyEmail(this.userData.user_uid, verificationCode)
-      .pipe(take(1))
-      .subscribe((response) => {
-        if (response["status"] === true) {
-          this.openSnackbar(response["message"]);
-          this.toggleUpdateEmailModal();
-          this.isButtonActive = true;
-        } else {
-          this.isSentVerificationCode = false;
-          console.log("Error", response["message"]);
-          this.hasError = true;
-          this.codeError = response["message"];
-          this.isButtonActive = true;
-        }
-      });
   }
 
   openSnackbar(message: string) {
@@ -227,15 +88,45 @@ export class UserProfilComponent implements OnInit {
     /* show message */
   }
 
+  openDialog(showEmailModal, showPaswordModal) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose =  false;
+    dialogConfig.data = {
+      dialogHeader: showEmailModal ? 'UPDATE EMAIL' : 'UPDATE PASSWORD',
+      buttonCancel: 'CANCEL',
+      buttonConfirm: 'CONFRIM',
+      showPaswordModal,
+      showEmailModal
+    }
+    this.dialog.open(UserProfileModalComponent, dialogConfig).afterClosed().subscribe(result => {
+      this.actionResult = result;
+      if(result === 'Yes') {
+        console.log('confirmed');
+        // this.withdraw();
+      }
+    });
+  }
+
+
   UploadImage(){
     const file: File = this.fileToUpload;
+    this.isUpdating = true
     this.authService.uploadPhoto(file, this.userData.user_uid)
     .subscribe(
       (response) => {
         this.openSnackbar('Profile picture updated!');
-        this.ppURL = `https://noworri.com/api/public/uploads/images/pp/${response['file']}`;
+        this.isUpdating = false;
+        const data = this.userData;
+        data.photo = response['file'];
+        const newUserData = JSON.stringify(data);
+        localStorage.setItem(USER_SESSION_KEY, newUserData);
+        location.reload(true);
       }
-    )
+    ),
+    catchError((error) => {
+      this.openSnackbar('Format no supported!');
+      return throwError(error.message);
+    })
   }
   base64ToFile(data, filename) {
   
