@@ -103,7 +103,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         } else if (this.locationData.country_code === "NG") {
           this.phonePlaceHolder = "Ex:1 1345 5643 ";
         } else {
-          this.phonePlaceHolder = "We are not yet available in your country";
+          this.phonePlaceHolder = "";
         }
       })
       .then(() => {

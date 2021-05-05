@@ -78,7 +78,7 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {}
 
   colorSwichMode(data) {
-    if (data.checked == true) {
+    if (data.checked === true) {
       this.enableDarkMode();
     } else {
       this.disableDarkMode();

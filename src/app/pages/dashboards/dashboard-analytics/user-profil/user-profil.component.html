@@ -1,59 +1,32 @@
 <mat-card class="mat-card ml-10">
   <div>
     <div class="flex justify-center mt-4 mr-20">
-      <img
-        alt="Placeholder"
-        class="block w-20 h-20 rounded-full"
-        src="{{ ppURL }}"
-      />
+      <img alt="Placeholder" class="block w-12 h-12 rounded-full" src="{{ ppURL }}" />
     </div>
     <mat-progress-bar *ngIf="isUpdating" mode="determinate" color="primary" [value]=40></mat-progress-bar>
   </div>
-
   <div class="flex justify-center mt-4 mr-20">
-    <label
-      for="fileUpload"
-      class="btn underline text-center text-xs btn-primary btn-block btn-outlined"
-      >Update Your Profil Picture</label
-    >
-    <input
-      type="file"
-      id="fileUpload"
-      style="display: none"
-      (change)="fileChangeEvent($event)"
-    />
+    <label for="fileUpload" class="btn underline text-center text-xs btn-primary btn-block btn-outlined"
+      style="cursor: pointer;">Update Your Profil Picture</label>
+    <input type="file" id="fileUpload" style="display: none" (change)="fileChangeEvent($event)" />
     <div *ngIf="imageChangedEvent" class="row" style="margin-top: 15px">
       <div class="text-center col-md-8">
         <h5>Crop Image</h5>
-        <image-cropper
-          [imageChangedEvent]="imageChangedEvent"
-          [maintainAspectRatio]="true"
-          [aspectRatio]="4 / 4"
-          [resizeToWidth]="256"
-          format="png"
-          (imageCropped)="imageCropped($event)"
-          (imageLoaded)="imageLoaded()"
-          (cropperReady)="cropperReady()"
-          (loadImageFailed)="loadImageFailed()"
-        ></image-cropper>
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
+          [resizeToWidth]="256" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
       </div>
       <div class="text-center col-md-4">
         <h5>Preview</h5>
-        <img [src]="croppedImage"  />
+        <img [src]="croppedImage" />
       </div>
     </div>
     <div class="row">
-      <button
-      *ngIf="fileToUpload"
-      mat-raised-button
-      color="primary"
-      (click)="UploadImage()">Update</button>
+      <button *ngIf="fileToUpload" mat-raised-button color="primary" (click)="UploadImage()">Update</button>
     </div>
   </div>
 
-  <div
-    class="grid flex mt-8 mr-20 grid-flow-col grid-cols-2 grid-rows-3 gap-x-8 gap-y-1"
-  >
+  <div class="grid flex mt-8 mr-20 grid-flow-col grid-cols-2 grid-rows-3 gap-x-8 gap-y-1">
     <div>
       <h4 class="text-xs text-gray-300">First Name</h4>
       <mat-form-field appearance="fill">
@@ -80,13 +53,7 @@
         <mat-form-field appearance="fill">
           <mat-label>{{ userData.email }}</mat-label>
           <input matInput disabled />
-          <button
-            (click)="openDialog(true, false)"
-            mat-icon-button
-            matSuffix
-            matTooltip="Change Email"
-            type="button"
-          >
+          <button (click)="openDialog(true, false)" mat-icon-button matSuffix matTooltip="Change Email" type="button">
             <mat-icon [icIcon]="icEdit"></mat-icon>
           </button>
           <mat-hint>Click on the pencil to change your email</mat-hint>
@@ -121,13 +88,8 @@
         <mat-form-field appearance="fill">
           <mat-label>**************</mat-label>
           <input matInput disabled />
-          <button
-            (click)="openDialog(false, true)"
-            mat-icon-button
-            matSuffix
-            matTooltip="Change Password"
-            type="button"
-          >
+          <button (click)="openDialog(false, true)" mat-icon-button matSuffix matTooltip="Change Password"
+            type="button">
             <mat-icon [icIcon]="icEdit"></mat-icon>
           </button>
           <mat-hint>Click on the pencil to change your password</mat-hint>
