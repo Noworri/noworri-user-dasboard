@@ -189,7 +189,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         // if (businessData.status !== 404 && businessData.status === "approved") {
           this.businessAccountData = businessData;
           localStorage.setItem(BUSINESS_DATA_KEY, JSON.stringify(businessData));
+          this.router.navigate(["dashboards"]);
         } else {
+          this.router.navigate(["dashboards"]);
           return 'No business aded yet'
         }
         this.router.navigate(["dashboards"]);

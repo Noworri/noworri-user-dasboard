@@ -16,7 +16,8 @@ export const environment = {
   verifyReleaseCodeUrl: `https://api.noworri.com/api/verifycodetest`,
   cancelTransactionUrl: `https://api.noworri.com/api/cancelescrowtransactiontest/`,
   getBusinessUserPayoutsUrl: `https://api.noworri.com/api/getbusinessuserpayoutstest/`,
-  getBusinessTransactionsSummaryUrl: `https://api.noworri.com/api/getusertransactionssummarytest/`
+  getBusinessTransactionsSummaryUrl: `https://api.noworri.com/api/getusertransactionssummarytest/`,
+  updateDeliveyUrl: `https://api.noworri.com/api/updatedeliveryphonetest`
 };
 
 /*

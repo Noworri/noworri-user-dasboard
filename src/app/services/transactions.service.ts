@@ -267,7 +267,7 @@ export class TransactionsService {
   }
 
   updateDeliveryPhone(transaction_id, delivery_phone) {
-    const url = `https://api.noworri.com/api/updateecobankescrdevivery`;
+    const url = environment.updateDeliveyUrl;
     let params = new HttpParams();
     params = params.append("deliver", delivery_phone);
     params = params.append("id", transaction_id);
