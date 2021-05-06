@@ -94,9 +94,14 @@
       >
         CREATE ACCOUNT
       </button>
+      <mat-error *ngIf="errorMessage">
+        <span>
+          {{ errorMessage }}
+        </span>
+      </mat-error>
       <p class="text-secondary text-center">
         Already have an account?<br />
-        <a routerLink="" href>Sign in here</a>
+        <a routerLink="/auth/login" href>Sign in here</a>
       </p>
     </div>
   </div>

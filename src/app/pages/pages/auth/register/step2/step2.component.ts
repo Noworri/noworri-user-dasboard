@@ -68,8 +68,8 @@ export class Step2Component implements OnInit {
       lastName: ["", [Validators.required, Validators.pattern(this.profilInformationRegex)]],
       firstName: ["", [Validators.required, Validators.pattern(this.profilInformationRegex)]],
       email: ["", [Validators.required, Validators.email]],
-      userName: [""],
-      country: ["", [Validators.required, Validators.pattern(this.profilInformationRegex)]],
+      // userName: [""],
+      country: [""],
     });
 
     this.form.get('country').patchValue(this.countryName);
@@ -102,7 +102,7 @@ export class Step2Component implements OnInit {
       name: this.form.value["lastName"],
       first_name: this.form.value["firstName"],
       email: this.form.value["email"],
-      user_name: this.form.value["userName"],
+      user_name: "",
       photo: "",
       dailing_code: this.countryDailingCode,
       country: this.form.value['country'],
