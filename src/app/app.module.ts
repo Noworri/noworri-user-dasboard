@@ -18,7 +18,6 @@ import { IntlTelInputNgModule } from "intl-tel-input-ng";
 import { NgOtpInputModule } from "ng-otp-input";
 import { ImageCropperModule } from 'ngx-image-cropper';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -34,7 +33,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     CustomLayoutModule,
     IntlTelInputNgModule.forRoot(),
     ImageCropperModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

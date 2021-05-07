@@ -56,6 +56,10 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { UserProfileModalComponent } from './user-profil/user-profile-modal/user-profile-modal.component';
 import { AddPayoutAccountModalComponent } from './business-settings/add-payout-account-modal/add-payout-account-modal.component';
+// import { CountdownTimerModule } from "ngx-countdown-timer";
+import { CountdownModule } from 'ngx-countdown';
+import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
+
 @NgModule({
   declarations: [
     DashboardAnalyticsComponent,
@@ -119,7 +123,9 @@ import { AddPayoutAccountModalComponent } from './business-settings/add-payout-a
     HighlightModule,
     MatSnackBarModule,
     ImageCropperModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    CountdownModule,
+    NgxSimpleCountdownModule
   ],
 })
 export class DashboardAnalyticsModule {}
