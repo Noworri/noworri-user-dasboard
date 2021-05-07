@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import {
+  BUSINESS_DATA_KEY,
   CATEGORIES,
   COUNTRIES,
   INDUSTRIES,
@@ -99,6 +100,66 @@ export class AddBusinessComponent implements OnInit {
   allCreatBusinessData: object;
   userData: any;
 
+  validationMessages = {
+    country: {
+      required: "This Field  is required.",
+    },
+    region:{
+      required: "This Field  is required.",
+      pattern: "Only characters allowed",
+    },
+    city: {
+      required: "This Field  is required.",
+      pattern: "Only characters allowed",
+    },
+    streetAddress: {
+      required: "This Field  is required.",
+    },
+    trading_name: {
+      required: "This Field  is required.",
+    },
+    description:{
+      required: "This Field  is required.",
+    },
+    industry: {
+      required: "This Field  is required.",
+    },
+    category:{
+      required: "This Field  is required.",
+    },
+    business_email:{
+      required: "This Field  is required.",
+      email: "Please enter a valid email",
+    },
+    business_phone: {
+      required: "This Field  is required.",
+      pattern: "Only digits allowed",
+    },
+    delivery_no:{
+      required: "This Field  is required.",
+      pattern: "Only digits allowed",
+    },
+    owner_lname: {
+      required: "This Field  is required.",
+      pattern: "Only characters allowed",
+    },
+    owner_fname: {
+      required: "This Field  is required.",
+      pattern: "Only characters allowed",
+    },
+    dob: {
+      required: "This Field  is required.",
+    },
+    nationality: {
+      required: "This Field  is required.",
+    },
+    owner_adresse:{
+      required: "This Field  is required.",
+    },
+    identification_document: {
+      required: "This Field  is required.",
+    }
+  };
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -124,7 +185,7 @@ export class AddBusinessComponent implements OnInit {
       description: ["", Validators.required],
       industry: ["", Validators.required],
       category: ["", Validators.required],
-      business_email: ["", [Validators.email, Validators.email]],
+      business_email: ["", [Validators.required, Validators.email]],
       business_phone: [
         "",
         [
@@ -144,10 +205,10 @@ export class AddBusinessComponent implements OnInit {
       dob: ["", Validators.required],
       nationality: ["", Validators.required],
       owner_adresse: ["", Validators.required],
-      identification_document: [""],
+      identification_document: ["", Validators.required],
       identification_documentUpload: [""],
       company_documents: [""],
-      is_legally_registered: ["", Validators.required],
+      is_legally_registered: [""],
       business_legal_name: [""],
       company_documentUpload: [""],
       business_logo: [""],
@@ -190,7 +251,9 @@ export class AddBusinessComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response: any) => {
         if ((response.status = true && response.data)) {
-          this.router.navigate(["dashboards"]);
+          localStorage.setItem(BUSINESS_DATA_KEY, JSON.stringify(response.data));
+          window.location.reload();
+          this.router.navigate(['/dashboards/activation-pending'])
         } else {
           this.errorMessage = response.message || "something went wrong";
           this.isBusinessSubmitted = false;

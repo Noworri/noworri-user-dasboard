@@ -70,12 +70,22 @@
                     >Trading Name *</mat-label
                   >
                   <input matInput formControlName="trading_name" #input />
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('trading_name').errors | keyvalue">
+                      {{ validationMessages.trading_name[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300"
                     >Describe what you do
                   </mat-label>
                   <input matInput #input formControlName="description" />
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('description').errors | keyvalue">
+                      {{ validationMessages.description[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300">Industry</mat-label>
@@ -87,6 +97,11 @@
                       >{{ industry }}</mat-option
                     >
                   </mat-select>
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('industry').errors | keyvalue">
+                      {{ validationMessages.industry[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300">Category</mat-label>
@@ -98,19 +113,46 @@
                       >{{ category }}</mat-option
                     >
                   </mat-select>
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('category').errors | keyvalue">
+                      {{ validationMessages.category[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300"
-                    >Business phone number</mat-label
+                    >Business phone number *</mat-label
                   >
                   <input matInput #input formControlName="business_phone" />
                   <span matPrefix>{{ prefixCountryCode }}</span>
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('business_phone').errors | keyvalue">
+                      {{ validationMessages.business_phone[error.key] }}
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label class="text-xs text-gray-300"
+                    >Delivery phone no *</mat-label
+                  >
+                  <input matInput #input formControlName="delivery_no" />
+                  <span matPrefix>{{ prefixCountryCode }}</span>
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('delivery_no').errors | keyvalue">
+                      {{ validationMessages.delivery_no[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300"
                     >Business Email *</mat-label
                   >
                   <input matInput #input formControlName="business_email" />
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('business_email').errors | keyvalue">
+                      {{ validationMessages.business_email[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -121,7 +163,7 @@
           >
             <mat-expansion-panel-header>
               <mat-panel-title class="text-xs text-gray-300">
-                Business Adress *
+                Business Adress
               </mat-panel-title>
               <mat-panel-description
                 class="flex text-xs text-gray-300 justify-end"
@@ -140,22 +182,42 @@
                     >{{ country.name }}</mat-option
                   >
                 </mat-select>
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('country').errors | keyvalue">
+                    {{ validationMessages.country[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300"
                   >State or Region *</mat-label
                 >
                 <input matInput #input formControlName="region" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('region').errors | keyvalue">
+                    {{ validationMessages.region[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300">City</mat-label>
                 <input matInput #input formControlName="city" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('city').errors | keyvalue">
+                    {{ validationMessages.city[error.key] }}
+                  </span>
+                  </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300"
                   >Street Address</mat-label
                 >
                 <input matInput #input formControlName="streetAddress" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('streetAddress').errors | keyvalue">
+                    {{ validationMessages.streetAddress[error.key] }}
+                  </span>
+                  </mat-error>
               </mat-form-field>
             </div>
           </mat-expansion-panel>
@@ -177,10 +239,20 @@
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300">First Name</mat-label>
                 <input matInput #input formControlName="owner_fname" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('owner_fname').errors | keyvalue">
+                    {{ validationMessages.owner_fname[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300">Laste Name</mat-label>
                 <input matInput #input formControlName="owner_lname" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('owner_lname').errors | keyvalue">
+                    {{ validationMessages.owner_lname[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <!-- <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300"
@@ -203,6 +275,11 @@
                   [for]="picker"
                 ></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('dob').errors | keyvalue">
+                    {{ validationMessages.dob[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300"
@@ -216,12 +293,22 @@
                     >{{ nationality }}
                   </mat-option>
                 </mat-select>
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('nationality').errors | keyvalue">
+                    {{ validationMessages.nationality[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300"
                   >Your Address</mat-label
                 >
                 <input matInput #input formControlName="owner_adresse" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('owner_adresse').errors | keyvalue">
+                    {{ validationMessages.owner_adresse[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300"
@@ -233,6 +320,11 @@
                     idType
                   }}</mat-option>
                 </mat-select>
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('identification_document').errors | keyvalue">
+                    {{ validationMessages.identification_document[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="grid grid-flow-col grid-cols-2 grid-rows-6">
@@ -294,6 +386,7 @@
             (click)="addBusiness()"
             color="primary"
             type="submit"
+            [disabled]="businessForm.status !== 'VALID'"
           >
             Add Business
           </button>

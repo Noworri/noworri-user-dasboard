@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   sessionResponse: any;
   userId: string;
   businessAccountData: any;
-
+  isLoading = false;
 
   form: FormGroup;
 
@@ -132,6 +132,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    this.isLoading = true;
     this.ProcessphoneNumber();
     this.password = this.form.value["password"];
     if (this.isCorrectPhoneEntry == true && this.password) {
@@ -169,6 +170,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.isValidating = false;
               this.isValidUser = false;
             }
+            this.isLoading= false;
           },
           (error) => {
             this.isValidating = false;

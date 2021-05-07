@@ -70,5 +70,13 @@ export class SidenavComponent implements OnInit {
   addBusiness() {
     this.router.navigate(["/dashboards/add-business"]);
   }
+
+  gotToBusiness(){
+    if(this.businessDetails.status === 'approved') {
+      this.router.navigate(['/dashboards/business-settings'])
+    } else {
+      this.router.navigate(['/dashboards/activation-pending'])
+    }
+  }
   // for left profil photo//
 }
