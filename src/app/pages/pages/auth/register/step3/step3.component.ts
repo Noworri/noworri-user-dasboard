@@ -61,8 +61,10 @@ export class Step3Component implements OnInit {
   isLoadingButton: boolean;
   isButtonActive = true;
   userData;
+  userResponseData: any;
   isCorrectPasswordData: boolean;
   passwordsMatch = true;
+  errorMessage: string;
 
   constructor(
     private router: Router,
@@ -133,18 +135,11 @@ export class Step3Component implements OnInit {
       this.passwordsMatch = true;
       this.signUpWithFirebase(email, password, this.userData)
         .then(() => {
-          this.signUpUser(password).then(() => {
-            if (this.userToken) {
-              this.isLoadingButton = false;
-              this.isButtonActive = true;
-              setTimeout(() => {
-                this.router.navigate(["/auth/login"]);
-              }, 3000);
-            }
-          });
+          this.signUpUser(password);
         })
         .catch((err) => {
           console.log(err);
+          this.errorMessage = err.message;
         });
     } else {
       this.passwordsMatch = false;
@@ -192,11 +187,12 @@ export class Step3Component implements OnInit {
     });
   }
 
-  async signUpUser(password) {
+  signUpUser(password) {
     let userData = {
       ...this.userData,
       password: password,
       user_uid: this.userUid,
+      user_name: this.userUid,
       fcm_token: "N/A",
       web_token: this.userToken,
     };
@@ -204,7 +200,16 @@ export class Step3Component implements OnInit {
       .register(userData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        this.userToken = response;
+        if(response?.user_uid) {
+          this.userResponseData = response;
+          this.isLoadingButton = false;
+          this.isButtonActive = true;
+          setTimeout(() => {
+            this.router.navigate(["/auth/login"]);
+          }, 3000);
+        } else {
+          this.errorMessage = 'Something went wrong please try again';
+        }
       });
   }
 

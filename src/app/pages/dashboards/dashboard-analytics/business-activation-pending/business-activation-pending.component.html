@@ -7,6 +7,11 @@
             your business </p>
     </div>
     <div class="flex justify-center mt-4">
-        <h4 class="text-md  text-gray-300">16h 25m 44s</h4>
+        <h4 class="text-md  text-gray-300">
+            <!-- <countdown-timer [end]="countDownStop"></countdown-timer> -->
+            <!-- <countdown [config]="{leftTime:countDownStop}"></countdown> -->
+            <div class="countdown" simpleCountdown [dateTo]="countDownStop"></div>
+
+        </h4>
     </div>
 </mat-card>

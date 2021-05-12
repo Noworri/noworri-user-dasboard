@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import {
+  BUSINESS_DATA_KEY,
   CATEGORIES,
   COUNTRIES,
   INDUSTRIES,
@@ -25,7 +26,7 @@ export class AddBusinessComponent implements OnInit {
   panelOpenState = false;
   businessLogoName: string;
   idTypes = ["passport", "Identity Card", "Driving License"];
-  hasBusinessInformation: boolean;
+  isLegallyRegistered: boolean;
 
   businessForm: FormGroup;
   bsnessInfoForm: FormGroup;
@@ -74,6 +75,7 @@ export class AddBusinessComponent implements OnInit {
   companyDocuments;
   idDocumentFile: File;
   companyDocumentFile: File;
+  companyLogoFile: File;
   unsubscribe$ = new Subject();
   errorMessage: string;
 
@@ -84,7 +86,7 @@ export class AddBusinessComponent implements OnInit {
   rawDate = "";
   dateFormated = "";
   isLegalFomDisplay: boolean;
-  isLegallyRegistered = "";
+  // isLegallyRegistered = "";
   countries = COUNTRIES;
   nationalities = NATIONALITIES;
   categories = CATEGORIES;
@@ -98,6 +100,66 @@ export class AddBusinessComponent implements OnInit {
   allCreatBusinessData: object;
   userData: any;
 
+  validationMessages = {
+    country: {
+      required: "This Field  is required.",
+    },
+    region:{
+      required: "This Field  is required.",
+      pattern: "Only characters allowed",
+    },
+    city: {
+      required: "This Field  is required.",
+      pattern: "Only characters allowed",
+    },
+    streetAddress: {
+      required: "This Field  is required.",
+    },
+    trading_name: {
+      required: "This Field  is required.",
+    },
+    description:{
+      required: "This Field  is required.",
+    },
+    industry: {
+      required: "This Field  is required.",
+    },
+    category:{
+      required: "This Field  is required.",
+    },
+    business_email:{
+      required: "This Field  is required.",
+      email: "Please enter a valid email",
+    },
+    business_phone: {
+      required: "This Field  is required.",
+      pattern: "Only digits allowed",
+    },
+    delivery_no:{
+      required: "This Field  is required.",
+      pattern: "Only digits allowed",
+    },
+    owner_lname: {
+      required: "This Field  is required.",
+      pattern: "Only characters allowed",
+    },
+    owner_fname: {
+      required: "This Field  is required.",
+      pattern: "Only characters allowed",
+    },
+    dob: {
+      required: "This Field  is required.",
+    },
+    nationality: {
+      required: "This Field  is required.",
+    },
+    owner_adresse:{
+      required: "This Field  is required.",
+    },
+    identification_document: {
+      required: "This Field  is required.",
+    }
+  };
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -120,14 +182,10 @@ export class AddBusinessComponent implements OnInit {
       ],
       streetAddress: ["", Validators.required],
       trading_name: ["", Validators.required],
-      business_name: [
-        "",
-        [Validators.required, Validators.pattern(this.nameValidationPattern)],
-      ],
       description: ["", Validators.required],
       industry: ["", Validators.required],
       category: ["", Validators.required],
-      business_email: ["", [Validators.email, Validators.email]],
+      business_email: ["", [Validators.required, Validators.email]],
       business_phone: [
         "",
         [
@@ -135,7 +193,7 @@ export class AddBusinessComponent implements OnInit {
           Validators.pattern(this.phoneNumberValidationPattern),
         ],
       ],
-      delivery_phone: [
+      delivery_no: [
         "",
         [
           Validators.required,
@@ -148,11 +206,11 @@ export class AddBusinessComponent implements OnInit {
       nationality: ["", Validators.required],
       owner_adresse: ["", Validators.required],
       identification_document: ["", Validators.required],
-      identification_documentUpload: ["", Validators.required],
-      company_documents: ["", Validators.required],
-      is_legally_registered: ["", Validators.required],
-      business_legal_name: ["", Validators.required],
-      company_documentUpload: ["", Validators.required],
+      identification_documentUpload: [""],
+      company_documents: [""],
+      is_legally_registered: [""],
+      business_legal_name: [""],
+      company_documentUpload: [""],
       business_logo: [""],
     });
     // this.businessPhoneInputStyl();
@@ -164,22 +222,38 @@ export class AddBusinessComponent implements OnInit {
     this.companyDocumentFile = event.target.files[0];
   }
 
+  getProcessedphoneNumber(phoneNumber) {
+    let rawPhoneNumber = phoneNumber;
+    let phoneNumberWithoutSpace = rawPhoneNumber.split(/\s/).join("");
+    const processedPhoneNumber = this.prefixCountryCode + phoneNumberWithoutSpace.substr(1);
+    return processedPhoneNumber;
+  }
+
   uploadID(event) {
     this.idDocumentFile = event.target.files[0];
+  }
+
+  uploadCompanyLogo(event) {
+    this.companyLogoFile = event.target.files[0];
   }
 
   addBusiness() {
     this.isBusinessSubmitted = true;
     const businessData = this.businessForm.value;
-    businessData.identification_documentUpload = this.idDocumentFile;
-    businessData.company_documentUpload = this.companyDocumentFile;
+    businessData.identification_documentUpload = this.idDocumentFile || "";
+    businessData.company_documentUpload = this.companyDocumentFile || "";
+    businessData.business_logo = this.companyLogoFile
     businessData.user_id = this.userData.user_uid;
+    businessData.business_phone = this.getProcessedphoneNumber(this.businessForm.value['business_phone']);
+    businessData.delivery_no = this.getProcessedphoneNumber(this.businessForm.value['delivery_no']) || businessData.business_phone;
     this.businessService
       .createNewBusiness(businessData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response: any) => {
         if ((response.status = true && response.data)) {
-          this.router.navigate(["dashboards"]);
+          localStorage.setItem(BUSINESS_DATA_KEY, JSON.stringify(response.data));
+          window.location.reload();
+          this.router.navigate(['/dashboards/activation-pending'])
         } else {
           this.errorMessage = response.message || "something went wrong";
           this.isBusinessSubmitted = false;
@@ -251,55 +325,27 @@ export class AddBusinessComponent implements OnInit {
     this.isCdUploadMessge = this.idDocumentFile["name"];
   }
 
-  processingData(businessOwnerInformation) {
-    if (this.isLegallyRegistered === "NO") {
-      businessOwnerInformation.business_legal_name = "null";
-      this.companyDocuments = "null";
-    }
-    //  je pense que nous n'en avons plus besoin puisque c'est talwind qui utilise  maintenant//
+  // processingData(businessOwnerInformation) {
+  //   if (this.isLegallyRegistered === "NO") {
+  //     businessOwnerInformation.business_legal_name = "null";
+  //     this.companyDocuments = "null";
+  //   }
 
-    // this.bsnessOwnerInputStatus.owner_fname = businessOwnerInformation.owner_fname
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    // this.bsnessOwnerInputStatus.owner_lname = businessOwnerInformation.owner_lname
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    // this.bsnessOwnerInputStatus.dob = businessOwnerInformation.dob
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    // this.bsnessOwnerInputStatus.nationality = businessOwnerInformation.nationality
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    // this.bsnessOwnerInputStatus.owner_adresse = businessOwnerInformation.owner_adresse
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    // this.bsnessOwnerInputStatus.is_legally_registered = businessOwnerInformation.is_legally_registered
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    // this.bsnessOwnerInputStatus.business_legal_name = businessOwnerInformation.business_legal_name
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    // this.bsnessOwnerInputStatus.identification_document = businessOwnerInformation.identification_document
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    // this.bsnessOwnerInputStatus.company_documents = this.companyDocuments
-    //   ? "form-control is-valid"
-    //   : "form-control is-invalid";
-    this.isIdUpload = this.businessOwnerInformation[
-      "identification_documentUpload"
-    ]
-      ? false
-      : true;
-    this.isCdUpload = this.businessOwnerInformation["company_documentUpload"]
-      ? false
-      : true;
-  }
+  //   this.isIdUpload = this.businessOwnerInformation[
+  //     "identification_documentUpload"
+  //   ]
+  //     ? false
+  //     : true;
+  //   this.isCdUpload = this.businessOwnerInformation["company_documentUpload"]
+  //     ? false
+  //     : true;
+  // }
 
   bsnssRegiStatus(data) {
     if (data.value == "YES") {
-      this.hasBusinessInformation = true;
+      this.isLegallyRegistered = true;
     } else {
-      this.hasBusinessInformation = false;
+      this.isLegallyRegistered = false;
     }
   }
 }

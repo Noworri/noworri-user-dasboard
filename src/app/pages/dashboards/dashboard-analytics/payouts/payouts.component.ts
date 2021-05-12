@@ -126,7 +126,7 @@ export class PayoutsComponent implements OnInit {
         return response;
       })
     } else {
-      this.router.navigate(['dashboards/business-settings']);
+      this.router.navigate(['/dashboards/business-settings']);
     }
     return null;
   }

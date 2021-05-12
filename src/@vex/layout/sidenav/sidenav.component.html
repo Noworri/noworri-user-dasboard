@@ -12,7 +12,7 @@
           Add business
         </div>
       </div>
-      <div *ngIf="hasBusiness">
+      <div (click)="gotToBusiness()" *ngIf="hasBusiness">
         <div class="rounded-full h-9 w-9 -mb-6 flex items-center justify-center text-primary bg-primary-light">
           <img src="{{ businessLogoUrl }}" />
         </div>

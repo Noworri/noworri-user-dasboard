@@ -38,9 +38,12 @@
         <a routerLink="auth/forgot-password" class="caption">Forgot Password?</a>
       </div>
 
-      <button (click)="login()" color="primary" mat-raised-button type="button"
+      <button *ngIf="!isLoading" (click)="login()" color="primary" mat-raised-button type="button"
         [disabled]="form.get('phoneNumber').hasError('required') || form.get('password').hasError('required') ">
         SIGN IN
+      </button>
+      <button mat-raised-button *ngIf="isLoading" disabled type="button">
+        SIGNING IN...
       </button>
 
       <mat-error *ngIf="!isValidUser" fxLayout="row" fxLayoutAlign="center">

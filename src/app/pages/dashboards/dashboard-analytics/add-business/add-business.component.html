@@ -16,70 +16,158 @@
         </div>
         <div>
           <div *ngIf="businessLogoName" class="flex justify-center mt-4">
-            <img alt="Placeholder" class="block w-20 h-20 rounded-full" src="{{ businessLogoName }}" />
+            <img
+              alt="Placeholder"
+              class="block w-20 h-20 rounded-full"
+              src="{{ businessLogoName }}"
+            />
           </div>
         </div>
 
-        <div class="flex justify-center mt-4 ">
-          <span class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded btn-file">
-            Upload Business logo <input type="file" id="fileUpload" formControlName="business_logo" />
+        <div class="flex justify-center mt-4">
+          <span
+            class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded btn-file"
+          >
+            <!-- Upload Business logo
+            <input
+              type="file"
+              id="fileUpload"
+              formControlName="business_logo"
+            /> -->
+            <mat-file-upload
+                [labelText]="''"
+                [uploadButtonText]="'upload'"
+                [showUploadButton]="false"
+                [selectButtonText]="'Upload Company Logo'"
+                [acceptedTypes]="'.png, .jpg, .jpeg'"
+                (uploadClicked)="uploadCompanyLogo($event)"
+                (change)="uploadCompanyLogo($event)"
+              >
+              </mat-file-upload>
           </span>
         </div>
 
         <mat-accordion>
-          <mat-expansion-panel class="mt-8" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel
+            class="mt-8"
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
             <mat-expansion-panel-header>
               <mat-panel-title class="text-xs text-gray-300">
                 Business Information
               </mat-panel-title>
-              <mat-panel-description class="flex text-xs text-gray-300 justify-end">
+              <mat-panel-description
+                class="flex text-xs text-gray-300 justify-end"
+              >
                 Hide Information
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="example-container">
               <div class="grid grid-flow-col grid-cols-3 grid-rows-2 gap-4">
                 <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300">Trading Name</mat-label>
+                  <mat-label class="text-xs text-gray-300"
+                    >Trading Name *</mat-label
+                  >
                   <input matInput formControlName="trading_name" #input />
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('trading_name').errors | keyvalue">
+                      {{ validationMessages.trading_name[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300">Describe what you do
+                  <mat-label class="text-xs text-gray-300"
+                    >Describe what you do
                   </mat-label>
                   <input matInput #input formControlName="description" />
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('description').errors | keyvalue">
+                      {{ validationMessages.description[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300">Industry</mat-label>
                   <mat-select formControlName="industry">
                     <mat-option value="" disabled>Select</mat-option>
-                    <mat-option *ngFor="let industry of industries" [value]="industry">{{ industry }}</mat-option>
+                    <mat-option
+                      *ngFor="let industry of industries"
+                      [value]="industry"
+                      >{{ industry }}</mat-option
+                    >
                   </mat-select>
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('industry').errors | keyvalue">
+                      {{ validationMessages.industry[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label class="text-xs text-gray-300">Category</mat-label>
                   <mat-select formControlName="category">
                     <mat-option value="" disabled>Select</mat-option>
-                    <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+                    <mat-option
+                      *ngFor="let category of categories"
+                      [value]="category"
+                      >{{ category }}</mat-option
+                    >
                   </mat-select>
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('category').errors | keyvalue">
+                      {{ validationMessages.category[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300">Business phone number</mat-label>
+                  <mat-label class="text-xs text-gray-300"
+                    >Business phone number *</mat-label
+                  >
                   <input matInput #input formControlName="business_phone" />
                   <span matPrefix>{{ prefixCountryCode }}</span>
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('business_phone').errors | keyvalue">
+                      {{ validationMessages.business_phone[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                  <mat-label class="text-xs text-gray-300">Business Email</mat-label>
-                  <input matInput #input formControlName="business_email" />
+                  <mat-label class="text-xs text-gray-300"
+                    >Delivery phone no *</mat-label
+                  >
+                  <input matInput #input formControlName="delivery_no" />
+                  <span matPrefix>{{ prefixCountryCode }}</span>
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('delivery_no').errors | keyvalue">
+                      {{ validationMessages.delivery_no[error.key] }}
+                    </span>
+                  </mat-error>
                 </mat-form-field>
-
+                <mat-form-field appearance="fill">
+                  <mat-label class="text-xs text-gray-300"
+                    >Business Email *</mat-label
+                  >
+                  <input matInput #input formControlName="business_email" />
+                  <mat-error>
+                    <span *ngFor="let error of businessForm.get('business_email').errors | keyvalue">
+                      {{ validationMessages.business_email[error.key] }}
+                    </span>
+                  </mat-error>
+                </mat-form-field>
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
             <mat-expansion-panel-header>
               <mat-panel-title class="text-xs text-gray-300">
                 Business Adress
               </mat-panel-title>
-              <mat-panel-description class="flex text-xs text-gray-300 justify-end">
+              <mat-panel-description
+                class="flex text-xs text-gray-300 justify-end"
+              >
                 Hide Information
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -88,29 +176,62 @@
                 <mat-label class="text-xs text-gray-300">Country</mat-label>
                 <mat-select formControlName="country">
                   <mat-option value="" disabled>Select</mat-option>
-                  <mat-option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</mat-option>
+                  <mat-option
+                    *ngFor="let country of countries"
+                    [value]="country.code"
+                    >{{ country.name }}</mat-option
+                  >
                 </mat-select>
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('country').errors | keyvalue">
+                    {{ validationMessages.country[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300">State or Region</mat-label>
+                <mat-label class="text-xs text-gray-300"
+                  >State or Region *</mat-label
+                >
                 <input matInput #input formControlName="region" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('region').errors | keyvalue">
+                    {{ validationMessages.region[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300">City</mat-label>
                 <input matInput #input formControlName="city" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('city').errors | keyvalue">
+                    {{ validationMessages.city[error.key] }}
+                  </span>
+                  </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300">Street Address</mat-label>
+                <mat-label class="text-xs text-gray-300"
+                  >Street Address</mat-label
+                >
                 <input matInput #input formControlName="streetAddress" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('streetAddress').errors | keyvalue">
+                    {{ validationMessages.streetAddress[error.key] }}
+                  </span>
+                  </mat-error>
               </mat-form-field>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
             <mat-expansion-panel-header>
               <mat-panel-title class="text-xs text-gray-300">
                 Business Owner
               </mat-panel-title>
-              <mat-panel-description class="flex text-xs text-gray-300 justify-end">
+              <mat-panel-description
+                class="flex text-xs text-gray-300 justify-end"
+              >
                 Hide Information
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -118,10 +239,20 @@
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300">First Name</mat-label>
                 <input matInput #input formControlName="owner_fname" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('owner_fname').errors | keyvalue">
+                    {{ validationMessages.owner_fname[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300">Laste Name</mat-label>
                 <input matInput #input formControlName="owner_lname" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('owner_lname').errors | keyvalue">
+                    {{ validationMessages.owner_lname[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <!-- <mat-form-field appearance="fill">
                 <mat-label class="text-xs text-gray-300"
@@ -130,65 +261,143 @@
                 <input matInput #input formControlName="dob" />
               </mat-form-field> -->
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300">Date Of Birth</mat-label>
-                <input matInput [matDatepicker]="picker" #input formControlName="dob" />
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-label class="text-xs text-gray-300"
+                  >Date Of Birth *</mat-label
+                >
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  #input
+                  formControlName="dob"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('dob').errors | keyvalue">
+                    {{ validationMessages.dob[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300">Nationnality</mat-label>
+                <mat-label class="text-xs text-gray-300"
+                  >Nationnality</mat-label
+                >
                 <mat-select formControlName="nationality">
                   <mat-option value="" disabled>Select</mat-option>
-                  <mat-option *ngFor="let nationality of nationalities" [value]="nationality">{{ nationality }}
+                  <mat-option
+                    *ngFor="let nationality of nationalities"
+                    [value]="nationality"
+                    >{{ nationality }}
                   </mat-option>
                 </mat-select>
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('nationality').errors | keyvalue">
+                    {{ validationMessages.nationality[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300">Your Address</mat-label>
+                <mat-label class="text-xs text-gray-300"
+                  >Your Address</mat-label
+                >
                 <input matInput #input formControlName="owner_adresse" />
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('owner_adresse').errors | keyvalue">
+                    {{ validationMessages.owner_adresse[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label class="text-xs text-gray-300">Identification document
+                <mat-label class="text-xs text-gray-300"
+                  >Identification document
                 </mat-label>
                 <mat-select formControlName="identification_document">
                   <mat-option value="" disabled>Select</mat-option>
                   <mat-option *ngFor="let idType of idTypes" [value]="idType">{{
                     idType
-                    }}</mat-option>
+                  }}</mat-option>
                 </mat-select>
+                <mat-error>
+                  <span *ngFor="let error of businessForm.get('identification_document').errors | keyvalue">
+                    {{ validationMessages.identification_document[error.key] }}
+                  </span>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="grid grid-flow-col grid-cols-2 grid-rows-6">
-              <mat-file-upload [labelText]="''" [uploadButtonText]="'upload'" [showUploadButton]="true"
-                [selectButtonText]="'Upload your ID'" [showUploadButton]="false" [acceptedTypes]="'.doc, .pdf'"
-                (uploadClicked)="uploadID($event)">
+              <mat-file-upload
+                [labelText]="''"
+                [uploadButtonText]="'upload'"
+                [uploadButtonType]="'button'"
+                [showUploadButton]="false"
+                [selectButtonText]="'Upload your ID *'"
+                [acceptedTypes]="'.doc, .pdf, .jpg, .jpeg, .png'"
+                (uploadClicked)="uploadID($event)"
+                (change)="uploadID($event)"
+              >
               </mat-file-upload>
               <div class="mt-6">
-                <label id="example-radio-group-label " class="text-md text-gray-300 ml-4 ">is it legally registred
-                  ?</label>
-                <mat-radio-group class="ml-4" (change)='bsnssRegiStatus($event)'>
+                <label
+                  id="example-radio-group-label "
+                  class="text-md text-gray-300 ml-4"
+                  >is it legally registred ?</label
+                >
+                <mat-radio-group
+                  class="ml-4"
+                  (change)="bsnssRegiStatus($event)"
+                >
                   <mat-radio-button value="NO" checked>NO</mat-radio-button>
-                  <mat-radio-button class="ml-4" value="YES">YES</mat-radio-button>
+                  <mat-radio-button class="ml-4" value="YES"
+                    >YES</mat-radio-button
+                  >
                 </mat-radio-group>
               </div>
-              <mat-form-field *ngIf='hasBusinessInformation' appearance="fill" class="">
-                <mat-label class="text-xs text-gray-300">Business Legal Name
+              <mat-form-field
+                *ngIf="isLegallyRegistered"
+                appearance="fill"
+                class=""
+              >
+                <mat-label class="text-xs text-gray-300"
+                  >Business Legal Name
                 </mat-label>
                 <input matInput #input formControlName="business_legal_name" />
               </mat-form-field>
-              <mat-file-upload *ngIf='hasBusinessInformation' [labelText]="''" [uploadButtonText]="'upload'"
-                [showUploadButton]="true" [selectButtonText]="'Uload Company document'" [showUploadButton]="false"
-                [acceptedTypes]="'.doc, .pdf'" (uploadClicked)=" uploadCompanyDoc($event)">
+              <mat-file-upload
+                *ngIf="isLegallyRegistered"
+                [labelText]="''"
+                [uploadButtonText]="'upload'"
+                [showUploadButton]="false"
+                [selectButtonText]="'Upload Company document'"
+                [acceptedTypes]="'.doc, .pdf'"
+                (uploadClicked)="uploadCompanyDoc($event)"
+                (change)="uploadCompanyDoc($event)"
+              >
               </mat-file-upload>
             </div>
           </mat-expansion-panel>
         </mat-accordion>
         <div class="mt-2 flex justify-center">
-          <button *ngIf="!isBusinessSubmitted" mat-raised-button (click)="addBusiness()" color="primary" type="submit">
+          <button
+            *ngIf="!isBusinessSubmitted"
+            mat-raised-button
+            (click)="addBusiness()"
+            color="primary"
+            type="submit"
+            [disabled]="businessForm.status !== 'VALID'"
+          >
             Add Business
           </button>
-          <button *ngIf="isBusinessSubmitted" mat-raised-button (click)="addBusiness()" color="primary" type="submit"
-            disabled>
+          <button
+            *ngIf="isBusinessSubmitted"
+            mat-raised-button
+            (click)="addBusiness()"
+            color="primary"
+            type="submit"
+            disabled
+          >
             Adding...
           </button>
           <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
