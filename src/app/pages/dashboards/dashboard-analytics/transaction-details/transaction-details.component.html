@@ -1,40 +1,29 @@
 <vex-page-layout>
-  <vex-page-layout-header
-    class="pb-16"
-    fxLayout="column"
-    fxLayoutAlign="center start"
-  >
+  <vex-page-layout-header class="pb-16" fxLayout="column" fxLayoutAlign="center start">
     <div class="w-full flex flex-col sm:flex-row justify-between">
       <div>
         <h1 class="title mt-0 mb-1">Transactions Details</h1>
-        <vex-breadcrumbs
-          [crumbs]="['Dashboard', 'Transactions', 'Transaction-details']"
-        ></vex-breadcrumbs>
+        <vex-breadcrumbs [crumbs]="['Dashboard', 'Transactions', 'Transaction-details']"></vex-breadcrumbs>
       </div>
+
     </div>
   </vex-page-layout-header>
 
-  <vex-page-layout-content
-    [class.container]="true"
-    [class.px-gutter]="true"
-    class="-mt-16"
-  >
+  <vex-page-layout-content [class.container]="true" [class.px-gutter]="true" class="-mt-16">
     <div>
-      <div class="grid grid-flow-col grid-cols-3 head grid-rows-1 gap-4">
+      <div class="grid grid-flow-col grid-cols-3 grid-rows-1 gap-4">
         <div class="col-span-2">
           <div class="grid grid-flow-col grid-cols-3 grid-rows-1">
             <div>
               <div class="grid grid-flow-col grid-cols grid-rows-2 gap-4">
                 <div>
                   <div class="grid grid-flow-col grid-cols-2 grid-rows-1 mt-2">
-                    <div class="ml-2">
+                    <div class="ml-8">
                       <img class="block w-6 h-6 rounded-full" [src]="buyerPhototURL" />
                     </div>
                     <div class="-ml-12">
-                      <span class="text-xs text-gray-300"
-                        >{{ transactionDetails?.initiator_name }}
-                        {{ transactionDetails?.initiator_first_name }}</span
-                      >
+                      <span class="text-xs text-gray-300">{{ transactionDetails?.initiator_name }}
+                        {{ transactionDetails?.initiator_first_name }}</span>
                     </div>
                   </div>
                 </div>
@@ -90,11 +79,7 @@
               </h3>
             </div>
             <div class="mt-2">
-              <ic-icon
-                style="color: rgb(197, 55, 55); cursor: pointer"
-                [icIcon]="icCancel"
-                size="20px"
-              ></ic-icon>
+              <ic-icon style="color: rgb(197, 55, 55); cursor: pointer" [icIcon]="icCancel" size="20px"></ic-icon>
             </div>
           </div>
         </div>
@@ -105,11 +90,7 @@
           <div class="col-span-2">
             <div class="flex mt-4 ml-4">
               <div class="grid grid-flow-col grid-cols-1">
-                <ic-icon
-                  class="text-red"
-                  [icIcon]="icInfo"
-                  size="20px"
-                ></ic-icon>
+                <ic-icon class="text-red" [icIcon]="icInfo" size="20px"></ic-icon>
                 <p class="text-xs text-gray-300 text-red">
                   This transaction can only be cancelled by you
                 </p>
@@ -117,11 +98,7 @@
             </div>
             <div class="flex mt-4 ml-4">
               <div class="grid grid-flow-col grid-cols-1">
-                <ic-icon
-                  class="text-red"
-                  [icIcon]="icInfo"
-                  size="20px"
-                ></ic-icon>
+                <ic-icon class="text-red" [icIcon]="icInfo" size="20px"></ic-icon>
                 <p class="text-xs text-gray-300 text-red">
                   Custumer must acknowledge receipe of goods with the delivery
                   code this will release the money to your account
@@ -131,12 +108,7 @@
 
             <hr class="mt-4 bg-gray h-0.90 w-900" />
 
-            <table
-              mat-table
-              [dataSource]="dataSource"
-              class="mat-elevation-z8 w-full ml-2 mt-4 px-7"
-              matSort
-            >
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full ml-2 mt-4 px-7" matSort>
               <!--  Column -->
               <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>Item ID</th>
@@ -190,18 +162,12 @@
             </table>
             <hr class="mt-4 bg-gray h-0.90 w-900" />
 
-            <div
-              class="grid grid-flow-col grid-cols-2 ml-4 head mt-2 grid-rows-1 gap-8"
-            >
+            <div class="grid grid-flow-col grid-cols-2 ml-4  mt-2 grid-rows-1 gap-8">
               <div>
                 <h6 class="ml-4">Amount secured</h6>
               </div>
               <div class="flex flex-wrap w-24 -pr-8 ml-48">
-                <ic-icon
-                  style="color: rgb(75, 75, 214)"
-                  [icIcon]="icLock"
-                  size="20px"
-                ></ic-icon>
+                <ic-icon style="color: rgb(75, 75, 214)" [icIcon]="icLock" size="20px"></ic-icon>
                 <h6 class="text-right">
                   {{ transactionDetails?.price }}
                   {{ transactionDetails?.currency }}
@@ -212,9 +178,7 @@
           <div>
             <div class="h-64 grid grid-rows-2 grid-flow-col-1 gap-4">
               <div>
-                <div
-                  class="grid grid-flow-col grid-cols-1 ml-4 head mt-2 grid-rows-1 gap-8"
-                >
+                <div class="grid grid-flow-col grid-cols-1 ml-4  mt-2 grid-rows-1 gap-8">
                   <div>
                     <h6 class="text-center w-100">
                       Delivery code confirmation
@@ -230,9 +194,7 @@
 
               <div>
                 <div>
-                  <div
-                    class="grid grid-flow-col grid-cols-1 ml-4 head mt-2 grid-rows-1 gap-8"
-                  >
+                  <div class="grid grid-flow-col grid-cols-1 ml-4  mt-2 grid-rows-1 gap-8">
                     <div>
                       <h6 class="text-center w-100">Dispatch Rider contact</h6>
                       <p class="text-center text-gray-300 text-xs w-100">
@@ -241,39 +203,26 @@
                       </p>
                     </div>
                   </div>
-                  <div  [formGroup]="form" *ngIf="displayPhoneInput" class="ml-20 mt-4">
+                  <div [formGroup]="form" *ngIf="displayPhoneInput" class="ml-20 mt-4">
                     <p>
                       <mat-form-field appearance="legacy">
-                        <input matInput type="text" formControlName="newDeliveryNo"/>
+                        <input matInput type="text" formControlName="newDeliveryNo" />
                         <span matPrefix>{{ prefixCountryCode }}</span>
                         <mat-error *ngIf="form?.status === 'INVALID'">Please enter a valid phone number
-                        </mat-error>              
+                        </mat-error>
                       </mat-form-field>
                     </p>
                     <div>
-                      <button
-                        mat-raised-button
-                        style="width: 180px"
-                        color="primary"
-                        (click)="updateDeliveryPhone()"
-                        [disabled]="form?.status === 'INVALID'"
-                      >
+                      <button mat-raised-button style="width: 180px" color="primary" (click)="updateDeliveryPhone()"
+                        [disabled]="form?.status === 'INVALID'">
                         Change
                       </button>
                     </div>
                   </div>
-                  <div
-                    class="grid grid-flow-col grid-cols-1 text-center mt-4"
-                    *ngIf="!displayPhoneNumber"
-                  >
+                  <div class="grid grid-flow-col grid-cols-1 text-center mt-4" *ngIf="!displayPhoneNumber">
                     <h5 class="text-md mr-8 text-gray-300"> {{ transactionDetails?.delivery_phone }}</h5>
-                    <ic-icon
-                      [icIcon]="icEdit"
-                      class="-ml-56"
-                      (click)="onDisplayInput()"
-                      style="cursor: pointer; color: rgb(75, 75, 214)"
-                      size="20px"
-                    ></ic-icon>
+                    <ic-icon [icIcon]="icEdit" class="-ml-56" (click)="onDisplayInput()"
+                      style="cursor: pointer; color: rgb(75, 75, 214)" size="20px"></ic-icon>
                   </div>
                 </div>
               </div>
