@@ -5,6 +5,7 @@ export interface UserTransactionsSummary {
   totalPayouts: number;
   monthlyTransactions?: any;
   activeTransactions?: number;
+  pendingPayouts?: any;
 }
 
 export interface UserSession {

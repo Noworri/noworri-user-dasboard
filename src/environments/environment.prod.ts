@@ -3,6 +3,7 @@ export const environment = {
   url: "https://api.noworri.com/api/",
   payStackCheckoutUrl: `https://api.noworri.com/api/securewithpaystack`,
   payStackReleaseUrl: `https://api.noworri.com/api/initiateRelease/`,
+  processPayoutUrl: `https://api.noworri.com/api/processbusinesspayout`,
   checkTransactionStatusUrl: `https://api.noworri.com/api/chektransactionstatus`,
   addAccountUrl: `https://api.noworri.com/api/createrecipient/`,
   updateAccountUrl: `https://api.noworri.com/api/updateuseraccount/`,
@@ -14,5 +15,6 @@ export const environment = {
   cancelTransactionUrl: `https://api.noworri.com/api/cancelescrowtransaction/`,
   getBusinessUserPayoutsUrl: `https://api.noworri.com/api/getbusinessuserpayouts/`,
   getBusinessTransactionsSummaryUrl: `https://api.noworri.com/api/getusertransactionssummary/`,
-  updateDeliveyUrl: `https://api.noworri.com/api/updatedeliveryphone`
+  updateDeliveyUrl: `https://api.noworri.com/api/updatedeliveryphone`,
+  getUserAccountDetailsUrl: `https://api.noworri.com/api/getbusinessuseraccountdetails/`
 };

@@ -17,6 +17,8 @@ import icInfo from "@iconify/icons-ic/twotone-info";
 import icEdit from "@iconify/icons-ic/twotone-edit";
 import { MatTableModule } from "@angular/material/table";
 import { GeoLocationService } from "src/app/services/geo-location.service";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { DashboardDialogComponent } from "../dashboard-dialog/dashboard-dialog.component";
 
 @Component({
   selector: "vex-transaction-details",
@@ -57,8 +59,8 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   isValidating = false;
   isVendorTransaction: boolean;
   isFundsReleased: boolean;
-  isCancelled: boolean;
-  hasWithdrawn: boolean;
+  isCancelled = false;
+  hasWithdrawn =false;
   transactionDetails: any;
   itemIds: string[];
   quantities: string[];
@@ -70,12 +72,14 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   countryData: any;
   waitingDisplayInput: boolean;
   form: FormGroup;
+  actionResult: any;
 
   constructor(
     private transactionsService: TransactionsService,
     private route: ActivatedRoute,
     private geoLocationService: GeoLocationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
     this.userSessionData = sessionData;
@@ -142,6 +146,24 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
           this.loadUserTransaction();
         }
       );
+  }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose =  false;
+    dialogConfig.data = {
+      dialogHeader: 'CANCEL ORDER',
+      buttonCancel: 'CANCEL',
+      buttonConfirm: 'CONFRIM',
+      dialogMessage: 'Are you sure you want to cancel this order?'
+    }
+    this.dialog.open(DashboardDialogComponent, dialogConfig).afterClosed().subscribe(result => {
+      this.actionResult = result;
+      if(result === 'Yes') {
+        this.cancelTransaction();
+        // this.withdraw();
+      }
+    });
   }
 
   getLocationData() {

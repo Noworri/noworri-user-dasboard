@@ -81,7 +81,7 @@
                 {{ transactionDetails?.currency }}
               </h3>
             </div>
-            <div class="mt-2">
+            <div *ngIf="!isCancelled" (click)="openDialog()" class="mt-2">
               <ic-icon style="color: rgb(197, 55, 55); cursor: pointer" [icIcon]="icCancel" size="20px"></ic-icon>
             </div>
           </div>
@@ -176,8 +176,6 @@
                   {{ transactionDetails?.currency }}
                 </h6>
               </div>
-            </div>
-          </div>
           <div>
             <div class="h-64 grid grid-rows-2 grid-flow-col-1 gap-4">
               <div>
@@ -196,8 +194,6 @@
                     {{ transactionDetails?.release_code }}
                   </h3>
                 </div>
-              </div>
-
               <div>
                 <div>
 
@@ -234,7 +230,6 @@
                       style="cursor: pointer; color: rgb(75, 75, 214)" size="20px"></ic-icon>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>

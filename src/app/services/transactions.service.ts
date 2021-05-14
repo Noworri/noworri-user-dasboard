@@ -42,9 +42,9 @@ export class TransactionsService {
             } else if (values.etat === "3") {
               values.state = "Funds Released";
             } else if (values.etat === "5") {
-              values.state = "Withdrawn";
+              values.state = "Funds Withdrawn";
             } else if (values.etat === "2") {
-              values.state = "Secured";
+              values.state = "Funds Secured";
             } else if (values.etat === "4") {
               values.state = "Deleted";
             }
@@ -85,9 +85,6 @@ export class TransactionsService {
 
     return this.http.get(url).pipe(
       map((data: any) => {
-        data.map((transaction) => {
-          return transaction;
-        });
         return data;
       }),
       catchError((error: HttpErrorResponse) => {
@@ -139,6 +136,26 @@ export class TransactionsService {
         return observableThrowError(error);
       })
     );
+  }
+
+  processBusinessPayout(data) {
+    const url = `${environment.processPayoutUrl}`;
+
+    return this.http
+      .post(url, data, { responseType: "json" })
+      .pipe(
+        map((response: any) => {
+          const releaseFundsData = response.data;
+          // if (releaseFundsData) {
+          //   this.finalizeReleasePaystack(releaseFundsData);
+          // }
+          return releaseFundsData;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log("Error", error.message);
+          return observableThrowError(error);
+        })
+      );
   }
 
   initiateWithdrawal(data) {
@@ -210,7 +227,10 @@ export class TransactionsService {
 
   cancelOrder(data) {
     const url = `${environment.cancelTransactionUrl}`;
-    return this.http.post(url, data).pipe(
+    let params = new HttpParams();
+    params = params.append('id', data.id);
+    params = params.append('canceled_by', data.canceled_by);
+    return this.http.get(url, {params}).pipe(
       map((response) => {
         return response;
       }),
@@ -363,7 +383,7 @@ export class TransactionsService {
   }
 
   getAccountDetails(user_id) {
-    const url = `https://api.noworri.com/api/getbusinessuseraccountdetails/${user_id}`;
+    const url = `${environment.getUserAccountDetailsUrl}${user_id}`;
     return this.http.get(url).pipe(
       map((response) => {
         return response;
