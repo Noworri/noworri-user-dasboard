@@ -1,6 +1,7 @@
 export const USER_SESSION_KEY = "noworri-user-session";
 export const SESSION_STORAGE_KEY = "user_session_data";
 export const BUSINESS_DATA_KEY = "business_data";
+export const BUSINESS_ACCOUNT_DATA_KEY = "business_acc_data";
 export const SUMMARY_DATA_KEY = "summary_data";
 export enum TRANSACTION_SOURCE {
   BUSINESS = "e-commerce",
@@ -33,14 +34,14 @@ export const PAYOUT_TABLE_LABELS = [
 
 export const TRANSACTION_TABLE_LABELS = [
   {
-    text: 'Withdrawn',
+    text: 'Funds Withdrawn',
     textClass: 'text-primary',
     cssClasses: ['text-primary','bg-primary-light'],
     bgClass: 'bg-primary-light',
     previewClass: 'bg-primary'
   },
   {
-    text: 'Secured',
+    text: 'Funds Secured',
     textClass: 'text-green',
     cssClasses: ['text-green','bg-cyan-light'],
     bgClass: 'bg-cyan-light',

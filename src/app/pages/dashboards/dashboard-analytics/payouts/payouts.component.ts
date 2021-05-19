@@ -2,8 +2,18 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import icSearch from "@iconify/icons-ic/twotone-search";
 import { MatTableDataSource } from "@angular/material/table";
-import { BUSINESS_DATA_KEY, PAYOUT_TABLE_LABELS, SUMMARY_DATA_KEY, USER_SESSION_KEY } from "src/app/Models/constants";
-import { BusinessAcount, UserSession, UserTransactionsSummary } from "src/app/Models/interfaces";
+import {
+  BUSINESS_ACCOUNT_DATA_KEY,
+  BUSINESS_DATA_KEY,
+  PAYOUT_TABLE_LABELS,
+  SUMMARY_DATA_KEY,
+  USER_SESSION_KEY,
+} from "src/app/Models/constants";
+import {
+  BusinessAcount,
+  UserSession,
+  UserTransactionsSummary,
+} from "src/app/Models/interfaces";
 import { TransactionsService } from "src/app/services/transactions.service";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
@@ -42,13 +52,12 @@ export class PayoutsComponent implements OnInit {
   ];
   statusLabels = PAYOUT_TABLE_LABELS;
   TRANSFER_MODE = {
-    text: 'Bank Wiring',
-    textClass: 'text-primary',
-    cssClasses: ['text-primary','bg-primary-light'],
-    bgClass: 'bg-primary-light',
-    previewClass: 'bg-primary'
+    text: "Bank Wiring",
+    textClass: "text-primary",
+    cssClasses: ["text-primary", "bg-primary-light"],
+    bgClass: "bg-primary-light",
+    previewClass: "bg-primary",
   };
-
 
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 20, 50];
@@ -67,6 +76,8 @@ export class PayoutsComponent implements OnInit {
   unsubscribe$ = new Subject();
 
   icSearch = icSearch;
+  hasMomoAccount: boolean;
+  pendingPayoutTransactions: any;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -86,8 +97,8 @@ export class PayoutsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isWithdrawable = this.summaryData.totalPayouts > 1000 ? true : false;
     this.loadPayouts(this.userData.user_uid);
+    this.getBusinessAccountDetails();
   }
 
   getStatusLabel(status: string) {
@@ -96,37 +107,44 @@ export class PayoutsComponent implements OnInit {
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose =  false;
-    dialogConfig.width = '400px',
-    dialogConfig.data = {
-      dialogHeader: 'PROCESS PAYOUT',
-      dialogMessage: `You are about to withdraw ${this.userData.currency} ${this.summaryData.totalPayouts}`,
-      buttonCancel: 'CANCEL',
-      buttonConfirm: 'CONFRIM'
-    }
-    this.dialog.open(DashboardDialogComponent, dialogConfig).afterClosed().subscribe(result => {
-      this.actionResult = result;
-      if(result === 'Yes') {
-        console.log('confirmed');
-        // this.withdraw();
-      }
-    });
+    dialogConfig.disableClose = false;
+    (dialogConfig.width = "400px"),
+      (dialogConfig.data = {
+        dialogHeader: "PROCESS PAYOUT",
+        dialogMessage: `You are about to withdraw ${this.userData.currency} ${this.summaryData.totalPayouts}`,
+        buttonCancel: "CANCEL",
+        buttonConfirm: "CONFRIM",
+      });
+    this.dialog
+      .open(DashboardDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe((result) => {
+        this.actionResult = result;
+        if (result === "Yes") {
+          this.withdraw();
+        }
+      });
   }
 
   withdraw() {
-    const releaseData = {
-    amount: this.summaryData.totalPayouts,
-    recipient: this.businessAccountDetails.recipient_code,
-    currency: this.userData.currency,
-    user_id:  this.userData.user_uid
-    }
-    if(this.hasPayoutAccount) {
-      this.transactionsService.initiateWithdrawal(releaseData).pipe(takeUntil(this.unsubscribe$))
-      .subscribe(response => {
-        return response;
-      })
+    const withdrawalData = {
+      source: 'balance',
+      reason: 'Noworri Payment Release',
+      amount: this.summaryData.totalPayouts,
+      recipient: this.businessAccountDetails.recipient_code,
+      currency: this.userData.currency,
+      user_id: this.userData.user_uid,
+      pendingPayouts: this.summaryData.pendingPayouts
+    };
+    if (this.hasPayoutAccount) {
+      this.transactionsService
+        .processBusinessPayout(withdrawalData)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((response) => {
+          return response;
+        });
     } else {
-      this.router.navigate(['/dashboards/business-settings']);
+      this.router.navigate(["/dashboards/business-settings"]);
     }
     return null;
   }
@@ -141,24 +159,26 @@ export class PayoutsComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((details: any) => {
         this.businessAccountDetails = details.data;
-        this.hasPayoutAccount = details.data ? true: false;
-
+        this.hasPayoutAccount = !!details.data ? true : false;
+        this.hasMomoAccount = details.data?.type === "mobile_money";
+        this.isWithdrawable = (this.summaryData.totalPayouts > 1000 || this.hasMomoAccount) ? true : false;
         return details;
       });
   }
 
-  
   loadPayouts(userId: string) {
     this.transactionsService
       .getBusinessUserPayouts(userId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (transactions) => {
-          this.hasPayouts = transactions.length ? true : false;
-          const updatedTransactions = transactions.map(transfer => {
+          this.hasPayouts = transactions.processedPayouts.length ? true : false;
+          const updatedTransactions = transactions.processedPayouts.map((transfer) => {
             transfer.status = this.getStatusLabel(transfer.status);
             return transfer;
-          })
+          });
+          this.pendingPayoutTransactions = transactions.pendingPayouts;
+          console.log('updatedTransactions', updatedTransactions);
           this.dataSource = new MatTableDataSource(updatedTransactions);
         },
         (error) => console.log(error.message)
