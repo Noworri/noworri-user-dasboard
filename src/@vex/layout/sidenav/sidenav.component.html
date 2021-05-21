@@ -4,11 +4,11 @@
     <div #originRef
       class="flex items-center rounded cursor-pointer relative trans-ease-out select-none py-1 pr-1 pl-3 hover:bg-hover"
       matRipple>
-      <div *ngIf="!hasBusiness">
+      <div style="display: flex;" *ngIf="!hasBusiness">
         <div class="rounded-full h-9 w-9 flex items-center justify-center text-primary bg-primary-light">
           <mat-icon [icIcon]="icStore"></mat-icon>
         </div>
-        <div (click)="addBusiness()" class="body-1 ml-3 font-medium leading-snug ltr:mr-3 rtl:ml-4" fxHide.xs>
+        <div (click)="addBusiness()" class="body-1 ml-3 mt-2 font-medium leading-snug ltr:mr-3 rtl:ml-4" fxHide.xs>
           Add business
         </div>
       </div>
@@ -16,7 +16,7 @@
         <div class="rounded-full h-9 w-9 -mb-6 flex items-center justify-center text-primary bg-primary-light">
           <img src="{{ businessLogoUrl }}" />
         </div>
-        <div class="body-1 ml-10 -mt-6 font-medium leading-snug  " fxHide.xs>
+        <div class="body-1 ml-10 -mt-2 font-medium leading-snug  " fxHide.xs>
           <span class='-mt-4 '> {{ businessDetails.trading_name }}</span>
         </div>
       </div>
