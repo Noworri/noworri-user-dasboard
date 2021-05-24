@@ -17,6 +17,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import firebase from "firebase";
 import { ErrorStateMatcher } from "@angular/material/core";
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 /** Error when the parent is invalid */
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
@@ -70,7 +71,9 @@ export class Step3Component implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
-    private authService: AuthserviceService
+    private authService: AuthserviceService,
+    private loadingBar: LoadingBarService
+  
   ) {}
 
   ngOnInit(): void {
@@ -121,8 +124,10 @@ export class Step3Component implements OnInit {
   }
 
   registerUser() {
+   
     this.isLoadingButton = true;
     this.isButtonActive = false;
+    this.loadingBar.start()
     const passWord = this.form.value["password"];
     const confirm_password = this.form.value["passwordConfirm"];
     const email = this.userData["email"];
@@ -188,6 +193,7 @@ export class Step3Component implements OnInit {
   }
 
   signUpUser(password) {
+    this.loadingBar.start()
     let userData = {
       ...this.userData,
       password: password,

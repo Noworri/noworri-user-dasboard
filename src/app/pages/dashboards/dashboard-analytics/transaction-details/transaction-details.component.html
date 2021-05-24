@@ -5,7 +5,6 @@
         <h1 class="title mt-0 mb-1">Transactions Details</h1>
         <vex-breadcrumbs [crumbs]="['Dashboard', 'Transactions', 'Transaction-details']"></vex-breadcrumbs>
       </div>
-
     </div>
   </vex-page-layout-header>
 
@@ -68,7 +67,7 @@
               {{ transactionDetails?.currency }}
             </h3>
           </div>
-          <div *ngIf="!isCancelled" (click)="openDialog()" class="mt-2 priceIcon">
+          <div *ngIf="!isCancelled" (click)="openDialog()" class="mt-2 ml-8 priceIcon">
             <ic-icon style="color: rgb(197, 55, 55); cursor: pointer" [icIcon]="icCancel" size="20px"></ic-icon>
           </div>
         </div>
@@ -79,7 +78,7 @@
     <div class="grid grid-rows-3 grid-flow-col mt-2">
       <div class=" row-span-2">
         <div class='row-span-4'>
-          <div class="grid grid-cols-3 pb-9 p-6 bg-white  ">
+          <div class="grid grid-cols-3 pb-9 p-6 bg-white">
             <div class="col-span-2">
               <div class="flex mt-4 ml-2">
                 <div class="grid grid-flow-col grid-cols-1">
@@ -102,7 +101,7 @@
           </div>
         </div>
         <hr class="mt-4 bg-gray h-0.90 w-900" />
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full  mt-4 px-7" matSort>
+        <table mat-table [dataSource]="dataSource" class="w-full  mt-4 px-7" matSort>
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>Item ID</th>
             <td mat-cell *matCellDef="let item">
@@ -138,21 +137,20 @@
           </tr>
         </table>
         <div>
-
         </div>
         <div class="grid grid-cols-2 text-left mt-2">
           <div>
-            <h6 class="ml-4">Amount secured</h6>
+            <h6 class="ml-4">Amount in Escrow</h6>
           </div>
           <div class="totalT">
-            <ic-icon style="color: rgb(75, 75, 214)" [icIcon]="icLock" size="20px"></ic-icon>
+            <ic-icon style="color: rgb(75, 75, 214);position: relative;right: 10px;" [icIcon]="icLock" size="20px">
+            </ic-icon>
             <h6 class="text-center">
               {{ transactionDetails?.price }}
               {{ transactionDetails?.currency }}
             </h6>
           </div>
         </div>
-
       </div>
       <div class="row-span-2">
         <div class="h-64 grid grid-rows-2 grid-flow-col gap-4">
@@ -193,7 +191,6 @@
                 </button>
               </div>
             </div>
-
             <div class="grid grid-flow-col grid-cols-1 text-center mt-4" *ngIf="!displayPhoneNumber">
               <h5 class="text-md mr-8 text-gray-300"> {{ transactionDetails?.delivery_phone }}</h5>
               <ic-icon [icIcon]="icEdit" (click)="onDisplayInput()"

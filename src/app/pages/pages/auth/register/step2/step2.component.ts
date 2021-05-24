@@ -54,7 +54,8 @@ export class Step2Component implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
-    private geoLocationService: GeoLocationService
+    private geoLocationService: GeoLocationService,
+   
   ) {
     const phoneNumber = sessionStorage.getItem('phoneNumber');
     if (!phoneNumber) {

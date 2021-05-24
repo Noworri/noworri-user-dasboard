@@ -15,6 +15,7 @@ import { countryISO } from "src/app/Models/constants";
 import { AuthserviceService } from "src/app/services/authservice.service";
 import { GeoLocationService } from "src/app/services/geo-location.service";
 import { OtpVerificationService } from "src/app/services/otp-verification.service";
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: "vex-step1",
@@ -94,7 +95,8 @@ export class Step1Component implements OnInit {
     private authService: AuthserviceService,
     private geoLocationService: GeoLocationService,
     private route: ActivatedRoute,
-    private otpverificationService: OtpVerificationService
+    private otpverificationService: OtpVerificationService,
+    private loadingBar: LoadingBarService
   ) {}
 
   ngOnInit(): void {
@@ -192,6 +194,7 @@ export class Step1Component implements OnInit {
   }
 
   sendOtp() {
+    this.loadingBar.start();
     this.processPhoneNumber();
     if (this.isCorrectPhoneEntry === true) {
       this.isLoadingButton = true;
@@ -201,8 +204,11 @@ export class Step1Component implements OnInit {
       this.isCorrectEntryNotification = true;
       this.isLoadingButton = false;
       this.isButtonActive = true;
+      this.loadingBar.complete()
     }
   }
+
+  
 
   sendVerificationCode(realPhonenumber) {
     this.isOTPSent = true;
@@ -217,6 +223,7 @@ export class Step1Component implements OnInit {
   }
 
   verifyOTP() {
+    this.loadingBar.start()
     this.isLoadingButton = true;
     this.isButtonActive = false;
     const verificationCode = this.form.value["otpCode"];
@@ -227,6 +234,7 @@ export class Step1Component implements OnInit {
         this.router.navigate(["auth/register/step2"]);
       })
       .catch((error) => {
+        this.loadingBar.complete()
         this.isSentVerificationCode = false;
         console.log("Error", error.message);
         this.hasError = true;
