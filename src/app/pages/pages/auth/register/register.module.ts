@@ -20,6 +20,7 @@ import { Step2Component } from './step2/step2.component';
 import { Step3Component } from './step3/step3.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { MatSelectModule } from '@angular/material/select';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatTooltipModule,
     MatCheckboxModule,
     NgOtpInputModule,
-    MatSelectModule
+    MatSelectModule,
+    LoadingBarModule
     // MatLabel,
     // IconModule,
     // IntlTelInputNgModule,

@@ -174,9 +174,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
     })
       .then(() => {
         if (!this.locationData) {
-          this.waitingDisplayInput = false;
         } else {
-          this.waitingDisplayInput = true;
           this.countryData = {
             preferredCountries: [`${this.locationData}`],
             localizedCountries: { ng: "Nigeria", gh: "Ghana" },
