@@ -19,6 +19,7 @@ import { MatTableModule } from "@angular/material/table";
 import { GeoLocationService } from "src/app/services/geo-location.service";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DashboardDialogComponent } from "../dashboard-dialog/dashboard-dialog.component";
+import { LoadingBarService } from "@ngx-loading-bar/core";
 
 @Component({
   selector: "vex-transaction-details",
@@ -79,7 +80,8 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private geoLocationService: GeoLocationService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private loadingBar: LoadingBarService
   ) {
     const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
     this.userSessionData = sessionData;
@@ -126,6 +128,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateDeliveryPhone() {
+    this.loadingBar.start();
     const newDeliveryNo = this.form.value['newDeliveryNo'];
     this.isUpdating = true;
     const newDelivery = `${this.prefixCountryCode}${newDeliveryNo}`;
@@ -134,6 +137,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (response) => {
+          this.loadingBar.complete();
           setTimeout(() => {
             this.isUpdating = false;
             this.loadUserTransaction();
@@ -141,6 +145,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
           return response;
         },
         (error) => {
+          this.loadingBar.complete();
           this.isValidating = false;
           console.log(error);
           this.loadUserTransaction();
