@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserSession } from 'src/app/Models/interfaces';
 import { throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vex-user-profile-modal',
@@ -44,6 +45,7 @@ export class UserProfileModalComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private authService: AuthserviceService,
     private dialogRef: MatDialogRef<any>,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) data
   ) {
     this.configs = data;
@@ -145,11 +147,19 @@ export class UserProfileModalComponent implements OnInit {
           const message = "Password Updated Successfully!";
           this.openSnackbar(message);
           this.close('No answer');
+          this.logout();
         } else {
           const message = "Something went wrong!";
           this.openSnackbar(message);
         }
       });
+  }
+
+  logout()
+  {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/auth/login']);
   }
 
   validatePasswords(updatePasswordForm: FormGroup): ValidationErrors {
