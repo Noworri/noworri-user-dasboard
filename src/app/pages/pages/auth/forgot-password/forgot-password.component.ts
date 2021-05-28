@@ -119,6 +119,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   sendVerificationCode(mobilePhone) {
+    this.hasError = false;
     const data = {
       mobile_phone: mobilePhone,
     };
@@ -127,10 +128,10 @@ export class ForgotPasswordComponent implements OnInit {
       .sendSMSVerificationCode(data)
       .pipe(take(1))
       .subscribe((response) => {
-        this.isOTPSent = true;
         if (response["status"] === true) {
           this.isLoadingButton = false;
           this.isButtonActive = true;
+          this.isOTPSent = true;
         } else {
           this.isLoadingButton = false;
           this.isButtonActive = true;

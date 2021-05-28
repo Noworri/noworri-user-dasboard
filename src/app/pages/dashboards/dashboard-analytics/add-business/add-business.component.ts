@@ -253,7 +253,11 @@ export class AddBusinessComponent implements OnInit {
         if ((response.status = true && response.data)) {
           localStorage.setItem(BUSINESS_DATA_KEY, JSON.stringify(response.data));
           window.location.reload();
-          this.router.navigate(['/dashboards/activation-pending'])
+          if(response.data.legally_registered === 0) {
+            this.router.navigate(['/dashboards'])
+          } else {
+            this.router.navigate(['/dashboards/activation-pending'])
+          }
         } else {
           this.errorMessage = response.message || "something went wrong";
           this.isBusinessSubmitted = false;

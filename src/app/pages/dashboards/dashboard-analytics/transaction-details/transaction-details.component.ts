@@ -4,7 +4,7 @@ import icMap from "@iconify/icons-ic/twotone-maps-home-work";
 import { IconModule } from "@visurel/iconify-angular";
 import { take, takeUntil } from "rxjs/operators";
 import { USER_SESSION_KEY } from "src/app/Models/constants";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TransactionsService } from "src/app/services/transactions.service";
 import { Subject } from "rxjs";
 import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
@@ -81,7 +81,8 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
     private geoLocationService: GeoLocationService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private loadingBar: LoadingBarService
+    private loadingBar: LoadingBarService,
+    public router: Router
   ) {
     const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
     this.userSessionData = sessionData;
@@ -274,7 +275,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response: any) => {
         if (response.success && response.success === true) {
-          this.loadUserTransaction();
+          this.router.navigate([`dashboards/transactions`]);
         }
       });
   }

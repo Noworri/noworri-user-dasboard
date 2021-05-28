@@ -49,7 +49,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {
     const businessData = localStorage.getItem(BUSINESS_DATA_KEY,);
     this.businessDetails = JSON.parse(businessData)
-    this.hasBusiness = this.businessDetails ? true : false;
+    this.hasBusiness = !!this.businessDetails;
 
     this.businessLogoUrl = `https://noworri.com/api/public/uploads/company/business/${this.businessDetails?.business_logo}`
   }
@@ -72,7 +72,10 @@ export class SidenavComponent implements OnInit {
   }
 
   gotToBusiness(){
-    if(this.businessDetails.status === 'approved') {
+    console.log('this.businessDetails.legally_registered', this.businessDetails.legally_registered === '0')
+    if(this.businessDetails.legally_registered === '0') {
+      this.router.navigate(['/dashboards/business-settings'])
+    } else if(this.businessDetails.legally_registered === '1' && this.businessDetails.status === 'approved') {
       this.router.navigate(['/dashboards/business-settings'])
     } else {
       this.router.navigate(['/dashboards/activation-pending'])
