@@ -59,7 +59,7 @@ export class Step1Component implements OnInit {
   countryData: any;
   prefixCountryCode: string;
   isValidCountry = true;
-  phoneNumberReg = /^\d+$/;
+  digitsRegEx = /^\d+$/;
   isCorrectPhoneEntry: boolean;
   realPhoneNumber: string;
   isValidUser = true;
@@ -101,19 +101,9 @@ export class Step1Component implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      phoneNumber: ["", Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
-      otpCode: ["", Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+      phoneNumber: ["", [ Validators.required,Validators.pattern(this.digitsRegEx)]],
+      otpCode: ["", [Validators.required, Validators.pattern(this.digitsRegEx)]],
     });
-    this.otpCode = new FormControl(this.form.value["otpCode"], [
-      Validators.required,
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/),
-    ]);
-
-    this.phoneNumber = new FormControl(this.form.value["phoneNumber"], [
-      Validators.required,
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/),
-    ]);
-
     this.getLocationData();
     this.otpverificationService.onInitRecapChat();
   }
@@ -157,7 +147,7 @@ export class Step1Component implements OnInit {
     let rawPhoneNumber = this.form.value["phoneNumber"];
 
     let phoneNumberWithoutSpace = rawPhoneNumber.split(/\s/).join("");
-    if (phoneNumberWithoutSpace.match(this.phoneNumberReg)) {
+    if (phoneNumberWithoutSpace.match(this.digitsRegEx)) {
       if (phoneNumberWithoutSpace.charAt(0) === "0") {
         this.isCorrectPhoneEntry = true;
         this.realPhoneNumber =

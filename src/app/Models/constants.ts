@@ -41,7 +41,7 @@ export const TRANSACTION_TABLE_LABELS = [
     previewClass: 'bg-primary'
   },
   {
-    text: 'Funds Secured',
+    text: 'Funds Locked',
     textClass: 'text-green',
     cssClasses: ['text-green','bg-cyan-light'],
     bgClass: 'bg-cyan-light',

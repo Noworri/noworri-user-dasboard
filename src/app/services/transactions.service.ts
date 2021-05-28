@@ -44,7 +44,7 @@ export class TransactionsService {
             } else if (values.etat === "5") {
               values.state = "Funds Withdrawn";
             } else if (values.etat === "2") {
-              values.state = "Funds Secured";
+              values.state = "Funds Locked";
             } else if (values.etat === "4") {
               values.state = "Deleted";
             }
