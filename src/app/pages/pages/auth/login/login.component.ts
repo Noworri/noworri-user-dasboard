@@ -166,15 +166,16 @@ export class LoginComponent implements OnInit, OnDestroy {
               sessionStorage.setItem(SESSION_STORAGE_KEY, sessionStorageData);
               const userData = JSON.stringify(this.sessionResponse);
               localStorage.setItem(USER_SESSION_KEY, userData);
+              this.isLoading= false;
             } else {
               this.isValidating = false;
               this.isValidUser = false;
             }
-            this.isLoading= false;
           },
           (error) => {
             this.isValidating = false;
             this.isValidUser = false;
+            this.isLoading= false;
           }
         );
     } else {
