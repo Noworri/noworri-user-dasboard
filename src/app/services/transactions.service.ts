@@ -15,8 +15,10 @@ import { environment } from "src/environments/environment";
 })
 export class TransactionsService {
   status: string;
-
-  constructor(private http: HttpClient) {}
+  isTestMode: boolean;
+  constructor(private http: HttpClient) {
+    this.isTestMode = JSON.parse(localStorage.getItem("isTestMode"));
+  }
 
   getUserTransactions(userId: string, range = null): Observable<any> {
     let params = new HttpParams();
@@ -26,7 +28,9 @@ export class TransactionsService {
     } else {
       params = null;
     }
-    const url = `${environment.getTransactionsListUrl}${userId}`;
+    const url = this.isTestMode
+      ? `https://api.noworri.com/api/usertransactionstest/${userId}`
+      : `${environment.getTransactionsListUrl}${userId}`;
     return this.http.get(url, { params: params }).pipe(
       map((data: TransactionsReference[]) => {
         data.map((values) => {
@@ -61,7 +65,9 @@ export class TransactionsService {
   }
 
   getUserTransaction(transaction_id: string): Observable<any> {
-    const url = `${environment.getTransactionByIdUrl}${transaction_id}`;
+    const url = this.isTestMode
+      ? `https://api.noworri.com/api/getusertransactiontest/${transaction_id}`
+      : `${environment.getTransactionByIdUrl}${transaction_id}`;
 
     return this.http.get(url).pipe(
       map((data: TransactionsReference[]) => {
@@ -141,21 +147,19 @@ export class TransactionsService {
   processBusinessPayout(data) {
     const url = `${environment.processPayoutUrl}`;
 
-    return this.http
-      .post(url, data, { responseType: "json" })
-      .pipe(
-        map((response: any) => {
-          const releaseFundsData = response.data;
-          // if (releaseFundsData) {
-          //   this.finalizeReleasePaystack(releaseFundsData);
-          // }
-          return releaseFundsData;
-        }),
-        catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
-          return observableThrowError(error);
-        })
-      );
+    return this.http.post(url, data, { responseType: "json" }).pipe(
+      map((response: any) => {
+        const releaseFundsData = response.data;
+        // if (releaseFundsData) {
+        //   this.finalizeReleasePaystack(releaseFundsData);
+        // }
+        return releaseFundsData;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("Error", error.message);
+        return observableThrowError(error);
+      })
+    );
   }
 
   initiateWithdrawal(data) {
@@ -228,9 +232,9 @@ export class TransactionsService {
   cancelOrder(data) {
     const url = `${environment.cancelTransactionUrl}`;
     let params = new HttpParams();
-    params = params.append('id', data.id);
-    params = params.append('canceled_by', data.canceled_by);
-    return this.http.get(url, {params}).pipe(
+    params = params.append("id", data.id);
+    params = params.append("canceled_by", data.canceled_by);
+    return this.http.get(url, { params }).pipe(
       map((response) => {
         return response;
       }),
@@ -507,7 +511,7 @@ export class TransactionsService {
     params = params.append("bank_code", details.bank_code);
     params = params.append("currency", details.currency);
     params = params.append("recipient_code", details.recipient_code);
-    
+
     return this.http
       .post(url, null, { responseType: "json", params: params })
       .pipe(
@@ -557,7 +561,7 @@ export class TransactionsService {
     );
   }
 
-  getUserTransactionSummary(user_id, range =  null) {
+  getUserTransactionSummary(user_id, range = null) {
     let params = new HttpParams();
     if (range) {
       params = params.append("from", range.from);
@@ -565,8 +569,11 @@ export class TransactionsService {
     } else {
       params = null;
     }
-    const url = `${environment.getBusinessTransactionsSummaryUrl}${user_id}`;
-    return this.http.get(url, {params: params}).pipe(
+    const url = this.isTestMode
+      ? `https://api.noworri.com/api/getusertransactionssummarytest/${user_id}`
+      : `${environment.getBusinessTransactionsSummaryUrl}${user_id}`;
+
+    return this.http.get(url, { params: params }).pipe(
       map((response) => {
         return response;
       }),
