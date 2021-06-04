@@ -25,7 +25,7 @@ export class AddPayoutAccountModalComponent implements OnInit {
   isAdding = false;
   recipientDetails: any;
   errorMessage: string;
-  accountDetails: FormGroup;
+  accountDetailsForm: FormGroup;
   bsuinessWalletDetails: any;
   hasMaxAccounts: boolean;
   hasMaxWallets: boolean;
@@ -35,6 +35,18 @@ export class AddPayoutAccountModalComponent implements OnInit {
   bankNames = [];
   country: string;
   hasPayoutAccount = false;
+  validationMessages = {
+    accountNo: {
+      required: "Account Number  is required.",
+      pattern: "Only digits allowed",
+    },
+    bankName: {
+      required: "Bank Name is required",
+    },
+    holderName: {
+      required: "Holder Name is required",
+    },
+  };
 
   unsubscribe$ = new Subject();
 
@@ -74,12 +86,10 @@ export class AddPayoutAccountModalComponent implements OnInit {
     this.getBankList(this.country);
 
     this.getBusinessAccountDetails();
-    this.accountDetails = this.formBuilder.group({
+    this.accountDetailsForm = this.formBuilder.group({
       bankName: ["", Validators.required],
-      bankCode: ["", Validators.required],
       holderName: ["", Validators.required],
-      accountNo: ["", Validators.required],
-      type: ["", Validators.required],
+      accountNo: ["", [Validators.required, Validators.pattern('^[0-9]+$')]],
     });
   }
   toggleModal() {
@@ -92,13 +102,13 @@ export class AddPayoutAccountModalComponent implements OnInit {
 
   setupAccountDetailsForm() {
     const selectedBank = this.banksList.find(
-      (bank) => bank.name === this.accountDetails.value["bankName"]
+      (bank) => bank.name === this.accountDetailsForm.value["bankName"]
     );
     const accountDetails = {
-      bankName: this.accountDetails.value["bankName"],
+      bankName: this.accountDetailsForm.value["bankName"],
       bankCode: selectedBank.code,
-      holderName: this.accountDetails.value["holderName"],
-      accountNo: this.accountDetails.value["accountNo"],
+      holderName: this.accountDetailsForm.value["holderName"],
+      accountNo: this.accountDetailsForm.value["accountNo"],
       userId: this.userId,
       type: selectedBank.type,
       recipient_code: "",
@@ -108,13 +118,13 @@ export class AddPayoutAccountModalComponent implements OnInit {
 
   setupUpdateAccountDetailsForm() {
     const selectedBank = this.banksList.find(
-      (bank) => bank.name === this.accountDetails.value["bankName"]
+      (bank) => bank.name === this.accountDetailsForm.value["bankName"]
     );
     const accountDetails = {
-      bankName: this.accountDetails.value["bankName"],
+      bankName: this.accountDetailsForm.value["bankName"],
       bankCode: selectedBank.code,
-      holderName: this.accountDetails.value["holderName"],
-      accountNo: this.accountDetails.value["accountNo"],
+      holderName: this.accountDetailsForm.value["holderName"],
+      accountNo: this.accountDetailsForm.value["accountNo"],
       userId: this.userId,
       type: selectedBank.type,
       recipient_code: "",
@@ -234,7 +244,7 @@ export class AddPayoutAccountModalComponent implements OnInit {
       .subscribe((response: any) => {
         if (response.status === true && response.data?.recipient_code) {
           this.isAdding = false;
-          this.toggleModal();
+          this.close('');
           this.openSnackbar('Payout Account Added Successfully!');
           this.getBusinessAccountDetails();
         }
