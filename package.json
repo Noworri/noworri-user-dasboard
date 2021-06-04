@@ -1,6 +1,6 @@
 {
   "name": "noworri-user-dashboard",
-  "version": "2.0.0",
+  "version": "2.1.18",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
