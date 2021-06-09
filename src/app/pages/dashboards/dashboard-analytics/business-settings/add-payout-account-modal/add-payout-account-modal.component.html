@@ -1,162 +1,121 @@
+<!-- popup -->
 
-      <!-- popup -->
-
-      <div *ngIf="configs.showAddModal"
-        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-        <div class="relative w-auto my-6 mx-auto max-w-sm">
-          <!--content-->
-          <form [formGroup]="accountDetailsForm">
-            <div
-              class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-              <!--header-->
-              <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                <h3 class="text-sm text-gray-300">ADD A PAYOUT ACCOUNT</h3>
-                <button
-                  class="p-1 ml-auto bg-transparent border-0 text-red opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                  (click)="close('No answer')">
-                  <span
-                    class="bg-transparent -mt-2 text-red opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                    ×
-                  </span>
-                </button>
-              </div>
-              <!--body-->
-              <div class="relative p-6 flex-auto">
-                <div>
-                  <div class="-mt-4 mb-4">
-                    <h4 class="text-xs underline cursor-pointer text-gray-300">
-                      Bank account or Mobile Money
-                    </h4>
-                  </div>
-                  <mat-form-field appearance="fill">
-                    <mat-label class="text-xs text-gray-300">Select Mobile Money/Bank account</mat-label>
-                    <mat-select required formControlName="bankName">
-                      <mat-option *ngFor="let name of bankNames" class="text-xs text-gray-300" [value]="name">
-                        {{ name }}
-                        <!-- <h4 class="text-xs   text-gray-300">{{ bank.name }}</h4> -->
-                      </mat-option>
-                    </mat-select>
-                    <mat-error>
-                      <span *ngFor="let error of accountDetailsForm.get('bankName').errors | keyvalue">
-                        {{ validationMessages.bankName[error.key] }}
-                      </span>
-                    </mat-error>
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label class="text-xs text-gray-300">
-                      Acount Number</mat-label>
-                    <input required matInput formControlName="accountNo" />
-                    <mat-error>
-                      <span *ngFor="let error of accountDetailsForm.get('accountNo').errors | keyvalue">
-                        {{ validationMessages.accountNo[error.key] }}
-                      </span>
-                    </mat-error>
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label class="text-xs text-gray-300">Holder Name</mat-label>
-                    <input required  matInput formControlName="holderName" />
-                    <mat-error>
-                      <span *ngFor="let error of accountDetailsForm.get('holderName').errors | keyvalue">
-                        {{ validationMessages.holderName[error.key] }}
-                      </span>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
-              <!--footer-->
-              <div class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b">
-                <button type="submit" [disabled]="accountDetailsForm.invalid" *ngIf="!isAdding" (click)="setupAccountDetailsForm()" mat-raised-button color="primary">
-                  Add payout Account
-                </button>
-                <button *ngIf="isAdding" mat-raised-button [disabled]="isAdding">
-                  Adding...
-                </button>
-              </div>
+<div *ngIf="configs.showAddModal"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="relative w-auto my-6 mx-auto max-w-sm">
+    <!--content-->
+    <form [formGroup]="accountDetails">
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+          <h3 class="text-sm text-gray-300">ADD A PAYOUT ACCOUNT</h3>
+          <button
+            class="p-1 ml-auto bg-transparent border-0 text-red opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            (click)="close('No answer')">
+            <span
+              class="bg-transparent -mt-2 text-red opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+              ×
+            </span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <div>
+            <div class="-mt-4 mb-4">
+              <h4 class="text-xs underline cursor-pointer text-gray-300">
+                Bank account or Mobile Money
+              </h4>
             </div>
-          </form>
+            <mat-form-field appearance="fill">
+              <mat-label class="text-xs text-gray-300">Select your Mobile Money/Bank account</mat-label>
+              <mat-select formControlName="bankName">
+                <mat-option *ngFor="let name of bankNames" class="text-xs text-gray-300" [value]="name">
+                  {{ name }}
+                  <!-- <h4 class="text-xs   text-gray-300">{{ bank.name }}</h4> -->
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label class="text-xs text-gray-300">
+                Acount Number</mat-label>
+              <input matInput formControlName="accountNo" />
+            </mat-form-field>
+
+          </div>
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b">
+          <button (click)="setupAccountDetailsForm()" mat-raised-button color="primary">
+            Add payout Account
+          </button>
         </div>
       </div>
-      <div *ngIf="configs.showAddModal" class=" opacity-25 fixed inset-0 z-40 bg-black"></div>
-      <!-- popup -->
+    </form>
+  </div>
+</div>
+<div *ngIf="configs.showAddModal" class=" opacity-25 fixed inset-0 z-40 bg-black"></div>
+<!-- popup -->
 
-      <!-- popup edit -->
-      <div *ngIf="configs.showUpdateModal"
-        class="    overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-        <div class="relative w-auto my-6 mx-auto max-w-sm">
-          <!--content-->
-          <form [formGroup]="accountDetailsForm">
-            <div
-              class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-              <!--header-->
-              <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                <h3 class="text-sm text-gray-300">UPDATE PAYOUT ACCOUNT</h3>
-                <button
-                  class="p-1 ml-auto bg-transparent border-0 text-red opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                  (click)="close('No answer')">
-                  <span
-                    class="bg-transparent -mt-2 text-red opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                    ×
-                  </span>
-                </button>
-              </div>
-              <!--body-->
-              <div class="relative p-6 flex-auto">
-                <div>
-                  <div class="-mt-4 mb-4">
-                    <h4 class="text-xs underline cursor-pointer text-gray-300">
-                      Bank account or Mobile Money
-                    </h4>
-                  </div>
-                  <mat-form-field appearance="fill">
-                    <mat-label class="text-xs text-gray-300">Select your Mobile Money/Bank account</mat-label>
-                    <mat-select formControlName="bankName">
-                      <mat-option *ngFor="let name of bankNames" class="text-xs text-gray-300" [value]="name">
-                        {{ name }}
-                        <!-- <h4 class="text-xs   text-gray-300">{{ bank.name }}</h4> -->
-                      </mat-option>
-                    </mat-select>
-                    <mat-error>
-                      <span *ngFor="let error of accountDetailsForm.get('bankName').errors | keyvalue">
-                        {{ validationMessages.bankName[error.key] }}
-                      </span>
-                    </mat-error>
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label class="text-xs text-gray-300">
-                      Acount Number</mat-label>
-                    <input matInput formControlName="accountNo" />
-                    <mat-error>
-                      <span *ngFor="let error of accountDetailsForm.get('accountNo').errors | keyvalue">
-                        {{ validationMessages.accountNo[error.key] }}
-                      </span>
-                    </mat-error>
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label class="text-xs text-gray-300">Holder Name</mat-label>
-                    <input  matInput formControlName="holderName" />
-                    <mat-error>
-                      <span *ngFor="let error of accountDetailsForm.get('holderName').errors | keyvalue">
-                        {{ validationMessages.holderName[error.key] }}
-                      </span>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
-              <!--footer-->
-              <div class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b">
-                <button *ngIf="!isAdding" [disabled]="accountDetailsForm.invalid" (click)="setupUpdateAccountDetailsForm()" mat-raised-button color="primary">
-                  Update Account
-                </button>
-                <button *ngIf="isAdding" mat-raised-button disabled>
-                  Updating...
-                </button>
-                <h4 class="text-xs text-red -mt-2 underline cursor-pointer text-gray-300">
-                  {{errorMessage}}
-                </h4>
-              </div>
+<!-- popup edit -->
+<div *ngIf="configs.showUpdateModal"
+  class="    overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="relative w-auto my-6 mx-auto max-w-sm">
+    <!--content-->
+    <form [formGroup]="accountDetails">
+      <div
+        class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none dark:bg-gray-600 ">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+          <h3 class="text-sm text-gray-300">UPDATE PAYOUT ACCOUNT</h3>
+          <button
+            class="p-1 ml-auto bg-transparent border-0 text-red opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            (click)="close('No answer')">
+            <span
+              class="bg-transparent -mt-2 text-red opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+              ×
+            </span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <div>
+            <div class="-mt-4 mb-4">
+              <h4 class="text-xs underline cursor-pointer text-gray-300">
+                Bank account or Mobile Money
+              </h4>
             </div>
-          </form>
+            <mat-form-field appearance="fill">
+              <mat-label class="text-xs text-gray-300">Select your Mobile Money/Bank account</mat-label>
+              <mat-select formControlName="bankName">
+                <mat-option *ngFor="let name of bankNames" class="text-xs text-gray-300" [value]="name">
+                  {{ name }}
+                  <!-- <h4 class="text-xs   text-gray-300">{{ bank.name }}</h4> -->
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label class="text-xs text-gray-300">
+                Acount Number</mat-label>
+              <input matInput formControlName="accountNo" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label class="text-xs text-gray-300">Holder Name</mat-label>
+              <input matInput formControlName="holderName" />
+            </mat-form-field>
+          </div>
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b">
+          <button (click)="setupUpdateAccountDetailsForm()" mat-raised-button color="primary">
+            Update Account
+          </button>
+          <h4 class="text-xs text-red -mt-2 underline cursor-pointer text-gray-300">
+            {{errorMessage}}
+          </h4>
         </div>
       </div>
-      <div *ngIf="configs.showUpdateModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
-      <!-- popup edit -->
+    </form>
+  </div>
+</div>
+<div *ngIf="configs.showUpdateModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+<!-- popup edit -->

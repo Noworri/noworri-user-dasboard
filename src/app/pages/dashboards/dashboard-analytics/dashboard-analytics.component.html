@@ -2,7 +2,7 @@
   <div class="w-full flex flex-col sm:flex-row justify-between">
     <div>
       <h1 class="title mt-0 mb-1">Dashboard</h1>
-      <vex-breadcrumbs [crumbs]="['Dashboard']"></vex-breadcrumbs>
+      <vex-breadcrumbs [crumbs]="['Dashboard']" class='dash'></vex-breadcrumbs>
     </div>
   </div>
 </div>
@@ -15,6 +15,7 @@
     <h2 class="display-2 font-bold m-0 text-center text-xl my-0">{{ userData.currency}} {{ summaryData.totalRevenue }}
     </h2>
   </div>
+
   <div class="bg-white h-24 shadow">
     <h4 class="text-center text-xs text-gray-300 items-center my-1">Amount in Escrow</h4>
     <h2 class="display-2 font-bold m-0 text-center text-xl my-0">{{ userData.currency}} {{ summaryData.totalAmountLocked
