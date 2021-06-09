@@ -8,3 +8,43 @@
   border: 1px solid rgb(100, 98, 98);
   background-color: rgb(158, 205, 252);
 }
+
+.payOut {
+  margin-left: 10px;
+}
+
+@media (max-width: 460px) {
+  .payOut {
+    margin-left: 10px;
+  }
+  .NexPayout {
+    position: relative;
+    top: 30px;
+  }
+  .WithdrawButton {
+    position: relative;
+    bottom: 30px;
+  }
+  .price {
+    position: relative;
+    top: 61px;
+  }
+}
+
+@media (min-width: 460px) and (max-width: 600px) {
+  .payOut {
+    margin-left: 10px;
+  }
+  .NexPayout {
+    position: relative;
+  }
+  .WithdrawButton {
+    position: relative;
+    bottom: 10px;
+    left: 20px;
+  }
+  .price {
+    position: relative;
+    top: 10px;
+  }
+}

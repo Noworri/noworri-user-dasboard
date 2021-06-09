@@ -28,11 +28,11 @@
         <button class="ml-4" fxFlex="none" fxHide.gt-xs mat-icon-button type="button">
           <mat-icon [icIcon]="icSearch"></mat-icon>
         </button>
-        <div>
+        <div class="payOut">
           <p class="sm:float-right mr-8 mt-4">
-            Next Payout:
-            <span>
-              {{ userData?.currency }} {{ summaryData?.totalPayouts }}
+            <span class="NexPayout"> Next Payout:</span>
+            <span class='WithdrawButton'>
+              <span class="price mr-2"> {{ userData?.currency }} {{ summaryData?.totalPayouts }}</span>
               <button [disabled]="!isWithdrawable" *ngIf="hasPendingPayout" (click)="openDialog()" mat-raised-button
                 color="primary">Withdraw</button>
             </span>
@@ -69,7 +69,8 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef>Status</th>
           <td mat-cell *matCellDef="let element">
-            <div [ngClass]="element.status?.cssClasses" class="rounded px-2 py-1 font-medium text-xs my-4" fxFlex="none">
+            <div [ngClass]="element.status?.cssClasses" class="rounded px-2 py-1 font-medium text-xs my-4"
+              fxFlex="none">
               <span> {{ element.status.text }} </span>
             </div>
           </td>
