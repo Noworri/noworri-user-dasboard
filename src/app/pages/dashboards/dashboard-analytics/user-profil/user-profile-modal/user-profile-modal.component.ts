@@ -85,7 +85,7 @@ export class UserProfileModalComponent implements OnInit {
   sendVerificationCode() {
     const userData = {
       email: this.updateEmailForm.value["email"],
-      id: this.userData.id,
+      user_id: this.userData.user_uid,
     };
     // this.isLoadingButton = true;
     this.isButtonActive = false;
