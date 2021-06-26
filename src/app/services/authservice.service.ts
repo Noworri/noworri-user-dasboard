@@ -205,7 +205,7 @@ export class AuthserviceService {
   sendEmailVerificationCode(userData) {
     const url = `https://api.noworri.com/api/sendotptoemail`;
     let params = new HttpParams();
-    params = params.append("id", userData.id);
+    params = params.append("user_id", userData.user_id);
     params = params.append("email", userData.email);
 
     return this.http.post(url, null, { responseType: "json", params }).pipe(

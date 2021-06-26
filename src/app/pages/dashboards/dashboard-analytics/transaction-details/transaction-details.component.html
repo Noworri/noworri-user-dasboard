@@ -127,7 +127,7 @@
           <ng-container matColumnDef="total">
             <th mat-header-cell *matHeaderCellDef>Total</th>
             <td mat-cell *matCellDef="let item">
-              {{ transactionDetails?.price }}
+              {{ item?.price }}
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -146,7 +146,7 @@
             <ic-icon style="color: rgb(75, 75, 214);position: relative;right: 10px;" [icIcon]="icLock" size="20px">
             </ic-icon>
             <h6 class="text-center">
-              {{ transactionDetails?.price }}
+              {{ totalAmount }}
               {{ transactionDetails?.currency }}
             </h6>
           </div>
