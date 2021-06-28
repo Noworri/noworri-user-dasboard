@@ -1,11 +1,10 @@
 <div #originRef (click)="showPopover(originRef)" [class.bg-hover]="dropdownOpen"
-  class="flex items-center rounded cursor-pointer relative trans-ease-out select-none py-1 pr-1 pl-3 hover:bg-hover"
+  class="relative flex items-center py-1 pl-3 pr-1 rounded cursor-pointer select-none trans-ease-out hover:bg-hover"
   matRipple>
-
-  <div class="body-1 font-medium leading-snug ltr:mr-3 rtl:ml-3 flex flex-wrap" fxHide.xs>
+  <div class="flex flex-wrap font-medium leading-snug body-1 ltr:mr-3 rtl:ml-3" fxHide.xs>
     <ic-icon [icIcon]="icArrow " size="20px"></ic-icon> {{ userData.first_name }} {{userData.name}}
   </div>
   <div class="block w-10 h-10 rounded-full">
-    <img class="h-9 w-9 rounded-full" src="{{ ppURL }}" />
+    <img class="rounded-full h-9 w-9" src="{{ ppURL }}" />
   </div>
 </div>

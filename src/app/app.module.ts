@@ -18,6 +18,7 @@ import { IntlTelInputNgModule } from "intl-tel-input-ng";
 import { NgOtpInputModule } from "ng-otp-input";
 import { ImageCropperModule } from 'ngx-image-cropper';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     HttpClientModule,
     NoopAnimationsModule,
     NgOtpInputModule,
+    MatSlideToggleModule,
 
     // Vex
     VexModule,

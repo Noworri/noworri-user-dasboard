@@ -1,7 +1,7 @@
 <div class="dropdown">
   <div class="dropdown-header" fxLayout="row" fxLayoutAlign="space-between center">
     <div fxLayout="row" fxLayoutAlign="start center">
-      <div class="rounded-full h-9 w-9 -mb-6 flex items-center justify-center text-primary bg-primary-light">
+      <div class="flex items-center justify-center -mb-6 rounded-full h-9 w-9 text-primary bg-primary-light">
         <img src="" />
       </div>
       <div class="dropdown-heading">{{ userData.first_name }} {{userData.name}} </div>
@@ -20,8 +20,10 @@
   </div>
 
   <div class="dropdown-footer" fxLayout="row" fxLayoutAlign="space-between center">
-
     <a (click)="logout()" [routerLink]="['/auth/login']" color="primary" mat-button>LOGOUT</a>
+    <div class="px-1">
+      <mat-slide-toggle color='primary' (change)='colorSwichMode($event)'>Dark mode</mat-slide-toggle>
+    </div>
   </div>
 </div>
 
