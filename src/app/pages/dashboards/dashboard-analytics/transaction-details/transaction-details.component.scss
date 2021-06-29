@@ -1,24 +1,236 @@
-.phoneIcone{
-    margin-top: -14px;
-    position: relative;
-    right: 150px;
-}
-.phoneNumber{
-    position: relative;
-    right: 70px;
-}
-.total{
-    position: relative;
-    left: 80px;
-}
-.price{
-    position: relative;
-    width: 500px;
-    left: 10px;
-}
-.totalT{
+// .phoneIcone{
+//     margin-top: -14px;
+//     position: relative;
+//     right: 150px;
+// }
+// .phoneNumber{
+//     position: relative;
+//     right: 70px;
+// }
+// .total{
+//     position: relative;
+//     left: 80px;
+// }
+// .price{
+//     position: relative;
+//     width: 500px;
+//     left: 10px;
+// }
+// .totalT{
+//     display: flex;
+//     position: relative;
+//     left: 220px;
+// }
+
+.font-thin {
     display: flex;
+    font-weight: 400;
+    font-size: 11px;
+    margin: 6px;
+    text-align: left;
+    font: Segoe UI;
+    letter-spacing: 0px;
+
+    opacity: 1;
+    .icInfo {
+        position: relative;
+        right: 6px;
+        color: #5c77ff;
+    }
+}
+.row-span-2 {
     position: relative;
-    left: 220px;
+    bottom: 120px;
+    .article {
+    }
+}
+hr {
+    position: relative;
+    top: 10px;
+}
+.total {
+    position: relative;
+    top: 20px;
+    .amount {
+        width: 300px;
+        h5 {
+            text-align: left;
+            font: Segoe UI;
+            letter-spacing: 0px;
+            color: #f31853;
+            opacity: 1;
+            font-weight: 700;
+        }
+    }
+    .somme {
+        h5 {
+            text-align: left;
+            font: Segoe UI;
+            letter-spacing: 0px;
+            color: #f31853;
+            opacity: 1;
+            font-weight: 700;
+        }
+    }
 }
 
+.card1 {
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+    .row1 {
+        display: flex;
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 20px;
+        }
+        .user-name {
+            width: 100%;
+            letter-spacing: 0px;
+            color: #616161;
+            opacity: 1;
+            font-size: small;
+            font: Poppins;
+        }
+        .cancel {
+            font: Segoe UI;
+            letter-spacing: 0px;
+            color: #f31853;
+            opacity: 1;
+            font-size: medium;
+            position: relative;
+            text-decoration: underline;
+            font-weight: 700;
+            left: 30px;
+            bottom: 10px;
+            cursor: pointer;
+        }
+    }
+    .address {
+        position: relative;
+        top: 15px;
+        display: flex;
+        h6 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 12px;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            left: 10px;
+        }
+    }
+
+    .phone-number {
+        position: relative;
+        top: 30px;
+        display: flex;
+        h6 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 12px;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            left: 10px;
+        }
+    }
+    .email-address {
+        position: relative;
+        top: 40px;
+        display: flex;
+        h6 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 12px;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            left: 10px;
+        }
+    }
+}
+.card2 {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    .titre {
+        display: flex;
+        .titre1 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: small;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            left: 10px;
+            font-weight: bold;
+        }
+        .titre2 {
+            text-align: center;
+            font: Segoe UI;
+            font-size: 10px;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            line-height: 15px;
+        }
+        h1 {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top: 15px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+    }
+}
+.card3 {
+    .code {
+        display: flex;
+        .titre1 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: small;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            left: 10px;
+            font-weight: bold;
+        }
+        .titre2 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 10px;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            line-height: 15px;
+        }
+        .number {
+            font: Segoe UI;
+            font-size: small;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            font-weight: bold;
+            display: flex;
+            top: 10px;
+            span {
+                margin-left: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+// .border {
+//     background: #ffffff 0% 0% no-repeat padding-box;
+// }
