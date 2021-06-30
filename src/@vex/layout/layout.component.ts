@@ -1,3 +1,4 @@
+import { TestModService } from './../../app/services/test-mod.service';
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { LayoutService } from '../services/layout.service';
@@ -16,6 +17,9 @@ import { ConfigService } from '../services/config.service';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit, AfterViewInit {
+
+
+  
 
   @Input() sidenavRef: TemplateRef<any>;
   @Input() toolbarRef: TemplateRef<any>;
@@ -53,6 +57,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
               private layoutService: LayoutService,
               private configService: ConfigService,
               private router: Router,
+              public testModeService:TestModService,
               @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit() {
@@ -132,4 +137,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+
+
+  
 }

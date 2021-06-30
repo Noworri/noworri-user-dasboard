@@ -106,4 +106,22 @@
   }
 }
 
-
+.testBadge{
+  background-color:#F5F5F8;
+ 
+  hr{
+    background-color: #ff3400;
+    height: 2px;
+    
+  }
+  button{
+   background-color: #ff3400;
+   color: black;
+   cursor: auto;
+  }
+  .testModeButton{
+    display: flex;
+    justify-content: center;
+  }
+  
+}

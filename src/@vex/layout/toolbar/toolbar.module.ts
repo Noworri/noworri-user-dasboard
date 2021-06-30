@@ -16,6 +16,7 @@ import { NavigationItemModule } from "../../components/navigation-item/navigatio
 import { MegaMenuModule } from "../../components/mega-menu/mega-menu.module";
 import { ContainerModule } from "../../directives/container/container.module";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import {MatBadgeModule} from '@angular/material/badge';
 @NgModule({
   declarations: [ToolbarComponent],
   imports: [
@@ -35,6 +36,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     MegaMenuModule,
     ContainerModule,
     MatSlideToggleModule,
+    MatBadgeModule
   ],
   exports: [ToolbarComponent],
 })
