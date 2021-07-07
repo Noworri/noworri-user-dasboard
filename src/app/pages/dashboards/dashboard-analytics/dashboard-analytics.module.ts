@@ -1,3 +1,4 @@
+import { IntlTelInputNgModule } from 'intl-tel-input-ng';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
@@ -125,7 +126,8 @@ import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
     ImageCropperModule,
     MatProgressBarModule,
     CountdownModule,
-    NgxSimpleCountdownModule
+    NgxSimpleCountdownModule,
+    IntlTelInputNgModule.forRoot()
   ],
 })
 export class DashboardAnalyticsModule {}

@@ -6,17 +6,20 @@ import { Injectable } from '@angular/core';
 })
 export class TestModService {
 
-  hasActivedTestMode:boolean;
+  hasActivedTestMode: boolean;
+
+  mode = 'Live '
+  
 
   constructor() { }
-
-  activateTestMode(data){
-    if(data.checked === true){
-      this.hasActivedTestMode=true;
-    }else{
-      this.hasActivedTestMode=false;
+  activateTestMode(data) {
+    if (data.checked === true) {
+      this.hasActivedTestMode = true;
+      this.mode = 'Test '
+    } else {
+      this.hasActivedTestMode = false;
+      this.mode = 'Live '
     }
-  
   }
 
 }

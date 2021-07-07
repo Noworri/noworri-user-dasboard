@@ -6376,6 +6376,11 @@ ng-otp-input@^1.7.1:
   dependencies:
     tslib "^1.9.0"
 
+ngx-bootstrap@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-6.2.0.tgz#678b274dabfda31411eb1234c981d1967750d890"
+  integrity sha512-5WKHo6/ltkenw4UyXZwED8rODCgp2RGbWurzYzZsF/gH1JO5SN7TJ+AL6kXYk6XM42sDA2WhN9Db+ZPNjiyHnA==
+
 ngx-countdown-timer@^0.1.9:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/ngx-countdown-timer/-/ngx-countdown-timer-0.1.9.tgz#f7de864b3e30e333ae2a2c093c8d0667f2e604dc"

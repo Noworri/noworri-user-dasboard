@@ -5,6 +5,7 @@ module.exports = {
       './src/**/*.{html,ts}'
     ]
   },
+  darkMode: 'media',
   darkMode: false,
   important: ':root',
   separator: ':',

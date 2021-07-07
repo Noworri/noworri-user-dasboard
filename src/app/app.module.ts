@@ -1,3 +1,5 @@
+import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";
 import {
   CUSTOM_ELEMENTS_SCHEMA,
@@ -35,10 +37,11 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     // Vex
     VexModule,
     CustomLayoutModule,
-    IntlTelInputNgModule.forRoot(),
+    
     ImageCropperModule,
     MatFormFieldModule,
-  
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -10,10 +10,10 @@
 
   <vex-page-layout-content [class.container]="true" [class.px-gutter]="true" class="-mt-16">
 
-    <div class="grid grid-flow-col grid-rows-2">
-      <div class="col-span ">
+    <div class="grid grid-flow-col grid-rows-2 global">
+      <div class="col-span span1">
         <div class="container">
-          <div class="bg-white border dark:bg-opacity-0">
+          <div class="bg-white border dark:bg-gray-800">
             <div class="p-4">
               <p class="text-xs font-thin dark:text-white">
                 <span>
@@ -32,23 +32,24 @@
           </div>
         </div>
       </div>
-      <div class="row-span-2 col-span ">
+      <div class="row-span-2 col-span " id="col-span-2">
         <div class="container ">
           <div class="bg-white border">
             <div class="p-12">
               <div class="grid grid-cols-5 grid-rows-2 gap-4 grid-flow-col-5 article">
-                <div>item</div>
-                <div>Item name</div>
-                <div> Desription</div>
-                <div>Quantity </div>
-                <div>Total</div>
-                <div>DH452</div>
-                <div>Laptop</div>
-                <div>Laptop</div>
-                <div>5</div>
-                <div>450.00</div>
+                <div class="title">item</div>
+                <div class="title">Item name</div>
+                <div class="title"> Desription</div>
+                <div class="title">Quantity </div>
+                <div class="title">Total</div>
+                <div class="items">DH452</div>
+                <div class="items">Laptop</div>
+                <div class="items">Laptop</div>
+                <div class="items">5</div>
+                <div class="items">450.00</div>
               </div>
               <hr>
+
               <div class="grid grid-cols-5 grid-rows-2 gap-4 grid-flow-col-5 total">
                 <div class="amount">
                   <h5>AMOUNT IN ESCROW</h5>
@@ -67,8 +68,8 @@
         </div>
       </div>
       <div class="row-span-3 ...">
-        <div class="container">
-          <div class="w-64 bg-white border card1">
+        <div class="container"  >
+          <div class="bg-white border card1">
             <div class="p-4">
               <div class="grid grid-cols-3 gap-4 row1 grid-rows grid-flow-col-3">
                 <div><img src="assets\img\demo\0.jpg" alt=""></div>
@@ -80,26 +81,38 @@
                 </div>
               </div>
               <div class="grid grid-cols-2 address grid-rows grid-flow-col-3">
-                <div><ic-icon [icIcon]="icMap" size="20px"></ic-icon></div>
+
+                <div @scaleIn 
+                  class="flex items-center justify-center w-10 h-10 rounded-full bg-primary-light text-primary ltr:mr-3 rtl:ml-3">
+                  <ic-icon [icIcon]="icMap" size="20px"></ic-icon>
+                </div>
+
+
                 <div>
                   <h6>24, Gvr Street, Wc building 1st floor</h6>
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-4 phone-number grid-rows grid-flow-col-3">
-                <div>  <ic-icon [icIcon]="icPhone" size="20px"></ic-icon></div>
+                <div @scaleIn
+                  class="flex items-center justify-center w-10 h-10 rounded-full bg-primary-light text-primary ltr:mr-3 rtl:ml-3">
+                  <ic-icon [icIcon]="icPhone" size="20px"></ic-icon>
+                </div>
                 <div>
                   <h6>+233544990518</h6>
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-4 email-address grid-rows grid-flow-col-3">
-                <div> <ic-icon [icIcon]="icEmail" size="20px"></ic-icon></div>
+                <div @scaleIn
+                  class="flex items-center justify-center w-10 h-10 rounded-full ic-icon bg-primary-light text-primary ltr:mr-3 rtl:ml-3">
+                  <ic-icon [icIcon]="icEmail" size="20px"></ic-icon>
+                </div>
                 <div>
                   <h6>dorgeleskoble@gmail.com</h6>
                 </div>
               </div>
             </div>
           </div>
-          <div class="w-64 bg-white border card2">
+          <div class="bg-white border card2">
             <div class="p-4">
               <div class="grid grid-cols-2 titre grid-rows grid-flow-col-3">
                 <div></div>
@@ -111,20 +124,32 @@
               </div>
             </div>
           </div>
-          <div class="w-64 bg-white border card3">
+          <div class="bg-white border card3">
             <div class="p-4">
               <div class="grid grid-cols-2 code grid-rows grid-flow-col-3">
-                <div>  </div>
+                <div></div>
                 <div>
-                  <h5 class="titre1">Dispatch Rider contact</h5>
-                  <p class="titre2">Every time you will change the dispatch rider, the customer will get modified</p>
-                  <h5 class="number">+233 279414289 <span><ic-icon size="20px" (click)='onDisplayInput()' [icIcon]="icEdit"></ic-icon></span> </h5>
-                  <mat-form-field appearance="legacy" *ngIf="displayPhoneInput">
+                  <h5 class="text-center titre1">Dispatch Rider contact</h5>
+                  <p class="titre2">Every time you will change the dispatch rider, the customer will get  modified</p>
+                  <h5 class="text-center number">+233 279414289 <span>
+                      <ic-icon size="20px" (click)='onDisplayInput()' [icIcon]="icEdit"></ic-icon>
+                    </span> </h5>
+                  <!-- <mat-form-field appearance="legacy" *ngIf="displayPhoneInput">
                     <input matInput type="text" formControlName="newDeliveryNo" />
                     <span matPrefix>{{ prefixCountryCode }}</span>
                     <mat-error *ngIf="form?.status === 'INVALID'">Please enter a valid phone number
                     </mat-error>
-                  </mat-form-field>
+                  </mat-form-field> -->
+                  <div class="mt-4 button" *ngIf="displayPhoneInput">
+                    <mat-form-field>
+                      <span matPrefix>+233</span>
+                      <mat-label>New delivery number</mat-label>
+                      <input matInput>
+                    </mat-form-field>
+                    <span class="span2" matSuffix>
+                      <button mat-raised-button color="primary">Change</button>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

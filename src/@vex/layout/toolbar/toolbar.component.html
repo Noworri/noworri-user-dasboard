@@ -24,22 +24,18 @@
       <span>Add Receipt</span>
     </button>
   </mat-menu>
-
-
-
-
   <div *ngIf="(isVerticalLayout$ | async) && isNavbarInToolbar$ | async" [fxHide]="mobileQuery" class="px-gutter"
     fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
     <vex-navigation-item *ngFor="let item of navigationItems" [item]="item"></vex-navigation-item>
   </div>
 
   <span fxFlex></span>
-  
-  <div class="flex items-center -mx-1">
-   
 
+  <div class="flex items-center -mx-1">
     <div class="px-1">
-      <mat-slide-toggle color='primary' (change)='onSwitchTestMode($event)'>test mode</mat-slide-toggle>
+
+      <mat-slide-toggle color='primary' (change)='onSwitchTestMode($event)'> <span [ngClass]="{'colo': testModeService.mode === 'Test ', 'colo3' : testModeService.mode === 'Live ' }"   > {{testModeService.mode}}</span>
+        <span>mode</span></mat-slide-toggle>
     </div>
     <div class="px-1">
       <vex-toolbar-notifications></vex-toolbar-notifications>

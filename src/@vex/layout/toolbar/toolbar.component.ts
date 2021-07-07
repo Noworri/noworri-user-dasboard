@@ -39,6 +39,7 @@ export class ToolbarComponent implements OnInit {
   @HostBinding("class.shadow-b")
   hasShadow: boolean;
 
+  
  
 
   navigationItems = this.navigationService.items;
@@ -75,14 +76,17 @@ export class ToolbarComponent implements OnInit {
     private configService: ConfigService,
     private navigationService: NavigationService,
     private popoverService: PopoverService,
-    private testModeService:TestModService
+    public testModeService:TestModService
   ) {}
 
   ngOnInit() {}
 
   onSwitchTestMode(data) {
       this.testModeService.activateTestMode(data);
+    
   }
+
+
   openQuickpanel() {
     this.layoutService.openQuickpanel();
   }
