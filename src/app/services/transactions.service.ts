@@ -9,6 +9,8 @@ import { Observable, throwError as observableThrowError } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { TransactionsReference } from "./reference-data.interface";
 import { environment } from "src/environments/environment";
+import { DashboardModeService } from "./dashboard-mode.service";
+import { MODE_DATA_KEY } from "../Models/constants";
 
 @Injectable({
   providedIn: "root",
@@ -16,8 +18,12 @@ import { environment } from "src/environments/environment";
 export class TransactionsService {
   status: string;
   isTestMode: boolean;
-  constructor(private http: HttpClient) {
-    this.isTestMode = JSON.parse(localStorage.getItem("isTestMode"));
+  dashboardModeData: any;
+  constructor(private http: HttpClient, private dashboardModeService: DashboardModeService) {
+    const modeData = localStorage.getItem(MODE_DATA_KEY);
+    this.dashboardModeData = JSON.parse(modeData);
+
+    this.isTestMode = this.dashboardModeData?.hasActivedTestMode;
   }
 
   getUserTransactions(userId: string, range = null): Observable<any> {
