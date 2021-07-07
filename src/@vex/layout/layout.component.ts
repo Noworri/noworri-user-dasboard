@@ -1,4 +1,4 @@
-import { TestModService } from './../../app/services/test-mod.service';
+import { DashboardModeService } from '../../app/services/dashboard-mode.service';
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { LayoutService } from '../services/layout.service';
@@ -9,6 +9,7 @@ import { filter, map, startWith, withLatestFrom } from 'rxjs/operators';
 import { checkRouterChildsData } from '../utils/check-router-childs-data';
 import { DOCUMENT } from '@angular/common';
 import { ConfigService } from '../services/config.service';
+import { MODE_DATA_KEY } from 'src/app/Models/constants';
 
 @UntilDestroy()
 @Component({
@@ -51,14 +52,18 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   @ViewChild('quickpanel', { static: true }) quickpanel: MatSidenav;
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
   @ViewChild(MatSidenavContainer, { static: true }) sidenavContainer: MatSidenavContainer;
+  dashboardModeData: any;
 
   constructor(private cd: ChangeDetectorRef,
               private breakpointObserver: BreakpointObserver,
               private layoutService: LayoutService,
               private configService: ConfigService,
               private router: Router,
-              public testModeService:TestModService,
-              @Inject(DOCUMENT) private document: Document) { }
+              public testModeService:DashboardModeService,
+              @Inject(DOCUMENT) private document: Document) { 
+                const modeData = localStorage.getItem(MODE_DATA_KEY);
+                this.dashboardModeData = JSON.parse(modeData);            
+              }
 
   ngOnInit() {
     /**

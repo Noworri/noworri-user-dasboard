@@ -1,4 +1,4 @@
-import { TestModService } from './../../../app/services/test-mod.service';
+import { DashboardModeService } from '../../../app/services/dashboard-mode.service';
 import {
   Component,
   ElementRef,
@@ -26,6 +26,7 @@ import { PopoverService } from "../../components/popover/popover.service";
 import { MegaMenuComponent } from "../../components/mega-menu/mega-menu.component";
 import icSearch from "@iconify/icons-ic/twotone-search";
 import { StyleService, Style } from "src/@vex/services/style.service";
+import { MODE_DATA_KEY } from 'src/app/Models/constants';
 
 @Component({
   selector: "vex-toolbar",
@@ -70,20 +71,23 @@ export class ToolbarComponent implements OnInit {
   icReceipt = icReceipt;
   icDoneAll = icDoneAll;
   icArrowDropDown = icArrowDropDown;
+  dashboardModeData: any;
 
   constructor(
     private layoutService: LayoutService,
     private configService: ConfigService,
     private navigationService: NavigationService,
     private popoverService: PopoverService,
-    public testModeService:TestModService
-  ) {}
+    public testModeService:DashboardModeService
+  ) {
+    const modeData = localStorage.getItem(MODE_DATA_KEY);
+    this.dashboardModeData = JSON.parse(modeData);
+  }
 
   ngOnInit() {}
 
-  onSwitchTestMode(data) {
+  onSwitchTestMode(data) {      
       this.testModeService.activateTestMode(data);
-    
   }
 
 

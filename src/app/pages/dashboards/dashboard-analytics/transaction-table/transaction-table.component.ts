@@ -241,7 +241,7 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
             }
             this.amount = details.total_price;
             details.state = this.getStatusLabel(details.state);
-
+            
             return details;
           });
           const filteredDetails = this.transactionsData.filter(

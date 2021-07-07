@@ -5,7 +5,7 @@
   [class.toolbar-fixed]="isToolbarFixed$ | async" [class.sidenav-collapsed]="sidenavCollapsed$ | async"
   [class.content-container]="containerEnabled$ | async" [class.with-search]="searchOpen$ | async"
   class="page-container">
-  <div class=" testBadge" *ngIf='testModeService.hasActivedTestMode'>
+  <div class=" testBadge" *ngIf='dashboardModeData?.hasActivedTestMode'>
     <hr>
    <div class="testModeButton" >
     <button>

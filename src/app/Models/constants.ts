@@ -1,4 +1,5 @@
 export const USER_SESSION_KEY = "noworri-user-session";
+export const MODE_DATA_KEY ="dashboardModedata";
 export const SESSION_STORAGE_KEY = "user_session_data";
 export const BUSINESS_DATA_KEY = "business_data";
 export const BUSINESS_ACCOUNT_DATA_KEY = "business_acc_data";
