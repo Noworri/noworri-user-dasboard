@@ -1,3 +1,5 @@
+import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";
 import {
   CUSTOM_ELEMENTS_SCHEMA,
@@ -18,6 +20,7 @@ import { IntlTelInputNgModule } from "intl-tel-input-ng";
 import { NgOtpInputModule } from "ng-otp-input";
 import { ImageCropperModule } from 'ngx-image-cropper';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -29,14 +32,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     HttpClientModule,
     NoopAnimationsModule,
     NgOtpInputModule,
+    MatSlideToggleModule,
 
     // Vex
     VexModule,
     CustomLayoutModule,
-    IntlTelInputNgModule.forRoot(),
+    
     ImageCropperModule,
     MatFormFieldModule,
-  
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,3 +1,4 @@
+import { StyleService } from './../../../../services/style.service';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -30,6 +31,14 @@ import {
   USER_SESSION_KEY,
 } from "src/app/Models/constants";
 import { BUSINESS_INFO_KEY } from "src/app/pages/dashboards/dashboard-analytics/add-business/add-business.component";
+
+
+
+export enum Style {
+  light = 'vex-style-light',
+  default = 'vex-style-default',
+  dark = 'vex-style-dark'
+}
 
 export interface OnlineStatus {
   id: "online" | "away" | "dnd" | "offline";
@@ -122,13 +131,14 @@ export class ToolbarUserDropdownComponent implements OnInit {
 
   constructor(
     private cd: ChangeDetectorRef,
-    private popoverRef: PopoverRef<ToolbarUserDropdownComponent>
+    private popoverRef: PopoverRef<ToolbarUserDropdownComponent>,
+    private styleService: StyleService
   ) {
     const sessionData = JSON.parse(localStorage.getItem(USER_SESSION_KEY));
     this.userData = sessionData;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   setStatus(status: OnlineStatus) {
     this.activeStatus = status;
@@ -146,5 +156,24 @@ export class ToolbarUserDropdownComponent implements OnInit {
     localStorage.removeItem(BUSINESS_INFO_KEY);
     localStorage.clear();
     this.popoverRef.close();
+  }
+
+
+  colorSwichMode(data) {
+    if (data.checked === true) {
+      this.enableDarkMode();
+    } else {
+      this.disableDarkMode();
+    }
+  }
+
+
+
+  enableDarkMode() {
+    this.styleService.setStyle(Style.dark);
+  }
+
+  disableDarkMode() {
+    this.styleService.setStyle(Style.default);
   }
 }

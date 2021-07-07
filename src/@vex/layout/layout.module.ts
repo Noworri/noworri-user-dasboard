@@ -1,3 +1,5 @@
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
@@ -14,7 +16,8 @@ import { SearchModule } from '../components/search/search.module';
     RouterModule,
     MatSidenavModule,
     ProgressBarModule,
-    SearchModule
+    SearchModule,
+    MatSlideToggleModule
   ],
   exports: [LayoutComponent]
 })

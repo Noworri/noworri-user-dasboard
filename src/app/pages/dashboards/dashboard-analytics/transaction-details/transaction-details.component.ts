@@ -15,6 +15,7 @@ import icLock from "@iconify/icons-ic/twotone-lock";
 import icCancel from "@iconify/icons-ic/twotone-cancel";
 import icInfo from "@iconify/icons-ic/twotone-info";
 import icEdit from "@iconify/icons-ic/twotone-edit";
+import icSend from "@iconify/icons-ic/twotone-send";
 import { MatTableModule } from "@angular/material/table";
 import { GeoLocationService } from "src/app/services/geo-location.service";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
@@ -35,6 +36,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   icCancel = icCancel;
   icInfo = icInfo;
   icEdit = icEdit;
+  icSend = icSend
 
   displayPhoneNumber: boolean;
   displayPhoneInput: boolean;
@@ -61,14 +63,14 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   isVendorTransaction: boolean;
   isFundsReleased: boolean;
   isCancelled = false;
-  hasWithdrawn =false;
+  hasWithdrawn = false;
   transactionDetails: any;
   itemIds: string[];
   quantities: string[];
   dataLoaded = false;
   transactionKey: string;
   dataSource = new MatTableDataSource();
-  displayedColumns: string[] = ["id", "name", "description", "qty","total"];
+  displayedColumns: string[] = ["id", "name", "description", "qty", "total"];
   locationData: any;
   countryData: any;
   waitingDisplayInput: boolean;
@@ -156,7 +158,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose =  false;
+    dialogConfig.disableClose = false;
     dialogConfig.data = {
       dialogHeader: 'CANCEL ORDER',
       buttonCancel: 'CANCEL',
@@ -165,7 +167,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
     }
     this.dialog.open(DashboardDialogComponent, dialogConfig).afterClosed().subscribe(result => {
       this.actionResult = result;
-      if(result === 'Yes') {
+      if (result === 'Yes') {
         this.cancelTransaction();
         // this.withdraw();
       }
@@ -221,10 +223,10 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
             this.deliveryPhone = details.delivery_phone
               ? details.delivery_phone
               : "N/A";
-              this.buyerPhototURL = details.initiator_photo
+            this.buyerPhototURL = details.initiator_photo
               ? `https://noworri.com/api/public/uploads/images/pp/${details.initiator_photo}`
-              : ``;      
-  
+              : ``;
+
             if (details.etat === "3") {
               this.isFundsReleased = true;
             }
@@ -280,7 +282,13 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
       });
   }
   onDisplayInput() {
+    let cardElement = document.getElementById('col-span-2');
     this.displayPhoneInput = !this.displayPhoneInput;
     this.displayPhoneNumber = !this.displayPhoneNumber;
+    if (this.displayPhoneInput === true) {
+      cardElement.style.marginTop='-45px';
+    }else{
+      cardElement.style.marginTop='2px';
+    }
   }
 }

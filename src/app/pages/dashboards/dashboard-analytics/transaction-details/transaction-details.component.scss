@@ -1,24 +1,260 @@
-.phoneIcone{
-    margin-top: -14px;
-    position: relative;
-    right: 150px;
-}
-.phoneNumber{
-    position: relative;
-    right: 70px;
-}
-.total{
-    position: relative;
-    left: 80px;
-}
-.price{
-    position: relative;
-    width: 500px;
-    left: 10px;
-}
-.totalT{
-    display: flex;
-    position: relative;
-    left: 220px;
+
+
+.span1{
+   
 }
 
+.font-thin {
+    display: flex;
+    font-weight: 400;
+    font-size: 11px;
+    margin: 6px;
+    text-align: left;
+    font: Segoe UI;
+    letter-spacing: 0px;
+
+    opacity: 1;
+    .icInfo {
+        position: relative;
+        right: 6px;
+        color: #5c77ff;
+    }
+}
+
+
+.row-span-2 {
+    position: relative;
+    top: -130px;
+    .article {
+        .title{
+           font-weight: bold;
+           font-size: 15px;
+        }
+    }
+}
+hr {
+    position: relative;
+    top: 10px;
+}
+.total {
+    position: relative;
+    top: 20px;
+    .amount {
+        width: 300px;
+        h5 {
+            text-align: left;
+            font: Segoe UI;
+            letter-spacing: 0px;
+            color: #f31853;
+            opacity: 1;
+            font-weight: 700;
+            font-size: 12px;
+        }
+    }
+    .somme {
+        h5 {
+            text-align: left;
+            font: Segoe UI;
+            letter-spacing: 0px;
+            color: #f31853;
+            opacity: 1;
+            font-weight: 700;
+            font-size: 12px;
+        }
+    }
+}
+ic-icon{
+    color: blue;
+}
+
+.card1 {
+    padding-bottom: 50px;
+    margin-left: -40px;
+    margin-bottom: 5px;
+    .row1 {
+        display: flex;
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 20px;
+        }
+        .user-name {
+            width: 100%;
+            letter-spacing: 0px;
+            color: #616161;
+            opacity: 1;
+            font-size: small;
+            font: Poppins;
+        }
+        .cancel {
+            font: Segoe UI;
+            letter-spacing: 0px;
+            color: #f31853;
+            opacity: 1;
+            font-size: medium;
+            position: relative;
+            text-decoration: underline;
+            font-weight: 700;
+            left: 100px;
+            bottom: 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+    }
+    .address {
+        position: relative;
+        top: 15px;
+        display: flex;
+        h6 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 12px;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            left: 10px;
+        }
+    }
+
+    .phone-number {
+        position: relative;
+        top: 30px;
+        display: flex;
+        h6 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 12px;
+            letter-spacing: 0px;
+            opacity: 1;
+            position: relative;
+            right: 11px;
+            top: 6px;
+        }
+    }
+    .email-address {
+        position: relative;
+        top: 40px;
+        display: flex;
+        h6 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 12px;
+            letter-spacing: 0px;
+            opacity: 1;
+            position: relative;
+            right: 11px;
+            top: 20px;
+        }
+        .ic-icon {
+           
+            position: relative;
+            top: 14px;
+        }
+    }
+}
+.card2 {
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+    margin-left: -40px;
+    .titre {
+        display: flex;
+        .titre1 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: small;
+            letter-spacing: 0px;
+
+            opacity: 1;
+            position: relative;
+            left: 15px;
+            font-weight: bold;
+        }
+        .titre2 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 10px;
+            letter-spacing: 0px;
+   
+            opacity: 1;
+            position: relative;
+            line-height: 15px;
+            left: 15px;
+            width: 290px;
+        }
+        h1 {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top: 15px;
+            font-size: 25px;
+            font-weight: bold;
+            
+        }
+    }
+}
+.card3 {
+    padding-bottom: -20px;
+    margin-bottom: 5px;
+    margin-left: -40px;
+    .code {
+        display: flex;
+        .titre1 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: small;
+            letter-spacing: 0px;
+            opacity: 1;
+            position: relative;
+            left: 15px;
+            font-weight: bold;
+        }
+        .titre2 {
+            text-align: left;
+            font: Segoe UI;
+            font-size: 10px;
+            letter-spacing: 0px;
+            width: 290px;
+            opacity: 1;
+            position: relative;
+            line-height: 15px;
+            left: 17px;
+        }
+        .number {
+            font: Segoe UI;
+            font-size: small;
+            letter-spacing: 0px;
+            opacity: 1;
+            position: relative;
+            left: 14px;
+            font-weight: bold;
+            display: flex;
+            top: 8px;
+            text-align: center;
+            span {
+                margin-left: 5px;
+                cursor: pointer;
+            }
+          
+        }
+        mat-form-field{
+           
+      width: 200px;
+         
+        }
+       
+    }
+.mat-icon{
+    color: #5c77ff;
+}
+.span2{
+    margin-left: 10px;
+}
+}
+
+mat-form-field {
+   
+  }
+// .border {
+//     background: #ffffff 0% 0% no-repeat padding-box;
+// }

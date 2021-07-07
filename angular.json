@@ -36,9 +36,13 @@
             "styles": [
               "src/@vex/styles/tailwind.scss",
               "src/styles.scss",
-              "node_modules/material-design-icons/iconfont/material-icons.css"
+              "node_modules/material-design-icons/iconfont/material-icons.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/intl-tel-input/build/js/utils.js"
+
+            ],
             "allowedCommonJsDependencies": [
               "simplebar",
               "highlight.js",
@@ -109,9 +113,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/intl-tel-input/build/js/utils.js"
+            ]
           }
         },
         "lint": {

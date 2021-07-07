@@ -1,3 +1,4 @@
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolbarUserComponent } from './toolbar-user.component';
@@ -25,7 +26,8 @@ import { IconModule } from '@visurel/iconify-angular';
     RelativeDateTimeModule,
     RouterModule,
     MatTooltipModule,
-    IconModule
+    IconModule,
+    MatSlideToggleModule
   ],
   exports: [ToolbarUserComponent],
   entryComponents: [ToolbarUserDropdownComponent]

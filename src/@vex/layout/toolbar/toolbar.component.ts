@@ -1,3 +1,4 @@
+import { TestModService } from './../../../app/services/test-mod.service';
 import {
   Component,
   ElementRef,
@@ -38,6 +39,9 @@ export class ToolbarComponent implements OnInit {
   @HostBinding("class.shadow-b")
   hasShadow: boolean;
 
+  
+ 
+
   navigationItems = this.navigationService.items;
 
   isHorizontalLayout$ = this.configService.config$.pipe(
@@ -72,26 +76,16 @@ export class ToolbarComponent implements OnInit {
     private configService: ConfigService,
     private navigationService: NavigationService,
     private popoverService: PopoverService,
-    private styleService: StyleService
+    public testModeService:TestModService
   ) {}
 
   ngOnInit() {}
 
-  colorSwichMode(data) {
-    if (data.checked === true) {
-      this.enableDarkMode();
-    } else {
-      this.disableDarkMode();
-    }
+  onSwitchTestMode(data) {
+      this.testModeService.activateTestMode(data);
+    
   }
 
-  enableDarkMode() {
-    this.styleService.setStyle(Style.dark);
-  }
-
-  disableDarkMode() {
-    this.styleService.setStyle(Style.default);
-  }
 
   openQuickpanel() {
     this.layoutService.openQuickpanel();
