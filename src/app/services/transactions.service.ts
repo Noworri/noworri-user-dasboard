@@ -93,7 +93,9 @@ export class TransactionsService {
   }
 
   getBusinessUserPayouts(user_id: string): Observable<any> {
-    const url = `${environment.getBusinessUserPayoutsUrl}${user_id}`;
+    const url = this.isTestMode
+      ? `https://api.noworri.com/api/getbusinessuserpayoutstest/${user_id}`
+      :  `${environment.getBusinessUserPayoutsUrl}${user_id}`;
 
     return this.http.get(url).pipe(
       map((data: any) => {
@@ -151,7 +153,9 @@ export class TransactionsService {
   }
 
   processBusinessPayout(data) {
-    const url = `${environment.processPayoutUrl}`;
+    const url = this.isTestMode
+    ? `https://api.noworri.com/api/processbusinesspayouttest`
+    :  `${environment.processPayoutUrl}`;
 
     return this.http.post(url, data, { responseType: "json" }).pipe(
       map((response: any) => {
@@ -236,7 +240,10 @@ export class TransactionsService {
   }
 
   cancelOrder(data) {
-    const url = `${environment.cancelTransactionUrl}`;
+    const url = this.isTestMode
+    ? `https://api.noworri.com/api/cancelescrowtransactiontest/`
+    :  `${environment.cancelTransactionUrl}`;
+
     let params = new HttpParams();
     params = params.append("id", data.id);
     params = params.append("canceled_by", data.canceled_by);

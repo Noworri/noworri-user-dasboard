@@ -178,7 +178,6 @@ export class PayoutsComponent implements OnInit {
             return transfer;
           });
           this.pendingPayoutTransactions = transactions.pendingPayouts;
-          console.log('updatedTransactions', updatedTransactions);
           this.dataSource = new MatTableDataSource(updatedTransactions);
         },
         (error) => console.log(error.message)

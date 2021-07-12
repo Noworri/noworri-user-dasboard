@@ -8,7 +8,14 @@
 </div>
 <mat-card class="mat-card ml-10">
   <div class="mx-4">
-    <button (click)="onViewApiDoc()" mat-raised-button color="primary" class="text-sm">View Api Guide</button>
+    <div class="grid apiInput grid-flow-col grid-cols-2 mt-2 grid-rows-1 gap-1">
+      <div>
+        <button (click)="onViewApiDoc()" mat-raised-button color="primary" class="text-sm">View Api Guide</button>
+      </div>
+      <div>
+        <button (click)="getPlugin()" mat-raised-button color="primary" class="text-sm">Get Plugin</button>  
+      </div>
+    </div>
   </div>
   <mat-card class="border-black mat-card2 mt-8">
     <h4 class="text-xs text-gray-300 ">API Keys</h4>

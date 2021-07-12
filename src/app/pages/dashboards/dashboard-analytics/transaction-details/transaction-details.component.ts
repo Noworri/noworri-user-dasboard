@@ -41,7 +41,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   displayPhoneNumber: boolean;
   displayPhoneInput: boolean;
 
-  orderData: any;
+  orderData = [];
   userSessionData: any;
   unsubscribe$ = new Subject();
   transactionType;
@@ -114,7 +114,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   }
 
   getAmount(prices) {
-    const total = prices.reduce((acc, cur) => acc + Number(cur), 0).toFixed(2);
+    const total = prices?.reduce((acc, cur) => acc + Number(cur), 0).toFixed(2);
     const sum = Number(total) + this.getNoworriFee(total);
     this.totalAmount = Number(sum.toFixed(2));
     return this.totalAmount;
@@ -143,6 +143,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
           this.loadingBar.complete();
           setTimeout(() => {
             this.isUpdating = false;
+            this.onDisplayInput();
             this.loadUserTransaction();
           }, 5000);
           return response;
@@ -150,7 +151,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
         (error) => {
           this.loadingBar.complete();
           this.isValidating = false;
-          console.log(error);
+          console.error(error);
           this.loadUserTransaction();
         }
       );
@@ -244,27 +245,46 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
             }
             this.transactionDetails = details;
             const items: any[] = JSON.parse(details.items);
+            if(!this.orderData.length) {
+              this.getOrderData(items);              
+            }
             this.dataSource = new MatTableDataSource(items);
             this.dataLoaded = true;
           });
         },
-        (error) => console.log(error.message)
+        (error) => console.error(error.message)
       );
   }
 
-  getOrderData() {
-    const orderData = [];
-    this.items.forEach((item, index) => {
-      orderData.push({
-        item: item,
-        price: this.amounts[index],
-        description: this.descriptions[index],
-        qty: this.quantities[index],
-        id: this.itemIds[index],
+  getOrderData(items) {
+    let itemsData = items;
+
+    if (typeof itemsData === 'string') {
+      itemsData = JSON.parse(items);
+    }
+    if (!!itemsData.name) {
+      const data =
+      {
+        name: itemsData.name,
+        price: itemsData.price,
+        description: itemsData.description,
+        items_qty: itemsData.items_qty,
+        item_id: itemsData.item_id,
+      };
+      this.orderData?.push(data);
+    } else {
+      itemsData.forEach((item: any) => {
+        this.orderData?.push({
+          name: item.name,
+          price: item.price,
+          description: item.description,
+          items_qty: item.items_qty,
+          item_id: item.item_id,
+          });
       });
-    });
-    this.getAmount(this.amounts);
-    return orderData;
+    }
+    const priceList = this.orderData?.map((data: any) => data.price);
+    this.getAmount(priceList);
   }
 
   cancelTransaction() {

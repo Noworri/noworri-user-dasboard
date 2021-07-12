@@ -25,6 +25,11 @@ export class DevelopersComponent implements OnInit {
     window.open("https://api.noworri.com/docs", "_blank");
   }
 
+  getPlugin(){
+    window.open("https://api.noworri.com/api/getplugin", "_blank");
+
+  }
+
   getBusinessAccountDetails() {
     this.businessService
       .getBusinessDetails(this.userData.user_uid)
