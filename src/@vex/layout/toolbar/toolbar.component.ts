@@ -84,7 +84,9 @@ export class ToolbarComponent implements OnInit {
     this.dashboardModeData = JSON.parse(modeData);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   onSwitchTestMode(data) {      
       this.testModeService.activateTestMode(data);

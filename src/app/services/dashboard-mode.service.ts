@@ -9,17 +9,17 @@ export class DashboardModeService {
 
   hasActivedTestMode: boolean;
 
-  mode = 'Live '
+  mode = 'Test '
   
 
   constructor() { }
   activateTestMode(data) {
     if (data.checked === true) {
       this.hasActivedTestMode = true;
-      this.mode = 'Test '
+      this.mode = 'Live '
     } else {
       this.hasActivedTestMode = false;
-      this.mode = 'Live '
+      this.mode = 'Test '
     }
     const dashboardModeData = {
       hasActivedTestMode: this.hasActivedTestMode,
