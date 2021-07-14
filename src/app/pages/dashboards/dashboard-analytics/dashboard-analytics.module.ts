@@ -60,6 +60,7 @@ import { AddPayoutAccountModalComponent } from './business-settings/add-payout-a
 // import { CountdownTimerModule } from "ngx-countdown-timer";
 import { CountdownModule } from 'ngx-countdown';
 import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { NgxSimpleCountdownModule } from 'ngx-simple-countdown';
     MatProgressBarModule,
     CountdownModule,
     NgxSimpleCountdownModule,
-    IntlTelInputNgModule.forRoot()
+    IntlTelInputNgModule.forRoot(),
+    MatProgressSpinnerModule,  
   ],
 })
 export class DashboardAnalyticsModule {}

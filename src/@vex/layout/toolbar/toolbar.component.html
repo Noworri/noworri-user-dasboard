@@ -34,8 +34,8 @@
   <div class="flex items-center -mx-1">
 
     <div class="px-1">
-       <mat-slide-toggle color='primary' [checked]=" dashboardModeData?.hasActivedTestMode"   (change)='onSwitchTestMode($event)'> <span [ngClass]="{'colo': testModeService.mode === 'Test ', 'colo3' : testModeService.mode === 'Live ' }"   > {{testModeService.mode}}</span>
-      <!-- <mat-slide-toggle color='primary' [checked]=" dashboardModeData?.hasActivedTestMode"   (change)='onSwitchTestMode($event)'> <span [ngClass]="{'colo': dashboardModeData?.mode === 'Test ', 'colo3' : dashboardModeData?.mode !== 'Test ' }"   > {{dashboardModeData?.mode || 'Test '}}</span> -->
+       <!-- <mat-slide-toggle color='primary' [checked]=" dashboardModeData?.hasActivedTestMode"   (change)='onSwitchTestMode($event)'> <span [ngClass]="{'colo': testModeService.mode === 'Test ', 'colo3' : testModeService.mode === 'Live ' }"   > {{testModeService.mode}}</span> -->
+      <mat-slide-toggle color='primary' [checked]=" dashboardModeData?.hasActivedTestMode"   (change)='onSwitchTestMode($event)'> <span [ngClass]="{'colo': dashboardModeData?.mode === 'Test ', 'colo3' : dashboardModeData?.mode !== 'Test ' }"   > {{dashboardModeData?.mode || 'Test '}}</span>
 
       </mat-slide-toggle>
     </div>

@@ -145,6 +145,7 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
   //  ];
 
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+  isLoading: boolean;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -201,12 +202,14 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
   // }
 
   loadTransactions(userId: string) {
+    this.isLoading = true;
     // userId = 'a9twRK1JpPPQDrB6hNvfAr2ju682' this is a test User_uid
     this.transactionsService
       .getUserTransactions(userId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (transactions) => {
+          this.isLoading = false;
           this.transactionsData = transactions.map((details) => {
             this.transactionType = details.transaction_type.toLowerCase();
             details.destinator_role =
@@ -253,7 +256,9 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource(filteredDetails);
           // this.dataSource = new MatTableDataSource(this.transactionsData);
         },
-        (error) => console.log(error.message)
+        (error) =>{ console.log(error.message)
+          this.isLoading = false;
+        }
       );
   }
 
