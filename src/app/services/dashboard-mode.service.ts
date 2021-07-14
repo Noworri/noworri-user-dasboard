@@ -7,19 +7,18 @@ import { MODE_DATA_KEY } from '../Models/constants';
 })
 export class DashboardModeService {
 
-  hasActivedTestMode: boolean;
-
-  mode = 'Test '
+  hasActivedTestMode: boolean = false;
+  mode = 'Live '
   
 
   constructor() { }
   activateTestMode(data) {
     if (data.checked === true) {
       this.hasActivedTestMode = true;
-      this.mode = 'Live '
+      this.mode = 'Test '
     } else {
       this.hasActivedTestMode = false;
-      this.mode = 'Test '
+      this.mode = 'Live '
     }
     const dashboardModeData = {
       hasActivedTestMode: this.hasActivedTestMode,

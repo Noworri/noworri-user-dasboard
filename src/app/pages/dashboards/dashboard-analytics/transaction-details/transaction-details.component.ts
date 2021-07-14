@@ -57,7 +57,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   newDeliveryNo: string;
   buyerPhototURL: string;
   isUpdating = false;
-  isUpdatingDelivery: boolean;
+  isUpdatingDelivery: boolean = false;
   prefixCountryCode: string;
   isValidating = false;
   isVendorTransaction: boolean;
@@ -76,6 +76,8 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   waitingDisplayInput: boolean;
   form: FormGroup;
   actionResult: any;
+  canCancel: boolean;
+  subTotal: any;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -105,7 +107,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   }
 
   getNoworriFee(price) {
-    return (price / 100) * 1.98;
+    return (price / 100) * 2.5;
   }
 
   getTotalAmount(price) {
@@ -115,7 +117,8 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
 
   getAmount(prices) {
     const total = prices?.reduce((acc, cur) => acc + Number(cur), 0).toFixed(2);
-    const sum = Number(total) + this.getNoworriFee(total);
+    this.subTotal = total;
+    const sum = Number(total) - this.getNoworriFee(total);
     this.totalAmount = Number(sum.toFixed(2));
     return this.totalAmount;
   }
@@ -131,16 +134,17 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   }
 
   updateDeliveryPhone() {
-    this.loadingBar.start();
+    this.loadingBar.useRef('loading').start(0);
     const newDeliveryNo = this.form.value['newDeliveryNo'];
     this.isUpdating = true;
+    this.isUpdatingDelivery =  true;
     const newDelivery = `${this.prefixCountryCode}${newDeliveryNo}`;
     this.transactionsService
       .updateDeliveryPhone(this.transactionId, newDelivery)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (response) => {
-          this.loadingBar.complete();
+          this.loadingBar.useRef('loading').complete();
           setTimeout(() => {
             this.isUpdating = false;
             this.onDisplayInput();
@@ -149,7 +153,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
           return response;
         },
         (error) => {
-          this.loadingBar.complete();
+          this.loadingBar.useRef('loading').complete();
           this.isValidating = false;
           console.error(error);
           this.loadUserTransaction();
@@ -204,6 +208,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   }
 
   loadUserTransaction() {
+    this.loadingBar.useRef('loading').start(0);
     this.transactionsService
       .getUserTransaction(this.transactionKey)
       .pipe(takeUntil(this.unsubscribe$))
@@ -243,6 +248,9 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
             } else {
               this.isVendorTransaction = false;
             }
+            this.loadingBar.useRef('loading').complete();
+            this.canCancel = !this.isFundsReleased && !this.isCancelled && !this.hasWithdrawn;
+
             this.transactionDetails = details;
             const items: any[] = JSON.parse(details.items);
             if(!this.orderData.length) {
@@ -288,6 +296,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
   }
 
   cancelTransaction() {
+    this.loadingBar.useRef('loading').start(0);
     const data = {
       id: this.transactionDetails.id,
       canceled_by: this.userSessionData.user_uid,
@@ -296,6 +305,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
       .cancelOrder(data)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response: any) => {
+        this.loadingBar.useRef('loading').complete();
         if (response.success && response.success === true) {
           this.router.navigate([`dashboards/transactions`]);
         }
