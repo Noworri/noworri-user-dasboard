@@ -7,21 +7,21 @@ import { MODE_DATA_KEY } from '../Models/constants';
 })
 export class DashboardModeService {
 
-  hasActivedTestMode: boolean = false;
+  isLiveModeActive: boolean = true;
   mode = 'Live '
   
 
   constructor() { }
   activateTestMode(data) {
     if (data.checked === true) {
-      this.hasActivedTestMode = true;
-      this.mode = 'Test '
-    } else {
-      this.hasActivedTestMode = false;
+      this.isLiveModeActive = true;
       this.mode = 'Live '
+    } else {
+      this.isLiveModeActive = false;
+      this.mode = 'Test '
     }
     const dashboardModeData = {
-      hasActivedTestMode: this.hasActivedTestMode,
+      isLiveModeActive: this.isLiveModeActive,
       mode: this.mode
     }
     localStorage.setItem(MODE_DATA_KEY, JSON.stringify(dashboardModeData));

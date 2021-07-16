@@ -23,7 +23,7 @@ export class TransactionsService {
     const modeData = localStorage.getItem(MODE_DATA_KEY);
     this.dashboardModeData = JSON.parse(modeData);
 
-    this.isTestMode = this.dashboardModeData?.hasActivedTestMode;
+    this.isTestMode = !this.dashboardModeData?.isLiveModeActive;
   }
 
   getUserTransactions(userId: string, range = null): Observable<any> {
@@ -64,7 +64,7 @@ export class TransactionsService {
         return data;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -86,7 +86,7 @@ export class TransactionsService {
         return data;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -102,7 +102,7 @@ export class TransactionsService {
         return data;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -120,7 +120,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -133,7 +133,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -146,7 +146,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -166,7 +166,7 @@ export class TransactionsService {
         return releaseFundsData;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -193,7 +193,7 @@ export class TransactionsService {
           return releaseFundsData;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -215,7 +215,7 @@ export class TransactionsService {
           return releaseFundsData;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -233,7 +233,7 @@ export class TransactionsService {
           return response.data;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -252,7 +252,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -265,7 +265,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -278,7 +278,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -297,7 +297,7 @@ export class TransactionsService {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -318,7 +318,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -339,7 +339,7 @@ export class TransactionsService {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -380,7 +380,7 @@ export class TransactionsService {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error:", error.message);
+          console.error("Error:", error.message);
           return observableThrowError(error);
         })
       );
@@ -393,7 +393,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error:", error.message);
+        console.error("Error:", error.message);
         return observableThrowError(error);
       })
     );
@@ -406,7 +406,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error: ", error.message);
+        console.error("Error: ", error.message);
         return observableThrowError(error);
       })
     );
@@ -421,7 +421,7 @@ export class TransactionsService {
         return response.data;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error: ", error.message);
+        console.error("Error: ", error.message);
         return observableThrowError(error);
       })
     );
@@ -440,7 +440,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -459,7 +459,7 @@ export class TransactionsService {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -472,7 +472,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -486,7 +486,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -508,7 +508,7 @@ export class TransactionsService {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -532,7 +532,7 @@ export class TransactionsService {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -555,7 +555,7 @@ export class TransactionsService {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
@@ -568,7 +568,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -591,7 +591,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -604,7 +604,7 @@ export class TransactionsService {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
         return observableThrowError(error);
       })
     );
@@ -629,7 +629,7 @@ export class TransactionsService {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
-          console.log("Error", error.message);
+          console.error("Error", error.message);
           return observableThrowError(error);
         })
       );
