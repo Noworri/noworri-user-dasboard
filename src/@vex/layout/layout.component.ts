@@ -66,6 +66,14 @@ export class LayoutComponent implements OnInit, AfterViewInit {
               }
 
   ngOnInit() {
+
+    if(!this.dashboardModeData) {
+      this.dashboardModeData = {
+        isLiveModeActive:  this.testModeService.isLiveModeActive,
+        mode:  this.testModeService.mode
+      }
+      localStorage.setItem(MODE_DATA_KEY, JSON.stringify(this.dashboardModeData));
+    }
     /**
      * Expand Sidenav when we switch from mobile to desktop view
      */

@@ -85,7 +85,12 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    if(!this.dashboardModeData) {
+      this.dashboardModeData = {
+        isLiveModeActive:  this.testModeService.isLiveModeActive,
+        mode:  this.testModeService.mode
+      }
+    }
   }
 
   onSwitchTestMode(data) {      
