@@ -23,8 +23,9 @@
 
 
 .row-span-2 {
-    position: relative;
-    top: -130px;
+    position: absolute;
+    width: 43rem;
+    margin-top: 120px;
     .article {
         .title{
            font-weight: bold;
@@ -42,7 +43,10 @@ hr {
     top: 20px;
     .amount {
         width: 300px;
+        
         h5 {
+            position: relative;
+            left: 20px;
             text-align: left;
             font: Segoe UI;
             letter-spacing: 0px;
@@ -259,6 +263,37 @@ th {
 mat-form-field {
    
   }
+  .mat-column-id{
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: 28% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+.mat-column-name {
+    word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 28% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
 // .border {
 //     background: #ffffff 0% 0% no-repeat padding-box;
 // }
