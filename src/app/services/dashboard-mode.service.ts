@@ -10,7 +10,6 @@ export class DashboardModeService {
   isLiveModeActive: boolean = true;
   mode = 'Live '
   
-
   constructor() { }
   activateTestMode(data) {
     if (data.checked === true) {
