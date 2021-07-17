@@ -312,13 +312,7 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
       });
   }
   onDisplayInput() {
-    let cardElement = document.getElementById('col-span-2');
     this.displayPhoneInput = !this.displayPhoneInput;
     this.displayPhoneNumber = !this.displayPhoneNumber;
-    if (this.displayPhoneInput === true) {
-      cardElement.style.marginTop='-45px';
-    }else{
-      cardElement.style.marginTop='2px';
-    }
   }
 }

@@ -1,5 +1,6 @@
 .mat-card {
   width: 45rem;
+  margin-top: 20px;
 }
 .mat-card2 {
   width: 35rem;
@@ -31,5 +32,11 @@
       position: relative;
       bottom: 34px;
     }
+  }
+}
+.speci{
+  display: flex;
+  .ref{
+    margin-left: 10px;
   }
 }

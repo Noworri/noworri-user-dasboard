@@ -1,35 +1,37 @@
 <div class="secondary-toolbar-placeholder">
-  <div class="w-full flex flex-col sm:flex-row justify-between">
+  <div class="flex flex-col justify-between w-full sm:flex-row">
     <div>
-      <h1 class="title mt-0 mb-1">API integration</h1>
+      <h1 class="mt-0 mb-1 title">API integration</h1>
       <vex-breadcrumbs [crumbs]="['Dashboard','Api Integration']"></vex-breadcrumbs>
     </div>
   </div>
 </div>
-<mat-card class="mat-card ml-10">
+<mat-card class="ml-10 mat-card">
   <div class="mx-4">
-    <div class="grid apiInput grid-flow-col grid-cols-2 mt-2 grid-rows-1 gap-1">
-      <div>
-        <button (click)="onViewApiDoc()" mat-raised-button color="primary" class="text-sm">View Api Guide</button>
+    <div class="grid grid-flow-col grid-cols-2 grid-rows-1 gap-1 mt-2 apiInput">
+      <div class="speci">
+        <div>
+          <button (click)="onViewApiDoc()" mat-raised-button color="primary" class="text-sm">View Api Guide</button>
+        </div>
+      <div class="ref">
+        <button (click)="getPlugin()" mat-raised-button color="primary" class="text-sm">Noworri for Woo-commerce</button>
       </div>
-      <div>
-        <button (click)="getPlugin()" mat-raised-button color="primary" class="text-sm">Get Plugin</button>  
       </div>
     </div>
   </div>
-  <mat-card class="border-black mat-card2 mt-8">
+  <mat-card class="mt-8 border-black mat-card2">
     <h4 class="text-xs text-gray-300 ">API Keys</h4>
 
-    <div class="grid  cardText  mt-8 grid-flow-col grid-cols-2 grid-rows-1 gap-1">
+    <div class="grid grid-flow-col grid-cols-2 grid-rows-1 gap-1 mt-8 cardText">
       <div>
         <h4 class="text-xs text-gray-300">Test Key</h4>
       </div>
       <div>
-        <h4 class="text-xs liveKey text-gray-300">Live Key</h4>
+        <h4 class="text-xs text-gray-300 liveKey">Live Key</h4>
       </div>
     </div>
 
-    <div class="grid apiInput grid-flow-col grid-cols-2 mt-2 grid-rows-1 gap-1">
+    <div class="grid grid-flow-col grid-cols-2 grid-rows-1 gap-1 mt-2 apiInput">
       <div>
         <mat-form-field appearance="fill">
           <input matInput #testKey [value]="businessAccountData?.api_key_test" readonly />
@@ -56,7 +58,7 @@
       </div>
     </div>
   </mat-card>
-  <mat-card class="border-black mat-card2 mt-8">
+  <mat-card class="mt-8 border-black mat-card2">
     <div>
       <mat-form-field appearance="fill">
         <mat-label class="text-xs text-gray-300">User Id</mat-label>
