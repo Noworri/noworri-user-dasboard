@@ -159,11 +159,11 @@ export class TransactionsService {
 
     return this.http.post(url, data, { responseType: "json" }).pipe(
       map((response: any) => {
-        const releaseFundsData = response.data;
+        // const releaseFundsData = response.data;
         // if (releaseFundsData) {
         //   this.finalizeReleasePaystack(releaseFundsData);
         // }
-        return releaseFundsData;
+        return response;
       }),
       catchError((error: HttpErrorResponse) => {
         console.error("Error", error.message);

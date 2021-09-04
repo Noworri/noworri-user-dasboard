@@ -41,6 +41,7 @@ export class SidenavItemComponent implements OnInit, OnChanges {
   isLink = this.navigationService.isLink;
   isDropdown = this.navigationService.isDropdown;
   isSubheading = this.navigationService.isSubheading;
+  activeTransactions: number;
 
   constructor(
     private router: Router,
@@ -57,6 +58,7 @@ export class SidenavItemComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.activeTransactions = this.transactionsSummary.activeTransactions || 0 
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
@@ -74,6 +76,7 @@ export class SidenavItemComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.activeTransactions = this.transactionsSummary.activeTransactions || 0 
     if (
       changes &&
       changes.hasOwnProperty("item") &&
@@ -85,6 +88,7 @@ export class SidenavItemComponent implements OnInit, OnChanges {
 
   toggleOpen() {
     this.isOpen = !this.isOpen;
+    this.activeTransactions = this.transactionsSummary.activeTransactions || 0 
     this.navigationService.triggerOpenChange(this.item as NavigationDropdown);
     this.cd.markForCheck();
   }
@@ -105,6 +109,7 @@ export class SidenavItemComponent implements OnInit, OnChanges {
   }
 
   onRouteChange() {
+    this.activeTransactions = this.transactionsSummary.activeTransactions || 0 
     if (this.hasActiveChilds(this.item as NavigationDropdown)) {
       this.isActive = true;
       this.isOpen = true;

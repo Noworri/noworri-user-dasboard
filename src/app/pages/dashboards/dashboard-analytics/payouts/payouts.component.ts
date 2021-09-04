@@ -20,6 +20,8 @@ import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DashboardDialogComponent } from "../dashboard-dialog/dashboard-dialog.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { LoadingBarService } from "@ngx-loading-bar/core";
 export interface PeriodicElement {
   transactionId: number;
   channel: string;
@@ -28,15 +30,7 @@ export interface PeriodicElement {
   payoutOn: any;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    transactionId: 123456443564,
-    channel: "Bank account",
-    amount: 1200,
-    status: "sucess",
-    payoutOn: "12/44/2022",
-  },
-];
+const ELEMENT_DATA: PeriodicElement[] = [];
 @Component({
   selector: "vex-payouts",
   templateUrl: "./payouts.component.html",
@@ -78,6 +72,7 @@ export class PayoutsComponent implements OnInit {
   icSearch = icSearch;
   hasMomoAccount: boolean;
   pendingPayoutTransactions: any;
+  isLoading: boolean;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -86,7 +81,10 @@ export class PayoutsComponent implements OnInit {
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    private transactionsService: TransactionsService
+    private transactionsService: TransactionsService,
+    private snackBar: MatSnackBar,
+    private transactionService: TransactionsService,
+    private loadingBar: LoadingBarService,
   ) {
     const summary = localStorage.getItem(SUMMARY_DATA_KEY);
     this.summaryData = JSON.parse(summary);
@@ -127,6 +125,7 @@ export class PayoutsComponent implements OnInit {
   }
 
   withdraw() {
+    this.loadingBar.useRef('loading').start(0);
     const withdrawalData = {
       source: 'balance',
       reason: 'Noworri Payment Release',
@@ -141,7 +140,15 @@ export class PayoutsComponent implements OnInit {
         .processBusinessPayout(withdrawalData)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((response) => {
-          return response;
+          this.loadingBar.useRef('loading').complete();
+          if(response && response.status === true){
+            this.openSnackbar(response['message']);
+            this.getTransactionsSummaryData(this.userData.user_uid);
+            this.loadPayouts(this.userData.user_uid);
+            this.router.navigate([" "]);
+          } else {
+            this.openSnackbar(response['message']);
+          }
         });
     } else {
       this.router.navigate(["/dashboards/business-settings"]);
@@ -151,6 +158,13 @@ export class PayoutsComponent implements OnInit {
 
   get hasPendingPayout() {
     return this.summaryData.totalPayouts > 0;
+  }
+
+  openSnackbar(message: string) {
+    this.snackBar.open(message, "CLOSE", {
+      duration: 3000,
+      horizontalPosition: "right",
+    });
   }
 
   getBusinessAccountDetails() {
@@ -166,12 +180,26 @@ export class PayoutsComponent implements OnInit {
       });
   }
 
+  getTransactionsSummaryData(userId: string) {
+    this.transactionService
+      .getUserTransactionSummary(userId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((summaryData: UserTransactionsSummary) => {
+        if(summaryData) {
+          this.summaryData = summaryData;
+          localStorage.setItem("summary_data", JSON.stringify(this.summaryData));  
+        }
+        return summaryData;
+      });
+  }
   loadPayouts(userId: string) {
+    this.isLoading = true;
     this.transactionsService
       .getBusinessUserPayouts(userId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (transactions) => {
+          this.isLoading = false;
           this.hasPayouts = transactions.processedPayouts.length ? true : false;
           const updatedTransactions = transactions.processedPayouts.map((transfer) => {
             transfer.status = this.getStatusLabel(transfer.status);
@@ -180,7 +208,9 @@ export class PayoutsComponent implements OnInit {
           this.pendingPayoutTransactions = transactions.pendingPayouts;
           this.dataSource = new MatTableDataSource(updatedTransactions);
         },
-        (error) => console.log(error.message)
+        (error) => {
+          this.isLoading = false;
+          console.log(error.message)}
       );
   }
 }

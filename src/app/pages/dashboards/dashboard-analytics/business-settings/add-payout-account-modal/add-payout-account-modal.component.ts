@@ -172,6 +172,11 @@ export class AddPayoutAccountModalComponent implements OnInit {
           this.isAdding = false;
         }
         return response;
+      },
+      
+      (error) => {
+        this.isAdding = false;
+        this.errorMessage = "Something went wrong please try again";
       });
   }
 
