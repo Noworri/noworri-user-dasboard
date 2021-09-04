@@ -30,7 +30,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NoopAnimationsModule,
+
     NgOtpInputModule,
     MatSlideToggleModule,
 

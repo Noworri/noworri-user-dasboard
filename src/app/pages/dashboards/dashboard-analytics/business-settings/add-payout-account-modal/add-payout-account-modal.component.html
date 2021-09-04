@@ -28,7 +28,7 @@
             </div>
             <mat-form-field appearance="fill">
               <mat-label class="text-xs text-gray-300">Select your Mobile Money/Bank account</mat-label>
-              <mat-select formControlName="bankName">
+              <mat-select formControlName="bankName" required>
                 <mat-option *ngFor="let name of bankNames" class="text-xs text-gray-300" [value]="name">
                   {{ name }}
                   <!-- <h4 class="text-xs   text-gray-300">{{ bank.name }}</h4> -->
@@ -37,8 +37,8 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label class="text-xs text-gray-300">
-                Acount Number</mat-label>
-              <input matInput formControlName="accountNo" />
+                Account Number</mat-label>
+              <input matInput formControlName="accountNo" required/>
             </mat-form-field>
 
           </div>
@@ -86,7 +86,7 @@
             </div>
             <mat-form-field appearance="fill">
               <mat-label class="text-xs text-gray-300">Select your Mobile Money/Bank account</mat-label>
-              <mat-select formControlName="bankName">
+              <mat-select formControlName="bankName" required>
                 <mat-option *ngFor="let name of bankNames" class="text-xs text-gray-300" [value]="name">
                   {{ name }}
                   <!-- <h4 class="text-xs   text-gray-300">{{ bank.name }}</h4> -->
@@ -95,19 +95,19 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label class="text-xs text-gray-300">
-                Acount Number</mat-label>
-              <input matInput formControlName="accountNo" />
+                Account Number</mat-label>
+              <input matInput formControlName="accountNo" required/>
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label class="text-xs text-gray-300">Holder Name</mat-label>
-              <input matInput formControlName="holderName" />
+              <input matInput formControlName="holderName" required/>
             </mat-form-field>
           </div>
         </div>
         <!--footer-->
         <div class="flex items-center justify-center mt-8 mb-4 border-blueGray-200 rounded-b">
-          <button (click)="setupUpdateAccountDetailsForm()" mat-raised-button color="primary">
-            Update Account
+          <button [disabled]="isAdding || accountDetailsForm.invalid" (click)="setupUpdateAccountDetailsForm()" mat-raised-button color="primary">
+           {{ isAdding ? "Updating..." : "Update Account" }}
           </button>
           <h4 class="text-xs text-red -mt-2 underline cursor-pointer text-gray-300">
             {{errorMessage}}
